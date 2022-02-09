@@ -2663,6 +2663,7 @@ const drawPath = (ctx , points , closePath) => {
 
 
 export const drawMesh = (predictions, ctx) => {
+    console.log(ctx);
     if(predictions.length > 0){
         
         // Draw the points
