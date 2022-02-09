@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
- 
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+
 function Login() {
     const [inputId, setInputId] = useState('')
     const [inputPw, setInputPw] = useState('')
@@ -22,15 +22,21 @@ function Login() {
 	// 페이지 렌더링 후 가장 처음 호출되는 함수
     useEffect(() => {
         axios.get('/user_inform/login')
-        .then(res => console.log(res))
-        .catch()
+            .then(res => console.log(res))
+            .catch()
     },
     // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
     [])
  
-    return(
+    return (
         <div>
-            <h2>Login</h2>
+            <div class="container">
+            <div class="item">EMIT</div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item">SIGN UP</div>
+            <div class="item">SIGN IN</div>
+            </div>
             <div>
                 <label htmlFor='input_id'>ID : </label>
                 <input type='text' name='input_id' value={inputId} onChange={handleInputId} />
@@ -42,6 +48,8 @@ function Login() {
             <div>
                 <button type='button' onClick={onClickLogin}>Login</button>
             </div>
+            <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" /> 
+            <img src="./kakao_login_medium_narrow.png" alt="kakao" />
         </div>
     )
 }
