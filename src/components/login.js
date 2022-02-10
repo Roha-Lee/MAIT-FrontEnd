@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import axios from "axios"
+
+axios.defaults.withCredentials = false;
 
 function Login() {
     const [inputId, setInputId] = useState('')
@@ -16,26 +18,21 @@ function Login() {
  
 	// login 버튼 클릭 이벤트
     const onClickLogin = () => {
-        console.log('click login')
+        console.log('click login');
+        axios.post("http://192.249.29.38:3001/login", {
+            id : inputId,
+            pw : inputPw
+        }).then(console.log(inputId))
     }
- 
-	// 페이지 렌더링 후 가장 처음 호출되는 함수
-    useEffect(() => {
-        axios.get('/user_inform/login')
-            .then(res => console.log(res))
-            .catch()
-    },
-    // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-    [])
  
     return (
         <div>
-            <div class="container">
-            <div class="item">EMIT</div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item">SIGN UP</div>
-            <div class="item">SIGN IN</div>
+            <div className="container">
+            <div className="item">EMIT</div>
+            <div className="item"></div>
+            <div className="item"></div>
+            <div className="item">SIGN UP</div>
+            <div className="item">SIGN IN</div>
             </div>
             <div>
                 <label htmlFor='input_id'>ID : </label>
