@@ -60,25 +60,25 @@ const detect = async(net) => {
 
         if(face.length !== 0){
             // console.log(face[0].faceInViewConfidence);
-            // const landmarks = face[0].scaledMesh 
+            const landmarks = face[0].scaledMesh 
             
-            // const eyeVector = {
-            //     x: landmarks[33][0] - landmarks[263][0],
-            //     y: landmarks[33][1] - landmarks[263][1],
-            //     z: landmarks[33][2] - landmarks[263][2]
-            // };
-            // const  noseVector = {
-            //     x: landmarks[1][0] - landmarks[6][0],
-            //     y: landmarks[1][1] - landmarks[6][1],
-            //     z: landmarks[1][2] - landmarks[6][2]
-            // };
-            // const  crossProduct = {
-            //     x: (eyeVector.y * noseVector.z - eyeVector.z * noseVector.y),
-            //     y: (eyeVector.x * noseVector.z - eyeVector.z * noseVector.x),
-            //     z: (eyeVector.x * noseVector.y - eyeVector.y * noseVector.x),
-            // }
+            const eyeVector = {
+                x: landmarks[33][0] - landmarks[263][0],
+                y: landmarks[33][1] - landmarks[263][1],
+                z: landmarks[33][2] - landmarks[263][2]
+            };
+            const  noseVector = {
+                x: landmarks[1][0] - landmarks[6][0],
+                y: landmarks[1][1] - landmarks[6][1],
+                z: landmarks[1][2] - landmarks[6][2]
+            };
+            const  crossProduct = {
+                x: (eyeVector.y * noseVector.z - eyeVector.z * noseVector.y),
+                y: (eyeVector.x * noseVector.z - eyeVector.z * noseVector.x),
+                z: (eyeVector.x * noseVector.y - eyeVector.y * noseVector.x),
+            }
 
-            // const normOfVector = (crossProduct.x ** 2 + crossProduct.y ** 2 +crossProduct.z ** 2 ) ** 0.5;
+            const normOfVector = (crossProduct.x ** 2 + crossProduct.y ** 2 +crossProduct.z ** 2 ) ** 0.5;
 
             // console.log(`${(crossProduct.x/normOfVector).toFixed(2)}`);
             // console.log(`${(crossProduct.y/normOfVector).toFixed(2)}`);
@@ -91,13 +91,13 @@ const detect = async(net) => {
             // else{
             //     return true;
             // } 
-            // if(crossProduct.y/normOfVector > 0.5 || crossProduct.y/normOfVector < 0.1 || crossProduct.x/normOfVector > 0.2 || crossProduct.x/normOfVector < -0.2){
-            //     return false;
-            // }
-            // else{
-            //     return true;
-            // } 
-            return true;
+            if(crossProduct.y/normOfVector > 0.5 || crossProduct.y/normOfVector < 0.1 || crossProduct.x/normOfVector > 0.2 || crossProduct.x/normOfVector < -0.2){
+                return false;
+            }
+            else{
+                return true;
+            } 
+            // return true;
         }
       
         return false;  
