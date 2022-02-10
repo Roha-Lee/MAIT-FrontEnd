@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+// import './index.css';
 import App from './App';
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <div>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+    <h1 id="moveDetect"></h1>
+  </div>,
   document.getElementById('root')
 );
 
