@@ -6,10 +6,15 @@ class Subjects extends React.Component {
         return (
             <div className="subjects-container">
                 <div className="subjects" >
-                    {Object.keys(studyLog).map((elem) => <div key={`divpa${subjects[elem]}`}><button 
-                        key={subjects[elem]} 
-                        onClick={(e) => onChangeSubject(subjects[e.target.innerText])}
-                        disabled={timerRunning===true}>
+                    {Object.keys(studyLog).map((elem) => 
+                    <div key={`divpa${subjects[elem]}`}>
+                        <button 
+                            key={subjects[elem]} 
+                            onClick={(e) => onChangeSubject(subjects[e.target.innerText])}
+                            disabled={timerRunning === true}
+                            style={{
+                                backgroundColor: subjects[elem] === this.props.currentSubjectId ? "#0053b8" : "#0097fc"
+                            }}>
                             {elem}
                         </button>
                         <div key={`div${subjects[elem]}`}>
