@@ -22,7 +22,7 @@ function Login() {
         axios.post("http://192.249.29.38:3001/login", {
             id : inputId,
             pw : inputPw
-        }).then(console.log(inputId))
+        }).then(response => console.log(response.data))
     }
  
     return (
