@@ -39,12 +39,12 @@ function RegisterPage() {
     }
     else {
         console.log('click signup');
-        axios.post("http://192.249.29.38:3001/join", {
+        axios.post("http://192.249.29.38:3001/signup", {
             nickname : nickname,
             name : name,
             email : email,
             pw : password,
-        }).then(console.log(nickname))
+        }).then(response => console.log(response.data))
     }
   }
 
