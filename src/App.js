@@ -1,5 +1,3 @@
-import "./App.css";
-
 import DetectHands from "./components/DetectHands";
 
 function App() {
