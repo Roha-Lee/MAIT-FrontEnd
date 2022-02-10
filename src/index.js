@@ -8,7 +8,6 @@ import Stopwatch from './components/Stopwatch'
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <Stopwatch/>
   </React.StrictMode>,
   document.getElementById('root')
 );

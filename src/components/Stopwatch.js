@@ -1,35 +1,3 @@
-// import React, { Component } from 'react';
-
-// class Stopwatch extends Component {
-//   const state = {
-//     time: 0, 
-//     isRunning: false, 
-//   };
-//   function handleStopwatch () {
-//     setIsRunning((current) => !current);
-//     if(isRunning) {
-//       stopTimer();
-//     }
-//     else {
-//       startTimer();
-//     }
-//   }
-  
-//   render() {
-//     return (
-//       <div className="stopwatch-container">
-//         <h1>{this.state.time}</h1>
-//         <button 
-//           type="button" 
-//           onClick={handleStopwatch}>
-//             {this.state.isRunning ? "Stop" : "Start"}
-//         </button>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Stopwatch;
 import React, { useEffect } from 'react';
 
 function Stopwatch() {
