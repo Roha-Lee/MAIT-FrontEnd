@@ -13,7 +13,7 @@ class Subjects extends React.Component {
                             onClick={(e) => onChangeSubject(subjects[e.target.innerText])}
                             disabled={timerRunning === true}
                             style={{
-                                backgroundColor: subjects[elem] === this.props.currentSubjectId ? "#0053b8" : "#0097fc"
+                                color: subjects[elem] === this.props.currentSubjectId ? "red" : "black"
                             }}>
                             {elem}
                         </button>
