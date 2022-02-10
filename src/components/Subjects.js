@@ -1,8 +1,14 @@
 import React from 'react';
 
 class Subjects extends React.Component {
+    
     render() {
-        const { studyLog, subjects, onChangeSubject, timerRunning } = this.props;
+        const { studyLog, subjects, onChangeSubject, onChangeCurrentTime, timerRunning,  } = this.props;
+        const onClickHandler = (e) => {
+            onChangeSubject(subjects[e.target.innerText]);
+            onChangeCurrentTime(studyLog[e.target.innerText]);
+        }
+        
         return (
             <div className="subjects-container">
                 <div className="subjects" >
@@ -10,7 +16,7 @@ class Subjects extends React.Component {
                     <div key={`divpa${subjects[elem]}`}>
                         <button 
                             key={subjects[elem]} 
-                            onClick={(e) => onChangeSubject(subjects[e.target.innerText])}
+                            onClick={onClickHandler}
                             disabled={timerRunning === true}
                             style={{
                                 color: subjects[elem] === this.props.currentSubjectId ? "red" : "black"
