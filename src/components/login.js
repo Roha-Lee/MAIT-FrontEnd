@@ -11,7 +11,7 @@ function Login() {
     const handleInputId = (e) => {
         setInputId(e.target.value)
     }
-
+    
     const handleInputPw = (e) => {
         setInputPw(e.target.value)
     }
@@ -19,6 +19,7 @@ function Login() {
     // login 버튼 클릭 이벤트
     const onClickLogin = () => {
         console.log('click login');
+        
         axios.post(
             "http://192.249.29.38:3001/login", 
             {
@@ -26,7 +27,7 @@ function Login() {
                 pw: inputPw,
             },
         ).then(response => {
-            if(response == "아이디 불일치") {
+            if(response == "아이디 불일치") { 
                 alert("등록되지 않은 회원입니다.")
             }
             else if(response == "비밀번호 불일치") {
@@ -47,10 +48,12 @@ function Login() {
             <div>
                 <label htmlFor='input_id'>ID : </label>
                 <input type='text' name='input_id' value={inputId} onChange={handleInputId} />
+                {/* <div className="wrong_id">아이디는 영어 소문자와 숫자로 구성된 4~ 16자리 가능</div> */}
             </div>
             <div>
                 <label htmlFor='input_pw'>PW : </label>
                 <input type='password' name='input_pw' value={inputPw} onChange={handleInputPw} />
+                {/* <div className="wrong_pw">비밀번호는 16자리만 가능합니다.</div> */}
             </div>
             <div>
                 <button type='button' onClick={onClickLogin}>Login</button>
