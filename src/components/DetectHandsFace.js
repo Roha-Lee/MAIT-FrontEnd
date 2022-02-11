@@ -1,6 +1,6 @@
-// import * as tf from "@tensorflow/tfjs";
-// import * as handpose from "@tensorflow-models/hand-pose-detection";
-// import * as facemesh from "@tensorflow-models/face-landmarks-detection";
+import * as tf from "@tensorflow/tfjs";
+import * as handpose from "@tensorflow-models/hand-pose-detection";
+import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 // import Webcam from "react-webcam";
 import {useEffect, useRef} from "react";
 import Webcam from "react-webcam";
@@ -10,7 +10,7 @@ let faceInterval;
 let handStopped = false;
 let faceStopped = false;
 
-function DetectHandsFace({detectModel, setIsStudy , faceNet, handNet}){
+function DetectHandsFace({detectModel, setIsStudy}){
     // console.log(detectModel);
     
     const webcamRef = useRef(null);
@@ -19,44 +19,47 @@ function DetectHandsFace({detectModel, setIsStudy , faceNet, handNet}){
     // console.log(handNet);
 
 
-    const runHandpose = async (net) => {
-        // const net = await handpose.createDetector(handpose.SupportedModels.MediaPipeHands,{runtime : "tfjs"});
+    const runHandpose = async () => {
+        const net = await handpose.createDetector(handpose.SupportedModels.MediaPipeHands,{runtime : "tfjs"});
         // console.log("Handpose model loaded.");
         //  Loop and detect hands
         
         handInterval = setInterval( async () => {
             const ifHand  =  await detectHand(net);
-            
-            // const element = document.getElementById('moveDetect');
+            console.log(tf.memory())
+            const element = document.getElementById('moveDetect');
             if(ifHand === true && ifHand !== undefined){
-                // element.innerText = "Hand Detected";
-                setIsStudy(true);
+                element.innerText = "Hand Detected";
+                // setIsStudy(true);
             }
             else if (ifHand === false && ifHand !== undefined){
-                // element.innerText = "No Hand Detected";
-                setIsStudy(false);
+                element.innerText = "No Hand Detected";
+                // setIsStudy(false);
             }
-        }, 1000);
+        }, 2000);
          
     };
     
-    const runFacemesh = async (net) => {
-        // const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh,{maxFaces:1,scoreThreshold : 0.8});
+    const runFacemesh = async () => {
+        const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh,{maxFaces:1,scoreThreshold : 0.8});
         // console.log("face model is loaded");
         // console.log(net, "runFacemesh 1");
         
         faceInterval = setInterval(async () => {
             // console.log(net , "setInterval");
+            
             const isFace = await detectFace(net);
-            // const element = document.getElementById(`moveDetect`);
+
+            const element = document.getElementById(`moveDetect`);
             // console.log(isFace);
+            console.log(tf.memory())
             if(isFace === true && isFace !== undefined){
-                // element.innerText = "공부중...";
-                setIsStudy(true);
+                element.innerText = "공부중...";
+                // setIsStudy(true);
             }
             else if (isFace === false && isFace !== undefined){
-                // element.innerText = "딴짓 하는 중...";
-                setIsStudy(false);
+                element.innerText = "딴짓 하는 중...";
+                // setIsStudy(false);
             }
                 
         },2000);
@@ -86,7 +89,9 @@ function DetectHandsFace({detectModel, setIsStudy , faceNet, handNet}){
                 // canvasRef.current.height = videoHeight;
                 
                 // Make Detections
+                // tf.engine().startScope();
                 const hand = await net.estimateHands(video);
+                // tf.engine().endScope();
                 // console.log(hand);
                 
                 return hand.length > 0;
@@ -118,7 +123,9 @@ function DetectHandsFace({detectModel, setIsStudy , faceNet, handNet}){
                 
                 
                 // Make Detections
+                tf.engine().startScope();
                 const face = await net.estimateFaces({input:video});
+                tf.engine().endScope();
                 // console.log(face[0].scaledMesh);
                 
                 if(face.length !== 0){
@@ -178,15 +185,15 @@ function DetectHandsFace({detectModel, setIsStudy , faceNet, handNet}){
         faceStopped = true;
         handStopped = false;
         // useEffect(runHandpose,[]);
-        runHandpose(handNet);
+        runHandpose();
         
     }else if(detectModel === "Face"){
         
-        console.log(faceNet , "detectHands 2");
+        // console.log(faceNet , "detectHands 2");
         clearInterval(handInterval);
         handStopped = true;
         faceStopped = false;
-        runFacemesh(faceNet)
+        runFacemesh()
         // useEffect(runFacemesh,[]);
     }else{
         clearInterval(handInterval);

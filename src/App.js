@@ -1,33 +1,33 @@
 // import DetectFace from "./components/DetectFace";
 import DetectHandsFace from "./components/DetectHandsFace";
 import { useEffect, useState } from "react";
-import * as tf from "@tensorflow/tfjs";
-import * as handpose from "@tensorflow-models/hand-pose-detection";
-import * as facemesh from "@tensorflow-models/face-landmarks-detection";
+// import * as tf from "@tensorflow/tfjs";
+// import * as handpose from "@tensorflow-models/hand-pose-detection";
+// import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 
 
 
 
 function App() {
   
-  const [faceNet,setFaceNet] = useState();
-  const [handNet,setHandNet] = useState();
+  // const [faceNet,setFaceNet] = useState();
+  // const [handNet,setHandNet] = useState();
 
-  const getModels = async () => {
-    console.log("load model");
-    const faceModel = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh,{maxFaces:1,scoreThreshold : 0.8})
+  // const getModels = async () => {
+  //   console.log("load model");
+  //   const faceModel = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh,{maxFaces:1,scoreThreshold : 0.8})
     
-    // console.log(faceModel , "getModels");
-    setFaceNet(faceModel);
-    setHandNet(await handpose.createDetector(handpose.SupportedModels.MediaPipeHands,{runtime : "tfjs"}));
+  //   // console.log(faceModel , "getModels");
+  //   setFaceNet(faceModel);
+  //   setHandNet(await handpose.createDetector(handpose.SupportedModels.MediaPipeHands,{runtime : "tfjs"}));
 
-  };
+  // };
 
-  useEffect(
-    () => {
-      getModels();      
-    }
-  ,[]);
+  // useEffect(
+  //   () => {
+  //     getModels();      
+  //   }
+  // ,[]);
 
   const [detectModel , setDetectModel] = useState("X");
   const [isStudy, setIsStudy] = useState(false);
@@ -40,7 +40,13 @@ function App() {
   };
   
   // console.log(isStudy);
-
+  // const element = document.getElementById('moveDetect');
+  // if(isStudy){
+  //   element.innerText = "공부중";
+  // }
+  // else{
+  //   element.innerText = "노는중";
+  // }
   return(
     <div className="App">
       <select onChange={onChange} value={detectModel}>
@@ -51,10 +57,7 @@ function App() {
       <DetectHandsFace 
         detectModel={detectModel}
         setIsStudy={setIsStudy}
-        faceNet = {faceNet}
-        handNet = {handNet}
       />
-      <h1>{isStudy ? "공부중" : "노는중"}</h1>
     </div>
   );
 }
