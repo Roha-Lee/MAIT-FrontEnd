@@ -14,7 +14,7 @@ function DetectFace (){
   // Load facemesh
   const runFacemesh = async () => {
     const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh,{maxFaces:1,scoreThreshold : 0.8});
-    console.log("model is loaded");
+    console.log("face model is loaded");
     
 
     setInterval(async () => {
