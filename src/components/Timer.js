@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import {
   timeStamp, 
   sendStudyInterval,
   indexToName
-} from './timerUtils';
+} from '../utils/timerUtils';
 
 class Timer extends React.Component {
   constructor(props) {

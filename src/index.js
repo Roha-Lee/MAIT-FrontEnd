@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Stopwatch from './components/Stopwatch'
-
 
 ReactDOM.render(
   <React.StrictMode>

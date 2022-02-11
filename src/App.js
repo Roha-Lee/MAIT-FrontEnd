@@ -1,32 +1,62 @@
 
 // import Mainpage from './components/Mainpage'
 import React from 'react';
-import Navigation from './components/Navigation'
+import Navigation from './components/Navigation';
 import Subjects from './components/Subjects';
 import Timer from './components/Timer';
+import {getAllUserData} from './utils/AppUtils';
+
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       studyLog : {
-        'math': 0,
-        'english': 0,
-        'programming': 0
       },
-      useAI : false,
+      useAi : false,
       timerRunning: false,
       currentSubjectId: 1,
       currentTime: 0,
       todoLists : {
-
       },
       subjects : {
-        'math':1,
-        'english':2,
-        'programming':3
       }, 
     }
   }
+
+  componentDidMount() {
+    getAllUserData().then((userData)=> {
+      const studyLog = {
+        'math': 0,
+        'english': 0,
+        'programming': 0,
+        'roha': 0,
+      }
+
+      const todoLists = [
+        { 
+          id: 1,
+          subject: 'math',
+          content: '수학의정석 3단원 연습문제',
+          isDone: false,
+        }
+      ]
+
+      const subjects = {
+        'math': 1,
+        'english': 2,
+        'programming': 3,
+        'roha': 4,
+      }
+
+      this.setState({
+        studyLog,
+        todoLists,
+        subjects,
+     });
+    
+    })
+  }
+  
   changeSubject = (id) => {
     this.setState({currentSubjectId : id});
   }
