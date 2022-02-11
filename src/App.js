@@ -1,10 +1,15 @@
+import DetectFace from "./components/DetectFace";
+
+
+
 import DetectHands from "./components/DetectHands";
 
 function App() {
   
 
-  return (
+  return(
     <div className="App">
+      <DetectFace/>
       <DetectHands/>
     </div>
   );

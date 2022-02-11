@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@tensorflow-models/hand-pose-detection": "^0.0.1",
+    "@tensorflow-models/face-landmarks-detection": "^0.0.3",
     "@tensorflow/tfjs": "^3.13.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
