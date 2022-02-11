@@ -1,10 +1,10 @@
 
 // import Mainpage from './components/Mainpage'
 import React from 'react';
-import Navigation from './components/Navigation';
+import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
-import {getAllUserData} from './utils/AppUtils';
+import {getAllUserData, postNewSubject} from './utils/AppUtils';
 
 class App extends React.Component {
   constructor(props){
@@ -20,9 +20,10 @@ class App extends React.Component {
       },
       subjects : {
       }, 
+      modalOpen : false,
     }
   }
-
+  
   componentDidMount() {
     getAllUserData().then((userData)=> {
       const studyLog = {
@@ -57,6 +58,14 @@ class App extends React.Component {
     })
   }
 
+  openModal = () => {
+    this.setState({ modalOpen: true })
+  }
+
+  closeModal = () => {
+    this.setState({ modalOpen: false })
+  }
+  
   changeSubject = (id) => {
     this.setState({currentSubjectId : id});
   }
@@ -75,6 +84,23 @@ class App extends React.Component {
     this.setState({studyLog});
   }
 
+  addSubject = (newSubject) => {
+    if(!Object.keys(this.state.studyLog).includes(newSubject) &&
+      !Object.keys(this.state.subjects).includes(newSubject)){
+      const studyLog = {...this.state.studyLog};
+      studyLog[newSubject] = 0;
+      const subjects = {...this.state.subjects};
+      // 임시로 처리 
+      subjects[newSubject] = Object.keys(subjects).length + 1;
+      this.setState({studyLog, subjects})
+
+      // postNewSubject();
+    }
+    else{
+      alert('이미 존재하는 과목입니다.')
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -86,6 +112,10 @@ class App extends React.Component {
           onChangeSubject={this.changeSubject}
           onChangeCurrentTime={this.changeCurrentTime}
           currentSubjectId={this.state.currentSubjectId}
+          openModal={this.openModal}
+          closeModal={this.closeModal}
+          isOpen={this.state.modalOpen}
+          onAddSubject={this.addSubject}
           />
         <Timer
           studyLog={this.state.studyLog} 

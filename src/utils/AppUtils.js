@@ -10,5 +10,13 @@ async function getAllUserData() {
   }
 }
 
+async function postNewSubject() {
+    try {
+      const studyInfo = await Axios.get('https://reqres.in/api/users?page=2', {});
+      return studyInfo;
+    } catch(error) {
+      return error;
+    }
+  }
 
-export {getAllUserData}
+export {getAllUserData, postNewSubject}

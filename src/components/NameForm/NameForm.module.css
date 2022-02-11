@@ -1,0 +1,23 @@
+.form {
+  border-radius: 5px;
+  border: 1px solid #c5c1c0;
+  background-color: #fff;
+  padding: 12px 15px;
+  margin-left: 20px;  
+}
+
+.formTitle {
+  color: #6F8D7A;
+  font-weight: bold;
+  margin: 0 auto;  
+}
+
+
+.formSubmit {
+  border: 1px solid #6F8D7A;
+  background-color: #6F8D7A;
+  margin-left: 20px;
+  border-radius: 5px;
+  padding: 10px 15px;
+  color: #fff;  
+}

@@ -1,0 +1,22 @@
+.navigation {
+    width: 100%;
+    display: flex;
+    background-color: #6F8D7A;
+    position:relative;
+}
+.navigationButton{
+    color: #EEE7E1;
+    margin: 5px;
+    align-items: center;
+}
+.navigationButton:hover {
+    background-color: #EEE7E1;
+    color: #6F8D7A;
+    margin: 5px;
+    align-items: center;
+}
+.logo {
+    font-size:2rem;
+    color: #EEE7E1;
+    left: 20px;
+}
