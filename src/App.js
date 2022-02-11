@@ -4,6 +4,7 @@ import React from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
+import AITest from './components/AITest/AITest';
 import {getAllUserData, postNewSubject} from './utils/AppUtils';
 
 class App extends React.Component {
@@ -127,6 +128,10 @@ class App extends React.Component {
           onChangeTimerRunning={this.changeTimerRunning} 
           onChangeStudyLog={this.changeStudyLog}
           />
+        <AITest 
+          timerRunning={this.state.timerRunning}
+          onChangeTimerRunning={this.changeTimerRunning}
+        />
       </div>
     );
   } 
