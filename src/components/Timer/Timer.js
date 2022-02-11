@@ -39,9 +39,10 @@ class Timer extends React.Component {
       onChangeTimerRunning,
     } = this.props;
     return ( 
-      <div id = {style.timerContainer} >
+      <div className = {style.timerContainer} >
         {timer}
-        <button onClick = {
+        <button className={style.timerButton} 
+          onClick = {
           () => {
             onChangeTimerRunning(this.props.timerRunning);
             this.handleStopwatch();

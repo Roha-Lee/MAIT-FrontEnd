@@ -24,10 +24,12 @@ class Subjects extends React.Component {
             <div key={`div${subjects[elem]}`}>
               {studyLog[elem]}
             </div>
-            </div>
+          </div>
             )}
+
+          
         </div>
-        <button onClick={ openModal }>+</button>
+        <button className={style.addButton} onClick={ openModal }>+</button>
           <Modal 
             open={ isOpen } 
             close={ closeModal } 
