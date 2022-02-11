@@ -4,6 +4,7 @@ import { useState } from "react";
 
 function App() {
   const [detectModel , setDetectModel] = useState("X");
+  const [isStudy, setIsStudy] = useState(false);
   
   const onChange = (event) => {
 
@@ -11,7 +12,7 @@ function App() {
     setDetectModel(event.target.value);
   };
   
-  // console.log(detectModel);
+  console.log(isStudy);
 
   return(
     <div className="App">
@@ -20,7 +21,7 @@ function App() {
         <option value="Face">얼굴인식</option>
         <option value="Hand">손인식</option>
       </select>
-      <DetectHandsFace detectModel={detectModel}/>
+      <DetectHandsFace detectModel={detectModel} setIsStudy={setIsStudy}/>
     </div>
   );
 }

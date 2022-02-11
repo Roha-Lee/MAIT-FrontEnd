@@ -2,15 +2,14 @@ import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/hand-pose-detection";
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
-// import { drawHand } from "./HandDraw";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 
 let handInterval;
 let faceInterval;
 let handStopped = false;
 let faceStopped = false;
 
-function DetectHandsFace({detectModel}){
+function DetectHandsFace({detectModel, setIsStudy}){
     // console.log(detectModel);
     const webcamRef = useRef(null);
     // const canvasRef = useRef(null);
@@ -27,9 +26,11 @@ function DetectHandsFace({detectModel}){
             const element = document.getElementById('moveDetect');
             if(ifHand === true && ifHand !== undefined){
                 element.innerText = "Hand Detected";
+                setIsStudy(true);
             }
             else if (ifHand === false && ifHand !== undefined){
                 element.innerText = "No Hand Detected";
+                setIsStudy(false);
             }
         }, 1000);
          
@@ -47,20 +48,19 @@ function DetectHandsFace({detectModel}){
             // console.log(isFace);
             if(isFace === true && isFace !== undefined){
                 element.innerText = "공부중...";
+                setIsStudy(true);
             }
-            // else if (isFace === false || isFace === null){
-                //     element.innerText = "딴짓 하는 중...";
-                // }
-                else if (isFace === false && isFace !== undefined){
-                    element.innerText = "딴짓 하는 중...";
-                }
+            else if (isFace === false && isFace !== undefined){
+                element.innerText = "딴짓 하는 중...";
+                setIsStudy(false);
+            }
                 
         },2000);
         
     };
         
     const detectHand = async (net) => {
-        console.log(handStopped, "handStopped");
+        // console.log(handStopped, "handStopped");
         if(!handStopped){
         // Check data is available
             if (
@@ -92,7 +92,7 @@ function DetectHandsFace({detectModel}){
     };
     
     const detectFace = async(net) => {
-        console.log(faceStopped, "faceStopped");
+        // console.log(faceStopped, "faceStopped");
         if(!faceStopped){
             if(typeof webcamRef.current !== "undefined" && 
             webcamRef.current !== null && webcamRef.current.video.readyState === 4)
@@ -171,6 +171,7 @@ function DetectHandsFace({detectModel}){
         clearInterval(faceInterval);
         faceStopped = true;
         handStopped = false;
+        // useEffect(runHandpose,[]);
         runHandpose();
         
     }else if(detectModel === "Face"){
@@ -179,6 +180,7 @@ function DetectHandsFace({detectModel}){
         handStopped = true;
         faceStopped = false;
         runFacemesh()
+        // useEffect(runFacemesh,[]);
     }else{
         clearInterval(handInterval);
         clearInterval(faceInterval);
