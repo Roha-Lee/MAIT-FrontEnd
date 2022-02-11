@@ -3,8 +3,8 @@ import {
   timeStamp, 
   sendStudyInterval,
   indexToName
-} from '../utils/timerUtils';
-
+} from '../../utils/timerUtils';
+import style from './Timer.module.css'
 class Timer extends React.Component {
   constructor(props) {
     super(props);
@@ -31,15 +31,15 @@ class Timer extends React.Component {
 
   render() {
     const timer = (<h1>
-      <span>{ (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 3600000) % 24) : Math.floor((this.props.currentTime/ 60000) % 60)).toString().padStart(2, '0') }</span>:
-      <span>{ (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 60000) % 60) : Math.floor((this.props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }</span>:
-      <span>{ (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 1000) % 60) : Math.floor((this.props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
+      <span className={style.timer}>{ (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 3600000) % 24) : Math.floor((this.props.currentTime/ 60000) % 60)).toString().padStart(2, '0') }
+      : { (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 60000) % 60) : Math.floor((this.props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }
+      : { (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 1000) % 60) : Math.floor((this.props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
     </h1>);
     const {
       onChangeTimerRunning,
     } = this.props;
     return ( 
-      <div id = "timer" >
+      <div id = {style.timerContainer} >
         {timer}
         <button onClick = {
           () => {

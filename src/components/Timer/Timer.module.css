@@ -1,0 +1,10 @@
+#timerContainer {
+    margin: 0 auto;
+    background-color: #EEE7E1;
+    width: 50%;
+}
+
+.timer {
+    font-size: 5rem;    
+    background-color: #EEE7E1;
+}

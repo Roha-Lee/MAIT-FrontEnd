@@ -2,8 +2,8 @@
 // import Mainpage from './components/Mainpage'
 import React from 'react';
 import Navigation from './components/Navigation';
-import Subjects from './components/Subjects';
-import Timer from './components/Timer';
+import Subjects from './components/Subjects/Subjects';
+import Timer from './components/Timer/Timer';
 import {getAllUserData} from './utils/AppUtils';
 
 class App extends React.Component {
@@ -29,7 +29,7 @@ class App extends React.Component {
         'math': 0,
         'english': 0,
         'programming': 0,
-        'roha': 0,
+        '로하그루': 0,
       }
 
       const todoLists = [
@@ -45,7 +45,7 @@ class App extends React.Component {
         'math': 1,
         'english': 2,
         'programming': 3,
-        'roha': 4,
+        '로하그루': 4,
       }
 
       this.setState({
@@ -56,7 +56,7 @@ class App extends React.Component {
     
     })
   }
-  
+
   changeSubject = (id) => {
     this.setState({currentSubjectId : id});
   }
