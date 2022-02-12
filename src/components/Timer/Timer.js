@@ -31,12 +31,17 @@ function Timer(props) {
     handleStopwatch(props);
   }, [props.timerRunning]);
 
+  // const timer = (<h1>
+  //   <span className={style.timer}>{ (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 3600000) % 24) : Math.floor((props.currentTime/ 60000) % 60)).toString().padStart(2, '0') }
+  //   : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 60000) % 60) : Math.floor((props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }
+  //   : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 1000) % 60) : Math.floor((props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
+  // </h1>);
   const timer = (<h1>
-    <span className={style.timer}>{ (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 3600000) % 24) : Math.floor((props.currentTime/ 60000) % 60)).toString().padStart(2, '0') }
-    : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 60000) % 60) : Math.floor((props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }
-    : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 1000) % 60) : Math.floor((props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
+    <span className={style.timer}>{ Math.floor((props.currentTime / 3600000) % 24).toString().padStart(2, '0') }
+    : { Math.floor((props.currentTime / 60000) % 60).toString().padStart(2, '0') }
+    : { Math.floor((props.currentTime / 1000) % 60).toString().padStart(2, '0') }</span>
   </h1>);
-  
+    
   const {onChangeTimerRunning} = props;
   
   return ( 
