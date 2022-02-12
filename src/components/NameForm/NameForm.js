@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './NameForm.module.css';
+import ColorPicker from '../ColorPicker/ColorPicker'
 class NameForm extends React.Component {
     constructor(props) {
       super(props);
@@ -29,8 +30,10 @@ class NameForm extends React.Component {
             과목 입력
             <input className={style.form} type="text" value={this.state.value} onChange={this.handleChange} required/>
           </label>
+          <ColorPicker />
           <input className={style.formSubmit} type="submit" value="submit" />
         </form>
+      
       );
     }
   }

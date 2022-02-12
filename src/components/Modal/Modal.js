@@ -4,15 +4,15 @@ import NameForm from '../NameForm/NameForm'
 
 class Modal extends React.Component {
   render() {
-    const { open, close, headerText } = this.props;
+    const { modalOpen, setModalState, subjects, headerText} = this.props;
 
     return (
-      <div className={open ? [style.openModal, style.modal].join(' ') : style.modal}>
-        {open ? (
+      <div className={modalOpen ? [style.openModal, style.modal].join(' ') : style.modal}>
+        {modalOpen ? (
           <section>
             <header>
               {headerText}
-              <button className={style.close} onClick={close}>
+              <button className={style.close} onClick={() => setModalState(false)}>
                 {' '}
                 &times;{' '}
               </button>
@@ -25,7 +25,7 @@ class Modal extends React.Component {
                 />
             </main>
             <footer>
-              <button className={style.close} onClick={close}>
+              <button className={style.close} onClick={() => setModalState(false)}>
                 {' '}
                 close{' '}
                 

@@ -3,8 +3,9 @@ Axios.defaults.withCredentials = false;
 
 async function getAllUserData() {
   try {
-    const studyInfo = await Axios.get('https://reqres.in/api/users?page=2', {});
-    return studyInfo;
+    const userStudyInfo = await Axios.get('http://192.249.31.66:3000/mainpage', {});
+    const newState = {}
+    return userStudyInfo;
   } catch(error) {
     return error;
   }

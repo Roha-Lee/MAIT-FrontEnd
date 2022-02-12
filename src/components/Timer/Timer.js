@@ -41,7 +41,7 @@ function Timer(props) {
     : { Math.floor((props.currentTime / 60000) % 60).toString().padStart(2, '0') }
     : { Math.floor((props.currentTime / 1000) % 60).toString().padStart(2, '0') }</span>
   </h1>);
-    
+
   const {onChangeTimerRunning} = props;
   
   return ( 
