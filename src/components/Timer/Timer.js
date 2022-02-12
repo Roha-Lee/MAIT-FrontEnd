@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import AITest from '../AITest/AITest';
 import {
   timeStamp, 
   sendStudyInterval,
@@ -27,6 +28,8 @@ function handleStopwatch(props) {
 }
 
 function Timer(props) {
+  const [useAi,setUseAi] = useState(false);
+
   useEffect(() => {
     handleStopwatch(props);
   }, [props.timerRunning]);
@@ -48,7 +51,20 @@ function Timer(props) {
           onChangeTimerRunning(props.timerRunning);          
         }}> 
         {props.timerRunning ? "Stop" : "Start"}
-      </button> 
+      </button>
+      <button onClick={(e) => {
+        e.preventDefault();
+        setUseAi(!useAi)
+        }}>
+          테스트 버튼
+      </button>
+      {useAi ? 
+        <AITest 
+            // useAi = {useAi}
+            timerRunning = {props.timerRunning}
+            onChangeTimerRunning = {onChangeTimerRunning}
+        /> 
+      : null}
     </div>
   );
 

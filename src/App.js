@@ -4,7 +4,6 @@ import React from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
-import AITest from './components/AITest/AITest';
 import {getAllUserData, postNewSubject} from './utils/AppUtils';
 
 class App extends React.Component {
@@ -13,7 +12,7 @@ class App extends React.Component {
     this.state = {
       studyLog : {
       },
-      useAi : false,
+      // useAi : false,
       timerRunning: false,
       currentSubjectId: 1,
       currentTime: 0,
@@ -79,6 +78,10 @@ class App extends React.Component {
     this.setState({timerRunning : !currentTimerRunning});
   }
 
+  // changeUseAi = (useAi) => {
+  //   this.setState({useAi : !useAi})
+  // }
+
   changeStudyLog = (subject, newTime) => {
     const studyLog = {...this.state.studyLog};
     studyLog[subject] = newTime;
@@ -127,11 +130,9 @@ class App extends React.Component {
           onChangeCurrentTime={this.changeCurrentTime}  
           onChangeTimerRunning={this.changeTimerRunning} 
           onChangeStudyLog={this.changeStudyLog}
+          // onChangeUseAi={this.changeUseAi}
+          // useAi={this.state.useAi}
           />
-        <AITest 
-          timerRunning={this.state.timerRunning}
-          onChangeTimerRunning={this.changeTimerRunning}
-        />
       </div>
     );
   } 
