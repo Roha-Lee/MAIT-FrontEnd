@@ -23,6 +23,7 @@ function App() {
             <Subjects 
               setModalState={setModalOpen}
               modalOpen={modalOpen}
+              setSubjects={setSubjects}
               subjects={subjects}
             />
             {/* <Subjects 

@@ -1,22 +1,8 @@
 import React from 'react';
 import style from './Subjects.module.css'
 import Modal from '../Modal/Modal'
-// {Object.keys().map((elem) => 
-//   <div key={`divpa${subjects[elem]}`}>
-//     <button 
-//       className={[style.subject, subjects[elem] === currentSubjectId ? style.active : null].join(' ')}
-//       key={subjects[elem]} 
-//       onClick={onClickHandler}
-//       disabled={timerRunning === true}>
-//       {elem}
-//     </button>
-//     <div key={`div${subjects[elem]}`}>
-//       {studyLog[elem]}
-//     </div>
-//   </div>
-//   )}
 
-function Subjects({setModalState, modalOpen, subjects}){
+function Subjects({setModalState, modalOpen, setSubjects, subjects}){
   const subjectButtons = (
     <div>
       {subjects.map((subject) => (
@@ -35,13 +21,18 @@ function Subjects({setModalState, modalOpen, subjects}){
   )
   return (<div className={style.subjectsContainer}>
             {subjectButtons}
-            <button className={style.addButton} onClick={ () => setModalState(true) }>+</button>
-              <Modal 
-                modalOpen={ modalOpen } 
-                setModalState={ setModalState }             
-                subjects={subjects}
-                headerText="새 과목 생성하기">
-              </Modal>
+            <button 
+            className={style.addButton} 
+            onClick={ () => setModalState(true) }>
+            +
+            </button>
+            <Modal 
+              modalOpen={ modalOpen } 
+              setModalState={ setModalState }             
+              subjects={ subjects }
+              setSubjects={ setSubjects }
+              headerText="새 과목 생성하기">
+            </Modal>
           </div>);
 }
 // class Subjects extends React.Component { 
