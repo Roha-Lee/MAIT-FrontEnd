@@ -5,9 +5,9 @@ import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import {getAllUserData, postNewSubject} from './utils/AppUtils';
-import AITest from './components/AITest/AITest';
-import Capture from './components/AITest/Capture';
-
+import AIFunctionViewer from './components/AIFunctionViewer/AIFunctionViewer';
+import ToggleButton from 'react-toggle-button'
+import reactCSS from 'reactcss'
 // render() {
 //   return (
 //     <div className="App">
@@ -50,7 +50,7 @@ function App() {
   const [timerOn, setTimerOn] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [useAi, setUseAi] = useState(false);
-  
+
   useEffect(() => {
     getAllUserData().then((userData)=> {
       setSubjects(userData.data.subjects);
@@ -60,41 +60,58 @@ function App() {
     
   return (<div className="App">
             <Navigation />
-            <Subjects 
-              setModalState={setModalOpen}
-              modalOpen={modalOpen}
-              setSubjects={setSubjects}
-              subjects={subjects}
-              currentSubject={currentSubject}
-              setCurrentSubject={setCurrentSubject}
-              currentTime={currentTime}
-              setCurrentTime={setCurrentTime}
-              setTimerOn={setTimerOn}
-            />
-            <Timer
-              subjects={subjects}
-              setSubjects={setSubjects}
-              currentSubject={currentSubject}
-              setCurrentSubject={setCurrentSubject}
-              timerOn={timerOn}
-              setTimerOn={setTimerOn}
-              currentTime={currentTime}
-              setCurrentTime={setCurrentTime}
-            />
-            <button onClick={(e) => {
-              e.preventDefault();
-              setUseAi(!useAi);
-              }}>
-              테스트 버튼
-            </button>
-            
+
             {useAi ? 
-              <AITest 
-                  timerOn = {timerOn}
-                  setTimerOn={setTimerOn}
-              /> 
-              : null}
-            
+              <div style={{
+                display: 'flex',
+                margin: '1rem auto',  
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
+                <AIFunctionViewer 
+                    timerOn = {timerOn}
+                    setTimerOn={setTimerOn}
+                />
+              </div> 
+            : null}
+            <div style={ {
+              'display': 'flex',
+              'flex-direction': 'column',
+              'align-items': 'center',
+              'backgroundColor': '#EBB057',
+              'margin': '20px auto',
+              'width': '600px',
+              padding: '20px',
+            }}>
+              <Subjects 
+                setModalState={setModalOpen}
+                modalOpen={modalOpen}
+                setSubjects={setSubjects}
+                subjects={subjects}
+                currentSubject={currentSubject}
+                setCurrentSubject={setCurrentSubject}
+                currentTime={currentTime}
+                setCurrentTime={setCurrentTime}
+                setTimerOn={setTimerOn}
+              />
+              <Timer
+                subjects={subjects}
+                setSubjects={setSubjects}
+                currentSubject={currentSubject}
+                setCurrentSubject={setCurrentSubject}
+                timerOn={timerOn}
+                setTimerOn={setTimerOn}
+                currentTime={currentTime}
+                setCurrentTime={setCurrentTime}
+              />
+              <ToggleButton
+                value={ useAi || false }
+                onToggle={(value) => {
+                  setUseAi(!value);
+                }} />
+              
+              
+            </div>
             {/* <Timer
               subjects={this.state.subjects}
               timerRunning={this.state.timerRunning}

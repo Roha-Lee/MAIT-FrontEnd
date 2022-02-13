@@ -5,8 +5,6 @@ import Capture from "./Capture";
 // timerRunning = {timerOn}
 //                   onChangeTimerRunning = {setTimerOn}
 function AITest ({timerOn, setTimerOn}){
-  
-  
   const webcamRef = useRef(null);
   const srcCanvas = document.getElementById("srccanvas");
   const dstCanvas = document.getElementById("dstcanvas");
@@ -47,7 +45,7 @@ function AITest ({timerOn, setTimerOn}){
       }
       else if(result !== null && result.length !== 0 && timerOn === false){
         if(result[0].faceInViewConfidence >= 0.95){
-          console.log(result)
+          // console.log(result)
           setTimerOn(true);  
         }
       }
@@ -112,7 +110,7 @@ function AITest ({timerOn, setTimerOn}){
               height: "240",
               display: "none"
             }}></img>
-          <button id="capture" onClick={(e)=>{capture();}}>Capture</button>
+          <button id="capture" style={{display: "none"}}onClick={(e)=>{capture();}}>Capture</button>
         </div>
     </div>
   );

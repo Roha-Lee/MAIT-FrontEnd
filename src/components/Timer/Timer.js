@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-// import AITest from '../AITest/AITest';
 import {
   timeStamp, 
 } from '../../utils/timerUtils';
-import AITest from '../AITest/AITest';
 import style from './Timer.module.css'
 
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
@@ -65,7 +63,7 @@ function Timer({
         () => {
           setTimerOn(!timerOn);          
         }}> 
-        {timerOn ? "Stop" : "Start"}
+        {timerOn ? "STOP" : "START"}
       </button> 
     </div>
   );

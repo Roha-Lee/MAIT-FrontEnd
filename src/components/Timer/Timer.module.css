@@ -1,11 +1,10 @@
 .subjectTitle {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     padding: 20px;
 }
 
 .timerContainer {
-    background-color: #EEE7E1;
     padding: 20px;
     display: flex;
     align-content: center;
@@ -16,15 +15,17 @@
 }
 
 .timer {
-    font-size: 5rem;    
+    font-size: 6rem;    
 }
 
 .timerButton{
-    padding: 10px;
+    padding: 10px 50px;
     border-radius: 20px;
     border: none;
-    background-color: #6F8D7A;
+    font-size:1.5rem;
+    color: #EEE7E1;
+    background-color: #B23930;
 }
 .timerButton:hover{
-    background-color: #587061;
+    background-color: brightness(70%);
 }
