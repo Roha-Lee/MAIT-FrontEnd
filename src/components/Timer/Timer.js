@@ -2,69 +2,75 @@ import React, { useEffect, useState } from 'react';
 // import AITest from '../AITest/AITest';
 import {
   timeStamp, 
-  sendStudyInterval,
-  indexToName
 } from '../../utils/timerUtils';
 import AITest from '../AITest/AITest';
 import style from './Timer.module.css'
 
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
 
-function handleStopwatch(props) {
-  const {subjects, currentTime, currentSubjectId, timerRunning, onChangeCurrentTime, onChangeStudyLog} = props;
-  if(timerRunning){
-    startTimeFormatted = timeStamp();
-    startTime = Date.now();
-    offset = currentTime;
-    interval = setInterval(() => {
-      onChangeCurrentTime(offset + Date.now() - startTime);
-    }, 70)
-  }
-  else {
-    endTimeFormatted = timeStamp();
-    clearInterval(interval);
-    sendStudyInterval(startTimeFormatted, endTimeFormatted, currentSubjectId);  
-    onChangeStudyLog(indexToName(subjects, currentSubjectId), currentTime);
-  }
-}
-
-function Timer(props) {
-  // const [useAi,setUseAi] = useState(false);
-
+function Timer({
+  subjects, 
+  setSubjects,
+  currentSubject, 
+  setCurrentSubject, 
+  timerOn, 
+  setTimerOn, 
+  currentTime, 
+  setCurrentTime,
+}) {
   useEffect(() => {
-    handleStopwatch(props);
-  }, [props.timerRunning]);
+    if(timerOn){
+      startTimeFormatted = timeStamp();
+      startTime = Date.now();
+      offset = currentTime;
+      interval = setInterval(() => {
+        setCurrentTime(offset + Date.now() - startTime);
+      }, 65)
+    }
+    else {
+      endTimeFormatted = timeStamp();
+      clearInterval(interval);
+      if(currentSubject !== null){
+        const updatedSubject = [...subjects];
+        const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
+        updatedSubject[subjectIdx].totalTime = currentTime;
+        setSubjects(updatedSubject);
+      }
+      
+      // sendStudyInterval(startTimeFormatted, endTimeFormatted, currentSubjectId);  
+      // onChangeStudyLog(indexToName(subjects, currentSubjectId), currentTime);
+    }
+  }, [timerOn]);
 
-  const timer = (<h1>
-    <span className={style.timer}>{ (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 3600000) % 24) : Math.floor((props.currentTime/ 60000) % 60)).toString().padStart(2, '0') }
-    : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 60000) % 60) : Math.floor((props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }
-    : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 1000) % 60) : Math.floor((props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
-  </h1>);
+  const timer = (
+    <span className={style.timer}>{ (currentTime >= 3600000 ? Math.floor((currentTime / 3600000) % 24) : Math.floor((currentTime/ 60000) % 60)).toString().padStart(2, '0') }
+    : { (currentTime >= 3600000 ? Math.floor((currentTime / 60000) % 60) : Math.floor((currentTime/ 1000) % 60)).toString().padStart(2, '0') }
+    : { (currentTime >= 3600000 ? Math.floor((currentTime / 1000) % 60) : Math.floor((currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
+  );
   
-  const {onChangeTimerRunning} = props;
+  // const timer = (
+  //   <span className={style.timer}>{ Math.floor((currentTime / 3600000) % 24).toString().padStart(2, '0') }
+  //   : { Math.floor((currentTime / 60000) % 60).toString().padStart(2, '0') }
+  //   : { Math.floor((currentTime / 1000) % 60).toString().padStart(2, '0') }</span>
+  // );
   
   return ( 
     <div className = {style.timerContainer} >
+      <div className={style.subjectTitle}>
+        {currentSubject === null ? "과목 없음" : currentSubject}
+      </div>
       {timer}
       <button className={style.timerButton} 
         onClick = {
         () => {
-          onChangeTimerRunning(props.timerRunning);          
+          setTimerOn(!timerOn);          
         }}> 
-        {props.timerRunning ? "Stop" : "Start"}
-      </button>
-      {/* <button onClick = {setUseAi(!useAi)}>AI버튼</button>
-      {useAi ? 
-        <AITest
-          onChangeTimerRunning = {onChangeTimerRunning}
-          timerRunning = {props.timerRunning}
-        />      
-      : null} */}
-      
+        {timerOn ? "Stop" : "Start"}
+      </button> 
     </div>
   );
-
 }
+
 // class Timer extends React.Component {
 //   constructor(props) {
 //     super(props);
@@ -113,4 +119,11 @@ function Timer(props) {
 //     );
 //   }
 // }
+
+// const timer = (<h1>
+//   <span className={style.timer}>{ (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 3600000) % 24) : Math.floor((props.currentTime/ 60000) % 60)).toString().padStart(2, '0') }
+//   : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 60000) % 60) : Math.floor((props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }
+//   : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 1000) % 60) : Math.floor((props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
+// </h1>);
+  
 export default Timer;

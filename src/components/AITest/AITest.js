@@ -2,8 +2,9 @@ import Webcam from "react-webcam";
 import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
-
-function AITest ({timerRunning,onChangeTimerRunning,useAi}){
+// timerRunning = {timerOn}
+//                   onChangeTimerRunning = {setTimerOn}
+function AITest ({timerOn, setTimerOn}){
   
   
   const webcamRef = useRef(null);
@@ -33,20 +34,31 @@ function AITest ({timerRunning,onChangeTimerRunning,useAi}){
   useEffect(async()=>{
     // console.log(getImage);
     if(getImage !== null){      
-        const srcCanvas2d = srcCanvas.getContext("2d");
-        // console.log(srcCanvas2d);
-        srcCanvas2d.drawImage(getImage,0,0,srcCanvas.width,dstCanvas.height);
-        const result = await saveManager.predict(srcCanvas,params);
-        // console.log(result.length , timerRunning);
-        if(result !== null && result.length === 0 && timerRunning === true){
-          console.log("AI->타이머 버튼 누름" , timerRunning);
-          onChangeTimerRunning(timerRunning);
+      const srcCanvas2d = srcCanvas.getContext("2d");
+      // console.log(srcCanvas2d);
+      srcCanvas2d.drawImage(getImage,0,0,srcCanvas.width,dstCanvas.height);
+      const result = await saveManager.predict(srcCanvas,params);
+      // console.log(result.length , timerRunning);
+      console.log(result[0].faceInViewConfidence)
+      if(result !== null && result.length === 0 && timerOn === true){
+        // console.log("AI->타이머 버튼 누름" , result);
+        setTimerOn(false);
+        clearInterval(aiInterval);
+      }
+      else if(result !== null && result.length !== 0 && timerOn === false){
+        if(result[0].faceInViewConfidence >= 0.95){
+          console.log(result)
+          setTimerOn(true);  
+        }
+      }
+      else if(result !== null && result.length !== 0 && timerOn === true){
+        if(result[0].faceInViewConfidence < 0.95){
+          setTimerOn(false);
           clearInterval(aiInterval);
         }
-        else if(result !== null && result.length !== 0 && timerRunning === false){
-          onChangeTimerRunning(timerRunning);
-        }
+      }
     }
+  return;
   },[image]);
     
   const capture = () => {

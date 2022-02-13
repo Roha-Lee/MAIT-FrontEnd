@@ -1,8 +1,4 @@
-.active {
-    background-color: #EBB057;
-}
-
-.subjectContainer {
+.subjectsContainer {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -15,6 +11,7 @@
     overflow-y: hidden;
     overflow-x: auto;
 } 
+
 .subject {
     margin: 0 .5rem;
     padding: 0.5rem 1rem;
@@ -30,7 +27,18 @@
 
     border: none;
     border-radius: 4px;
+    box-sizing: border-box;
 }
+
+.subject:hover {
+    filter: brightness(70%);
+    /* border: dashed 2px black; */
+}
+
+.active {
+    background-color: #EBB057;
+}
+
 .addButton {
     margin: 0 .5rem;
     padding: 0.5rem 1rem;
@@ -46,7 +54,4 @@
 
     border: none;
     border-radius: 4px;
-}
-.addButton:hover {
-    background-color: darken(10%);
 }

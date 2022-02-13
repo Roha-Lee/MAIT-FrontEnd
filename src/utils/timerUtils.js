@@ -20,8 +20,8 @@ function timeStamp(){
   return today.toISOString().replace('T', ' ').substring(0, 19); 
 }
 
-function indexToName(obj, idx) {
-  return Object.keys(obj).find((elem) => obj[elem] === idx);
-}
+// function indexToName(obj, idx) {
+//   return Object.keys(obj).find((elem) => obj[elem] === idx);
+// }
 
-export {sendStudyInterval, timeStamp, indexToName}
+export {sendStudyInterval, timeStamp}
