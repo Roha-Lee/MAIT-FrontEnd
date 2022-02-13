@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import AITest from '../AITest/AITest';
+// import AITest from '../AITest/AITest';
 import {
   timeStamp, 
   sendStudyInterval,
   indexToName
 } from '../../utils/timerUtils';
+import AITest from '../AITest/AITest';
 import style from './Timer.module.css'
 
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
@@ -28,7 +29,7 @@ function handleStopwatch(props) {
 }
 
 function Timer(props) {
-  const [useAi,setUseAi] = useState(false);
+  // const [useAi,setUseAi] = useState(false);
 
   useEffect(() => {
     handleStopwatch(props);
@@ -52,19 +53,14 @@ function Timer(props) {
         }}> 
         {props.timerRunning ? "Stop" : "Start"}
       </button>
-      <button onClick={(e) => {
-        e.preventDefault();
-        setUseAi(!useAi)
-        }}>
-          테스트 버튼
-      </button>
+      {/* <button onClick = {setUseAi(!useAi)}>AI버튼</button>
       {useAi ? 
-        <AITest 
-            // useAi = {useAi}
-            timerRunning = {props.timerRunning}
-            onChangeTimerRunning = {onChangeTimerRunning}
-        /> 
-      : null}
+        <AITest
+          onChangeTimerRunning = {onChangeTimerRunning}
+          timerRunning = {props.timerRunning}
+        />      
+      : null} */}
+      
     </div>
   );
 

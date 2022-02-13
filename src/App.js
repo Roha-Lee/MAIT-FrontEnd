@@ -5,6 +5,8 @@ import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import {getAllUserData, postNewSubject} from './utils/AppUtils';
+import AITest from './components/AITest/AITest';
+import Capture from './components/AITest/Capture';
 
 class App extends React.Component {
   constructor(props){
@@ -12,7 +14,7 @@ class App extends React.Component {
     this.state = {
       studyLog : {
       },
-      // useAi : false,
+      useAi : false,
       timerRunning: false,
       currentSubjectId: 1,
       currentTime: 0,
@@ -75,12 +77,13 @@ class App extends React.Component {
   }
 
   changeTimerRunning = (currentTimerRunning) => {
+    console.log("timer button!" , currentTimerRunning);
     this.setState({timerRunning : !currentTimerRunning});
   }
 
-  // changeUseAi = (useAi) => {
-  //   this.setState({useAi : !useAi})
-  // }
+  changeUseAi = (useAi) => {
+    this.setState({useAi : !useAi})
+  }
 
   changeStudyLog = (subject, newTime) => {
     const studyLog = {...this.state.studyLog};
@@ -133,6 +136,24 @@ class App extends React.Component {
           // onChangeUseAi={this.changeUseAi}
           // useAi={this.state.useAi}
           />
+        <button onClick={(e) => {
+        e.preventDefault();
+        this.changeUseAi(this.state.useAi);
+        }}>
+          테스트 버튼
+      </button>
+      
+      {this.state.useAi ? 
+        <AITest 
+            // useAi = {useAi}
+            timerRunning = {this.state.timerRunning}
+            onChangeTimerRunning = {this.changeTimerRunning}
+        /> 
+        
+        : null}
+      {/* {this.state.useAi ?
+        <Capture/> : null  
+      } */}
       </div>
     );
   } 
