@@ -1,33 +1,37 @@
 import React, {useState} from 'react';
 import style from './NameForm.module.css';
 import ColorPicker from '../ColorPicker/ColorPicker'
-
+import {postNewSubject} from '../../utils/AppUtils';
 function NameForm({setSubjects, subjects}) {
   const [value, setValue] = useState('');
   const [color, setColor] = useState('F17103');
+  
   const onSubmit = (event) => {
     event.preventDefault();
-    // POST /subject 호출 
-    setSubjects([
-      ...subjects, 
-      {
-        id: subjects.length + 1, 
-        name: value, 
-        color: color, 
-        totalTime: 1111110
+    postNewSubject(value, color).then((res) => {
+      console.log('post result', res.data);
+      if(res !== undefined){
+        setSubjects([
+          ...subjects, 
+          {
+            id: res.data.id, 
+            name: res.data.name, 
+            color: res.data.colorCode, 
+            totalTime: 0
+          }
+        ]);
+        setValue('');
       }
-    ]);
-    setValue('');
+    })    
   }
-
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={style.form}>
       <label className={style.formTitle}>
-        과목 입력
-        <input  required className={style.form} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
+        <span>과목 입력</span>
+        <input  required className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
       </label>
       <ColorPicker setColor={setColor}/>
-      <input className={style.formSubmit} type="submit" value="submit" onClick={(event) => {event.target.value.length>0?onSubmit(event):null}}/>
+      {/* <input className={style.formSubmit} type="submit" value="submit" onClick={(event) => {event.target.value.length>0?onSubmit(event):null}}/> */}
     </form>
   );
 }

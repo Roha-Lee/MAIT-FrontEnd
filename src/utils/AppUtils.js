@@ -3,20 +3,22 @@ Axios.defaults.withCredentials = false;
 
 async function getAllUserData() {
   try {
-    const userStudyInfo = await Axios.get('http://192.249.31.66:3000/mainpage', {});
-    const newState = {}
+    const userStudyInfo = await Axios.get('http://192.249.31.50:3000/mainpage', {});
     return userStudyInfo;
   } catch(error) {
     return error;
   }
 }
 
-async function postNewSubject() {
+async function postNewSubject(subject, colorCode) {
     try {
-      const studyInfo = await Axios.get('https://reqres.in/api/users?page=2', {});
-      return studyInfo;
+      const newSubject = await Axios.post('http://192.249.31.50:3000/subject', {
+        subject,
+        colorCode:2,
+      });
+      return newSubject;
     } catch(error) {
-      return error;
+      console.error(error);
     }
   }
 

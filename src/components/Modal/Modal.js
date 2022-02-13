@@ -1,9 +1,23 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import style from './Modal.module.css';
-import NameForm from '../NameForm/NameForm'
+import NameForm from '../NameForm/NameForm';
+import {postNewSubject} from '../../utils/AppUtils';
+
 function Modal({ modalOpen, setModalState, subjects, setSubjects, headerText}) {
+  const nameFormRef = useRef(null);
+
+  // const onClickOutsideModal = (event) => {
+  //   console.dir(event.target) // classList 에서 Modal_modal 찾아서 그거면 닫기? 
+  //   console.log(ref.current.contains(target))
+  //   if(event.target.classList.find(style.modal)){
+
+  //   // }
+  //   setModalState(false);
+  // }
+  console.log(nameFormRef.current)
   return (
-    <div className={modalOpen ? [style.openModal, style.modal].join(' ') : style.modal}>
+    <div 
+    className={modalOpen ? [style.openModal, style.modal].join(' ') : style.modal}>
       {modalOpen ? (
         <section>
           <header>
@@ -15,16 +29,17 @@ function Modal({ modalOpen, setModalState, subjects, setSubjects, headerText}) {
           </header>
           <main>
               <NameForm 
+                ref={nameFormRef}
                 setSubjects={setSubjects}
                 subjects={subjects}  
               />
           </main>
-          <footer>
-            <button className={style.close} onClick={() => setModalState(false)}>
+          {/* <footer>
+            <button className={style.close} onClick={() => {}}>
               {' '}
-              close{' '}
+              submit{' '}
             </button>
-          </footer>
+          </footer> */}
         </section>
       ) : null}
     </div>

@@ -36,6 +36,7 @@ function App() {
             />
             <Timer
               subjects={subjects}
+              setSubjects={setSubjects}
               currentSubject={currentSubject}
               setCurrentSubject={setCurrentSubject}
               timerOn={timerOn}

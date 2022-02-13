@@ -26,15 +26,16 @@ function ColorPicker({setColor}) {
   const styles = reactCSS({
     'default': {
       color: {
-        width: '36px',
-        height: '14px',
-        borderRadius: '2px',
+        width: '30px',
+        height: '30px',
+        borderRadius: '50%',
         background: `rgba(${ pickerColor.r }, ${ pickerColor.g }, ${ pickerColor.b })`,
       },
       swatch: {
         padding: '5px',
+        borderRadius: '50%',
         background: '#fff',
-        borderRadius: '1px',
+      
         boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
         display: 'inline-block',
         cursor: 'pointer',
@@ -44,9 +45,9 @@ function ColorPicker({setColor}) {
         padding: '10px',
         borderRadius: '5px',
         position: 'absolute',
-        zIndex: '2',
         
-      },
+        zIndex: '2',
+      },      
     },
   });
 

@@ -1,33 +1,14 @@
 import React, { useEffect } from 'react';
 import {
   timeStamp, 
-  sendStudyInterval,
-  indexToName
 } from '../../utils/timerUtils';
 import style from './Timer.module.css'
 
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
 
-function handleStopwatch(props) {
-  const {subjects, currentTime, currentSubjectId, timerRunning, onChangeCurrentTime, onChangeStudyLog} = props;
-  if(timerRunning){
-    startTimeFormatted = timeStamp();
-    startTime = Date.now();
-    offset = currentTime;
-    interval = setInterval(() => {
-      onChangeCurrentTime(offset + Date.now() - startTime);
-    }, 70)
-  }
-  else {
-    endTimeFormatted = timeStamp();
-    clearInterval(interval);
-    sendStudyInterval(startTimeFormatted, endTimeFormatted, currentSubjectId);  
-    onChangeStudyLog(indexToName(subjects, currentSubjectId), currentTime);
-  }
-}
-
 function Timer({
   subjects, 
+  setSubjects,
   currentSubject, 
   setCurrentSubject, 
   timerOn, 
@@ -36,7 +17,27 @@ function Timer({
   setCurrentTime,
 }) {
   useEffect(() => {
-    // handleStopwatch(props);
+    if(timerOn){
+      startTimeFormatted = timeStamp();
+      startTime = Date.now();
+      offset = currentTime;
+      interval = setInterval(() => {
+        setCurrentTime(offset + Date.now() - startTime);
+      }, 1000)
+    }
+    else {
+      endTimeFormatted = timeStamp();
+      clearInterval(interval);
+      if(currentSubject !== null){
+        const updatedSubject = [...subjects];
+        const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
+        updatedSubject[subjectIdx].totalTime = currentTime;
+        setSubjects(updatedSubject);
+      }
+      
+      // sendStudyInterval(startTimeFormatted, endTimeFormatted, currentSubjectId);  
+      // onChangeStudyLog(indexToName(subjects, currentSubjectId), currentTime);
+    }
   }, [timerOn]);
 
   const timer = (

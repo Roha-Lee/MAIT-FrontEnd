@@ -2,7 +2,6 @@ import React from 'react';
 import style from './Subjects.module.css'
 import Modal from '../Modal/Modal'
 
-
 function Subjects({
   setModalState, 
   modalOpen, 
@@ -13,7 +12,7 @@ function Subjects({
   currentTime, 
   setCurrentTime,
   setTimerOn}){
-
+  
   const changeSubject = (event) => {
     let newSubject = event.target.innerText;
     let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;
