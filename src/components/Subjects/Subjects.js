@@ -25,7 +25,7 @@ function Subjects({
     setCurrentTime(newCurrentTime);
   }
   const subjectButtons = (
-    <div>
+    <div className={style.subjectManager}>
       {subjects.map((subject) => (
           <button 
             key={subject.id}
@@ -42,7 +42,7 @@ function Subjects({
             <button 
             className={style.addButton} 
             onClick={ () => setModalState(true) }>
-            +
+              +
             </button>
             <Modal 
               modalOpen={ modalOpen } 

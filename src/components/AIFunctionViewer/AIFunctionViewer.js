@@ -37,7 +37,7 @@ function AITest ({timerOn, setTimerOn}){
       srcCanvas2d.drawImage(getImage,0,0,srcCanvas.width,dstCanvas.height);
       const result = await saveManager.predict(srcCanvas,params);
       // console.log(result.length , timerRunning);
-      console.log(result[0].faceInViewConfidence)
+
       if(result !== null && result.length === 0 && timerOn === true){
         // console.log("AI->타이머 버튼 누름" , result);
         setTimerOn(false);

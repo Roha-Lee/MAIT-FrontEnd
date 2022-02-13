@@ -80,8 +80,9 @@ function App() {
               'align-items': 'center',
               'backgroundColor': '#EBB057',
               'margin': '20px auto',
-              'width': '600px',
-              padding: '20px',
+              'width': '480px',
+              borderRadius: '20px',
+              padding: '20px 0',
             }}>
               <Subjects 
                 setModalState={setModalOpen}
