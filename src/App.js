@@ -3,7 +3,7 @@
 import React, {useState, useEffect} from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
-// import Timer from './components/Timer/Timer';
+import Timer from './components/Timer/Timer';
 // import AITest from './components/AITest/AITest';
 import {getAllUserData, postNewSubject} from './utils/AppUtils';
 
@@ -11,6 +11,9 @@ import {getAllUserData, postNewSubject} from './utils/AppUtils';
 function App() {
   const [subjects, setSubjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentSubject, setCurrentSubject] = useState(null);
+  const [timerOn, setTimerOn] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
   useEffect(() => {
     getAllUserData().then((userData)=> {
       setSubjects(userData.data.subjects);
@@ -25,7 +28,31 @@ function App() {
               modalOpen={modalOpen}
               setSubjects={setSubjects}
               subjects={subjects}
+              currentSubject={currentSubject}
+              setCurrentSubject={setCurrentSubject}
+              currentTime={currentTime}
+              setCurrentTime={setCurrentTime}
+              setTimerOn={setTimerOn}
             />
+            <Timer
+              subjects={subjects}
+              currentSubject={currentSubject}
+              setCurrentSubject={setCurrentSubject}
+              timerOn={timerOn}
+              setTimerOn={setTimerOn}
+              currentTime={currentTime}
+              setCurrentTime={setCurrentTime}
+            />
+            {/* <Timer
+              subjects={this.state.subjects}
+              timerRunning={this.state.timerRunning}
+              currentSubjectId={this.state.currentSubjectId}
+              currentTime={this.state.currentTime}
+              onChangeCurrentTime={this.changeCurrentTime}  
+              onChangeTimerRunning={this.changeTimerRunning} 
+              onChangeStudyLog={this.changeStudyLog}
+            /> */}
+
             {/* <Subjects 
               studyLog={this.state.studyLog} 
               subjects={this.state.subjects}

@@ -2,20 +2,39 @@ import React from 'react';
 import style from './Subjects.module.css'
 import Modal from '../Modal/Modal'
 
-function Subjects({setModalState, modalOpen, setSubjects, subjects}){
+
+function Subjects({
+  setModalState, 
+  modalOpen, 
+  setSubjects, 
+  subjects, 
+  currentSubject, 
+  setCurrentSubject,
+  currentTime, 
+  setCurrentTime,
+  setTimerOn}){
+
+  const changeSubject = (event) => {
+    let newSubject = event.target.innerText;
+    let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;
+    if(currentSubject === newSubject){
+      newSubject = null
+      newCurrentTime = 0;
+    }
+    setTimerOn(false);
+    setCurrentSubject(newSubject);
+    setCurrentTime(newCurrentTime);
+  }
   const subjectButtons = (
     <div>
       {subjects.map((subject) => (
-        <div key={`divpa${subject.id}`} className={style.subjects}>
           <button 
+            key={subject.id}
             className={style.subject}
-            style={{'backgroundColor': `#${subject.color}` }}>
+            style={{'backgroundColor': `#${subject.color}`}}
+            onClick={(event)=>{changeSubject(event, currentSubject)}}>
             {subject.name}
           </button>
-          <div key={`div${subjects.id}`}>
-            {subject.totalTime}
-          </div>
-        </div>
       ))}
     </div>
   )

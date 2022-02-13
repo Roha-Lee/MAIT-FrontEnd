@@ -8,10 +8,16 @@ function NameForm({setSubjects, subjects}) {
   const onSubmit = (event) => {
     event.preventDefault();
     // POST /subject 호출 
-    setSubjects([...subjects, {id: subjects.length + 1, name: value, color: color, totalTime: 0}]);
+    setSubjects([
+      ...subjects, 
+      {
+        id: subjects.length + 1, 
+        name: value, 
+        color: color, 
+        totalTime: 1111110
+      }
+    ]);
     setValue('');
-    console.log(value); 
-    console.log(subjects);
   }
 
   return (
