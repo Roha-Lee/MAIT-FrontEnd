@@ -1,6 +1,12 @@
 import React, {useState, useEffect} from 'react';
+import Navigation from './components/Navigation/Navigation';
+import Subjects from './components/Subjects/Subjects';
+import Timer from './components/Timer/Timer';
+import {getAllUserData, postNewSubject} from './utils/AppUtils';
+import AIFunctionViewer from './components/AIFunctionViewer/AIFunctionViewer';
+import ToggleButton from 'react-toggle-button'
 
-function App() {
+function Mainpage() {
   const [subjects, setSubjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentSubject, setCurrentSubject] = useState(null);
@@ -114,7 +120,7 @@ function App() {
           </div>)
   }
 
-export default App;
+export default Mainpage;
 // class App extends React.Component {
 //   constructor(props){
 //     super(props);

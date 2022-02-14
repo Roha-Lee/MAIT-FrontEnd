@@ -15,6 +15,10 @@ function Timer({
   setTimerOn, 
   currentTime, 
   setCurrentTime,
+  faceDetected,
+  useAi,
+  userTimerOn, 
+  setUserTimerOn,
 }) {
   useEffect(() => {
     if(timerOn){
@@ -38,7 +42,7 @@ function Timer({
       // sendStudyInterval(startTimeFormatted, endTimeFormatted, currentSubjectId);  
       // onChangeStudyLog(indexToName(subjects, currentSubjectId), currentTime);
     }
-  }, [timerOn]);
+  }, [timerOn, faceDetected]);
 
   const timer = (
     <span className={style.timer}>{ (currentTime >= 3600000 ? Math.floor((currentTime / 3600000) % 24) : Math.floor((currentTime/ 60000) % 60)).toString().padStart(2, '0') }
@@ -62,6 +66,7 @@ function Timer({
         onClick = {
         () => {
           setTimerOn(!timerOn);          
+          setUserTimerOn(!timerOn);     
         }}> 
         {timerOn ? "STOP" : "START"}
       </button> 
