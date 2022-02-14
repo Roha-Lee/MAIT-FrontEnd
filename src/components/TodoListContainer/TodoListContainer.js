@@ -15,7 +15,7 @@ import {
 const TodoListContainer = () => {
     const [todoList, setTodoList] = useState([
         { id: 1, content: 'AAA', isDone: false },
-        { id: 2, content: 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', isDone: false, subjectId: 'subject1' },
+        { id: 2, content: 'BBBBBBB', isDone: false, subjectId: 'subject1' },
         { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
     ])
     const [subjects, setSubjects] = useState([
