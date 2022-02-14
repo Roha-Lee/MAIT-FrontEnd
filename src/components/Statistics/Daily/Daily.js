@@ -44,25 +44,29 @@ function Daily (){
     const data = {
         rangeTime : [
             {
-                subjectId : "과목1",
+                subjectId : 1,
+                subjectName : "과목1",
                 color : "#8f1717",
                 startTime : '2022-02-09 10:32:20',
                 endTime : '2022-02-09 10:45:10'
             },
             {
-                subjectId : "과목2",
+                subjectId : 2,
+                subjectName : "과목2",
                 color : "#0b6a29",
                 startTime : '2022-02-09 11:23:40',
                 endTime : '2022-02-09 13:10:02'
             },
             {
-                subjectId : "과목3",
+                subjectId : 3,
+                subjectName : "과목3",
                 color : "#441098",
                 startTime : '2022-02-09 09:20:00',
                 endTime : '2022-02-09 10:15:00'
             },
             {
-                subjectId : "과목1",
+                subjectId : 1,
+                subjectName : "과목1",
                 color : "#8f1717",
                 startTime : '2022-02-09 18:23:00',
                 endTime : '2022-02-09 20:11:00'
@@ -70,17 +74,20 @@ function Daily (){
         ],
         subjectTotalTime : [
             {
-                subjectId : "과목1",
+                subjectId : 1,
+                subjectName : "과목1",
                 color : "#8f1717",
                 totalTime : '03:10:02'
             },
             {
-                subjectId : "과목2",
+                subjectId : 2,
+                subjectName : "과목2",
                 color : "#0b6a29",
                 totalTime : '01:23:10'
             },
             {
-                subjectId : "과목3",
+                subjectId : 3,
+                subjectName : "과목3",
                 color : "#441098",
                 totalTime : '06:01:23'
             },
@@ -93,7 +100,7 @@ function Daily (){
     let subjectColors = [];
     
     for(let i = 0 ; i < subjectTotalData.length ; i++){
-        labels.push(subjectTotalData[i].subjectId);
+        labels.push(subjectTotalData[i].subjectName);
         subjectColors.push(subjectTotalData[i].color);
     }
 

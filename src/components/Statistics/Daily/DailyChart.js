@@ -64,7 +64,7 @@ function DailyChart ({data , labels, subjectColors}){
 
 
     return (
-        <div className={style.dailychart}>
+<div className={style.dailychart}>
             <Bar options={options} data={dataChart}/>
         </div>
     );
