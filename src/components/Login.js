@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import axios from "axios"
+import { LoginContainer, LoginInput, LoginButton, LoginImage } from './Login.styled'
 
 axios.defaults.withCredentials = false;
 
@@ -36,28 +37,28 @@ function Login() {
     }
 
     return (
-        <div>
-            <div className="container">
-                <div className="item">EMIT</div>
-                <div className="item"></div>
-                <div className="item"></div>
-                <div className="item">SIGN UP</div>
-                <div className="item">SIGN IN</div>
+        <>
+        <LoginContainer>
+            <div display="flex"><div>EMIT</div></div>
+            <div>
+                <label htmlFor='input_id'/>
+                <LoginInput type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='ID'/>
             </div>
             <div>
-                <label htmlFor='input_id'>ID : </label>
-                <input type='text' name='input_id' value={inputId} onChange={handleInputId} />
+                <label htmlFor='input_pw'/>
+                <LoginInput type='password' name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='Password'/>
             </div>
             <div>
-                <label htmlFor='input_pw'>PW : </label>
-                <input type='password' name='input_pw' value={inputPw} onChange={handleInputPw} />
+                <LoginButton type='button' onClick={onClickLogin}>Sign Up</LoginButton>
             </div>
-            <div>
-                <button type='button' onClick={onClickLogin}>Login</button>
-            </div>
-            <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" />
-            <img src="./kakao_login_medium_narrow.png" alt="kakao" />
-        </div>
+            <LoginImage>
+            <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" width="250px"/>
+            </LoginImage>
+            <LoginImage>
+            <img src="./kakao_login_medium_narrow.png" alt="kakao" width="250"/>
+            </LoginImage>
+        </LoginContainer>
+        </>
     )
 }
  

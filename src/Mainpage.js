@@ -25,7 +25,7 @@ function Mainpage() {
   }, []);
     
   return (<div className="App">
-            <Navigation />
+            {/* <Navigation /> */}
 
             {useAi ? 
               <div style={{

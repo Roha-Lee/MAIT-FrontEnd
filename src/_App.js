@@ -7,8 +7,9 @@ import AIFunctionViewer from './components/AIFunctionViewer/AIFunctionViewer';
 import ToggleButton from 'react-toggle-button'
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {BrowserRouter, Route, Router, Switch} from 'react-router-dom';
 
-function App() {
+function Main() {
   const [subjects, setSubjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentSubject, setCurrentSubject] = useState(null);
@@ -24,9 +25,9 @@ function App() {
     
   }, []);
     
-  return (<div className="App">
-            <Navigation />
-
+  return (
+          <div className="App">
+            <Route path = "./components/Navigation" Navigation />
             {useAi ? 
               <div style={{
                 display: 'flex',
@@ -120,7 +121,8 @@ function App() {
               timerRunning={this.state.timerRunning}
               onChangeTimerRunning={this.changeTimerRunning}
             /> */}
-          </div>)
+          </div>
+          )
   }
 
-export default App;
+export default Main;
