@@ -83,7 +83,7 @@ function App() {
               
              
             </div>
-            <TodoListContainer />
+            <TodoListContainer subjects={subjects}/>
             {/* <Timer
               subjects={this.state.subjects}
               timerRunning={this.state.timerRunning}

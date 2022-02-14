@@ -3,7 +3,7 @@ Axios.defaults.withCredentials = false;
 
 async function getAllUserData() {
   try {
-    const userStudyInfo = await Axios.get('http://192.249.31.50:3000/mainpage', {});
+    const userStudyInfo = await Axios.get('http://192.249.31.115:3000/mainpage', {});
     return userStudyInfo;
   } catch(error) {
     return error;

@@ -12,16 +12,16 @@ import {
  import TodoEditModal from '../TodoEditModal/TodoEditModal'
 
 // TodoListContainer TodoList들을 관리하는 전체적인 폼
-const TodoListContainer = (props) => {
+const TodoListContainer = ({subjects}) => {
     const [todoList, setTodoList] = useState([
         { id: 1, content: 'AAA', isDone: false },
         { id: 2, content: 'BBBBBBBBBB', isDone: false, subjectId: 'subject1' },
         { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
     ])
-    const [subjects, setSubjects] = useState([
-        { id: 'subject1', name: 'Subject one' },
-        { id: 'subject2', name: 'Subject two' },
-    ])
+    // const [subjects, setSubjects] = useState([
+    //     { id: 'subject1', name: 'Subject one' },
+    //     { id: 'subject2', name: 'Subject two' },
+    // ])
 
     const [editingTodo, setEditingTodo] = useState(null)
 
@@ -48,7 +48,7 @@ const TodoListContainer = (props) => {
             <TodoItemContainer>
                 <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
                 <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
-                <TodoItemBadge color='#1199ff'>{subjects.find(subject => subject.id === todo.subjectId)?.name}</TodoItemBadge>
+                <TodoItemBadge color={`#${subjects.find(subject => subject.id === todo.subjectId)?.color}`}>{subjects.find(subject => subject.id === todo.subjectId)?.name}</TodoItemBadge>
             </TodoItemContainer>
         )
     }, [subjects, toggleTodo])
