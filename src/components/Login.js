@@ -1,13 +1,14 @@
 import React, { useState } from "react"
 import axios from "axios"
 import { LoginContainer, LoginInput, LoginButton, LoginImage } from './Login.styled'
+import { useNavigate } from "react-router-dom";
 
-axios.defaults.withCredentials = false;
+const serverAddress = 'http://192.249.29.198:3001';
 
 function Login() {
     const [inputId, setInputId] = useState('')
     const [inputPw, setInputPw] = useState('')
-
+    let navigate = useNavigate();
     // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
     const handleInputId = (e) => {
         setInputId(e.target.value)
@@ -21,20 +22,25 @@ function Login() {
     const onClickLogin = () => {
         console.log('click login');
         axios.post(
-            "http://192.249.29.38:3001/login", 
+            `${serverAddress}/signin`, 
             {
-                id: inputId,
-                pw: inputPw,
+                username: inputId,
+                password: inputPw,
             },
+            { withCredentials: true },
         ).then(response => {
-            if(response == "아이디 불일치") {
-                alert("등록되지 않은 회원입니다.")
+            if(response.data.message === 'success'){
+                window.localStorage.setItem('accessToken', response.data.accessToken)
+                // useNavigate()
+                navigate("/");
             }
-            else if(response == "비밀번호 불일치") {
-                alert("비밀번호를 확인해 주세요.")
+            else {
+                alert("로그인에 실패하였습니다. ")
             }
         })
     }
+
+
 
     return (
         <>

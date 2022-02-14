@@ -1,5 +1,6 @@
 import Axios from 'axios';
-Axios.defaults.withCredentials = false;
+
+const serverAddress = 'http://192.249.29.198:3001';
 
 async function getAllUserData() {
   try {
@@ -24,7 +25,7 @@ async function postNewSubject(subject, colorCode) {
 
 async function postNewTodo(content, subjectId) {
   try {
-    const newTodo = await Axios.post('http://192.249.29.198:3001/todos', {
+    const newTodo = await Axios.post(`${serverAddress}/todos`, {
       subjectId,
       content,
     });
