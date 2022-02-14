@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
-import {getAllUserData, postNewSubject} from './utils/AppUtils';
+import {getAllUserData} from './utils/AppUtils';
 import AIFunctionViewer from './components/AIFunctionViewer/AIFunctionViewer';
 import ToggleButton from 'react-toggle-button'
+import TodoListContainer from './components/TodoListContainer/TodoListContainer'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Mainpage() {
   const [subjects, setSubjects] = useState([]);
@@ -79,8 +81,9 @@ function Mainpage() {
                   setUseAi(!value);
                 }} />
               
-              
+             
             </div>
+            <TodoListContainer subjects={subjects}/>
             {/* <Timer
               subjects={this.state.subjects}
               timerRunning={this.state.timerRunning}

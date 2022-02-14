@@ -92,6 +92,8 @@ function AIFunctionViewer ({
             height={240}
             screenshotFormat="image/jpeg"
             width={320}
+            position={'fixed'}
+          
             videoConstraints={videoConstraints}
           />
           <canvas id="srccanvas"

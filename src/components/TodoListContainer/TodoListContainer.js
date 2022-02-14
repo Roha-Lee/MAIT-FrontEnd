@@ -7,9 +7,10 @@ import {
     TodoItemContent,
     TodoItemBadge,
  } from './TodoListContainer.styled'
-
+ import {postNewTodo} from '../../utils/AppUtils';
  import TodoInput from '../TodoInput/TodoInput'
  import TodoEditModal from '../TodoEditModal/TodoEditModal'
+
 
 // TodoListContainer TodoList들을 관리하는 전체적인 폼
 const TodoListContainer = ({subjects}) => {
@@ -18,11 +19,7 @@ const TodoListContainer = ({subjects}) => {
         { id: 2, content: 'BBBBBBBBBB', isDone: false, subjectId: 'subject1' },
         { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
     ])
-    // const [subjects, setSubjects] = useState([
-    //     { id: 'subject1', name: 'Subject one' },
-    //     { id: 'subject2', name: 'Subject two' },
-    // ])
-
+    console.log(todoList);
     const [editingTodo, setEditingTodo] = useState(null)
 
     const toggleTodo = useCallback((target) => {
@@ -30,6 +27,7 @@ const TodoListContainer = ({subjects}) => {
     }, [todoList])
 
     const onItemAdd = useCallback((item) => {
+        postNewTodo(item.content, item.subjectId);
         setTodoList([...todoList, item])
     }, [todoList])
 

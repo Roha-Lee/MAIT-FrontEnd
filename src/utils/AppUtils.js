@@ -22,4 +22,16 @@ async function postNewSubject(subject, colorCode) {
     }
   }
 
-export {getAllUserData, postNewSubject}
+async function postNewTodo(content, subjectId) {
+  try {
+    const newTodo = await Axios.post('http://192.249.29.198:3001/todos', {
+      subjectId,
+      content,
+    });
+    return newTodo;
+  } catch(error) {
+    console.error(error);
+  }
+}
+
+export {getAllUserData, postNewSubject, postNewTodo}
