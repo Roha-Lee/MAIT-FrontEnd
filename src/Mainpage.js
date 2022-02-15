@@ -106,7 +106,7 @@ function Mainpage() {
                 fontSize: "1.2rem",
               }
             }
-            onClick={() => {window.location.replace("/camstudy")}}>Cam Study</button>
+            onClick={() => {window.open("/camstudy")}}>Cam Study</button>
             </div>
             <TodoListContainer subjects={subjects}/>
             {/* <Timer

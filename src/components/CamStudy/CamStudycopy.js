@@ -48,17 +48,41 @@ function CamStudy (){
 
   return(
     <div>
-      <>
+      <Subjects 
+          setModalState={setModalOpen}
+          modalOpen={modalOpen}
+          setSubjects={setSubjects}
+          subjects={subjects}
+          currentSubject={currentSubject}
+          setCurrentSubject={setCurrentSubject}
+          currentTime={currentTime}
+          setCurrentTime={setCurrentTime}
+          setTimerOn={setTimerOn}
+        />
+      <Timer
+          subjects={subjects}
+          setSubjects={setSubjects}
+          currentSubject={currentSubject}
+          setCurrentSubject={setCurrentSubject}
+          timerOn={timerOn}
+          setTimerOn={setTimerOn}
+          userTimerOn={userTimerOn}
+          setUserTimerOn={setUserTimerOn}
+          currentTime={currentTime}
+          setCurrentTime={setCurrentTime}
+        />
+        <>
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
+      <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Options />
+      </Modal>
       </>
       <VideoState>
         <div className="App" style={{ height: "100%", width: "100%" }}>
           <Video />
-          <Modal title="Study With Me" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <Options />
-          </Modal>
+          
           {/* <Footer /> */}
         </div>
       </VideoState>
