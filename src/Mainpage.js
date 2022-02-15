@@ -7,6 +7,7 @@ import AIFunctionViewer from './components/AIFunctionViewer/AIFunctionViewer';
 import ToggleButton from 'react-toggle-button'
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Link } from 'react-router-dom';
 
 function Mainpage() {
   const [subjects, setSubjects] = useState([]);
@@ -17,12 +18,12 @@ function Mainpage() {
   const [currentTime, setCurrentTime] = useState(0);
   const [useAi, setUseAi] = useState(false);
 
-  useEffect(() => {
-    getAllUserData().then((userData)=> {
-      setSubjects(userData.data.subjects);
-    });
+  // useEffect(() => {
+  //   getAllUserData().then((userData)=> {
+  //     setSubjects(userData.data.subjects);
+  //   });
     
-  }, []);
+  // }, []);
     
   return (<div className="App">
             {/* <Navigation /> */}
@@ -83,6 +84,7 @@ function Mainpage() {
               
              
             </div>
+            <Link to="/camstudy">Cam Study</Link>
             <TodoListContainer subjects={subjects}/>
             {/* <Timer
               subjects={this.state.subjects}

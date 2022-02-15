@@ -11,7 +11,7 @@ import {BrowserRouter, HashRouter, Route,Routes} from 'react-router-dom';
 import Login from "./components/Login"
 import Signup from "./components/Signup"
 import Mainpage from './Mainpage';
-
+import CamStudy from "./components/CamStudy/CamStudy"
 function App() {
   
   return (
@@ -21,8 +21,10 @@ function App() {
 
             <Route path="/Signup" element={<Signup/>}/>
             <Route path="/Login" element={<Login/>}/>
+            <Route path="/camstudy" element={<CamStudy/>}/>
             {/* <Route path="Statistics" element={<Statistics/>}/> */}
             <Route path="/" element={<Mainpage/>}/>
+
         
           </Routes>
         </BrowserRouter>

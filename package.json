@@ -22,13 +22,25 @@
     "react-toggle-button": "^2.2.0",
     "react-webcam": "^6.0.1",
     "styled-components": "^5.3.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@ant-design/icons": "^4.6.2",
+    "antd": "^4.15.1",
+    "font-awesome": "^4.7.0",
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-particles-js": "^3.4.1",
+    "react-share": "^4.4.0",
+    "simple-peer": "^9.11.0",
+    "socket.io-client": "^4.0.1",
+    "concurrently": "^6.0.2",
+    "cors": "^2.8.5",
+    "socket.io": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"node index.js\" \"react-scripts start\""
   },
   "browserslist": {
     "production": [
