@@ -24,11 +24,17 @@ function DailyData ({data , labels, subjectColors}){
 
     return (
         <div className={style.dailydata}>
-            <div className="data">
-                <div className={style.title}>Daily Summary ------------------------</div>
-                <div className={style.content}>{`${totalHour}h ${totalMinute}m`}</div>
+            <div className={style.titleContainer}>
+                <h1 className={style.dailySummary}>Daily Summary</h1>
             </div>
+            <h2>총 학습시간</h2>
+            <div className={style.totalTimes}>{`${totalHour}h ${totalMinute}m`}</div>
+            <div className={style.titlecontainer}>
+                <h1 className={style.dailyDetails}>Daily Details</h1>
+            </div>
+        
             <DailyChart data={data} labels={labels} subjectColors={subjectColors}/>
+        
         </div>
     );
 }

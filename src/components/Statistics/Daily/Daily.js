@@ -106,12 +106,13 @@ function Daily (){
 
     return (
         <div className = {style.daily}>
-            <TimeHeatmap
+            <DailyData
                 data = {data}
                 labels = {labels}
                 subjectColors = {subjectColors}
             />
-            <DailyData
+            
+            <TimeHeatmap
                 data = {data}
                 labels = {labels}
                 subjectColors = {subjectColors}

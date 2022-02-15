@@ -85,6 +85,7 @@ function TimeHeatmap ({data , labels , subjectColors}){
             <select onChange={handleSelect}>
                 {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
             </select>
+            
             <HeatMapGrid
                 data={inputData}
                 xLabels={xLabels}
@@ -105,6 +106,7 @@ function TimeHeatmap ({data , labels , subjectColors}){
                 cellHeight="1.5rem"
                 square
             />
+            
         </div>
     );
 }
