@@ -4,14 +4,14 @@ import style from "./Video.css";
 import { Card, Modal, Button, Input, notification, Avatar } from "antd";
 import Man from "../assests/man.svg";
 import VideoIcon from "../assests/video.svg";
+import Teams from "../assests/teams.mp3";
 import { io } from "socket.io-client";
 import VideoOff from "../assests/video-off.svg";
 // import Profile from "../assests/profile.svg";
 import Msg_Illus from "../assests/msg_illus.svg";
 import Msg from "../assests/msg.svg";
 import ScreenShare from '../assests/share_screen.svg'
-import { UserOutlined, MessageOutlined } from "@ant-design/icons";
-
+import { UserOutlined, MessageOutlined, BellOutlined } from "@ant-design/icons";
 import { socket } from "../context/VideoState";
 
 // const socket = io()
@@ -44,10 +44,11 @@ const Video = () => {
     myMicStatus,
     userMicStatus,
     updateMic,
-    // socket
+    connectionRef
   } = useContext(VideoContext);
-
+  const Audio = useRef();
   const [sendMsg, setSendMsg] = useState("");
+  const [siren, setSiren] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   socket.on("msgRcv", ({ name, msg: value, sender }) => {
     let msg = {};
@@ -57,8 +58,18 @@ const Video = () => {
     msg.timestamp = Date.now();
     setChat([...chat, msg]);
   });
+  
+  socket.on("sirenSound", ({}) => {
+    setSiren(true);
+  })
 
   const dummy = useRef();
+  useEffect(() => {
+    if (siren) {
+      Audio?.current?.play();
+      setTimeout(() => setSiren(false), 5000);
+    } else Audio?.current?.pause();
+  }, [siren]);
 
   useEffect(() => {
     if (dummy?.current) dummy.current.scrollIntoView({ behavior: "smooth" });
@@ -199,6 +210,16 @@ const Video = () => {
                 <img src={VideoOff} alt="video off icon" />
               )}
             </div>
+            {callAccepted && !callEnded && (
+              <div className="icons" onClick={() => {
+                socket.emit("sirenSound", {
+                  from: me,
+                });
+              }}>
+            <BellOutlined />
+            <audio src={Teams} ref={Audio} />
+            </div>
+            )}
           </div>
         </div>
       ) : (

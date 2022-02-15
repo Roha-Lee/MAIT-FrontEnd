@@ -4,8 +4,8 @@ import { io } from "socket.io-client";
 import Peer from "simple-peer";
 import { message } from "antd";
 
-const URL = "https://fathomless-tundra-67025.herokuapp.com/";
-// const URL = "https://3e40-143-248-196-35.ngrok.io";
+// const URL = "https://fathomless-tundra-67025.herokuapp.com/";
+const URL = "localhost:7777";
 // const URL = "https://2eb4-192-249-31-115.ngrok.io";
 
 export const socket =  io(URL);
@@ -283,6 +283,7 @@ const VideoState = ({ children }) => {
         screenShare,
         handleScreenSharing,
         fullScreen,
+        connectionRef
         // socket
       }}
     >

@@ -111,7 +111,10 @@ const Options = () => {
           size="large"
           className={style.inputgroup}
           value={idToCall}
-          onChange={(e) => setIdToCall(e.target.value)}
+          onChange={(e) => {
+            setIdToCall(e.target.value)
+            window.localStorage.setItem('idToCall', e.target.value)
+          }}
           style={{ marginRight: "0.5rem", marginBottom: "0.5rem" }}
           prefix={<UserOutlined className="site-form-item-icon" />}
           suffix={
