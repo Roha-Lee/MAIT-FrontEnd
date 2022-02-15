@@ -85,15 +85,16 @@ function AIFunctionViewer ({
   // Capture();
   return(
     <div className="aitest">
-        <div className="ai-on"> 
+        <div className="ai-on" style={{
+          display:"flex",
+          justifyContent:"center", }}> 
           <Webcam
             ref={webcamRef}
             audio={false}
             height={240}
             screenshotFormat="image/jpeg"
             width={320}
-            position={'fixed'}
-          
+            position={'fixed'}          
             videoConstraints={videoConstraints}
           />
           <canvas id="srccanvas"

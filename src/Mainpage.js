@@ -8,6 +8,7 @@ import ToggleButton from 'react-toggle-button'
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {AiContainer, SubjectsContainer} from './Mainpage.styled'
+import { Link } from 'react-router-dom';
 
 function Mainpage() {
   const [subjects, setSubjects] = useState([]);
@@ -18,12 +19,12 @@ function Mainpage() {
   const [currentTime, setCurrentTime] = useState(0);
   const [useAi, setUseAi] = useState(false);
 
-  useEffect(() => {
-    getAllUserData().then((userData)=> {
-      setSubjects(userData.data.subjects);
-    });
+  // useEffect(() => {
+  //   getAllUserData().then((userData)=> {
+  //     setSubjects(userData.data.subjects);
+  //   });
     
-  }, []);
+  // }, []);
     
   return (<div className="App">
             {/* <Navigation /> */}
@@ -89,6 +90,24 @@ function Mainpage() {
              
             {/* </div> */}
             </SubjectsContainer>
+            <div style={
+              {
+                display: "flex",
+              }
+            }>
+            <button style={
+              {
+                margin: "0 auto",
+                padding: "10px 30px",
+                borderRadius: "10px",
+                border: "none",
+                backgroundColor: "#6693B2",
+                color: "#EEE7E1",
+                fontSize: "1.2rem",
+              }
+            }
+            onClick={() => {window.location.replace("/camstudy")}}>Cam Study</button>
+            </div>
             <TodoListContainer subjects={subjects}/>
             {/* <Timer
               subjects={this.state.subjects}
