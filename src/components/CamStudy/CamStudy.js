@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import Video from "./Video/Video";
 import VideoState from "./context/VideoState";
 import Timer from "../Timer/Timer"
 import Subjects from "../Subjects/Subjects"
 import Options from "./options/Options";
 // import Footer from "./Footer/Footer";
-
+// window.location.replace("/camstudy");
 function CamStudy (){
-
+    
     const [subjects, setSubjects] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [currentSubject, setCurrentSubject] = useState(null);

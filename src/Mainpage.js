@@ -82,9 +82,26 @@ function Mainpage() {
                   setUseAi(!value);
                 }} />
               
-             
+              
             </div>
-            <Link to="/camstudy">Cam Study</Link>
+            <div style={
+              {
+                display: "flex",
+              }
+            }>
+            <button style={
+              {
+                margin: "0 auto",
+                padding: "10px 30px",
+                borderRadius: "10px",
+                border: "none",
+                backgroundColor: "#6693B2",
+                color: "#EEE7E1",
+                fontSize: "1.2rem",
+              }
+            }
+            onClick={() => {window.location.replace("/camstudy")}}>Cam Study</button>
+            </div>
             <TodoListContainer subjects={subjects}/>
             {/* <Timer
               subjects={this.state.subjects}
