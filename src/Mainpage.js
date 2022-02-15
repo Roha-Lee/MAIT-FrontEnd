@@ -7,6 +7,7 @@ import AIFunctionViewer from './components/AIFunctionViewer/AIFunctionViewer';
 import ToggleButton from 'react-toggle-button'
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {AiContainer, SubjectsContainer} from './Mainpage.styled'
 
 function Mainpage() {
   const [subjects, setSubjects] = useState([]);
@@ -28,21 +29,24 @@ function Mainpage() {
             {/* <Navigation /> */}
 
             {useAi ? 
-              <div style={{
-                display: 'flex',
-                margin: '1rem auto',  
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}>
+              // <div style={{
+              //   display: 'flex',
+              //   margin: '1rem auto',  
+              //   flexDirection: 'row',
+              //   justifyContent: 'center',
+              // }}>
+              <AiContainer>
                 <AIFunctionViewer 
                     timerOn={timerOn}
                     setTimerOn={setTimerOn}
                     userTimerOn={userTimerOn}
                     setUserTimerOn={setUserTimerOn}
                 />
-              </div> 
+              {/* </div> */}
+              </AiContainer>
             : null}
-            <div style={ {
+            <SubjectsContainer>
+            {/* <div style={ {
               'display': 'flex',
               'flex-direction': 'column',
               'align-items': 'center',
@@ -51,7 +55,8 @@ function Mainpage() {
               'width': '480px',
               borderRadius: '20px',
               padding: '20px 0',
-            }}>
+            }}> */}
+              
               <Subjects 
                 setModalState={setModalOpen}
                 modalOpen={modalOpen}
@@ -82,7 +87,8 @@ function Mainpage() {
                 }} />
               
              
-            </div>
+            {/* </div> */}
+            </SubjectsContainer>
             <TodoListContainer subjects={subjects}/>
             {/* <Timer
               subjects={this.state.subjects}
