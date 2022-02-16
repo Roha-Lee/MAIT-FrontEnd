@@ -33,10 +33,10 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("updateUserMedia", { type, currentMediaStatus });
   });
 
-  socket.on("sirenSound", (from) => {
-    console.log(from);
-    socket.broadcast.emit("sirenSound", {})
-  })
+  // socket.on("sirenSound", (from) => {
+  //   console.log(from);
+  //   socket.broadcast.emit("sirenSound", {})
+  // })
 
   socket.on("msgUser", ({ name, to, msg, sender }) => {
     io.to(to).emit("msgRcv", { name, msg, sender });

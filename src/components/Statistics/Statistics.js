@@ -1,5 +1,6 @@
 import Navigation from "../Navigation/Navigation";
 import Daily from "./Daily/Daily";
+import ManyDays from "./ManyDays/ManyDays";
 import style from "./Statistics.module.css";
 
 function Statistics(){
@@ -10,7 +11,7 @@ function Statistics(){
                 <Daily/>
             </div>
             <div className={style.statistics}>
-                <Daily/>
+                <ManyDays/>
             </div>
         </div>
 

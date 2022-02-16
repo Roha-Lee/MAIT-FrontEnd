@@ -4,8 +4,8 @@ import { io } from "socket.io-client";
 import Peer from "simple-peer";
 import { message } from "antd";
 
-// const URL = "https://fathomless-tundra-67025.herokuapp.com/";
-const URL = "localhost:7777";
+const URL = "https://fathomless-tundra-67025.herokuapp.com/";
+// const URL = "localhost:7777";
 // const URL = "https://2eb4-192-249-31-115.ngrok.io";
 
 export const socket =  io(URL);
@@ -241,12 +241,14 @@ const VideoState = ({ children }) => {
   };
   const sendMsg = (value) => {
     socket.emit("msgUser", { name, to: otherUser, msg: value, sender: name });
-    let msg = {};
-    msg.msg = value;
-    msg.type = "sent";
-    msg.timestamp = Date.now();
-    msg.sender = name;
-    setChat([...chat, msg]);
+    if(value !== "siren@@!@!"){
+      let msg = {};
+      msg.msg = value;
+      msg.type = "sent";
+      msg.timestamp = Date.now();
+      msg.sender = name;
+      setChat([...chat, msg]);
+    }
   };
 
   return (

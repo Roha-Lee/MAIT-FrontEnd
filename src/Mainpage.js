@@ -3,7 +3,7 @@ import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import {getAllUserData} from './utils/AppUtils';
-import AIFunctionViewer from './components/AIFunctionViewer/AIFunctionViewer';
+import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import ToggleButton from 'react-toggle-button'
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -17,11 +17,22 @@ function Mainpage() {
   const [timerOn, setTimerOn] = useState(false);
   const [userTimerOn, setUserTimerOn] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [useAi, setUseAi] = useState(false);
+  const [useFaceAi, setUseFaceAi] = useState(false);
+  const [useHandAi, setUseHandAi] = useState(false);
 
   return (
     <div className="App">
-      {useAi ? 
+      {useFaceAi ? 
+        <AiContainer>
+          <AIFaceFunctionViewer 
+            timerOn={timerOn}
+            setTimerOn={setTimerOn}
+            userTimerOn={userTimerOn}
+            setUserTimerOn={setUserTimerOn}
+          />
+        </AiContainer>
+      : null}
+      {useHandAi ? 
         <AiContainer>
           <AIFunctionViewer 
             timerOn={timerOn}
@@ -55,11 +66,18 @@ function Mainpage() {
           currentTime={currentTime}
           setCurrentTime={setCurrentTime}
         />
+        <span>얼굴 인식</span>
         <ToggleButton
-          value={ useAi || false }
+          value={ useFaceAi || false }
           onToggle={(value) => {
-            setUseAi(!value);
+            setUseFaceAi(!value);
           }} />
+          <span>손 인식</span>
+        <ToggleButton
+        value={ useHandAi || false }
+        onToggle={(value) => {
+          setUseHandAi(!value);
+        }} />
       </SubjectsContainer>
       <FlexBox>
         <CamButton

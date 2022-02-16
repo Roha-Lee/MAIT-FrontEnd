@@ -1,5 +1,5 @@
 function Capture() {
-    const captureBtn = document.getElementById("capture")
+    const captureBtn = document.getElementById("captureFace")
     
     console.log(captureBtn);
     setInterval(()=>{
