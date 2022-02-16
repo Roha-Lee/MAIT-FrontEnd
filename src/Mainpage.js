@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
@@ -11,7 +10,25 @@ import {AiContainer, SubjectsContainer, CamButton, FlexBox} from './Mainpage.sty
 
 
 function Mainpage() {
-  const [subjects, setSubjects] = useState([]);
+  const [subjects, setSubjects] = useState([{
+    subjectId: 1, 
+    name: 'Algorithm',
+    color: 'a67ebf',
+    totalTime: 11231300,
+  },
+  {
+    subjectId: 3, 
+    name: 'Javascript',
+    color: '6dbf84',
+    totalTime: 232400,
+  },
+  {
+    subjectId: 2, 
+    name: 'OS',
+    color: 'bf6d7f',
+    totalTime: 0,
+  },
+]);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentSubject, setCurrentSubject] = useState(null);
   const [timerOn, setTimerOn] = useState(false);
@@ -19,9 +36,7 @@ function Mainpage() {
   const [currentTime, setCurrentTime] = useState(0);
   const [useFaceAi, setUseFaceAi] = useState(false);
   const [useHandAi, setUseHandAi] = useState(false);
-  useEffect(() => {
-    console.log("show Face Ai", useFaceAi)
-  }, [useFaceAi]);
+  
   return (
     <div className="App">
       {useFaceAi ? 

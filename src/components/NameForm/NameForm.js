@@ -8,21 +8,32 @@ function NameForm({setSubjects, subjects}) {
   
   const onSubmit = (event) => {
     event.preventDefault();
-    postNewSubject(value, color).then((res) => {
-      console.log('post result', res.data);
-      if(res !== undefined){
-        setSubjects([
-          ...subjects, 
-          {
-            id: res.data.id, 
-            name: res.data.name, 
-            color: res.data.colorCode, 
-            totalTime: 0
-          }
-        ]);
-        setValue('');
+    // postNewSubject(value, color).then((res) => {
+    //   if(res !== undefined){
+    //     setSubjects([
+    //       ...subjects, 
+    //       {
+    //         id: res.data.id, 
+    //         name: res.data.name, 
+    //         color: res.data.colorCode, 
+    //         totalTime: 0
+    //       }
+    //     ]);
+    //     setValue('');
+    //   }
+    // }) 
+    console.log(value);   
+    const length = subjects.length;
+    setSubjects([
+      ...subjects, 
+      {
+        id: length + 1, 
+        name: value, 
+        color: color, 
+        totalTime: 0
       }
-    })    
+    ]);
+    setValue('');
   }
   return (
     <form onSubmit={onSubmit} className={style.form}>
