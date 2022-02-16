@@ -5,11 +5,14 @@ import style from "./Statistics.module.css";
 function Statistics(){
 
     return(
-        
-        <div className={style.statistics}>
-            <Daily/>
+        <div className={style.statisticsContainer}>
+            <div className={style.statistics}>
+                <Daily/>
+            </div>
+            <div className={style.statistics}>
+                <Daily/>
+            </div>
         </div>
-    
 
     );
 }
