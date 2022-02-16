@@ -1,23 +1,23 @@
-import React from 'react';
-import style from './Navigation.module.css';
-import { Link } from 'react-router-dom';
 
-class Navigation extends React.Component {
-    render() {
-        return (
-            <header className={style.navigation}>
-                <div className={style.blank}></div>
-                <div className={style.navigationContents}>
-                    <div className={style.logo}><Link to="/">EMIT</Link></div>
-                    <div className={style.loginContainer}>
-                        <div className={style.navigationButton}><Link to="/Signup">Sign up</Link></div>
-                        <div className={style.navigationButton}><Link to="/Login">Sign In</Link></div>
-                        <div className={style.navigationButton}><Link to="/Statistics">Statistics</Link></div>
-                    </div>
-                </div>
-                <div className={style.blank}></div>
-            </header>
-        );
-    }
+import React from 'react';
+import { Link } from 'react-router-dom';
+import {HeadNavigate, NavigationBlank, NavigationContents, Logo, Selected, LoginContainer, StyledLink, StyledLinkHome} from './Navigation.styled'
+
+function Navigation () {
+    return (
+        <HeadNavigate>
+            <NavigationBlank/>
+            <NavigationContents>
+                <div><StyledLinkHome to="/">EMIT</StyledLinkHome></div>
+                <LoginContainer>
+                    <div><StyledLink to="/Signup">Sign up</StyledLink></div>
+                    <div><StyledLink to="/Login">Sign In</StyledLink></div>
+                    <div><StyledLink to="/Statistics">Statistics</StyledLink></div>
+                </LoginContainer>
+            </NavigationContents>
+            <NavigationBlank/>
+        </HeadNavigate>
+    );
+
 }
 export default Navigation;
