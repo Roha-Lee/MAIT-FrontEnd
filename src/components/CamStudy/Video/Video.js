@@ -4,7 +4,7 @@ import style from "./Video.css";
 import { Card, Modal, Button, Input, notification, Avatar } from "antd";
 import Man from "../assests/man.svg";
 import VideoIcon from "../assests/video.svg";
-import Teams from "../assests/teams.mp3";
+import Bell from "../assests/small-bell-ring-01a.mp3";
 import { io } from "socket.io-client";
 import VideoOff from "../assests/video-off.svg";
 // import Profile from "../assests/profile.svg";
@@ -51,24 +51,29 @@ const Video = () => {
   const [siren, setSiren] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   socket.on("msgRcv", ({ name, msg: value, sender }) => {
-    let msg = {};
-    msg.msg = value;
-    msg.type = "rcv";
-    msg.sender = sender;
-    msg.timestamp = Date.now();
-    setChat([...chat, msg]);
+
+    if(value === "siren@@!@!"){
+      // console.log(value);
+      setSiren(!siren);
+    }
+    else{
+      // console.log(value);
+      let msg = {};
+      msg.msg = value;
+      msg.type = "rcv";
+      msg.sender = sender;
+      msg.timestamp = Date.now();
+      setChat([...chat, msg]);
+    }
   });
   
-  socket.on("sirenSound", ({}) => {
-    setSiren(true);
-  })
+  // socket.on("sirenSound", ({}) => {
+  //   setSiren(true);
+  // })
 
   const dummy = useRef();
   useEffect(() => {
-    if (siren) {
       Audio?.current?.play();
-      setTimeout(() => setSiren(false), 5000);
-    } else Audio?.current?.pause();
   }, [siren]);
 
   useEffect(() => {
@@ -85,7 +90,8 @@ const Video = () => {
   };
 
   useEffect(() => {
-    if (msgRcv.value && !isModalVisible) {
+    // if (msgRcv.value && !isModalVisible) {
+    if (msgRcv.value && msgRcv.value !== "siren@@!@!" && !isModalVisible) {
       notification.open({
         message: "",
         description: `${msgRcv.sender}: ${msgRcv.value}`,
@@ -212,12 +218,13 @@ const Video = () => {
             </div>
             {callAccepted && !callEnded && (
               <div className="icons" onClick={() => {
-                socket.emit("sirenSound", {
-                  from: me,
-                });
+                // socket.emit("sirenSound", {
+                //   from: me,
+                // });
+                sendMsgFunc("siren@@!@!");
               }}>
             <BellOutlined />
-            <audio src={Teams} ref={Audio} />
+            <audio src={Bell} ref={Audio} />
             </div>
             )}
           </div>

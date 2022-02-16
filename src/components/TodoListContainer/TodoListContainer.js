@@ -19,7 +19,6 @@ const TodoListContainer = ({subjects}) => {
         { id: 2, content: 'BBBBBBBBBB', isDone: false, subjectId: 'subject1' },
         { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
     ])
-    console.log(todoList);
     const [editingTodo, setEditingTodo] = useState(null)
 
     const toggleTodo = useCallback((target) => {
@@ -43,7 +42,7 @@ const TodoListContainer = ({subjects}) => {
 
     const renderTodo = useCallback((todo) => {
         return (
-            <TodoItemContainer>
+            <TodoItemContainer key={todo.id}>
                 <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
                 <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
                 <TodoItemBadge color={`#${subjects.find(subject => subject.id === todo.subjectId)?.color}`}>{subjects.find(subject => subject.id === todo.subjectId)?.name}</TodoItemBadge>
