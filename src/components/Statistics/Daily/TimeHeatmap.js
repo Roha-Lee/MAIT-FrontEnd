@@ -129,7 +129,7 @@ function TimeHeatmap ({data , labels , subjectColors}){
                         // "rgb("+colorRGB[subject].r+","+colorRGB[subject].g+","+colorRGB[subject].b+","+ratio+")"
                         "rgb("+colorRGB[timeColorYX[String(_y)+String(_x)]].r+","+colorRGB[timeColorYX[String(_y)+String(_x)]].g+","+colorRGB[timeColorYX[String(_y)+String(_x)]].b+","+ratio+")"
                         :""}`,
-                    border : "solid 0.2px",
+                    border : `${ratio === 0 ? "solid 0.1px": "solid 0.05px"}`,
                     borderRadius : 0,
                     // borderColor : `rgb(${color.r}, ${color.g}, ${color.b}, 0.1)`
                 })}

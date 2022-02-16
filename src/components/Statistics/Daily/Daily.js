@@ -44,51 +44,100 @@ function Daily (){
     const data = {
         rangeTime : [
             {
+                subjectId : 3,
+                subjectName : "Javascript",
+                color : "#6dbf84",
+                startTime : '2022-02-09 00:32:00',
+                endTime : '2022-02-09 01:47:00'
+            }, 
+            {
+                subjectId : 3,
+                subjectName : "Javascript",
+                color : "#6dbf84",
+                startTime : '2022-02-09 02:18:00',
+                endTime : '2022-02-09 03:47:00'
+            }, 
+            {
+                subjectId : 3,
+                subjectName : "Javascript",
+                color : "#6dbf84",
+                startTime : '2022-02-09 09:21:00',
+                endTime : '2022-02-09 10:16:00'
+            },
+            {
                 subjectId : 1,
-                subjectName : "과목1",
-                color : "#8f1717",
-                startTime : '2022-02-09 10:32:20',
-                endTime : '2022-02-09 10:45:10'
+                subjectName : "Algorithm",
+                color : "#a67ebf",
+                startTime : '2022-02-09 10:35:20',
+                endTime : '2022-02-09 11:39:10'
             },
             {
                 subjectId : 2,
-                subjectName : "과목2",
-                color : "#0b6a29",
-                startTime : '2022-02-09 11:23:40',
-                endTime : '2022-02-09 13:10:02'
+                subjectName : "OS",
+                color : "#bf6d7f",
+                startTime : '2022-02-09 11:41:40',
+                endTime : '2022-02-09 13:12:02'
+            },
+            {
+                subjectId : 2,
+                subjectName : "OS",
+                color : "#bf6d7f",
+                startTime : '2022-02-09 14:35:40',
+                endTime : '2022-02-09 15:22:02'
             },
             {
                 subjectId : 3,
-                subjectName : "과목3",
-                color : "#441098",
-                startTime : '2022-02-09 09:20:00',
-                endTime : '2022-02-09 10:15:00'
+                subjectName : "Javascript",
+                color : "#6dbf84",
+                startTime : '2022-02-09 16:46:00',
+                endTime : '2022-02-09 17:41:00'
             },
             {
                 subjectId : 1,
-                subjectName : "과목1",
-                color : "#8f1717",
-                startTime : '2022-02-09 18:23:00',
-                endTime : '2022-02-09 20:11:00'
+                subjectName : "Algorithm",
+                color : "#a67ebf",
+                startTime : '2022-02-09 18:01:00',
+                endTime : '2022-02-09 20:04:00'
+            },          
+            {
+                subjectId : 1,
+                subjectName : "Algorithm",
+                color : "#a67ebf",
+                startTime : '2022-02-09 21:52:00',
+                endTime : '2022-02-09 22:07:00'
+            },
+            {
+                subjectId : 3,
+                subjectName : "Javascript",
+                color : "#6dbf84",
+                startTime : '2022-02-09 22:12:00',
+                endTime : '2022-02-09 23:04:00'
+            },          
+            {
+                subjectId : 3,
+                subjectName : "Javascript",
+                color : "#6dbf84",
+                startTime : '2022-02-09 23:17:00',
+                endTime : '2022-02-09 24:00:00'
             },          
         ],
         subjectTotalTime : [
             {
                 subjectId : 1,
-                subjectName : "과목1",
-                color : "#8f1717",
+                subjectName : "Algorithm",
+                color : "#a67ebf",
                 totalTime : '03:10:02'
             },
             {
                 subjectId : 2,
-                subjectName : "과목2",
-                color : "#0b6a29",
+                subjectName : "OS",
+                color : "#bf6d7f",
                 totalTime : '01:23:10'
             },
             {
                 subjectId : 3,
-                subjectName : "과목3",
-                color : "#441098",
+                subjectName : "Javascript",
+                color : "#6dbf84",
                 totalTime : '06:01:23'
             },
         ] 
