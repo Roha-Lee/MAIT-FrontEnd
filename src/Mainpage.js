@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
-import {getAllUserData} from './utils/AppUtils';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
+import AIHandFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import ToggleButton from 'react-toggle-button'
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {AiContainer, SubjectsContainer, CamButton, FlexBox} from './Mainpage.styled'
-import { Link } from 'react-router-dom';
+
 
 function Mainpage() {
   const [subjects, setSubjects] = useState([]);
@@ -19,7 +19,9 @@ function Mainpage() {
   const [currentTime, setCurrentTime] = useState(0);
   const [useFaceAi, setUseFaceAi] = useState(false);
   const [useHandAi, setUseHandAi] = useState(false);
-
+  useEffect(() => {
+    console.log("show Face Ai", useFaceAi)
+  }, [useFaceAi]);
   return (
     <div className="App">
       {useFaceAi ? 
@@ -29,16 +31,20 @@ function Mainpage() {
             setTimerOn={setTimerOn}
             userTimerOn={userTimerOn}
             setUserTimerOn={setUserTimerOn}
+            useFaceAi = { useFaceAi || false }
+            setUseFaceAi = {setUseFaceAi}
           />
         </AiContainer>
       : null}
       {useHandAi ? 
         <AiContainer>
-          <AIFunctionViewer 
+          <AIHandFunctionViewer 
             timerOn={timerOn}
             setTimerOn={setTimerOn}
             userTimerOn={userTimerOn}
             setUserTimerOn={setUserTimerOn}
+            useHandAi = { useHandAi || false }
+            setUseHandAi = {setUseHandAi}
           />
         </AiContainer>
       : null}
@@ -69,8 +75,9 @@ function Mainpage() {
         <span>얼굴 인식</span>
         <ToggleButton
           value={ useFaceAi || false }
-          onToggle={(value) => {
-            setUseFaceAi(!value);
+          
+          onToggle={(value) => { 
+            setUseFaceAi(!value);      
           }} />
           <span>손 인식</span>
         <ToggleButton

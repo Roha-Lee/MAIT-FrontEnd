@@ -3,54 +3,60 @@ import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshD
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 
-function AIFunctionViewer ({
+function AIHandFunctionViewer ({
   timerOn, 
   setTimerOn, 
   userTimerOn,
   setUserTimerOn,
+  useHandAi,
+  setUseHandAi,
 }){
   const webcamRef = useRef(null);
   const srcCanvas = document.getElementById("srccanvas");
   const dstCanvas = document.getElementById("dstcanvas");
-  const getImage = document.getElementById("img");
+  const getHandImage = document.getElementById("imgHand");
   const videoConstraints = {
     width: 220,
     height: 200,
     facingMode: "user"
   };
   const [saveManager,setSaveManager] = useState();
-  const [image,setImage] = useState("");
+  const [handImage,setHandImage] = useState("");
+  const [handInterval, setHandInterval] = useState(null);
+
   const config = generateFacemeshDefaultConfig();
   config.model.maxFaces = 1;
   const params = generateDefaultFacemeshParams();
-  let aiInterval = null;
-
+  
   useEffect(()=>{
     const manager = new FacemeshWorkerManager();
     manager.init(config);
     setSaveManager(manager);
-
-    Capture();
   },[]);
+
+  useEffect(()=>{
+    if (handInterval && useHandAi) {
+      clearInterval(handInterval);
+    }
+    else if (useHandAi && !handInterval) {
+      setHandInterval(Capture("Hand"));
+    }
+  },[useHandAi]);
 
   useEffect(async()=>{
     if(userTimerOn){
-        // console.log(getImage);
-      if(getImage !== null){      
+        
+      if(getHandImage !== null){      
         const srcCanvas2d = srcCanvas.getContext("2d");
-        // console.log(srcCanvas2d);
-        srcCanvas2d.drawImage(getImage,0,0,srcCanvas.width,dstCanvas.height);
+        srcCanvas2d.drawImage(getHandImage,0,0,srcCanvas.width,dstCanvas.height);
         const result = await saveManager.predict(srcCanvas,params);
-        // console.log(result.length , timerRunning);
-
+        
         if(result !== null && result.length === 0 && timerOn === true){
-          console.log("AI->타이머 버튼 누름" , result);
           setTimerOn(false);
           clearInterval(aiInterval);
         }
         else if(result !== null && result.length !== 0 && timerOn === false){
           if(result[0].faceInViewConfidence >= 0.95){
-            console.log(result)
             setTimerOn(true);  
           }
         }
@@ -62,7 +68,7 @@ function AIFunctionViewer ({
         }
       }
     }
-  },[image]);
+  },[handImage]);
     
   const capture = () => {
     // console.log(webcamRef.current);
@@ -70,9 +76,9 @@ function AIFunctionViewer ({
 
       const imgSrc = webcamRef.current.getScreenshot();
       // console.log(imgSrc);
-      document.getElementById("img").src = imgSrc;
+      document.getElementById("imgHand").src = imgSrc;
       // console.log(document.getElementById("img").src,"캡쳐완료");
-      setImage(imgSrc);
+      setHandImage(imgSrc);
 
     }
   };
@@ -113,15 +119,15 @@ function AIFunctionViewer ({
               display : "none"
             }}
           ></canvas>
-          <img id="img" src={image} style={{
+          <img id="imgHand" src={handImage} style={{
               width: "320",
               height: "240",
               display: "none"
             }}></img>
-          <button id="capture" style={{display: "none"}}onClick={(e)=>{capture();}}>Capture</button>
+          <button id="captureHand" style={{display: "none"}}onClick={(e)=>{capture();}}>Capture</button>
         </div>
     </div>
   );
 }
 // 
-export default AIFunctionViewer;
+export default AIHandFunctionViewer;

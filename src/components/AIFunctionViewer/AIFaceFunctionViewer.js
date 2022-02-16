@@ -3,11 +3,13 @@ import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshD
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 
-function AIFunctionViewer ({
+function AIFaceFunctionViewer ({
   timerOn, 
   setTimerOn, 
   userTimerOn,
   setUserTimerOn,
+  useFaceAi,
+  setUseFaceAi,
 }){
   const webcamRef = useRef(null);
   const srcCanvas = document.getElementById("srccanvas");
@@ -20,18 +22,25 @@ function AIFunctionViewer ({
   };
   const [saveManager,setSaveManager] = useState();
   const [faceImage,setFaceImage] = useState("");
+  const [faceInterval, setFaceInterval] = useState(null);
   const config = generateFacemeshDefaultConfig();
   config.model.maxFaces = 1;
   const params = generateDefaultFacemeshParams();
-  let aiInterval = null;
-
+  
   useEffect(()=>{
     const manager = new FacemeshWorkerManager();
     manager.init(config);
     setSaveManager(manager);
-
-    Capture();
   },[]);
+
+  useEffect(()=>{
+    if (faceInterval && useFaceAi) {
+      clearInterval(faceInterval);
+    }
+    else if (useFaceAi && !faceInterval) {
+      setFaceInterval(Capture("Face"));
+    }
+  },[useFaceAi]);
 
   useEffect(async()=>{
     if(userTimerOn){
@@ -120,4 +129,4 @@ function AIFunctionViewer ({
   );
 }
 // 
-export default AIFunctionViewer;
+export default AIFaceFunctionViewer;
