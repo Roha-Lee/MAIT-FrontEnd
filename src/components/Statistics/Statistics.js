@@ -9,9 +9,6 @@ function Statistics(){
             <div className={style.statistics}>
                 <Daily/>
             </div>
-            <div className={style.statistics}>
-                <Daily/>
-            </div>
         </div>
 
     );
