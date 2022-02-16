@@ -1,9 +1,14 @@
 function Capture(type) {
+    console.log(type);
     const captureBtn = document.getElementById(`capture${type}`)
-    const interval = setInterval(()=>{
-        captureBtn.click();
-    },500)
-    return interval;
+
+    if(captureBtn !== null){
+
+        const interval = setInterval(()=>{
+            captureBtn.click();
+        },1000)
+        return interval;
+    }
 }
 
 export default Capture;

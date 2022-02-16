@@ -1,5 +1,5 @@
 import Webcam from "react-webcam";
-import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
+import { HandPoseWorkerManager, generateDefaultHandPoseParams, generateHandPoseDefaultConfig } from '@dannadori/handpose-worker-js';
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 
@@ -24,14 +24,17 @@ function AIHandFunctionViewer ({
   const [handImage,setHandImage] = useState("");
   const [handInterval, setHandInterval] = useState(null);
 
-  const config = generateFacemeshDefaultConfig();
-  config.model.maxFaces = 1;
-  const params = generateDefaultFacemeshParams();
+  const config = generateHandPoseDefaultConfig();
+  config.model.detectionConfidence = 0.6;
+  // config.useTFWasmBackend = true;
+  const params = generateDefaultHandPoseParams();
   
   useEffect(()=>{
-    const manager = new FacemeshWorkerManager();
+    const manager = new HandPoseWorkerManager();
+    console.log("hand model",config);
     manager.init(config);
     setSaveManager(manager);
+    // Capture();
   },[]);
 
   useEffect(()=>{
@@ -50,22 +53,22 @@ function AIHandFunctionViewer ({
         const srcCanvas2d = srcCanvas.getContext("2d");
         srcCanvas2d.drawImage(getHandImage,0,0,srcCanvas.width,dstCanvas.height);
         const result = await saveManager.predict(srcCanvas,params);
-        
+        console.log(result);
         if(result !== null && result.length === 0 && timerOn === true){
           setTimerOn(false);
-          clearInterval(aiInterval);
+          // clearInterval(aiInterval);
         }
         else if(result !== null && result.length !== 0 && timerOn === false){
-          if(result[0].faceInViewConfidence >= 0.95){
-            setTimerOn(true);  
-          }
+        
+          setTimerOn(true);  
+          
         }
-        else if(result !== null && result.length !== 0 && timerOn === true){
-          if(result[0].faceInViewConfidence < 0.95){
-            setTimerOn(false);
-            clearInterval(aiInterval);
-          }
-        }
+        // else if(result !== null && result.length !== 0 && timerOn === true){
+        //   if(result[0].faceInViewConfidence < 0.95){
+        //     setTimerOn(false);
+        //     // clearInterval(aiInterval);
+        //   }
+        // }
       }
     }
   },[handImage]);
@@ -124,7 +127,7 @@ function AIHandFunctionViewer ({
               height: "240",
               display: "none"
             }}></img>
-          <button id="captureHand" style={{display: "none"}}onClick={(e)=>{capture();}}>Capture</button>
+          <button id="captureHand" style={{display: "none"}} onClick={(e)=>{capture();}}>Capture</button>
         </div>
     </div>
   );

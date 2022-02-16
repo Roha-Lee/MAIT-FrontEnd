@@ -27,7 +27,7 @@ function Timer({
       offset = currentTime;
       interval = setInterval(() => {
         setCurrentTime(offset + Date.now() - startTime);
-      }, 65)
+      }, 73)
     }
     else {
       endTimeFormatted = timeStamp();

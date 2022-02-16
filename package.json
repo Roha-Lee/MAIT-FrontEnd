@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@dannadori/facemesh-worker-js": "^1.0.45",
+    "@dannadori/handpose-worker-js": "^1.0.22",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",

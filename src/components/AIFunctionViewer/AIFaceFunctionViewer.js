@@ -30,7 +30,9 @@ function AIFaceFunctionViewer ({
   useEffect(()=>{
     const manager = new FacemeshWorkerManager();
     manager.init(config);
+    console.log("Face model");
     setSaveManager(manager);
+    // Capture();
   },[]);
 
   useEffect(()=>{
@@ -52,7 +54,7 @@ function AIFaceFunctionViewer ({
         
         if(result !== null && result.length === 0 && timerOn === true){
           setTimerOn(false);
-          clearInterval(aiInterval);
+          // clearInterval(aiInterval);
         }
         else if(result !== null && result.length !== 0 && timerOn === false){
           if(result[0].faceInViewConfidence >= 0.95){
@@ -62,7 +64,7 @@ function AIFaceFunctionViewer ({
         else if(result !== null && result.length !== 0 && timerOn === true){
           if(result[0].faceInViewConfidence < 0.95){
             setTimerOn(false);
-            clearInterval(aiInterval);
+            // clearInterval(aiInterval);
           }
         }
       }
@@ -123,7 +125,7 @@ function AIFaceFunctionViewer ({
               height: "240",
               display: "none"
             }}></img>
-          <button id="captureFace" style={{display: "none"}}onClick={(e)=>{capture();}}>Capture</button>
+          <button id="captureFace" style={{display: "none"}} onClick={(e)=>{capture();}}>Capture</button>
         </div>
     </div>
   );

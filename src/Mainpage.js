@@ -3,7 +3,7 @@ import Navigation from './components/Navigation/Navigation';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
-import AIHandFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
+import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
 import ToggleButton from 'react-toggle-button'
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -22,6 +22,10 @@ function Mainpage() {
   useEffect(() => {
     console.log("show Face Ai", useFaceAi)
   }, [useFaceAi]);
+
+  useEffect(() => {
+    console.log("show Hand Ai", useHandAi)
+  }, [useHandAi]);
   return (
     <div className="App">
       {useFaceAi ? 
