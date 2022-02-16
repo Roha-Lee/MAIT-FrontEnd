@@ -10,7 +10,7 @@ function Statistics(){
             <div className={style.statistics}>
                 <Daily/>
             </div>
-            <div className={style.statistics}>
+            <div className={style.statisticsDetail}>
                 <ManyDays/>
             </div>
         </div>

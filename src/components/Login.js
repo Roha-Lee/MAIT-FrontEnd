@@ -55,7 +55,7 @@ function Login() {
                 <LoginInput type='password' name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='Password'/>
             </div>
             <div>
-                <LoginButton type='button' onClick={onClickLogin}>Sign Up</LoginButton>
+                <LoginButton type='button' onClick={onClickLogin}>Sign In</LoginButton>
             </div>
             <LoginImage>
             <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" width="250px"/>

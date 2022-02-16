@@ -7,7 +7,7 @@ import {
     TodoItemContent,
     TodoItemBadge,
  } from './TodoListContainer.styled'
- import {postNewTodo} from '../../utils/AppUtils';
+
  import TodoInput from '../TodoInput/TodoInput'
  import TodoEditModal from '../TodoEditModal/TodoEditModal'
 
@@ -15,9 +15,9 @@ import {
 // TodoListContainer TodoList들을 관리하는 전체적인 폼
 const TodoListContainer = ({subjects}) => {
     const [todoList, setTodoList] = useState([
-        { id: 1, content: 'AAA', isDone: false },
-        { id: 2, content: 'BBBBBBBBBB', isDone: false, subjectId: 'subject1' },
-        { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
+        { id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
+        { id: 2, content: '운영체제 VM 파트 공부하기', isDone: false, subjectId: 2 },
+        { id: 3, content: 'Javascript 12단원 공부하기', isDone: false, subjectId: 3 },
     ])
     const [editingTodo, setEditingTodo] = useState(null)
 
@@ -26,8 +26,15 @@ const TodoListContainer = ({subjects}) => {
     }, [todoList])
 
     const onItemAdd = useCallback((item) => {
-        postNewTodo(item.content, item.subjectId);
-        setTodoList([...todoList, item])
+        // postNewTodo(item.content, item.subjectId);
+        const newItem = {
+            subjectId: item.subjectId,
+            content: item.content,
+            isDone: false, 
+            id: todoList.length + 1,
+        }
+
+        setTodoList([...todoList, newItem])
     }, [todoList])
 
     const handleCloseEditModal = useCallback(() => {
@@ -35,6 +42,7 @@ const TodoListContainer = ({subjects}) => {
     }, [setEditingTodo])
 
     const handleChange = useCallback((target, content) => {
+        console.log('adsfadsfa', todo, content)
         setTodoList(todoList.map((todo) => todo.id === target.id ? { ...todo, content } : todo))
 
         handleCloseEditModal()
@@ -45,7 +53,7 @@ const TodoListContainer = ({subjects}) => {
             <TodoItemContainer key={todo.id}>
                 <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
                 <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
-                <TodoItemBadge color={`#${subjects.find(subject => subject.id === todo.subjectId)?.color}`}>{subjects.find(subject => subject.id === todo.subjectId)?.name}</TodoItemBadge>
+                <TodoItemBadge color={`#${subjects.find(subject => subject.subjectId === todo.subjectId)?.color}`}>{subjects.find(subject => subject.subjectId === todo.subjectId)?.name}</TodoItemBadge>
             </TodoItemContainer>
         )
     }, [subjects, toggleTodo])
@@ -54,7 +62,7 @@ const TodoListContainer = ({subjects}) => {
         <TodoListDiv>
             <TodoListHeader>TODO</TodoListHeader>
             {todoList.map(todo => renderTodo(todo))}
-            <TodoInput subjects={subjects} onItemAdd={onItemAdd} />
+            <TodoInput todoList={todoList} subjects={subjects} onItemAdd={onItemAdd} />
             <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} />
         </TodoListDiv>
     )

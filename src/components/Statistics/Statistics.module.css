@@ -5,3 +5,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.statisticsDetail{
+    flex-basis: 700px;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
