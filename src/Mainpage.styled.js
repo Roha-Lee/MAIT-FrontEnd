@@ -13,7 +13,21 @@ export const SubjectsContainer = styled.div`
     align-items: center;
     background-color: #EBB057;
     margin: 20px auto;
-    width: 480px;
+    width: 600px;
     border-radius: 20px;
     padding: 20px 0;
+`
+
+export const CamButton = styled.button`
+    margin: 0 auto;
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: #6693B2;
+    color: #EEE7E1;
+    font-size: 1.2rem;
+`
+
+export const FlexBox = styled.div`
+    display: flex
 `

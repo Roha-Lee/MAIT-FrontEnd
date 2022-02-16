@@ -7,7 +7,7 @@ import Signup from "./components/Signup"
 import Mainpage from './Mainpage';
 import CamStudy from "./components/CamStudy/CamStudy"
 import Statistics from "./components/Statistics/Statistics"
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "font-awesome/css/font-awesome.min.css";
 function App() {
   
