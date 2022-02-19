@@ -1,7 +1,38 @@
 .statistics{
     flex-basis: 700px;
-    display:flex;
-    flex-direction: row;
+    height: 800px;
+}
+
+.rangepicker{
+
+    margin: auto;
+    padding-bottom: 30px;
+
+}
+
+.chartcontainer{
+    width: 820px;
+    height: 800px;
+
+}
+
+.uppercontainer{
+    display: flex;
     justify-content: space-between;
-    align-items: center;
+}
+
+.subjectbar{
+    width: 350px;
+    height: 400px;
+}
+
+.todobar{   
+    width: 350px;
+    height: 400px;
+}
+
+.subjectline{
+    padding-top: 30px;
+    width: 835px;
+    height: 400px;
 }

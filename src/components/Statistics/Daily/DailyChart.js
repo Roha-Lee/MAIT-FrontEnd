@@ -12,7 +12,6 @@ function DailyChart ({data , labels, subjectColors}){
     
     const subjectTotalData = data.subjectTotalTime;
     
-    
     let dataInput = [];
     // let totalTime = 0;
     
@@ -22,11 +21,11 @@ function DailyChart ({data , labels, subjectColors}){
         const hour = parseInt(timeStr.slice(0,2));
         const minute = parseInt(timeStr.slice(3,5));
         // console.log((minute/60).toFixed(1))
-        console.log(parseFloat((hour + minute/60).toFixed(1)))
+        // console.log(parseFloat((hour + minute/60).toFixed(1)))
         dataInput.push(parseFloat((hour + minute/60).toFixed(1)));
         // totalTime = totalTime + hour * 60 + minute;
     }
-    console.log(dataInput);
+    // console.log(dataInput);
     const dataChart = {
         labels,
         datasets : [
@@ -61,7 +60,7 @@ function DailyChart ({data , labels, subjectColors}){
         maintainAspectRatio : false,
     
     };
-
+    console.log(dataChart);
 
     return (
 <div className={style.dailychart}>
