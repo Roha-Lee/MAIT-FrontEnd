@@ -18,7 +18,8 @@ function Subjects({
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
+  const handleOk = (event) => {
+    event.preventDefault();
     setIsModalVisible(false);
     const length = subjects.length;
     setSubjects([
@@ -52,6 +53,7 @@ function Subjects({
   const subjectButtons = (
     <div className={style.subjectManager}>
       {subjects.map((subject) => (
+        <div className={style.buttonContainer}>
           <button 
             key={subject.id}
             className={style.subject}
@@ -59,6 +61,8 @@ function Subjects({
             onClick={(event)=>{changeSubject(event, currentSubject)}}>
             {subject.name}
           </button>
+          <div className={style.buttonModify}>m</div>
+        </div>
       ))}
     </div>
   )
@@ -70,7 +74,7 @@ function Subjects({
               +
             </button>
             <Modal title="새 과목 추가하기" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-              <NameForm value={value} setValue={setValue} color={color} setColor={setColor}/>
+              <NameForm onSubmit={handleOk} subjects={subjects} setSubjects={setSubjects} value={value} setValue={setValue} color={color} setColor={setColor}/>
             </Modal>
           </div>);
 }

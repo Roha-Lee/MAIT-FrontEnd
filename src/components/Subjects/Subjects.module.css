@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    padding: 11px;
+    padding: 5px;
     background-color: #F0CE9A;   
 }
 
@@ -17,16 +17,14 @@
 .subject {
     margin: 0 .5rem;
     padding: 0.5rem 1rem;
-
+    position:relative;
     font-family: "Noto Sans KR", sans-serif;
     font-size: 1rem;
     font-weight: 400;
     text-align: center;
     text-decoration: none;
 
-    display: inline-block;
-    width: auto;
-
+    display: block;
     border: none;
     border-radius: 4px;
     box-sizing: border-box;
@@ -34,7 +32,8 @@
 
 .subject:hover {
     filter: brightness(70%);
-    border: dashed 2px black;}
+    border: dashed 2px black;
+}
 
 .subjectManager {
     display: flex;
@@ -65,4 +64,16 @@
     border-radius: 10px;
     padding: 5px 10px;
     margin: 0 10px;
+}
+.buttonContainer {
+    position:relative;
+}
+.buttonModify {
+    position:absolute;
+    top:-5px;
+    left:5px;
+    z-index: 40;
+    background-color: coral;
+    width:10px;
+    display: none;
 }

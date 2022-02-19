@@ -2,37 +2,7 @@ import React, {useState} from 'react';
 import style from './NameForm.module.css';
 import ColorPicker from '../ColorPicker/ColorPicker'
 import {postNewSubject} from '../../utils/AppUtils';
-function NameForm({setSubjects, subjects, value, setValue, color, setColor}) {
-  
-  const onSubmit = (event) => {
-    event.preventDefault();
-    // postNewSubject(value, color).then((res) => {
-    //   if(res !== undefined){
-    //     setSubjects([
-    //       ...subjects, 
-    //       {
-    //         id: res.data.id, 
-    //         name: res.data.name, 
-    //         color: res.data.colorCode, 
-    //         totalTime: 0
-    //       }
-    //     ]);
-    //     setValue('');
-    //   }
-    // }) 
-    console.log(value);   
-    const length = subjects.length;
-    setSubjects([
-      ...subjects, 
-      {
-        id: length + 1, 
-        name: value, 
-        color: color, 
-        totalTime: 0
-      }
-    ]);
-    setValue('');
-  }
+function NameForm({setSubjects, subjects, value, setValue, color, setColor, onSubmit}) {
   return (
     <form onSubmit={onSubmit} className={style.form}>
       <label className={style.formTitle}>

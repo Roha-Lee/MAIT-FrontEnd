@@ -1,12 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
 import ToggleButton from 'react-toggle-button'
+import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {AiContainer, SubjectsContainer, CamButton, FlexBox} from './Mainpage.styled'
+import styled from 'styled-components';
 
 
 function Mainpage() {
@@ -36,6 +38,39 @@ function Mainpage() {
   const [currentTime, setCurrentTime] = useState(0);
   const [useFaceAi, setUseFaceAi] = useState(false);
   const [useHandAi, setUseHandAi] = useState(false);
+  const buttonRef = useRef(null)
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <div onClick={() => {
+          setUseFaceAi(false);
+          setUseHandAi(false);
+          buttonRef.current.querySelector('span').innerText = "AI 모드 선택"
+        }}>
+          사용 안함
+        </div>
+      </Menu.Item>
+      <Menu.Item>  
+        <div onClick={() => {
+          setUseFaceAi(true);
+          setUseHandAi(false);
+          buttonRef.current.querySelector('span').innerText = "얼굴 인식 모드"
+        }}>
+          얼굴 인식 모드
+        </div>
+      </Menu.Item>
+      <Menu.Item>
+        <div onClick={() => {
+          setUseFaceAi(false);
+          setUseHandAi(true);
+          buttonRef.current.querySelector('span').innerText = "손 인식 모드"
+          }}>
+          손 인식 모드
+        </div>
+      </Menu.Item>
+      
+    </Menu>
+  );
   
   return (
     <div className="App">
@@ -87,8 +122,12 @@ function Mainpage() {
           currentTime={currentTime}
           setCurrentTime={setCurrentTime}
         />
-        <span>얼굴 인식</span>
-        <ToggleButton
+        <Dropdown overlay={menu} placement="bottomCenter">
+        <Button ref={buttonRef}>AI 모드 선택</Button>
+        </Dropdown>
+          
+        
+        {/* <ToggleButton
           value={ useFaceAi || false }
           
           onToggle={(value) => { 
@@ -99,7 +138,7 @@ function Mainpage() {
         value={ useHandAi || false }
         onToggle={(value) => {
           setUseHandAi(!value);
-        }} />
+        }} /> */}
       </SubjectsContainer>
       <FlexBox>
         <CamButton
