@@ -21,6 +21,7 @@ function ColorPicker({setColor}) {
   const handleChange = (color) => {
     setPickerColor(color.rgb)
     setColor(color.hex.substr(1))
+    handleClose();
   };
     
   const styles = reactCSS({

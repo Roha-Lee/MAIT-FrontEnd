@@ -1,18 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './Subjects.module.css'
-import Modal from '../Modal/Modal'
+import { Modal, Button } from 'antd';
+import NameForm from '../NameForm/NameForm';
 
 function Subjects({
-  setModalState, 
-  modalOpen, 
   setSubjects, 
   subjects, 
   currentSubject, 
   setCurrentSubject,
-  currentTime, 
   setCurrentTime,
   setTimerOn}){
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [value, setValue] = useState('');
+  const [color, setColor] = useState('F17103');
   
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    const length = subjects.length;
+    setSubjects([
+      ...subjects, 
+      {
+        id: length + 1, 
+        name: value, 
+        color: color, 
+        totalTime: 0
+      }
+    ]);
+    setValue('');
+    // console.log(color, value);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+    
   const changeSubject = (event) => {
     let newSubject = event.target.innerText;
     let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;
@@ -41,58 +66,13 @@ function Subjects({
             {subjectButtons}
             <button 
             className={style.addButton} 
-            onClick={ () => setModalState(true) }>
+            onClick={showModal}>
               +
             </button>
-            <Modal 
-              modalOpen={ modalOpen } 
-              setModalState={ setModalState }             
-              subjects={ subjects }
-              setSubjects={ setSubjects }
-              headerText="새 과목 생성하기">
+            <Modal title="새 과목 추가하기" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+              <NameForm value={value} setValue={setValue} color={color} setColor={setColor}/>
             </Modal>
           </div>);
 }
-// class Subjects extends React.Component { 
-//   render() {
-//     const { studyLog, subjects, onChangeSubject, onChangeCurrentTime, timerRunning, openModal, isOpen, closeModal, currentSubjectId } = this.props;
-//     const onClickHandler = (e) => {
-//       onChangeSubject(subjects[e.target.innerText]);
-//       onChangeCurrentTime(studyLog[e.target.innerText]);
-//     }
-    
-//     return (
-//       <div className={style.subjectContainer}>
-//         <div className={style.subjects} >
-//           {Object.keys(studyLog).map((elem) => 
-          // <div key={`divpa${subjects[elem]}`}>
-          //   <button 
-          //     className={[style.subject, subjects[elem] === currentSubjectId ? style.active : null].join(' ')}
-          //     key={subjects[elem]} 
-          //     onClick={onClickHandler}
-          //     disabled={timerRunning === true}>
-          //     {elem}
-          //   </button>
-          //   <div key={`div${subjects[elem]}`}>
-          //     {studyLog[elem]}
-          //   </div>
-          // </div>
-//             )}
 
-          
-//         </div>
-//         <button className={style.addButton} onClick={ openModal }>+</button>
-//           <Modal 
-//             open={ isOpen } 
-//             close={ closeModal } 
-//             onAddSubject={this.props.onAddSubject}
-//             studyLog={studyLog} 
-//             subjects={subjects}
-//             headerText="새 과목 생성하기">
-//           </Modal>
-  
-//       </div>
-//     );
-//   }
-// }
 export default Subjects;
