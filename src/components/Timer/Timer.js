@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { timeStamp } from '../../utils/utils';
 import style from './Timer.module.css'
-
+import 'animate.css'
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
 
 function Timer({
@@ -64,11 +64,23 @@ function Timer({
       {timer}
       <button className={style.timerButton} 
         onClick = {
-        () => {
+        (event) => {
+          // if(event.target.classList.contains('animate__animated')){
+          //   event.target.classList.remove('animate__animated')
+          //   event.target.classList.remove('animate__shakeX')
+          // }
+
           if(isEditMode !== true){
             setTimerOn(!timerOn);          
             setUserTimerOn(!timerOn);
-          }     
+          } else {
+            event.target.classList.add('animate__animated')
+            event.target.classList.add('animate__headShake')
+            setTimeout(() => {
+              event.target.classList.remove('animate__animated')
+              event.target.classList.remove('animate__headShake')
+            }, 500);
+          }
         }}> 
         {timerOn ? "STOP" : "START"}
       </button> 

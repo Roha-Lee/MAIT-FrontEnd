@@ -39,7 +39,7 @@ function Subjects({
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [value, setValue] = useState('');
   const [color, setColor] = useState('FFEB3B');
-  
+  const [newSubject, setNewSubject] = useState(null); // 새로 생성된 과목의 subjectId
   const [nowEditing, setNowEditing] = useState(null); // 현재 수정하고 있는 과목의 subjectId
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [pickerColor, setPickerColor] = useState(INITIAL_COLOR);
@@ -88,16 +88,17 @@ function Subjects({
     //     totalTime: 0
     //   }
     // ]);
-    const length = subjects.length;
+    const id = subjects.length + 1;
     setSubjects([
       ...subjects, 
       {
-        subjectId: length + 1, 
+        subjectId: id, 
         name: value, 
         color: color, 
         totalTime: 0
       }
     ]);
+    setNewSubject(id);
     resetModal();
   };
 
@@ -110,6 +111,7 @@ function Subjects({
   };
   
   const editSubject = (event) => {
+    
     setValue(event.target.innerText)
     // 중복이 없다고 가정. 
     setColor(subjects.find(subject=> subject.name === event.target.innerText).color)
@@ -117,6 +119,7 @@ function Subjects({
     const colorCode = subjects.find(subject=> subject.name === event.target.innerText).color;
     setPickerColor(hexToRgb(colorCode))
     showEditModal()
+    setNewSubject(null);  
   }
   
 
@@ -156,19 +159,20 @@ function Subjects({
     setTimerOn(false);
     setCurrentSubject(newSubject);
     setCurrentTime(newCurrentTime);
+    setNewSubject(null);  
   }
   
   const subjectButtons = (
     <div className={style.subjectManager}>
       {subjects.map((subject, index, array) => (
         <button 
-          key={subject.id}
+          key={subject.subjectId}
           className={style.subject} 
           style={{
             backgroundColor: `#${subject.color}`,
             filter: isEditMode === true ?  'brightness(80%)' : 'brightness(100%)',
-            animation: isEditMode === true ? 'swing' : null, 
-            animationDuration: isEditMode === true ? '800ms' : null,           
+            animation: isEditMode === true ? 'swing' : (subject.subjectId === newSubject ? 'bounce' : null) , 
+            animationDuration: isEditMode === true ? '800ms' : (subject.subjectId === newSubject ? '800ms' : null) ,           
           }}
           onClick={(event)=>{
             isEditMode === true ? editSubject(event) :changeSubject(event)}}>
@@ -185,6 +189,19 @@ function Subjects({
                 if(isEditMode === false){
                   showModal(event);
                 }
+                else {
+                  let target = event.target;
+                  if (target.tagName === 'IMG'){
+                    target = target.parentElement;
+                  }
+                  target.classList.add('animate__animated')
+                  target.classList.add('animate__headShake')
+                  setTimeout(() => {
+                    target.classList.remove('animate__animated')
+                    target.classList.remove('animate__headShake')
+                  }, 500);
+                }
+                setNewSubject(null);  
               }}
               >
               <img src="img/add.svg" width="20" height="20"/>
@@ -192,6 +209,7 @@ function Subjects({
             <button 
               className={style.addButton} 
               onClick={() => {
+                setNewSubject(null);  
                 if(subjects.length !== 0){
                   setIsEditMode(!isEditMode);
                   // 설정 버튼 누르면 타이머 정지시켜야함. 
