@@ -19,16 +19,17 @@
 .uppercontainer{
     display: flex;
     justify-content: space-between;
+    height: 450px;
 }
 
 .subjectbar{
     width: 350px;
-    height: 400px;
+    height: 350px;
 }
 
 .todobar{   
     width: 350px;
-    height: 400px;
+    height: 350px;
 }
 
 .subjectline{
@@ -36,4 +37,68 @@
     width: 835px;
     height: 500px;
     padding-bottom: 100px;
+}
+
+.subjectbartitlecontainer {
+    text-align:left;
+  }
+
+.subjectbartitle{
+    font-size:2rem;
+    font-weight: bold;
+    position:relative;
+    display:inline-block;
+    color: grey;
+}
+
+.subjectbartitle::after{
+    content: ' ';
+    display: inline;
+    position: absolute;
+    top: 50%;
+    width: 125px;
+    border-bottom: 1.5px solid grey;
+    margin-inline-start: 22px;
+}
+.todobartitlecontainer {
+    text-align:left;
+  }
+
+.todobartitle{
+    font-size:2rem;
+    font-weight: bold;
+    position:relative;
+    display:inline-block;
+    color: grey;
+}
+
+.todobartitle::after{
+    content: ' ';
+    display: inline;
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    border-bottom: 1.5px solid grey;
+    margin-inline-start: 22px;
+}
+.subjectlinetitlecontainer {
+    text-align:left;
+  }
+
+.subjectlinetitle{
+    font-size:2rem;
+    font-weight: bold;
+    position:relative;
+    display:inline-block;
+    color: grey;
+}
+
+.subjectlinetitle::after{
+    content: ' ';
+    display: inline;
+    position: absolute;
+    top: 50%;
+    width: 520px;
+    border-bottom: 1.5px solid grey;
+    margin-inline-start: 22px;
 }

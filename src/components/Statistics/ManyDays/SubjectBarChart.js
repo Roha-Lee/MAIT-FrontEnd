@@ -75,11 +75,11 @@ function SubjectBarChart ({data}){
         responsive: true,
         plugins: {
         legend: {
-            display: false,
+            display: true,
         },
         title: {
             display: true,
-            text: '과목별 총 학습시간',
+            text: '과목별 총 학습시간(hr)',
         },
         },
         maintainAspectRatio : false,
@@ -134,7 +134,7 @@ function SubjectBarChart ({data}){
 
         <Pie
             data = {dataSubjectBarObj}
-            // options = {subjectBarOptions}
+            options = {subjectBarOptions}
         />
 
     );

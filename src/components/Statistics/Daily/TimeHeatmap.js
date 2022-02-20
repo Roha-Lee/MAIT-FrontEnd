@@ -96,10 +96,10 @@ function TimeHeatmap ({data , labels , subjectColors}){
         setSubject(e.target.value);
     }
 
-    console.log(inputData);
-    console.log(colorRGB);
-    console.log(timeColorYX);
-    console.log(subject);
+    // console.log(inputData);
+    // console.log(colorRGB);
+    // console.log(timeColorYX);
+    // console.log(subject);
 
     return(
         <div className={style.heatmap}>

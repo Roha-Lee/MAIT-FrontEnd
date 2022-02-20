@@ -30,7 +30,7 @@ function DailyChart ({data , labels, subjectColors}){
         labels,
         datasets : [
             {
-                borderWidth : 2,
+                borderWidth : 0.5,
                 data : dataInput,
                 backgroundColor : subjectColors,
             }
@@ -54,10 +54,16 @@ function DailyChart ({data , labels, subjectColors}){
         },
         title: {
             display: true,
-            text: 'Daily Time Chart',
+            text: '과목별 학습시간(hr)',
         },
         },
         maintainAspectRatio : false,
+        scales: {
+            y: {
+                suggestedMax: 8
+            }
+        },
+        maxBarThickness : 40
     
     };
     console.log(dataChart);

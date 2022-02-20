@@ -80,11 +80,16 @@ function TodoBarChart ({data}){
             },
             title: {
                 display: true,
-                text: '과목별 Todo 달성률',
+                text: '과목별 Todo 달성률(%)',
             },
             },
             maintainAspectRatio : false,
-        
+            scales: {
+                y: {
+                    suggestedMax: 100
+                }
+            },
+            maxBarThickness : 40,
         };
         
         let i = 0;
