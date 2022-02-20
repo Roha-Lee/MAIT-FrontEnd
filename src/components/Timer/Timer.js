@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  timeStamp, 
-} from '../../utils/timerUtils';
+import { timeStamp } from '../../utils/utils';
 import style from './Timer.module.css'
 
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;

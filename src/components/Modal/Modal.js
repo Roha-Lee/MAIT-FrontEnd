@@ -1,7 +1,6 @@
 import React, {useRef} from 'react';
 import style from './Modal.module.css';
 import NameForm from '../NameForm/NameForm';
-import {postNewSubject} from '../../utils/AppUtils';
 
 function Modal({ modalOpen, setModalState, subjects, setSubjects, headerText}) {
   const nameFormRef = useRef(null);

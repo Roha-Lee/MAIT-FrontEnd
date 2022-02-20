@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import style from './Subjects.module.css'
 import { Modal, Button } from 'antd';
-import NameForm from '../NameForm/NameForm';
+import {postNewSubject, deleteSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
 import 'animate.css';
+
+const INITIAL_COLOR_HEX = '#FFEB3B';
+const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
 
 function hexToRgb(hex) {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -20,7 +23,6 @@ function hexToRgb(hex) {
     a: 1
   } : null;
 }
-
 
 function Subjects({
   setSubjects, 
@@ -39,13 +41,14 @@ function Subjects({
   
   const [nowEditing, setNowEditing] = useState(null);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const [pickerColor, setPickerColor] = useState({
-    r: '255',
-    g: '235',
-    b: '59',
-    a: '1',
-  });
-
+  const [pickerColor, setPickerColor] = useState(INITIAL_COLOR);
+  
+  function resetModal() {
+    setPickerColor(INITIAL_COLOR)
+    setValue('');
+    setColor(null);
+  }
+  
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -66,14 +69,24 @@ function Subjects({
     if (currentSubject ===  editingSubject) {
       setCurrentSubject(newSubjects[idx].name);
     } 
-    
-    
-    setValue('');
+    resetModal()
     setIsEditMode(false);
   };
-  const handleOk = (event) => {
+
+  const handleOk = async (event) => {
     event.preventDefault();
     setIsModalVisible(false);
+    // 새로운 과목 추가 API
+    // const {id, content, colorCode} = await postNewSubject(value, color);
+    // setSubjects([
+    //   ...subjects, 
+    //   {
+    //     subjectId: id, 
+    //     name: content, 
+    //     color: colorCode, 
+    //     totalTime: 0
+    //   }
+    // ]);
     const length = subjects.length;
     setSubjects([
       ...subjects, 
@@ -84,19 +97,14 @@ function Subjects({
         totalTime: 0
       }
     ]);
-    setValue('');
-    // console.log(color, value);
+    resetModal();
   };
 
   const handleCancel = () => {
     setIsEditModalVisible(false);
     setIsModalVisible(false);
     setDisplayColorPicker(false);
-    setValue('');
-    setPickerColor({r: '255',
-    g: '235',
-    b: '59',
-    a: '1'})
+    resetModal();
     setNowEditing(null);
   };
   
@@ -109,10 +117,31 @@ function Subjects({
     setPickerColor(hexToRgb(colorCode))
     showEditModal()
   }
+  
+
+  const removeSubject = async (event) => {
+    const delSubject = subjects.find(subject => subject.subjectId === nowEditing).name;
+    alert(`${delSubject} 삭제 완료!`);
+    // 삭제 통신 
+    const status = await deleteSubject(nowEditing);
+    // nowEditing 이랑 currentSubject랑 같으면 
+    if(currentSubject === delSubject){
+      setCurrentSubject(null);
+      setCurrentTime(0);
+    }
+
+    const newSubjects = subjects.filter(subject => subject.subjectId !== nowEditing);
+    setSubjects(newSubjects);
+    setNowEditing(null);
+    setIsEditModalVisible(false);
+    resetModal();
+  }
+
 
   const changeSubject = (event) => {
     let newSubject = event.target.innerText;
     let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;
+    // 과목 없음 부분 
     if(currentSubject === newSubject){
       newSubject = null
       newCurrentTime = 0;
@@ -121,9 +150,10 @@ function Subjects({
     setCurrentSubject(newSubject);
     setCurrentTime(newCurrentTime);
   }
+  
   const subjectButtons = (
     <div className={style.subjectManager}>
-      {subjects.map((subject) => (
+      {subjects.map((subject, index, array) => (
         <button 
           key={subject.id}
           className={style.subject} 
@@ -144,7 +174,12 @@ function Subjects({
             {subjectButtons}
             <button 
             className={style.addButton} 
-            onClick={showModal}>
+            onClick={(event) => {
+              if(isEditMode === false){
+                showModal(event);
+              }
+            }}
+            >
               <img src="img/add.svg" width="20" height="20"/>
             </button>
             <button 
@@ -170,7 +205,13 @@ function Subjects({
             </Modal>
             
             <Modal title="과목 수정하기" visible={isEditModalVisible} onOk={handleModifyOk} onCancel={handleCancel}>
+              
               <form onSubmit={handleModifyOk} className={style.form}>
+                <div className={style.trashContainer}>
+                  <img className={style.upperImage} onClick={removeSubject} src="img/remove-hover.svg" width="20" height="20"/>
+                  <img src="img/remove.svg" width="20" height="20"/>
+              
+                </div>
                 <label className={style.formTitle}>
                   <span>과목 입력</span>
                   <input  required className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>

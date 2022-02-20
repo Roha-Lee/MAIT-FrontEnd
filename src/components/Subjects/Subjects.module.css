@@ -67,6 +67,26 @@
     margin-right: 10px;
 }
 
+.trashContainer {
+    position: relative;
+    border: 1px solid #c5c1c0;
+    border-radius: 5px;
+    padding:5px;
+}
+
+.upperImage {
+position: absolute;
+top: 7px;
+left: 5px;
+transition: opacity .5s;
+opacity: 0;
+z-index: 99;
+}
+
+.upperImage:hover {
+opacity: 1;
+}
+  
 .form {
     display: flex;
     align-items: center;
@@ -98,7 +118,8 @@ border-radius: 5px;
 padding: 10px 15px;
 color: #fff;  
 }
-  
+
+
 /* .buttonContainer {
     position:relative;
 }
