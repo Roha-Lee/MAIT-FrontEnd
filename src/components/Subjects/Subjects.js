@@ -57,12 +57,17 @@ function Subjects({
   const handleModifyOk = (event) => {
     event.preventDefault();
     setIsEditModalVisible(false);
+    const editingSubject = subjects.find(subject => subject.subjectId === nowEditing).name;
     let newSubjects = [...subjects];
     const idx = subjects.findIndex(subject => subject.subjectId === nowEditing);
     newSubjects[idx].name = value;
     newSubjects[idx].color = color;
-
     setSubjects(newSubjects);
+    if (currentSubject ===  editingSubject) {
+      setCurrentSubject(newSubjects[idx].name);
+    } 
+    
+    
     setValue('');
     setIsEditMode(false);
   };
@@ -124,7 +129,7 @@ function Subjects({
           className={style.subject} 
           style={{
             backgroundColor: `#${subject.color}`,
-            filter: isEditMode === true ?  'brightness(70%)' : 'brightness(100%)',
+            filter: isEditMode === true ?  'brightness(80%)' : 'brightness(100%)',
             animation: isEditMode === true ? 'swing' : null, 
             animationDuration: isEditMode === true ? '800ms' : null, 
           }}
@@ -140,7 +145,7 @@ function Subjects({
             <button 
             className={style.addButton} 
             onClick={showModal}>
-              +
+              <img src="img/add.svg" width="20" height="20"/>
             </button>
             <button 
             className={style.addButton} 
@@ -151,7 +156,7 @@ function Subjects({
               setTimerOn(false);
               
             }}>
-              ?
+              <img src="img/edit.svg" width="20" height="20"/>
             </button>
             <Modal title="새 과목 추가하기" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
               {/* <NameForm onSubmit={handleOk} subjects={subjects} setSubjects={setSubjects} value={value} setValue={setValue} color={color} setColor={setColor}/> */}
