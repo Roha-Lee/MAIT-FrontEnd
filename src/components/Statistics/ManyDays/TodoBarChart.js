@@ -75,13 +75,17 @@ function TodoBarChart ({data}){
         const todoBarOptions = {
             responsive: true,
             plugins: {
-            legend: {
-                display: false,
-            },
-            title: {
-                display: true,
-                text: '과목별 Todo 달성률(%)',
-            },
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: true,
+                    text: '과목별 Todo 달성률(%)',
+                },
+                datalabels : {
+                    display: false,
+                    // formatter : (value) => {return;},
+                },
             },
             maintainAspectRatio : false,
             scales: {

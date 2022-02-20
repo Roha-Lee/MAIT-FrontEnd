@@ -17,7 +17,7 @@ function ManyDays (){
     const [click , setClick] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    let data;
+    const [data , setDate] = useState(null);
     // const [loading, setLoading] = useState(false);
     // const [error, setError] = useState(null);
     
@@ -289,6 +289,8 @@ function ManyDays (){
             setClick(true);
             setStartDate(range[0]);
             setEndDate(range[1]);
+            // console.log(,endDate);
+            // fetchData(range[0],range[1]);
         }
         // console.log(typeof range , typeof range[0],range[1])
         

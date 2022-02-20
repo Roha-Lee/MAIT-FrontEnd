@@ -5,7 +5,8 @@
 
 .rangepicker{
 
-    margin: auto;
+    /* margin-left: -70px; */
+    width: 840px;
     padding-bottom: 30px;
 
 }
@@ -41,7 +42,7 @@
 
 .subjectbartitlecontainer {
     text-align:left;
-  }
+}
 
 .subjectbartitle{
     font-size:2rem;
@@ -62,7 +63,7 @@
 }
 .todobartitlecontainer {
     text-align:left;
-  }
+}
 
 .todobartitle{
     font-size:2rem;
@@ -83,7 +84,7 @@
 }
 .subjectlinetitlecontainer {
     text-align:left;
-  }
+}
 
 .subjectlinetitle{
     font-size:2rem;

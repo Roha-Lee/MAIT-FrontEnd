@@ -73,13 +73,17 @@ function SubjectLineChart ({data,startDate,endDate}){
         const subjectLineOptions = {
             responsive: true,
             plugins: {
-            legend: {
-                display: true,
-            },
-            title: {
-                display: true,
-                text: chartTitle,
-            },
+                legend: {
+                    display: true,
+                },
+                title: {
+                    display: true,
+                    text: chartTitle,
+                },
+                datalabels : {
+                    display: false,
+                    // formatter : (value) => {return;},
+                },
             },
             maintainAspectRatio : false,
             borderJoinStyle : "round",

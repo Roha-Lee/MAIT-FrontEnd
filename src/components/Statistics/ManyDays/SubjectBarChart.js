@@ -1,62 +1,10 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-ChartJS.register(ArcElement, Tooltip, Legend);
+import ChartDataLabels from "chartjs-plugin-datalabels"
+ChartJS.register(ArcElement, Tooltip, Legend,ChartDataLabels);
 
 
 function SubjectBarChart ({data}){
-
-    // const fakeData = {
-    //     'subjectTotalTime' : {
-    //         "2022-02-13" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '03:12:32' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '02:54:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '05:22:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-14" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '01:56:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '04:21:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '04:32:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-15" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '01:56:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '06:02:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '02:11:00' //누적 시간
-    //             },
-    //         },
-    //     },
-    //     'subjectTodo' : {
-    //         'Algorithm' : [0.92 , "#a67ebf"],
-    //         'OS' : [0.73,"#bf6d7f"],
-    //         'Javascript' : [0.82,"#6dbf84"],
-    //     }, 
-    // }
-
     
     const subjectTotalTime = data.subjectTotalTime;
     const subjectTodo = data.subjectTodo;
@@ -74,15 +22,26 @@ function SubjectBarChart ({data}){
     const subjectBarOptions = {
         responsive: true,
         plugins: {
-        legend: {
-            display: true,
-        },
-        title: {
-            display: true,
-            text: '과목별 총 학습시간(hr)',
-        },
+            legend: {
+                display: true,
+            },
+            title: {
+                display: true,
+                text: '과목별 총 학습시간(hr)',
+            },
+            datalabels : {
+                // display: true,
+                formatter : (value) => {return Math.round(value) + " hr"},
+                font : {
+                    weight : "bold",
+                    size : "15rem"
+                },
+                color : "#EEE7E1"
+            },
         },
         maintainAspectRatio : false,
+
+    
     
     };
     

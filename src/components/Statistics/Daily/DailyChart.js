@@ -7,6 +7,8 @@ import {
     Tooltip,
     Legend, } from "chart.js";
 import { Bar } from 'react-chartjs-2';
+import ChartDataLabels from "chartjs-plugin-datalabels"
+ChartJS.register(LinearScale, Tooltip, Legend,ChartDataLabels);
 
 function DailyChart ({data , labels, subjectColors}){
     
@@ -49,13 +51,18 @@ function DailyChart ({data , labels, subjectColors}){
     const options = {
         responsive: true,
         plugins: {
-        legend: {
-            display: false,
-        },
-        title: {
-            display: true,
-            text: '과목별 학습시간(hr)',
-        },
+            legend: {
+                display: false,
+            },
+            title: {
+                display: true,
+                text: '과목별 학습시간(hr)',
+                
+            },
+            datalabels : {
+                display: false,
+                // formatter : (value) => {return;},
+            },
         },
         maintainAspectRatio : false,
         scales: {
@@ -63,10 +70,11 @@ function DailyChart ({data , labels, subjectColors}){
                 suggestedMax: 8
             }
         },
-        maxBarThickness : 40
+        maxBarThickness : 40,
+        
     
     };
-    console.log(dataChart);
+    // console.log(dataChart);
 
     return (
 <div className={style.dailychart}>

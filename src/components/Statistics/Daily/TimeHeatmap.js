@@ -103,39 +103,41 @@ function TimeHeatmap ({data , labels , subjectColors}){
 
     return(
         <div className={style.heatmap}>
-            <select onChange={handleSelect}>
+            <select onChange={handleSelect} style={{marginRight:"100px", marginBottom : "5px",}}>
                 <option key="total" value="전체">전체</option>
                 {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
             </select>
-            
-            <HeatMapGrid
-                data={inputData}
-                xLabels={xLabels}
-                yLabels={yLabels}
-                xLabelsStyle={(index) => ({
-                    display : 'none',
-                })}
-                yLabelsStyle={() => ({
-                    fontSize: '.7rem',
-                    color: '#777'
-                })}
-                // cellRender={(y, x, value) => (
-                //     <div title={`Pos(${x}, ${y}) = ${value}`}>{String(y)+String(x)}</div>
-                //   )}
-                cellStyle={(_y, _x, ratio) => (
-                    {
-                    background: `${
-                        timeColorYX[String(_y)+String(_x)] === subject  || (subject === "전체" && timeColorYX[String(_y)+String(_x)] !== undefined) ? 
-                        // "rgb("+colorRGB[subject].r+","+colorRGB[subject].g+","+colorRGB[subject].b+","+ratio+")"
-                        "rgb("+colorRGB[timeColorYX[String(_y)+String(_x)]].r+","+colorRGB[timeColorYX[String(_y)+String(_x)]].g+","+colorRGB[timeColorYX[String(_y)+String(_x)]].b+","+ratio+")"
-                        :""}`,
-                    border : `${ratio === 0 ? "solid 0.1px": "solid 0.05px"}`,
-                    borderRadius : 0,
-                    // borderColor : `rgb(${color.r}, ${color.g}, ${color.b}, 0.1)`
-                })}
-                cellHeight="1.5rem"
-                square
-            />
+            <div className={style.heatmapgrid}>
+                <HeatMapGrid
+                    data={inputData}
+                    xLabels={xLabels}
+                    yLabels={yLabels}
+                    xLabelsStyle={(index) => ({
+                        display : 'none',
+                    })}
+                    yLabelsStyle={() => ({
+                        fontSize: '.7rem',
+                        color: '#777'
+                    })}
+                    // cellRender={(y, x, value) => (
+                    //     <div title={`Pos(${x}, ${y}) = ${value}`}>{String(y)+String(x)}</div>
+                    //   )}
+                    cellStyle={(_y, _x, ratio) => (
+                        {
+                        background: `${
+                            timeColorYX[String(_y)+String(_x)] === subject  || (subject === "전체" && timeColorYX[String(_y)+String(_x)] !== undefined) ? 
+                            // "rgb("+colorRGB[subject].r+","+colorRGB[subject].g+","+colorRGB[subject].b+","+ratio+")"
+                            "rgb("+colorRGB[timeColorYX[String(_y)+String(_x)]].r+","+colorRGB[timeColorYX[String(_y)+String(_x)]].g+","+colorRGB[timeColorYX[String(_y)+String(_x)]].b+","+ratio+")"
+                            :""}`,
+                        border : " solid 0.1px",
+                        borderRadius : 0,
+                        // borderColor : `rgb(${color.r}, ${color.g}, ${color.b}, 0.1)`
+                    })}
+                    cellHeight="1.8rem"
+                    
+                    
+                />
+            </div>
             
         </div>
     );
