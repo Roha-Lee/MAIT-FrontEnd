@@ -17,6 +17,8 @@ function Timer({
   useAi,
   userTimerOn, 
   setUserTimerOn,
+  isEditMode,
+  setIsEditMode,
 }) {
   useEffect(() => {
     if(timerOn){
@@ -63,8 +65,10 @@ function Timer({
       <button className={style.timerButton} 
         onClick = {
         () => {
-          setTimerOn(!timerOn);          
-          setUserTimerOn(!timerOn);     
+          if(isEditMode !== true){
+            setTimerOn(!timerOn);          
+            setUserTimerOn(!timerOn);
+          }     
         }}> 
         {timerOn ? "STOP" : "START"}
       </button> 

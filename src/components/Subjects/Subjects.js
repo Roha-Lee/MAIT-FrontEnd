@@ -31,15 +31,16 @@ function Subjects({
   setCurrentSubject,
   setCurrentTime,
   setTimerOn, 
-  setUserTimerOn}){
+  setUserTimerOn,
+  isEditMode,
+  setIsEditMode,
+}){
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  
   const [value, setValue] = useState('');
   const [color, setColor] = useState('FFEB3B');
-  const [isEditMode, setIsEditMode] = useState(false);
   
-  const [nowEditing, setNowEditing] = useState(null);
+  const [nowEditing, setNowEditing] = useState(null); // 현재 수정하고 있는 과목의 subjectId
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [pickerColor, setPickerColor] = useState(INITIAL_COLOR);
   
@@ -132,13 +133,14 @@ function Subjects({
     }
 
     const newSubjects = subjects.filter(subject => subject.subjectId !== nowEditing);
-    setSubjects(newSubjects);
-    setNowEditing(null);
-    setIsEditModalVisible(false);
-    if(subjects.length === 0){
+    if(newSubjects.length === 0){
       console.log('subject is empty')
       setIsEditMode(false);
     }
+    setSubjects(newSubjects);
+    setNowEditing(null);
+    setIsEditModalVisible(false);
+    
     resetModal();
   }
 
@@ -166,7 +168,7 @@ function Subjects({
             backgroundColor: `#${subject.color}`,
             filter: isEditMode === true ?  'brightness(80%)' : 'brightness(100%)',
             animation: isEditMode === true ? 'swing' : null, 
-            animationDuration: isEditMode === true ? '800ms' : null, 
+            animationDuration: isEditMode === true ? '800ms' : null,           
           }}
           onClick={(event)=>{
             isEditMode === true ? editSubject(event) :changeSubject(event)}}>
@@ -178,26 +180,25 @@ function Subjects({
   return (<div className={style.subjectsContainer}>
             {subjectButtons}
             <button 
-            className={style.addButton} 
-            onClick={(event) => {
-              if(isEditMode === false){
-                showModal(event);
-                console.log(color)
-              }
-            }}
-            >
+              className={style.addButton} 
+              onClick={(event) => {
+                if(isEditMode === false){
+                  showModal(event);
+                }
+              }}
+              >
               <img src="img/add.svg" width="20" height="20"/>
             </button>
             <button 
-            className={style.addButton} 
-            onClick={() => {
-              setIsEditMode(!isEditMode);
-              
-              // 설정 버튼 누르면 타이머 정지시켜야함. 
-              setUserTimerOn(false);
-              setTimerOn(false);
-              
-            }}>
+              className={style.addButton} 
+              onClick={() => {
+                if(subjects.length !== 0){
+                  setIsEditMode(!isEditMode);
+                  // 설정 버튼 누르면 타이머 정지시켜야함. 
+                  setUserTimerOn(false);
+                  setTimerOn(false); 
+                }
+              }}>
               <img src="img/edit.svg" width="20" height="20"/>
             </button>
             <Modal title="새 과목 추가하기" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

@@ -28,14 +28,15 @@ function Mainpage() {
     totalTime: 0,
   },
 ]);
-  const [modalOpen, setModalOpen] = useState(false);
+  
   const [currentSubject, setCurrentSubject] = useState(null);
   const [timerOn, setTimerOn] = useState(false);
   const [userTimerOn, setUserTimerOn] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [useFaceAi, setUseFaceAi] = useState(false);
   const [useHandAi, setUseHandAi] = useState(false);
-  const buttonRef = useRef(null)
+  const [isEditMode, setIsEditMode] = useState(false);
+  const buttonRef = useRef(null);
   const menu = (
     <Menu>
       <Menu.Item>
@@ -97,8 +98,6 @@ function Mainpage() {
       : null}
       <SubjectsContainer>          
         <Subjects 
-          setModalState={setModalOpen}
-          modalOpen={modalOpen}
           setSubjects={setSubjects}
           subjects={subjects}
           currentSubject={currentSubject}
@@ -107,6 +106,8 @@ function Mainpage() {
           setCurrentTime={setCurrentTime}
           setTimerOn={setTimerOn}
           setUserTimerOn={setUserTimerOn}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
         />
         <Timer
           subjects={subjects}
@@ -119,6 +120,8 @@ function Mainpage() {
           setUserTimerOn={setUserTimerOn}
           currentTime={currentTime}
           setCurrentTime={setCurrentTime}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
         />
         <DropdownContainer>
           <Dropdown overlay={menu} placement="bottomCenter">
