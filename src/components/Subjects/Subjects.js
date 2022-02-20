@@ -5,7 +5,7 @@ import {postNewSubject, deleteSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
 import 'animate.css';
 
-const INITIAL_COLOR_HEX = '#FFEB3B';
+const INITIAL_COLOR_HEX = 'FFEB3B';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
 
 function hexToRgb(hex) {
@@ -46,7 +46,7 @@ function Subjects({
   function resetModal() {
     setPickerColor(INITIAL_COLOR)
     setValue('');
-    setColor(null);
+    setColor(INITIAL_COLOR_HEX);
   }
   
   const showModal = () => {
@@ -123,7 +123,8 @@ function Subjects({
     const delSubject = subjects.find(subject => subject.subjectId === nowEditing).name;
     alert(`${delSubject} 삭제 완료!`);
     // 삭제 통신 
-    const status = await deleteSubject(nowEditing);
+    // const status = await deleteSubject(nowEditing);
+    
     // nowEditing 이랑 currentSubject랑 같으면 
     if(currentSubject === delSubject){
       setCurrentSubject(null);
@@ -134,6 +135,10 @@ function Subjects({
     setSubjects(newSubjects);
     setNowEditing(null);
     setIsEditModalVisible(false);
+    if(subjects.length === 0){
+      console.log('subject is empty')
+      setIsEditMode(false);
+    }
     resetModal();
   }
 
@@ -177,6 +182,7 @@ function Subjects({
             onClick={(event) => {
               if(isEditMode === false){
                 showModal(event);
+                console.log(color)
               }
             }}
             >
@@ -186,6 +192,7 @@ function Subjects({
             className={style.addButton} 
             onClick={() => {
               setIsEditMode(!isEditMode);
+              
               // 설정 버튼 누르면 타이머 정지시켜야함. 
               setUserTimerOn(false);
               setTimerOn(false);

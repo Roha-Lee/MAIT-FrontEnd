@@ -3,13 +3,10 @@ import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
-import ToggleButton from 'react-toggle-button'
 import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
-import styled from 'styled-components';
-
 
 function Mainpage() {
   const [subjects, setSubjects] = useState([{
