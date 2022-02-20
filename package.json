@@ -3,20 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "@dannadori/facemesh-worker-js": "^1.0.45",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "antd": "^4.15.1",
     "axios": "^0.25.0",
     "bootstrap": "^5.1.3",
     "chart.js": "^3.7.0",
+    "concurrently": "^6.0.2",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
+    "font-awesome": "^4.7.0",
     "mysql": "^2.18.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",
     "react-chartjs-2": "^4.0.1",
+    "react-color": "^2.19.3",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.2",
+    "react-grid-heatmap": "^1.1.0",
+    "react-particles-js": "^3.4.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-share": "^4.4.0",
+    "react-toggle-button": "^2.2.0",
+    "react-webcam": "^6.0.1",
+    "simple-peer": "^9.11.0",
+    "socket.io": "^4.0.1",
+    "socket.io-client": "^4.4.1",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
@@ -24,13 +40,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"node index.js\" \"react-scripts start\""
   },
   "browserslist": {
     "production": [
@@ -43,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "source-map-loader": "^3.0.1"
   }
 }
