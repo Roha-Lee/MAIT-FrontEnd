@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import style from './NameForm.module.css';
-import ColorPicker from '../ColorPicker/ColorPicker'
-import {postNewSubject} from '../../utils/AppUtils';
+
 function NameForm({setSubjects, subjects, value, setValue, color, setColor, onSubmit}) {
   return (
     <form onSubmit={onSubmit} className={style.form}>

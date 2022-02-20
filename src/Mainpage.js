@@ -7,7 +7,7 @@ import ToggleButton from 'react-toggle-button'
 import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {AiContainer, SubjectsContainer, CamButton, FlexBox} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
 import styled from 'styled-components';
 
 
@@ -109,6 +109,7 @@ function Mainpage() {
           currentTime={currentTime}
           setCurrentTime={setCurrentTime}
           setTimerOn={setTimerOn}
+          setUserTimerOn={setUserTimerOn}
         />
         <Timer
           subjects={subjects}
@@ -122,10 +123,11 @@ function Mainpage() {
           currentTime={currentTime}
           setCurrentTime={setCurrentTime}
         />
-        <Dropdown overlay={menu} placement="bottomCenter">
-        <Button ref={buttonRef}>AI 모드 선택</Button>
-        </Dropdown>
-          
+        <DropdownContainer>
+          <Dropdown overlay={menu} placement="bottomCenter">
+          <Button ref={buttonRef} style={{borderRadius: "10px", backgroundColor: "#EEE7E1"}}>AI 모드 선택</Button>
+          </Dropdown>
+        </DropdownContainer>
         
         {/* <ToggleButton
           value={ useFaceAi || false }
