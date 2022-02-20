@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Modal, Button, FormControl } from 'react-bootstrap'
+import axios from 'axios'
 
-const TodoEditModal = ({ todo, onChange, onCloseClick }) => {
+const TodoEditModal = ({ todo, onChange, onDelete, onCloseClick }) => {
     const [content, setContent] = useState('')
-
     useEffect(() => setContent(todo?.content || ''), [todo])
+
+    const deleteTodo = () => {
+        axios.delete(`/todos/${todo.id}`)
+            .then(() => onDelete(todo))    
+    }
 
     return (
         <Modal show={!!todo} onHide={onCloseClick}>
@@ -20,6 +25,9 @@ const TodoEditModal = ({ todo, onChange, onCloseClick }) => {
             </Button>
             <Button variant="primary" onClick={() => onChange(todo, content)}>
                 Save Changes
+            </Button>
+            <Button variant="danger" onClick={deleteTodo}>
+                Delete
             </Button>
             </Modal.Footer>
         </Modal>
