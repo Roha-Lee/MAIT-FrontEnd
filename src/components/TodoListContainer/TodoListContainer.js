@@ -19,7 +19,7 @@ const TodoListContainer = ({subjects}) => {
         { id: 2, content: 'BBBBBBBBBB', isDone: false, subjectId: 'subject1' },
         { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
     ])
-    console.log(todoList);
+    // console.log(todoList);
     const [editingTodo, setEditingTodo] = useState(null)
 
     const toggleTodo = useCallback((target) => {
@@ -41,6 +41,11 @@ const TodoListContainer = ({subjects}) => {
         handleCloseEditModal()
     }, [todoList, setTodoList, handleCloseEditModal])
 
+    const handleDelete = useCallback((target) => {
+        console.log(target)
+        setTodoList(todoList.filter((todo) => todo.id !== target.id))
+    },[todoList, setTodoList])
+
     const renderTodo = useCallback((todo) => {
         return (
             <TodoItemContainer>
@@ -56,7 +61,7 @@ const TodoListContainer = ({subjects}) => {
             <TodoListHeader>TODO</TodoListHeader>
             {todoList.map(todo => renderTodo(todo))}
             <TodoInput subjects={subjects} onItemAdd={onItemAdd} />
-            <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} />
+            <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete} />
         </TodoListDiv>
     )
 }
