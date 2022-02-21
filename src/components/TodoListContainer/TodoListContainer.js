@@ -41,7 +41,6 @@ const TodoListContainer = ({subjects}) => {
     }, [todoList, setTodoList, handleCloseEditModal])
 
     const handleDelete = useCallback((target) => {
-        console.log(target)
         setTodoList(todoList.filter((todo) => todo.id !== target.id))
     },[todoList, setTodoList])
 
@@ -50,7 +49,11 @@ const TodoListContainer = ({subjects}) => {
             <TodoItemContainer>
                 <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
                 <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
-                <TodoItemBadge color={`#${subjects.find(subject => subject.id === todo.subjectId)?.color}`}>{subjects.find(subject => subject.id === todo.subjectId)?.name}</TodoItemBadge>
+                <TodoItemBadge 
+                color={`#${subjects.find(subject => subject.id === todo.subjectId)?.color}`}
+                >
+                    {subjects.find(subject => subject.id === todo.subjectId)?.name}
+                </TodoItemBadge>
             </TodoItemContainer>
         )
     }, [subjects, toggleTodo])
@@ -59,8 +62,8 @@ const TodoListContainer = ({subjects}) => {
         <TodoListDiv>
             <TodoListHeader>TODO</TodoListHeader>
             {todoList.map(todo => renderTodo(todo))}
-            <TodoInput subjects={subjects} onItemAdd={onItemAdd} />
-            <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete} />
+            <TodoInput subjects={subjects} onItemAdd={onItemAdd}/>
+            <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete} subjects={subjects}/>
         </TodoListDiv>
     )
 }
