@@ -96,7 +96,11 @@ z-index: 99;
 .upperImage:hover {
 opacity: 1;
 } */
-
+.editModalFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 .modalDeleteButton:hover{
     border: 1px solid #ff0000 !important;
@@ -113,11 +117,22 @@ opacity: 1;
     color: black !important;
 }
 
+.deleteDescription {
+    display: block;
+    margin-right: 8px;
+    width: 60%;
+    font-size: 1em;
+    text-align: center;
+    color: #918e8e
+}
+
+
 .form {
     display: flex;
     align-items: center;
   
 }
+
 .input {
 border-radius: 5px;
 border: 1px solid #c5c1c0;

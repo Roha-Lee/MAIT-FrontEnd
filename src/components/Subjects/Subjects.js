@@ -232,24 +232,25 @@ function Subjects({
               </form>
             </Modal>
             
-            <Modal title="과목 수정하기" visible={isEditModalVisible} onOk={handleModifyOk} onCancel={handleCancel} footer={[
-            <Button key="delete" className={style.modalDeleteButton} onClick={removeSubject}>
-              삭제
-            </Button>,
-            <Button key="save" className={style.modalSaveButton} onClick={handleModifyOk}>
-              저장
-            </Button>,
-            <Button key="cancle" className={style.modalCancleButton} onClick={handleCancel}>
-              취소
-            </Button>,
-          
-          //   <div className={style.trashContainer}>
-          //     <img className={style.upperImage} onClick={removeSubject} src="img/remove-hover.svg" width="20" height="20"/>
-          //     <img src="img/remove.svg" width="20" height="20"/>
-          //   </div>
-          // ,
-          ]}>
-              
+            <Modal title="과목 수정하기" visible={isEditModalVisible} onOk={handleModifyOk} onCancel={handleCancel} footer={
+              <div className={style.editModalFooter}>
+                <span className={style.deleteDescription}>과목을 삭제해도 통계페이지에서<br/>해당 과목에 대한 기록을 확인할 수 있습니다.</span>
+                <div>
+                  <Button 
+                    key="delete" 
+                    className={style.modalDeleteButton} 
+                    onClick={removeSubject}>
+                    삭제
+                  </Button>
+                  <Button key="save" className={style.modalSaveButton} onClick={handleModifyOk}>
+                    저장
+                  </Button>
+                  <Button key="cancle" className={style.modalCancleButton} onClick={handleCancel}>
+                    취소
+                  </Button>
+                </div>
+              </div>
+            }>
               <form onSubmit={handleModifyOk} className={style.form}>
                 <label className={style.formTitle}>
                   <span>과목 입력</span>
@@ -262,3 +263,11 @@ function Subjects({
 }
 
 export default Subjects;
+
+
+//   <div className={style.trashContainer}>
+//     <img className={style.upperImage} onClick={removeSubject} src="img/remove-hover.svg" width="20" height="20"/>
+//     <img src="img/remove.svg" width="20" height="20"/>
+//   </div>
+// ,
+          
