@@ -13,7 +13,7 @@ function getAllUserData() {
   return Axios.get(`${serverAddress}/mainpage`, {});
 }
 
-function postNewSubject(subject, colorCode) {
+function postSubject(subject, colorCode) {
   return Axios.post(
     `${serverAddress}/subject`, 
     {
@@ -22,18 +22,42 @@ function postNewSubject(subject, colorCode) {
     });
 }
 
-function postNewTodo(content, subjectId) {
-  return Axios.post(`${serverAddress2}/todos`, {
-    content, 
-    subjectId
-  })
-}
-function todoUpdate(todoId) {
-  return Axios.patch(`${serverAddress2}/todos/${todoId}`);
+function putSubject(name, colorId, subjectId) {
+  return Axios.put(`${serverAddress}/subject/${subjectId}`, {name, colorId});
 }
 
 function deleteSubject(subjectId) {
   return Axios.delete(`${serverAddress}/subject/${subjectId}`);
 }
 
-export {getAllUserData, postNewSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo}
+function postNewTodo(content, subjectId) {
+  return Axios.post(`${serverAddress2}/todos`, {
+    content, 
+    subjectId
+  })
+}
+
+function todoUpdate(todoId) {
+  return Axios.patch(`${serverAddress2}/todos/${todoId}`);
+}
+
+function postStudyTime(subjectId, startTime) {
+  console.log("postStudyTime", subjectId, startTime)
+  return Axios.post(
+    `${serverAddress}/studytime`,
+    {
+      subjectId,
+      startTime, 
+    })
+}
+
+function patchStudyTime(studyTimeId, endTime) {
+  console.log("patchStudyTime", endTime)
+  return Axios.patch(
+    `${serverAddress}/studytime/${studyTimeId}`,
+    {
+      endTime, 
+    })
+}
+
+export {getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime}

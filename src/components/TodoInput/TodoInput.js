@@ -29,7 +29,7 @@ const TodoInput = ({ todoList, subjects, onItemAdd }) => {
     return (
         <TodoInputContainer>
             <InputGroup className="mb-3">
-                <FormControl value={text} onChange={(event) => {setText(event.target.value)}} />
+                <FormControl maxLength={30} value={text} onChange={(event) => {setText(event.target.value)}} />
                 <select 
                     onChange={(event) => {
                         setSubject(event.target.value)
