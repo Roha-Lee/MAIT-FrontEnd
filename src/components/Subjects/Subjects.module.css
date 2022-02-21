@@ -66,7 +66,7 @@
     /* margin: 0 10px; */
     margin-right: 10px;
 }
-
+/* 
 .trashContainer {
     display:inline-block;
     position: relative;
@@ -95,8 +95,24 @@ z-index: 99;
 
 .upperImage:hover {
 opacity: 1;
+} */
+
+
+.modalDeleteButton:hover{
+    border: 1px solid #ff0000 !important;
+    color: #ff0000 !important;
 }
-  
+
+.modalSaveButton:hover{
+    border: 1px solid #0101c9 !important;
+    color: #0101c9 !important;
+}
+
+.modalCancleButton:hover{
+    border: 1px solid black !important;
+    color: black !important;
+}
+
 .form {
     display: flex;
     align-items: center;

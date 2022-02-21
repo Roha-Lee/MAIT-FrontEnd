@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import reactCSS from 'reactcss'
 import { CirclePicker } from 'react-color'
-function ColorPicker({setColor, pickerColor, setPickerColor, displayColorPicker, setDisplayColorPicker}) {
+function ColorPicker({colors, setColor, pickerColor, setPickerColor, displayColorPicker, setDisplayColorPicker}) {
   const handleClick = () => {
+    console.log('colorPicker', colors);
     setDisplayColorPicker(!displayColorPicker);
   };
 
@@ -51,7 +52,7 @@ function ColorPicker({setColor, pickerColor, setPickerColor, displayColorPicker,
       </div>
         { displayColorPicker ? <div style={ styles.popover }>
       <div style={ styles.cover } onClick={ handleClose }/>
-        <CirclePicker color={ pickerColor } onChange={ handleChange }/>
+        <CirclePicker colors={colors.map(color=>`#${color}`)} color={ pickerColor } onChange={ handleChange }/>
       </div> : null }
     </div>
   ); 

@@ -34,6 +34,8 @@ function Subjects({
   setUserTimerOn,
   isEditMode,
   setIsEditMode,
+  colorsIdtoCode,
+  colorsCodetoId,
 }){
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -65,7 +67,7 @@ function Subjects({
     let newSubjects = [...subjects];
     const idx = subjects.findIndex(subject => subject.subjectId === nowEditing);
     newSubjects[idx].name = value;
-    newSubjects[idx].color = color;
+    newSubjects[idx].colorId = colorsCodetoId[color];
     setSubjects(newSubjects);
     if (currentSubject ===  editingSubject) {
       setCurrentSubject(newSubjects[idx].name);
@@ -94,7 +96,7 @@ function Subjects({
       {
         subjectId: id, 
         name: value, 
-        color: color, 
+        colorId: colorsCodetoId[color], 
         totalTime: 0
       }
     ]);
@@ -114,10 +116,10 @@ function Subjects({
     
     setValue(event.target.innerText)
     // 중복이 없다고 가정. 
-    setColor(subjects.find(subject=> subject.name === event.target.innerText).color)
+    setColor(subjects.find(subject=> subject.name === event.target.innerText).colorId)
     setNowEditing(subjects.find(subject=> subject.name === event.target.innerText).subjectId)
-    const colorCode = subjects.find(subject=> subject.name === event.target.innerText).color;
-    setPickerColor(hexToRgb(colorCode))
+    const currentColorId = subjects.find(subject=> subject.name === event.target.innerText).colorId
+    setPickerColor(hexToRgb(colorsIdtoCode[currentColorId]))
     showEditModal()
     setNewSubject(null);  
   }
@@ -164,12 +166,12 @@ function Subjects({
   
   const subjectButtons = (
     <div className={style.subjectManager}>
-      {subjects.map((subject, index, array) => (
+      {subjects.map((subject) => (
         <button 
           key={subject.subjectId}
           className={style.subject} 
           style={{
-            backgroundColor: `#${subject.color}`,
+            backgroundColor: `#${colorsIdtoCode[subject.colorId]}`,
             filter: isEditMode === true ?  'brightness(80%)' : 'brightness(100%)',
             animation: isEditMode === true ? 'swing' : (subject.subjectId === newSubject ? 'bounce' : null) , 
             animationDuration: isEditMode === true ? '800ms' : (subject.subjectId === newSubject ? '800ms' : null) ,           
@@ -226,20 +228,21 @@ function Subjects({
                   <span>과목 입력</span>
                   <input  required className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
                 </label>
-                <ColorPicker setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
+                <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
               </form>
             </Modal>
             
             <Modal title="과목 수정하기" visible={isEditModalVisible} onOk={handleModifyOk} onCancel={handleCancel} footer={[
-            <Button key="cancle" onClick={handleCancel}>
-              취소
-            </Button>,
-            <Button key="save" onClick={handleModifyOk}>
-              저장
-            </Button>,
-            <Button key="delete" onClick={removeSubject}>
+            <Button key="delete" className={style.modalDeleteButton} onClick={removeSubject}>
               삭제
             </Button>,
+            <Button key="save" className={style.modalSaveButton} onClick={handleModifyOk}>
+              저장
+            </Button>,
+            <Button key="cancle" className={style.modalCancleButton} onClick={handleCancel}>
+              취소
+            </Button>,
+          
           //   <div className={style.trashContainer}>
           //     <img className={style.upperImage} onClick={removeSubject} src="img/remove-hover.svg" width="20" height="20"/>
           //     <img src="img/remove.svg" width="20" height="20"/>
@@ -252,7 +255,7 @@ function Subjects({
                   <span>과목 입력</span>
                   <input  required className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
                 </label>
-                <ColorPicker setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
+                <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
               </form>
             </Modal>
           </div>);
