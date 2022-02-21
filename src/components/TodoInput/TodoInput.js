@@ -27,13 +27,13 @@ const TodoInput = ({ todoList, subjects, onItemAdd }) => {
         <TodoInputContainer>
             <InputGroup className="mb-3">
                 <FormControl value={text} onChange={(e) => setText(e.target.value)} />
-                <DropdownButton
+                <select
                     variant="outline-secondary"
                     title={subject?.name || 'Subject...'}
                 >
-                    <Dropdown.Item onClick={() => setSubject(null)}>Unselect</Dropdown.Item>
-                    {subjects.map(item => <Dropdown.Item onClick={() => setSubject(item)}>{item.name}</Dropdown.Item>)}
-                </DropdownButton>
+                    <option onClick={() => setSubject(null)}>Unselect</option>
+                    {subjects.map(item => <option onClick={() => setSubject(item)}>{item.name}</option>)}
+                </select>
             </InputGroup>
             <FormButton onClick={onSubmit}>Add</FormButton>
         </TodoInputContainer>

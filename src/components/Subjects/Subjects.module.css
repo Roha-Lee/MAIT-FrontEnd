@@ -68,16 +68,26 @@
 }
 
 .trashContainer {
+    display:inline-block;
     position: relative;
     border: 1px solid #c5c1c0;
-    border-radius: 5px;
-    padding:5px;
+    border-radius: 2px;
+    width: 40px;
+    padding:5px 10px;
+    margin-left: 8px;
 }
 
+.trashContainer:hover {
+    border: 1px solid #c5c1c0;
+    border-radius: 2px;
+    width: 40px;
+    padding:5px 10px;
+    margin-left: 8px;
+}
 .upperImage {
 position: absolute;
 top: 7px;
-left: 5px;
+left: 10px;
 transition: opacity .5s;
 opacity: 0;
 z-index: 99;

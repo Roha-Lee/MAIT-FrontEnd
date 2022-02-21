@@ -1,6 +1,17 @@
 import Axios from 'axios';
 
-const serverAddress = 'http://192.249.29.198:3001';
+const serverAddress = 'https://mait.shop';
+
+async function getAllUserData() {
+  try {
+    const userStudyInfo = await Axios.get(`${serverAddress}/mainpage`, {});
+    console.log(userStudyInfo);
+    return userStudyInfo;
+  } catch(error) {
+    console.log(error);
+    return error;
+  }
+}
 
 function timeStamp(){ 
   let today = new Date(); 
@@ -38,14 +49,6 @@ async function deleteSubject(subjectId) {
 
 
 
-async function getAllUserData() {
-  try {
-    const userStudyInfo = await Axios.get('https://192.249.31.115:3000/mainpage', {});
-    return userStudyInfo;
-  } catch(error) {
-    return error;
-  }
-}
 
 // async function postNewSubject(subject, colorCode) {
 //     try {

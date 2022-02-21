@@ -230,14 +230,24 @@ function Subjects({
               </form>
             </Modal>
             
-            <Modal title="과목 수정하기" visible={isEditModalVisible} onOk={handleModifyOk} onCancel={handleCancel}>
+            <Modal title="과목 수정하기" visible={isEditModalVisible} onOk={handleModifyOk} onCancel={handleCancel} footer={[
+            <Button key="cancle" onClick={handleCancel}>
+              취소
+            </Button>,
+            <Button key="save" onClick={handleModifyOk}>
+              저장
+            </Button>,
+            <Button key="delete" onClick={removeSubject}>
+              삭제
+            </Button>,
+          //   <div className={style.trashContainer}>
+          //     <img className={style.upperImage} onClick={removeSubject} src="img/remove-hover.svg" width="20" height="20"/>
+          //     <img src="img/remove.svg" width="20" height="20"/>
+          //   </div>
+          // ,
+          ]}>
               
               <form onSubmit={handleModifyOk} className={style.form}>
-                <div className={style.trashContainer}>
-                  <img className={style.upperImage} onClick={removeSubject} src="img/remove-hover.svg" width="20" height="20"/>
-                  <img src="img/remove.svg" width="20" height="20"/>
-              
-                </div>
                 <label className={style.formTitle}>
                   <span>과목 입력</span>
                   <input  required className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
