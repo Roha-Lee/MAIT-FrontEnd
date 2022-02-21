@@ -31,3 +31,10 @@ export const CamButton = styled.button`
 export const FlexBox = styled.div`
     display: flex
 `
+
+export const DropdownContainer = styled.div`
+    display: flex;
+    width: 90%;
+    flex-direction: row-reverse;
+`
+

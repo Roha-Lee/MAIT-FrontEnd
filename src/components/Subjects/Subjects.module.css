@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    padding: 11px;
-    background-color: #F0CE9A;
+    background-color: #F0CE9A;  
+    align-items: center; 
 }
 
 .subjects {
@@ -15,37 +15,36 @@
 }
 
 .subject {
-    margin: 0 .5rem;
+    margin: 0 .3rem;
     padding: 0.5rem 1rem;
-
+    position:relative;
     font-family: "Noto Sans KR", sans-serif;
     font-size: 1rem;
     font-weight: 400;
     text-align: center;
     text-decoration: none;
 
-    display: inline-block;
-    width: auto;
-
+    display: block;
     border: none;
     border-radius: 4px;
     box-sizing: border-box;
 }
-
+/* 
 .subject:hover {
     filter: brightness(70%);
-    border: dashed 2px black;}
+    border: dashed 2px black;
+} */
 
 .subjectManager {
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden;
     padding: 5px;
-    width: 400px;
-
+    width: 500px;
 }
 
 .subjectManager::-webkit-scrollbar {
-    height: 8px;
+    height: 8px; 
 }
 
 .subjectManager::-webkit-scrollbar-thumb {
@@ -64,5 +63,114 @@
     border: none;
     border-radius: 10px;
     padding: 5px 10px;
-    margin: 0 10px;
+    /* margin: 0 10px; */
+    margin-right: 10px;
 }
+/* 
+.trashContainer {
+    display:inline-block;
+    position: relative;
+    border: 1px solid #c5c1c0;
+    border-radius: 2px;
+    width: 40px;
+    padding:5px 10px;
+    margin-left: 8px;
+}
+
+.trashContainer:hover {
+    border: 1px solid #c5c1c0;
+    border-radius: 2px;
+    width: 40px;
+    padding:5px 10px;
+    margin-left: 8px;
+}
+.upperImage {
+position: absolute;
+top: 7px;
+left: 10px;
+transition: opacity .5s;
+opacity: 0;
+z-index: 99;
+}
+
+.upperImage:hover {
+opacity: 1;
+} */
+.editModalFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modalDeleteButton:hover{
+    border: 1px solid #ff0000 !important;
+    color: #ff0000 !important;
+}
+
+.modalSaveButton:hover{
+    border: 1px solid #0101c9 !important;
+    color: #0101c9 !important;
+}
+
+.modalCancleButton:hover{
+    border: 1px solid black !important;
+    color: black !important;
+}
+
+.deleteDescription {
+    display: block;
+    margin-right: 8px;
+    width: 60%;
+    font-size: 1em;
+    text-align: center;
+    color: #918e8e
+}
+
+
+.form {
+    display: flex;
+    align-items: center;
+  
+}
+
+.input {
+border-radius: 5px;
+border: 1px solid #c5c1c0;
+background-color: #fff;
+padding: 12px 15px;
+margin: 0 20px;  
+width: 15rem;
+}
+
+.formTitle {
+color: #6F8D7A;
+font-weight: bold;
+margin: 0 auto;  
+display: flex;
+align-items: center;
+}
+
+
+.formSubmit {
+border: 1px solid #6F8D7A;
+background-color: #6F8D7A;
+margin-left: 20px;
+border-radius: 5px;
+padding: 10px 15px;
+color: #fff;  
+}
+
+
+/* .buttonContainer {
+    position:relative;
+}
+.buttonModify {
+    position:absolute;
+    top:-5px;
+    left:3px;
+    background-color: rgb(250, 67, 0);
+    width:20px;
+    border-radius: 50%;
+
+}
+ */

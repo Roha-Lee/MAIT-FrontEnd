@@ -7,7 +7,7 @@ import {
     TodoItemContent,
     TodoItemBadge,
 } from './TodoListContainer.styled'
-import {postNewTodo} from '../../utils/AppUtils';
+
 import TodoInput from '../TodoInput/TodoInput'
 import TodoEditModal from '../TodoEditModal/TodoEditModal'
 
@@ -27,8 +27,15 @@ const TodoListContainer = ({subjects}) => {
     }, [todoList])
 
     const onItemAdd = useCallback((item) => {
-        postNewTodo(item.content, item.subjectId);
-        setTodoList([...todoList, item])
+        // postNewTodo(item.content, item.subjectId);
+        const newItem = {
+            subjectId: item.subjectId,
+            content: item.content,
+            isDone: false, 
+            id: todoList.length + 1,
+        }
+
+        setTodoList([...todoList, newItem])
     }, [todoList])
 
     const handleCloseEditModal = useCallback(() => {
@@ -36,6 +43,7 @@ const TodoListContainer = ({subjects}) => {
     }, [setEditingTodo])
 
     const handleChange = useCallback((target, content) => {
+        console.log('adsfadsfa', todo, content)
         setTodoList(todoList.map((todo) => todo.id === target.id ? { ...todo, content } : todo))
         handleCloseEditModal()
     }, [todoList, setTodoList, handleCloseEditModal])
@@ -46,7 +54,7 @@ const TodoListContainer = ({subjects}) => {
 
     const renderTodo = useCallback((todo) => {
         return (
-            <TodoItemContainer>
+            <TodoItemContainer key={todo.id}>
                 <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
                 <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
                 <TodoItemBadge 

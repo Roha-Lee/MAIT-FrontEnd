@@ -5,7 +5,7 @@ import {
     FormButton,
 } from './TodoInput.styled'
 
-const TodoInput = ({ subjects, onItemAdd }) => {
+const TodoInput = ({ todoList, subjects, onItemAdd }) => {
     //subject dropbox에 대한 설정 초기 값은 null
     const [subject, setSubject] = useState(null)
     
@@ -14,7 +14,10 @@ const TodoInput = ({ subjects, onItemAdd }) => {
     
     //add button을 누를때 불리는 함수
     const onSubmit = useCallback(() => {
-        onItemAdd({ subjectId: subject?.id, content: text, id: text })
+        // console.log("총 과목", subjects)
+        // console.log("과목 테스트", subject);
+        // console.log({ subjectId: subject?.subjectId, content: subject?.name, id: text });
+        onItemAdd({ subjectId: subject?.subjectId, content: text, id: todoList.length + 1})
 
         setSubject(null)
         setText('')

@@ -3,10 +3,10 @@
 
 }
 
-/* .dailydata{
+.dailydata{
     padding: 20px;
     height: 800px;
-} */
+}
 
 .titleContainer {
     text-align:left;
@@ -39,6 +39,7 @@
     text-align: center;
     color:black;
     margin: 40px 0;
+    height: 80px;
 }
 
 .dailyDetails {

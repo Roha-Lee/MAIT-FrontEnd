@@ -3,7 +3,7 @@ import style from "./DailyData.module.css";
 import axios from "axios";
 
 function DailyData ({data , labels, subjectColors}){
-
+    // console.log("im here");
     const subjectTotalData = data.subjectTotalTime;
     
     

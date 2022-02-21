@@ -1,12 +1,119 @@
 import TimeHeatmap from "./TimeHeatmap";
 import DailyData from "./DailyData";
 import style from "./Daily.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { DatePicker,Space } from "antd";
 
+const today = new Date().toJSON().slice(0,10);
+const todayY = today.slice(0,4);
+const todayM = today.slice(5,7);
+const todayD = today.slice(8,10);
+const fakedata = {
+    rangeTime : [
+        {
+            subjectId : 3,
+            subjectName : "Javascript",
+            color : "#6dbf84",
+            startTime : '2022-02-09 00:32:00',
+            endTime : '2022-02-09 01:47:00'
+        }, 
+        {
+            subjectId : 3,
+            subjectName : "Javascript",
+            color : "#6dbf84",
+            startTime : '2022-02-09 02:18:00',
+            endTime : '2022-02-09 03:47:00'
+        }, 
+        {
+            subjectId : 3,
+            subjectName : "Javascript",
+            color : "#6dbf84",
+            startTime : '2022-02-09 09:21:00',
+            endTime : '2022-02-09 10:16:00'
+        },
+        {
+            subjectId : 1,
+            subjectName : "Algorithm",
+            color : "#a67ebf",
+            startTime : '2022-02-09 10:35:20',
+            endTime : '2022-02-09 11:39:10'
+        },
+        {
+            subjectId : 2,
+            subjectName : "OS",
+            color : "#bf6d7f",
+            startTime : '2022-02-09 11:41:40',
+            endTime : '2022-02-09 13:12:02'
+        },
+        {
+            subjectId : 2,
+            subjectName : "OS",
+            color : "#bf6d7f",
+            startTime : '2022-02-09 14:35:40',
+            endTime : '2022-02-09 15:22:02'
+        },
+        {
+            subjectId : 3,
+            subjectName : "Javascript",
+            color : "#6dbf84",
+            startTime : '2022-02-09 16:46:00',
+            endTime : '2022-02-09 17:41:00'
+        },
+        {
+            subjectId : 1,
+            subjectName : "Algorithm",
+            color : "#a67ebf",
+            startTime : '2022-02-09 18:01:00',
+            endTime : '2022-02-09 20:04:00'
+        },          
+        {
+            subjectId : 1,
+            subjectName : "Algorithm",
+            color : "#a67ebf",
+            startTime : '2022-02-09 21:52:00',
+            endTime : '2022-02-09 22:07:00'
+        },
+        {
+            subjectId : 3,
+            subjectName : "Javascript",
+            color : "#6dbf84",
+            startTime : '2022-02-09 22:12:00',
+            endTime : '2022-02-09 23:04:00'
+        },          
+        {
+            subjectId : 3,
+            subjectName : "Javascript",
+            color : "#6dbf84",
+            startTime : '2022-02-09 23:17:00',
+            endTime : '2022-02-09 24:00:00'
+        },          
+    ],
+    subjectTotalTime : [
+        {
+            subjectId : 1,
+            subjectName : "Algorithm",
+            color : "#a67ebf",
+            totalTime : '03:10:02'
+        },
+        {
+            subjectId : 2,
+            subjectName : "OS",
+            color : "#bf6d7f",
+            totalTime : '01:23:10'
+        },
+        {
+            subjectId : 3,
+            subjectName : "Javascript",
+            color : "#6dbf84",
+            totalTime : '06:01:23'
+        },
+    ] 
+}
 function Daily (){
-    
-    // const [data, setData] = useState(null);
+    const [selectDate , setSelectDate] = useState(today);
+    console.log(selectDate);
+    const [data, setData] = useState(fakedata);
     // const [loading, setLoading] = useState(false);
     // const [error, setError] = useState(null);
     
@@ -15,12 +122,8 @@ function Daily (){
     //         setError(null);
     //         setData(null);
     //         setLoading(true);
-    //         const today = new Date();
-    //         const year = today.getFullYear();
-    //         const month = String(today.getMonth() + 1).padStart(2,0);
-    //         const date = String(today.getDate()).padStart(2,0);
-    // 
-    //         const response = await axios.get("http://192.249.29.38:3001/statistics",{'today' : `${year}-${month}-${date}`});
+    //         console.log(selectData);
+    //         const response = await axios.get("http://192.249.29.38:3001/statistics",{'today' : selectDate});
     //         setData(response.data);
     //     }catch(e){
     //         setError(e);
@@ -32,7 +135,7 @@ function Daily (){
 
     // useEffect(()=>{
     //     fetchData();
-    // },[]);
+    // },[selectDate]);
 
     // if(loading){
     //     return (<div>로딩중..</div>);
@@ -41,58 +144,24 @@ function Daily (){
     //     return(<div>{error}</div>);
     // }
 
-    const data = {
-        rangeTime : [
-            {
-                subjectId : 1,
-                subjectName : "과목1",
-                color : "#8f1717",
-                startTime : '2022-02-09 10:32:20',
-                endTime : '2022-02-09 10:45:10'
-            },
-            {
-                subjectId : 2,
-                subjectName : "과목2",
-                color : "#0b6a29",
-                startTime : '2022-02-09 11:23:40',
-                endTime : '2022-02-09 13:10:02'
-            },
-            {
-                subjectId : 3,
-                subjectName : "과목3",
-                color : "#441098",
-                startTime : '2022-02-09 09:20:00',
-                endTime : '2022-02-09 10:15:00'
-            },
-            {
-                subjectId : 1,
-                subjectName : "과목1",
-                color : "#8f1717",
-                startTime : '2022-02-09 18:23:00',
-                endTime : '2022-02-09 20:11:00'
-            },          
-        ],
-        subjectTotalTime : [
-            {
-                subjectId : 1,
-                subjectName : "과목1",
-                color : "#8f1717",
-                totalTime : '03:10:02'
-            },
-            {
-                subjectId : 2,
-                subjectName : "과목2",
-                color : "#0b6a29",
-                totalTime : '01:23:10'
-            },
-            {
-                subjectId : 3,
-                subjectName : "과목3",
-                color : "#441098",
-                totalTime : '06:01:23'
-            },
-        ] 
+    function onChange(date, dateString){
+        console.log(date,dateString);
+        if(parseInt(dateString.slice(0,4)) > todayY){
+            alert("기간을 다시 선택해 주세요!");
+        }else if(parseInt(dateString.slice(5,7)) > todayM){
+            alert("기간을 다시 선택해 주세요!");
+        }else if(parseInt(dateString.slice(8,10)) > todayD){
+            alert("기간을 다시 선택해 주세요!");
+        }else{
+            setSelectDate(dateString);
+            // console.log(,endDate);
+            // fetchData(range[0],range[1]);
+        }
+
+        
     }
+
+    
 
     const subjectTotalData = data.subjectTotalTime;
     
@@ -103,15 +172,17 @@ function Daily (){
         labels.push(subjectTotalData[i].subjectName);
         subjectColors.push(subjectTotalData[i].color);
     }
-
+    
     return (
         <div className = {style.daily}>
+            <div>
+            <DatePicker onChange={onChange} />
             <DailyData
                 data = {data}
                 labels = {labels}
                 subjectColors = {subjectColors}
             />
-            
+            </div>
             <TimeHeatmap
                 data = {data}
                 labels = {labels}

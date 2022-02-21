@@ -1,29 +1,7 @@
 import React, {useState} from 'react';
 import style from './NameForm.module.css';
-import ColorPicker from '../ColorPicker/ColorPicker'
-import {postNewSubject} from '../../utils/AppUtils';
-function NameForm({setSubjects, subjects}) {
-  const [value, setValue] = useState('');
-  const [color, setColor] = useState('F17103');
-  
-  const onSubmit = (event) => {
-    event.preventDefault();
-    postNewSubject(value, color).then((res) => {
-      console.log('post result', res.data);
-      if(res !== undefined){
-        setSubjects([
-          ...subjects, 
-          {
-            id: res.data.id, 
-            name: res.data.name, 
-            color: res.data.colorCode, 
-            totalTime: 0
-          }
-        ]);
-        setValue('');
-      }
-    })    
-  }
+
+function NameForm({setSubjects, subjects, value, setValue, color, setColor, onSubmit}) {
   return (
     <form onSubmit={onSubmit} className={style.form}>
       <label className={style.formTitle}>
