@@ -1,41 +1,111 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
-import ToggleButton from 'react-toggle-button'
+import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {AiContainer, SubjectsContainer, CamButton, FlexBox} from './Mainpage.styled'
+import { getAllUserData } from './utils/utils';
+import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
 
+const colorsIdtoCode = {};
+const colorsCodetoId = {};
 
 function Mainpage() {
-  const [subjects, setSubjects] = useState([{
-    subjectId: 1, 
-    name: 'Algorithm',
-    color: 'a67ebf',
-    totalTime: 11231300,
-  },
-  {
-    subjectId: 3, 
-    name: 'Javascript',
-    color: '6dbf84',
-    totalTime: 232400,
-  },
-  {
-    subjectId: 2, 
-    name: 'OS',
-    color: 'bf6d7f',
-    totalTime: 0,
-  },
-]);
-  const [modalOpen, setModalOpen] = useState(false);
+  // {
+  //   subjectId: 1, 
+  //   name: 'Algorithm',
+  //   color: 'a67ebf',
+  //   totalTime: 11231300,
+  // },
+  // {
+  //   subjectId: 3, 
+  //   name: 'Javascript',
+  //   color: '6dbf84',
+  //   totalTime: 232400,
+  // },
+  // {
+  //   subjectId: 2, 
+  //   name: 'OS',
+  //   color: 'bf6d7f',
+  //   totalTime: 0,
+  // },
+  const [subjects, setSubjects] = useState([]);
   const [currentSubject, setCurrentSubject] = useState(null);
   const [timerOn, setTimerOn] = useState(false);
   const [userTimerOn, setUserTimerOn] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [useFaceAi, setUseFaceAi] = useState(false);
   const [useHandAi, setUseHandAi] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [todoList, setTodoList] = useState([]);
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    getAllUserData().then((userData)=> {
+      const newSubjects = userData.data.subjects.map(subject => {
+        let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
+        
+        return {
+          subjectId: subject.id, 
+          name: subject.name,
+          colorId: subject.colorId,
+          totalTime: (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000,
+        }
+      });
+      //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
+      const newTodos = userData.data.todos.map(todo => {
+        return {
+          todoId: todo.id,
+          content: todo.content,
+          subjectId: todo.subjectId,
+          isDone: todo.isDone
+        }
+      });
+      userData.data.colors.forEach(color => {
+        colorsCodetoId[color.code] = color.id;
+        colorsIdtoCode[color.id] = color.code;
+      })
+      console.log(colorsCodetoId, colorsIdtoCode)
+      setSubjects(newSubjects); // 과목 정보 
+      setTodoList(newTodos);
+    });
+    
+  }, []);
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <div onClick={() => {
+          setUseFaceAi(false);
+          setUseHandAi(false);
+          buttonRef.current.querySelector('span').innerText = "AI 모드 선택"
+        }}>
+          사용 안함
+        </div>
+      </Menu.Item>
+      <Menu.Item>  
+        <div onClick={() => {
+          setUseFaceAi(true);
+          setUseHandAi(false);
+          buttonRef.current.querySelector('span').innerText = "얼굴 인식 모드"
+        }}>
+          얼굴 인식 모드
+        </div>
+      </Menu.Item>
+      <Menu.Item>
+        <div onClick={() => {
+          setUseFaceAi(false);
+          setUseHandAi(true);
+          buttonRef.current.querySelector('span').innerText = "손 인식 모드"
+          }}>
+          손 인식 모드
+        </div>
+      </Menu.Item>
+      
+    </Menu>
+  );
   
   return (
     <div className="App">
@@ -65,8 +135,8 @@ function Mainpage() {
       : null}
       <SubjectsContainer>          
         <Subjects 
-          setModalState={setModalOpen}
-          modalOpen={modalOpen}
+          colorsIdtoCode={colorsIdtoCode}
+          colorsCodetoId={colorsCodetoId}
           setSubjects={setSubjects}
           subjects={subjects}
           currentSubject={currentSubject}
@@ -74,6 +144,9 @@ function Mainpage() {
           currentTime={currentTime}
           setCurrentTime={setCurrentTime}
           setTimerOn={setTimerOn}
+          setUserTimerOn={setUserTimerOn}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
         />
         <Timer
           subjects={subjects}
@@ -86,9 +159,16 @@ function Mainpage() {
           setUserTimerOn={setUserTimerOn}
           currentTime={currentTime}
           setCurrentTime={setCurrentTime}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
         />
-        <span>얼굴 인식</span>
-        <ToggleButton
+        <DropdownContainer>
+          <Dropdown overlay={menu} placement="bottomCenter">
+          <Button ref={buttonRef} style={{borderRadius: "10px", backgroundColor: "#EEE7E1"}}>AI 모드 선택</Button>
+          </Dropdown>
+        </DropdownContainer>
+        
+        {/* <ToggleButton
           value={ useFaceAi || false }
           
           onToggle={(value) => { 
@@ -99,7 +179,7 @@ function Mainpage() {
         value={ useHandAi || false }
         onToggle={(value) => {
           setUseHandAi(!value);
-        }} />
+        }} /> */}
       </SubjectsContainer>
       <FlexBox>
         <CamButton
