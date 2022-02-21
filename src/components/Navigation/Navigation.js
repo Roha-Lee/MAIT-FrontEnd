@@ -8,7 +8,7 @@ function Navigation () {
         <HeadNavigate>
             <NavigationBlank/>
             <NavigationContents>
-                <div><StyledLinkHome to="/">EMIT</StyledLinkHome></div>
+                <div><StyledLinkHome to="/"><strong>M.AI.T</strong></StyledLinkHome></div>
                 <LoginContainer>
                     <div><StyledLink to="/Signup">Sign up</StyledLink></div>
                     <div><StyledLink to="/Login">Sign In</StyledLink></div>

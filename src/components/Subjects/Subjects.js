@@ -80,28 +80,41 @@ function Subjects({
     event.preventDefault();
     setIsModalVisible(false);
     // 새로운 과목 추가 API
-    // const {id, content, colorCode} = await postNewSubject(value, color);
+    try{
+      const result = await postNewSubject(value, colorsCodetoId[color])
+      const {id, name, colorId} = result.data;
+      setSubjects([
+        ...subjects, 
+        {
+          subjectId: id, 
+          name, 
+          colorId, 
+          totalTime: 0
+        }
+      ]);
+      
+      setNewSubject(id); 
+    } catch (error) {
+      if (error.response.data.message === 'SUBJECT_EXISTS') {
+        alert('이미 사용중인 과목 이름입니다. ')
+      }
+      else if(error.response.data.message === 'NO_SUBJECT_PROVIDED'){
+        alert('과목 이름을 입력해야 합니다.')
+      }
+    }
+    resetModal();
+    
+    // console.log(result.data)
+    // const id = subjects.length + 1;
     // setSubjects([
     //   ...subjects, 
     //   {
     //     subjectId: id, 
-    //     name: content, 
-    //     color: colorCode, 
+    //     name: value, 
+    //     colorId: colorsCodetoId[color], 
     //     totalTime: 0
     //   }
     // ]);
-    const id = subjects.length + 1;
-    setSubjects([
-      ...subjects, 
-      {
-        subjectId: id, 
-        name: value, 
-        colorId: colorsCodetoId[color], 
-        totalTime: 0
-      }
-    ]);
-    setNewSubject(id);
-    resetModal();
   };
 
   const handleCancel = () => {

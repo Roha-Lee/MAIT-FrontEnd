@@ -4,14 +4,14 @@ import axios from "axios";
 
 function DailyData ({data , labels, subjectColors}){
     // console.log("im here");
-    const subjectTotalData = data.subjectTotalTime;
+    const subjectTotalData = data?.subjectTotalTime;
     
     
     // let dataInput = [];
     let totalTime = 0;
     
     
-    for(let i = 0 ; i < subjectTotalData.length ; i++){
+    for(let i = 0 ; i < subjectTotalData?.length ; i++){
         const timeStr = subjectTotalData[i].totalTime;
         const hour = parseInt(timeStr.slice(0,2));
         const minute = parseInt(timeStr.slice(3,5));

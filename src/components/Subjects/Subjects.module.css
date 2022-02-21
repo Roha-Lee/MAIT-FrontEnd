@@ -23,7 +23,8 @@
     font-weight: 400;
     text-align: center;
     text-decoration: none;
-
+    /* word-break: keep-all; */
+    white-space: nowrap;
     display: block;
     border: none;
     border-radius: 4px;

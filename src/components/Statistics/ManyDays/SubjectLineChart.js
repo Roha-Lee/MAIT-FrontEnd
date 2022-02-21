@@ -49,8 +49,8 @@ function SubjectLineChart ({data,startDate,endDate}){
         
         // const subjectTotalTime = fakeData.subjectTotalTime;
         // const subjectTodo = fakeData.subjectTodo;
-        const subjectTotalTime = data.subjectTotalTime;
-        const subjectTodo = data.subjectTodo;
+        const subjectTotalTime = data?.subjectTotalTime;
+        const subjectTodo = data?.subjectTodo;
         
         const inputLineDataSet = {labels : null, datasets :[]};
     
@@ -271,7 +271,7 @@ function SubjectLineChart ({data,startDate,endDate}){
         }
 
         // }
-        console.log(inputLineDataSet);
+        // console.log(inputLineDataSet);
 
 
 

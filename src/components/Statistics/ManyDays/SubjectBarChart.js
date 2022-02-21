@@ -6,8 +6,8 @@ ChartJS.register(ArcElement, Tooltip, Legend,ChartDataLabels);
 
 function SubjectBarChart ({data}){
     
-    const subjectTotalTime = data.subjectTotalTime;
-    const subjectTodo = data.subjectTodo;
+    const subjectTotalTime = data?.subjectTotalTime;
+    const subjectTodo = data?.subjectTodo;
     // const subjectTotalTime = fakeData.subjectTotalTime;
     // const subjectTodo = fakeData.subjectTodo;
     

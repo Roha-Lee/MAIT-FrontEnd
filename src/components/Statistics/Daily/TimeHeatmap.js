@@ -23,13 +23,13 @@ function TimeHeatmap ({data , labels , subjectColors}){
     const [subject , setSubject] = useState("전체");
     const xLabels = new Array(6).fill(0).map((_, i) => `${i}`);
     const yLabels = new Array(25).fill(0).map((_, i) => `${i}h`.padStart(3,0));
-    const subjectTotalTime = data.subjectTotalTime;
+    const subjectTotalTime = data?.subjectTotalTime;
     const colorRGB = {};
     const totalInputData = {};
     const timeColorYX = {};
-    const getData = data.rangeTime;
+    const getData = data?.rangeTime;
 
-    subjectTotalTime.map((e)=>{
+    subjectTotalTime?.map((e)=>{
         colorRGB[e.subjectName] = hexToRgb(e.color); 
     });
 
@@ -39,7 +39,7 @@ function TimeHeatmap ({data , labels , subjectColors}){
     )
 
     
-    getData.map((value)=>{
+    getData?.map((value)=>{
         const subjectName = value.subjectName;
         
         const startH = parseInt(value.startTime.slice(11,13));
@@ -129,9 +129,9 @@ function TimeHeatmap ({data , labels , subjectColors}){
                             // "rgb("+colorRGB[subject].r+","+colorRGB[subject].g+","+colorRGB[subject].b+","+ratio+")"
                             "rgb("+colorRGB[timeColorYX[String(_y)+String(_x)]].r+","+colorRGB[timeColorYX[String(_y)+String(_x)]].g+","+colorRGB[timeColorYX[String(_y)+String(_x)]].b+","+ratio+")"
                             :""}`,
-                        border : " solid 0.1px",
+                        border : "solid 1px black",
                         borderRadius : 0,
-                        // borderColor : `rgb(${color.r}, ${color.g}, ${color.b}, 0.1)`
+                        
                     })}
                     cellHeight="1.8rem"
                     

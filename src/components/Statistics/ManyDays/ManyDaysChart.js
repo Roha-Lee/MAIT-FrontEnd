@@ -36,8 +36,8 @@ function ManyDaysChart ({startDate,endDate,data}) {
         const endM = endDateObj.getMonth() + 1;
         const endD = endDateObj.getDate();
         
-        const subjectTotalTime = data.subjectTotalTime;
-        const subjectTodo = data.subjectTodo;
+        const subjectTotalTime = data?.subjectTotalTime;
+        const subjectTodo = data?.subjectTodo;
         
         const inputSubjectBarData = [];
         const inputTodoBarData = [];

@@ -3,7 +3,7 @@ import reactCSS from 'reactcss'
 import { CirclePicker } from 'react-color'
 function ColorPicker({colors, setColor, pickerColor, setPickerColor, displayColorPicker, setDisplayColorPicker}) {
   const handleClick = () => {
-    console.log('colorPicker', colors);
+    // console.log('colorPicker', colors);
     setDisplayColorPicker(!displayColorPicker);
   };
 

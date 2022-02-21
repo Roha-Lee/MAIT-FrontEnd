@@ -3,14 +3,14 @@ import { Modal, Button, FormControl, Form} from 'react-bootstrap'
 import axios from 'axios'
 
 const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
-    console.log(subjects)
+    // console.log(subjects)
 
     const [content, setContent] = useState('')
     useEffect(() => setContent(todo?.content || ''), [todo])
 
     const deleteTodo = () => {
         axios.delete(`/todos/${todo.id}`)
-            .then(() => onDelete(todo))    
+        .then(() => onDelete(todo))    
     }
 
     const [subject,editSubject] = useState('')

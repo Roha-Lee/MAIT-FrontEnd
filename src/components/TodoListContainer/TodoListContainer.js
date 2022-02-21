@@ -7,73 +7,82 @@ import {
     TodoItemContent,
     TodoItemBadge,
 } from './TodoListContainer.styled'
-
+import { todoUpdate } from '../../utils/utils'
 import TodoInput from '../TodoInput/TodoInput'
 import TodoEditModal from '../TodoEditModal/TodoEditModal'
 
 
+
 // TodoListContainer TodoList들을 관리하는 전체적인 폼
-const TodoListContainer = ({subjects}) => {
-    const [todoList, setTodoList] = useState([
-        { id: 1, content: 'AAA', isDone: false },
-        { id: 2, content: 'BB', isDone: false, subjectId: 'subject1' },
-        { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
-    ])
+const TodoListContainer = ({todoList, setTodoList, subjects, colorsIdtoCode, colorsCodetoId}) => {
+  // const [todoList, setTodoList] = useState([
+  //     { id: 1, content: 'AAA', isDone: false },
+  //     { id: 2, content: 'BB', isDone: false, subjectId: 'subject1' },
+  //     { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
+  // ])
 
-    const [editingTodo, setEditingTodo] = useState(null)
+  const [editingTodo, setEditingTodo] = useState(null)
 
-    const toggleTodo = useCallback((target) => {
-        setTodoList(todoList.map((todo) => todo.id === target.id ? { ...todo, isDone: !todo.isDone } : todo))
-    }, [todoList])
-
-    const onItemAdd = useCallback((item) => {
-        // postNewTodo(item.content, item.subjectId);
-        const newItem = {
-            subjectId: item.subjectId,
-            content: item.content,
-            isDone: false, 
-            id: todoList.length + 1,
+  const toggleTodo = useCallback( async (target) => {
+    // 통신 코드 추가 
+    try {
+        const updateResponse = await todoUpdate(target.todoId);
+        if (updateResponse.data.message === 'success') {
+          setTodoList(todoList.map((todo) => todo.todoId === target.todoId ? { ...todo, isDone: !todo.isDone } : todo))            
         }
+    }
+    catch (error) {
+        console.log(error);
+    }
+  }, [todoList])
 
-        setTodoList([...todoList, newItem])
-    }, [todoList])
+  const onItemAdd = useCallback((item) => {
+      // postNewTodo(item.content, item.subjectId);
+      const newItem = {
+          subjectId: item.subjectId,
+          content: item.content,
+          isDone: false, 
+          todoId: todoList.length + 1,
+      }
 
-    const handleCloseEditModal = useCallback(() => {
-        setEditingTodo(null)
-    }, [setEditingTodo])
+      setTodoList([...todoList, newItem])
+  }, [todoList])
 
-    const handleChange = useCallback((target, content) => {
-        console.log('adsfadsfa', todo, content)
-        setTodoList(todoList.map((todo) => todo.id === target.id ? { ...todo, content } : todo))
-        handleCloseEditModal()
-    }, [todoList, setTodoList, handleCloseEditModal])
+  const handleCloseEditModal = useCallback(() => {
+      setEditingTodo(null)
+  }, [setEditingTodo])
 
-    const handleDelete = useCallback((target) => {
-        setTodoList(todoList.filter((todo) => todo.id !== target.id))
-    },[todoList, setTodoList])
+  const handleChange = useCallback((target, content) => {
+      setTodoList(todoList.map((todo) => todo.todoId === target.todoId ? { ...todo, content } : todo))
+      handleCloseEditModal()
+  }, [todoList, setTodoList, handleCloseEditModal])
 
-    const renderTodo = useCallback((todo) => {
-        return (
-            <TodoItemContainer key={todo.id}>
-                <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
-                <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
-                <TodoItemBadge 
-                color={`#${subjects.find(subject => subject.id === todo.subjectId)?.color}`}
-                >
-                    {subjects.find(subject => subject.id === todo.subjectId)?.name}
-                </TodoItemBadge>
-            </TodoItemContainer>
-        )
-    }, [subjects, toggleTodo])
+  const handleDelete = useCallback((target) => {
+      setTodoList(todoList.filter((todo) => todo.todoId !== target.todoId))
+  },[todoList, setTodoList])
 
-    return (
-        <TodoListDiv>
-            <TodoListHeader>TODO</TodoListHeader>
-            {todoList.map(todo => renderTodo(todo))}
-            <TodoInput subjects={subjects} onItemAdd={onItemAdd}/>
-            <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete} subjects={subjects}/>
-        </TodoListDiv>
-    )
+  const renderTodo = useCallback((todo) => {
+      return (
+          <TodoItemContainer key={todo.todoId}>
+              <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
+              <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
+              <TodoItemBadge 
+              color={`#${colorsIdtoCode[subjects.find(subject => subject.subjectId === todo.subjectId)?.colorId]}`}
+              >
+                  {subjects.find(subject => subject.subjectId === todo.subjectId)?.name}
+              </TodoItemBadge>
+          </TodoItemContainer>
+      )
+  }, [subjects, toggleTodo])
+
+  return (
+      <TodoListDiv>
+          <TodoListHeader>TODO</TodoListHeader>
+          {todoList.map(todo => renderTodo(todo))}
+          <TodoInput subjects={subjects} onItemAdd={onItemAdd}/>
+          <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete} subjects={subjects}/>
+      </TodoListDiv>
+  )
 }
 
 export default TodoListContainer

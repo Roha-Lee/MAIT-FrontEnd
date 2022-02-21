@@ -45,15 +45,22 @@ function Mainpage() {
   useEffect(() => {
     getAllUserData().then((userData)=> {
       const newSubjects = userData.data.subjects.map(subject => {
-        let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
-        
         return {
           subjectId: subject.id, 
           name: subject.name,
           colorId: subject.colorId,
-          totalTime: (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000,
+          totalTime: 0,
         }
       });
+
+      userData.data.study.forEach(subject => {
+        let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
+        newSubjects
+        .find(elem => elem.subjectId === subject.id)
+        .totalTime = (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000 ;
+      })
+      
+        
       //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
       const newTodos = userData.data.todos.map(todo => {
         return {
@@ -67,7 +74,7 @@ function Mainpage() {
         colorsCodetoId[color.code] = color.id;
         colorsIdtoCode[color.id] = color.code;
       })
-      console.log(colorsCodetoId, colorsIdtoCode)
+    
       setSubjects(newSubjects); // 과목 정보 
       setTodoList(newTodos);
     });
@@ -187,7 +194,7 @@ function Mainpage() {
             Cam Study
         </CamButton>
       </FlexBox>
-      <TodoListContainer subjects={subjects}/>
+      <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
     </div>
           )
   }
