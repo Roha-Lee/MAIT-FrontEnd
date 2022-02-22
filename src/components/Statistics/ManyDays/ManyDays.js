@@ -22,14 +22,14 @@ function ManyDays (){
     const [error, setError] = useState(null);
     const yongHourl = "http://192.249.29.5:3001/statistics/period";
     const jongHourl = "http://143.248.196.37:3001/statistics/period";
-    
+    const serverUrl = "https://mait.shop/statistics/period"
     const fetchData = async (startDate , endDate) => {
         try {
             setError(null);
             setData(null);
             setLoading(true);
             // console.log(startDate,endDate);
-            const response = await axios.get(jongHourl,{params : {'startDate' : startDate , 'endDate' : endDate}});
+            const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}});
             console.log(response.data);
             setData(response.data)
         }catch(e){
