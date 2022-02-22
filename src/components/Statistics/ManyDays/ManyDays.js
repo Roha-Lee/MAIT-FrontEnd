@@ -8,9 +8,9 @@ import SubjectBarChart from "./SubjectBarChart";
 import TodoBarChart from "./TodoBarChart";
 import SubjectLineChart from "./SubjectLineChart";
 
-const todayY = parseInt(new Date().toJSON().slice(0,4));
-const todayM = parseInt(new Date().toJSON().slice(5,7));
-const todayD = parseInt(new Date().toJSON().slice(8,10));
+const todayY = new Date().getFullYear();
+const todayM = new Date().getMonth()+1;
+const todayD = new Date().getDate();
 
 function ManyDays (){
     const [range, setRange] = useState([]);
@@ -20,16 +20,18 @@ function ManyDays (){
     const [data , setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const yongHourl = "http://192.249.29.5:3001/statistics/period";
+    const jongHourl = "http://143.248.196.37:3001/statistics/period";
     
     const fetchData = async (startDate , endDate) => {
         try {
             setError(null);
             setData(null);
             setLoading(true);
-    
-            const response = await axios.put("http://192.249.29.5:3001/statistics/period",{'startDate' : startDate , 'endDate' : endDate});
-            console.log(response);
-            data = response.data
+            console.log(startDate,endDate);
+            const response = await axios.get(jongHourl,{params : {'startDate' : startDate , 'endDate' : endDate}});
+            // console.log(response.data.subjectTotalTime);
+            setData(response.data)
         }catch(e){
             setError(e);
         }
@@ -281,10 +283,13 @@ function ManyDays (){
     const onOk = () => {
 
         if(parseInt(range[1].slice(0,4)) > todayY){
+            console.log("Y");
             alert("기간을 다시 선택해 주세요!");
         }else if(parseInt(range[1].slice(5,7)) > todayM){
+            console.log("M");
             alert("기간을 다시 선택해 주세요!");
         }else if(parseInt(range[1].slice(8,10)) > todayD){
+            console.log(todayD," D!");
             alert("기간을 다시 선택해 주세요!");
         }else{
             setClick(true);
@@ -293,9 +298,6 @@ function ManyDays (){
             // console.log(,endDate);
             fetchData(range[0],range[1]);
         }
-        // console.log(typeof range , typeof range[0],range[1])
-        
-        // fetchData(range[0],range[1]);
         
     }
 
@@ -322,6 +324,7 @@ function ManyDays (){
                         </div>
                         <SubjectBarChart 
                             data = {data}
+                            // data = {fakeData}
                             // click = {click}
                             // setClick = {setClick}
                         />
@@ -332,6 +335,7 @@ function ManyDays (){
                     </div>
                         <TodoBarChart 
                             data = {data}
+                            // data = {fakeData}
                             // click = {click}
                             // setClick = {setClick}
                         />
@@ -345,6 +349,7 @@ function ManyDays (){
                         startDate = {startDate}
                         endDate = {endDate}
                         data = {data}
+                        // data = {fakeData}
                         // click = {click}
                         // setClick = {setClick}
                     />

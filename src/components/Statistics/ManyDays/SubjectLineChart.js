@@ -37,6 +37,7 @@ function SubjectLineChart ({data,startDate,endDate}){
 
     // if(startDate !== null && endDate !== null){
         const startDateObj = new Date(startDate);
+        const startDateObjCopy = new Date(startDate)
         const endDateObj = new Date(endDate);
     
         const startYearDay = new Date(startDate.slice(0,4)+"-01-01");
@@ -46,11 +47,28 @@ function SubjectLineChart ({data,startDate,endDate}){
         const endW = calWeek(startYearDay,endDateObj); 
         const endM = endDateObj.getMonth() + 1;
         const endD = endDateObj.getDate();
+        const periodD = parseInt((endDateObj-startDateObj)/86400000)+1;
+        // console.log(periodD);
+        const dateList = [startDate];
+        let iterateDate = startDate;
         
+        for (let iD = 0; iD < periodD-1;iD++){
+            const iterateDateObj = new Date(startDateObjCopy.setDate(startDateObjCopy.getDate()+1));
+            dateList.push(String(iterateDateObj.getFullYear())+"-"+String(iterateDateObj.getMonth()+1).padStart(2,"0")+"-"+String(iterateDateObj.getDate()).padStart(2,"0"));
+            iterateDate = String(iterateDateObj.getFullYear())+"-"+String(iterateDateObj.getMonth()+1).padStart(2,"0")+"-"+String(iterateDateObj.getDate()).padStart(2,"0");
+        }
+        // console.log(dateList);
         // const subjectTotalTime = fakeData.subjectTotalTime;
-        // const subjectTodo = fakeData.subjectTodo;
         const subjectTotalTime = data?.subjectTotalTime;
-        const subjectTodo = data?.subjectTodo;
+        // console.log(subjectTotalTime);
+        // console.log(subjectTotalTime);
+        // const subjectTodo = data?.subjectTodo;
+        const subjectColorPair = data?.subjectColorPair;
+        // const subjectColorPair = {
+        //     "Algorithm" : "#a67ebf",
+        //     "OS" : "#bf6d7f",
+        //     "Javascript" : "#6dbf84"
+        // };
         
         const inputLineDataSet = {labels : null, datasets :[]};
     
@@ -61,7 +79,7 @@ function SubjectLineChart ({data,startDate,endDate}){
 
         let chartTitle ;
 
-        if(endW === startW){
+        if(endW - startW < 3){
             chartTitle = "일자별 학습시간(hr)";
         }
         else if (endW - startW < 10){
@@ -92,10 +110,10 @@ function SubjectLineChart ({data,startDate,endDate}){
         // console.log(startW,ㄴendW);
     
         if( endW - startW < 3){
-            const timeLabels = [];
+            // const timeLabels = [];
             inputLineDataSet["datasets"].push({
                 label : "Total",
-                data : Array.from({length:endD-startD+1},()=>0),
+                data : Array.from({length:periodD},()=>0),
                 borderColor : "#000000",
                 backgroundColor : "#000000",
                 borderDash : [10,10],
@@ -103,19 +121,19 @@ function SubjectLineChart ({data,startDate,endDate}){
             })
 
             let i = 1;
-            for(const subject in subjectTodo){
+            for(const subject in subjectColorPair){
                 subjectLabels.push(subject);
                 // console.log(subject, subjectTodo[subject]);
-                colorLabels.push(subjectTodo[subject][1]);
+                colorLabels.push(subjectColorPair[subject]);
                 
                 
-                subjectIndexColor[subject] = [i , subjectTodo[subject][1]];
+                subjectIndexColor[subject] = [i , subjectColorPair[subject]];
 
                 const dataSetForm ={
                     label : subject,
-                    data : [],
-                    borderColor : subjectTodo[subject][1],
-                    backgroundColor : subjectTodo[subject][1],
+                    data : Array.from({length:periodD},()=>0),
+                    borderColor : subjectColorPair[subject],
+                    backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
@@ -124,26 +142,34 @@ function SubjectLineChart ({data,startDate,endDate}){
             }
 
             let totalIndex = 0;
-            for(const studyDate in subjectTotalTime){
+            for(let p=0 ; p < dateList.length ;p++){
+                const studyDate = dateList[p]
                 // console.log(startDate);
-                timeLabels.push(studyDate.slice(5,10));
-                const totalList = subjectTotalTime[studyDate];
-                // console.log(studyDate, totalList);
+                // timeLabels.push(studyDate.slice(5,10));
+                const totalList = subjectTotalTime !== undefined ? subjectTotalTime[studyDate] : undefined;
+                console.log(studyDate, totalList);
                 let sumTime = 0;
-                for(const subject1 in totalList){
-                    const totalTimeStr = totalList[subject1]["totalTime"];
-                    const currentIdx = subjectIndexColor[subject1][0];
-                    // console.log(currentIdx);
-                    // console.log(inputLineDataSet["datasets"][currentIdx]);
-                    const totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
-                    // inputSubjectBarData[currentIdx] = parseFloat((inputSubjectBarData[currentIdx] + totalTimeFlt).toFixed(1)); 
-                    inputLineDataSet["datasets"][currentIdx]["data"].push(totalTimeFlt);
+                for(const subject1 in subjectColorPair){
+                    let totalTimeFlt;
+                    if(totalList !== undefined && subject1 in totalList){
+                        const totalTimeStr = totalList[subject1]["totalTime"];
+                        const currentIdx = subjectIndexColor[subject1][0];
+                        // console.log(currentIdx);
+                        // console.log(inputLineDataSet["datasets"][currentIdx]);
+                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        // inputSubjectBarData[currentIdx] = parseFloat((inputSubjectBarData[currentIdx] + totalTimeFlt).toFixed(1)); 
+                        inputLineDataSet["datasets"][currentIdx]["data"][p] = totalTimeFlt;
+
+                    }else{
+                        totalTimeFlt = 0.0;
+                    }
+
                     sumTime = sumTime + totalTimeFlt;
                 }
                 inputLineDataSet["datasets"][0]["data"][totalIndex] = sumTime;
                 totalIndex = totalIndex + 1; 
             }
-            inputLineDataSet["labels"] = timeLabels;
+            inputLineDataSet["labels"] = dateList.map(k=>k.slice(5,10));
     
     
         }
@@ -159,19 +185,19 @@ function SubjectLineChart ({data,startDate,endDate}){
                 tension : 0.2,
             })
             let x = 1;
-            for(const subject in subjectTodo){
+            for(const subject in subjectColorPair){
                 subjectLabels.push(subject);
                 // console.log(subject, subjectTodo[subject]);
-                colorLabels.push(subjectTodo[subject][1]);
+                colorLabels.push(subjectColorPair[subject]);
                 
                 
-                subjectIndexColor[subject] = [x , subjectTodo[subject][1]];
+                subjectIndexColor[subject] = [x , subjectColorPair[subject]];
 
                 const dataSetForm ={
                     label : subject,
                     data : Array.from({length : endW-startW+1}, ()=> 0),
-                    borderColor : subjectTodo[subject][1],
-                    backgroundColor : subjectTodo[subject][1],
+                    borderColor : subjectColorPair[subject],
+                    backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
@@ -183,7 +209,8 @@ function SubjectLineChart ({data,startDate,endDate}){
             let i = 0;
             timeLabels.push("ww"+curruntW);
             let sumTime = 0;
-            for(const studyDate in subjectTotalTime){
+            for(let q = 0 ; q < dateList.length ; q++){
+                const studyDate = dateList[q];
                 if(calWeek(startYearDay,new Date(studyDate)) !== curruntW){
                     curruntW = calWeek(startYearDay ,new Date(studyDate));
                     timeLabels.push("ww"+curruntW);
@@ -191,11 +218,17 @@ function SubjectLineChart ({data,startDate,endDate}){
                     i = i+1;
                     sumTime = 0;
                 }
-                const totalList = subjectTotalTime[studyDate];
-                for(const subject in totalList){
-                    const totalTimeStr = totalList[subject]["totalTime"];
+                // const totalList = subjectTotalTime[studyDate];
+                const totalList = subjectTotalTime !== undefined ? subjectTotalTime[studyDate] : undefined;
+                for(const subject in subjectColorPair){
                     const currentIdx = subjectIndexColor[subject][0];
-                    const totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                    let totalTimeFlt;
+                    if(totalList !== undefined && subject in totalList){
+                        const totalTimeStr = totalList[subject]["totalTime"];
+                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                    }else{
+                        totalTimeFlt = 0;
+                    }
                     inputLineDataSet["datasets"][currentIdx]["data"][i] = inputLineDataSet["datasets"][currentIdx]["data"][i] + totalTimeFlt;
                     sumTime = sumTime + totalTimeFlt; 
                 }
@@ -228,17 +261,17 @@ function SubjectLineChart ({data,startDate,endDate}){
                 tension : 0.2,
             })
             let x = 1;
-            for(const subject in subjectTodo){
+            for(const subject in subjectColorPair){
                 subjectLabels.push(subject);
                 // console.log(subject, subjectTodo[subject]);
-                colorLabels.push(subjectTodo[subject][1]);               
-                subjectIndexColor[subject] = [x , subjectTodo[subject][1]];
+                colorLabels.push(subjectColorPair[subject]);               
+                subjectIndexColor[subject] = [x , subjectColorPair[subject]];
 
                 const dataSetForm ={
                     label : subject,
                     data : Array.from({length : endM-startM+1}, ()=> 0),
-                    borderColor : subjectTodo[subject][1],
-                    backgroundColor : subjectTodo[subject][1],
+                    borderColor : subjectColorPair[subject],
+                    backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
@@ -249,7 +282,8 @@ function SubjectLineChart ({data,startDate,endDate}){
             let i = 0;
             timeLabels.push(monthPair[curruntM]);
             let sumTime = 0;
-            for(const studyDate in subjectTotalTime){
+            for(let r=0 ; r < dateList.length ; r++){
+                const studyDate = dateList[r];
                 if(calWeek(new Date(studyDate).getMonth()+1) !== curruntM){
                     curruntM = new Date(studyDate).getMonth()+1;
                     timeLabels.push(monthPair[curruntM]);
@@ -257,11 +291,17 @@ function SubjectLineChart ({data,startDate,endDate}){
                     i = i+1;
                     sumTime = 0;
                 }
-                const totalList = subjectTotalTime[studyDate];
-                for(const subject in totalList){
-                    const totalTimeStr = totalList[subject]["totalTime"];
+                // const totalList = subjectTotalTime[studyDate];
+                const totalList = subjectTotalTime !== undefined ? subjectTotalTime[studyDate] : undefined;
+                for(const subject in subjectColorPair){
                     const currentIdx = subjectIndexColor[subject][0];
-                    const totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                    let totalTimeFlt;
+                    if(totalList !== undefined && subject in totalList){
+                        const totalTimeStr = totalList[subject]["totalTime"];
+                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                    }else{
+                        totalTimeFlt = 0;
+                    }
                     inputLineDataSet["datasets"][currentIdx]["data"][i] = inputLineDataSet["datasets"][currentIdx]["data"][i] + totalTimeFlt;
                     sumTime = sumTime + totalTimeFlt; 
                 }

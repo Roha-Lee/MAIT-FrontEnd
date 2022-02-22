@@ -66,6 +66,7 @@ function TodoBarChart ({data}){
 
         // const subjectTodo = fakeData.subjectTodo;
         const subjectTodo = data?.subjectTodo;
+        // const subjectColorPair = data?.subjectColorPair;
         
         const inputTodoBarData = [];
     

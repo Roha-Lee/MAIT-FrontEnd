@@ -115,14 +115,15 @@ function Daily (){
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    
+    const yongHourl = "http://192.249.29.5:3001/statistics/daily";
+    const jongHourl = "http://143.248.196.37:3001/statistics/daily";
     const fetchData = async () => {
         try {
             setError(null);
             setData(null);
             setLoading(true);
             console.log("fetch date",selectDate);
-            const response = await axios.put("http://192.249.29.5:3001/statistics/daily",{'today' : selectDate});
+            const response = await axios.get(jongHourl,{params : {'today' : selectDate}});
             console.log(response);
             setData(response.data);
         }catch(e){

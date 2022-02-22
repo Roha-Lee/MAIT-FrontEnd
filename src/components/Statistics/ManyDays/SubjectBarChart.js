@@ -7,7 +7,12 @@ ChartJS.register(ArcElement, Tooltip, Legend,ChartDataLabels);
 function SubjectBarChart ({data}){
     
     const subjectTotalTime = data?.subjectTotalTime;
-    const subjectTodo = data?.subjectTodo;
+    const subjectColorPair = data?.subjectColorPair;
+    // const subjectColorPair = {
+    //     "Algorithm" : "#a67ebf",
+    //     "OS" : "#bf6d7f",
+    //     "Javascript" : "#6dbf84"
+    // };
     // const subjectTotalTime = fakeData.subjectTotalTime;
     // const subjectTodo = fakeData.subjectTodo;
     
@@ -48,12 +53,12 @@ function SubjectBarChart ({data}){
     // console.log(subjectTodo);
 
     let i = 0;
-    for(const subject in subjectTodo){
+    for(const subject in subjectColorPair){
         subjectLabels.push(subject);
         // console.log(subject, subjectTodo[subject]);
-        colorLabels.push(subjectTodo[subject][1]);
+        colorLabels.push(subjectColorPair[subject]);
         
-        subjectIndexColor[subject] = [i , subjectTodo[subject][1]];
+        subjectIndexColor[subject] = [i , subjectColorPair[subject]];
         inputSubjectBarData.push(0);
         
         i = i+1;
@@ -66,11 +71,13 @@ function SubjectBarChart ({data}){
         timeLabels.push(studyDate);
         const totalList = subjectTotalTime[studyDate];
         // console.log(studyDate, totalList);
-        for(const subject1 in totalList){
-            const totalTimeStr = totalList[subject1]["totalTime"];
-            const currentIdx = subjectIndexColor[subject1][0];
-            const totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
-            inputSubjectBarData[currentIdx] = parseFloat((inputSubjectBarData[currentIdx] + totalTimeFlt).toFixed(1)); 
+        for(const subject1 in subjectColorPair){
+            if(totalList[subject1] !== undefined){
+                const totalTimeStr = totalList[subject1]["totalTime"];
+                const currentIdx = subjectIndexColor[subject1][0];
+                const totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                inputSubjectBarData[currentIdx] = parseFloat((inputSubjectBarData[currentIdx] + totalTimeFlt).toFixed(1)); 
+            }
         }
     }
 
