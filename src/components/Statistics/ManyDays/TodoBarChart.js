@@ -66,7 +66,7 @@ function TodoBarChart ({data}){
 
         // const subjectTodo = fakeData.subjectTodo;
         const subjectTodo = data?.subjectTodo;
-        // const subjectColorPair = data?.subjectColorPair;
+        const subjectColorPair = data?.subjectColorPair;
         
         const inputTodoBarData = [];
     
@@ -101,9 +101,9 @@ function TodoBarChart ({data}){
         for(const subject in subjectTodo){
             subjectLabels.push(subject);
             // console.log(subject, subjectTodo[subject]);
-            colorLabels.push(subjectTodo[subject][1]);
+            colorLabels.push(subjectColorPair[subject]);
             
-            const percentTodo = (subjectTodo[subject][0]*100).toFixed(1);
+            const percentTodo = (subjectTodo[subject]*100).toFixed(1);
             
             if(percentTodo == 100){
                 inputTodoBarData.push(parseInt(percentTodo));

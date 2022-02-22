@@ -28,9 +28,9 @@ function ManyDays (){
             setError(null);
             setData(null);
             setLoading(true);
-            console.log(startDate,endDate);
+            // console.log(startDate,endDate);
             const response = await axios.get(jongHourl,{params : {'startDate' : startDate , 'endDate' : endDate}});
-            // console.log(response.data.subjectTotalTime);
+            console.log(response.data);
             setData(response.data)
         }catch(e){
             setError(e);
@@ -282,22 +282,22 @@ function ManyDays (){
 
     const onOk = () => {
 
-        if(parseInt(range[1].slice(0,4)) > todayY){
-            console.log("Y");
-            alert("기간을 다시 선택해 주세요!");
-        }else if(parseInt(range[1].slice(5,7)) > todayM){
-            console.log("M");
-            alert("기간을 다시 선택해 주세요!");
-        }else if(parseInt(range[1].slice(8,10)) > todayD){
-            console.log(todayD," D!");
-            alert("기간을 다시 선택해 주세요!");
-        }else{
+        // if(parseInt(range[1].slice(0,4)) > todayY){
+        //     console.log("Y");
+        //     alert("기간을 다시 선택해 주세요!");
+        // }else if(parseInt(range[1].slice(0,4)) === todayY && parseInt(range[1].slice(5,7)) > todayM){
+        //     console.log("M");
+        //     alert("기간을 다시 선택해 주세요!");
+        // }else if(parseInt(range[1].slice(5,7)) === todayM && parseInt(range[1].slice(8,10)) > todayD){
+        //     console.log(todayD," D!");
+        //     alert("기간을 다시 선택해 주세요!");
+        // }else{
             setClick(true);
             setStartDate(range[0]);
             setEndDate(range[1]);
             // console.log(,endDate);
             fetchData(range[0],range[1]);
-        }
+        // }
         
     }
 

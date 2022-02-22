@@ -21,10 +21,10 @@ ChartJS.register(
 
 function calWeek(startYearDay,targetDate){
 
-    // console.log(startYearDay,targetDate,(targetDate - startYearDay),oneYear);
+    // console.log(startYearDay,targetDate,(targetDate - startYearDay));
     const week = parseInt((targetDate - startYearDay)/(86400000*7))+1;
     // console.log(week)
-    if(targetDate.getDay() < startYearDay.getDay()){
+    if(targetDate?.getDay() < startYearDay?.getDay()){
         return week + 1;
     }
     else{
@@ -42,12 +42,15 @@ function SubjectLineChart ({data,startDate,endDate}){
     
         const startYearDay = new Date(startDate.slice(0,4)+"-01-01");
         const startW = calWeek(startYearDay,startDateObj);
+        const startY = startDateObj.getFullYear();
         const startM = startDateObj.getMonth() + 1;
         const startD = startDateObj.getDate();
-        const endW = calWeek(startYearDay,endDateObj); 
+        const endW = calWeek(startYearDay,endDateObj);
+        const endY = endDateObj.getFullYear(); 
         const endM = endDateObj.getMonth() + 1;
         const endD = endDateObj.getDate();
         const periodD = parseInt((endDateObj-startDateObj)/86400000)+1;
+        const periodM = startY === endY ? endM - startM + 1 : (endY - startY - 1)*12 + (13-startM) +(endM);
         // console.log(periodD);
         const dateList = [startDate];
         let iterateDate = startDate;
@@ -105,6 +108,12 @@ function SubjectLineChart ({data,startDate,endDate}){
             },
             maintainAspectRatio : false,
             borderJoinStyle : "round",
+            scales: {
+                y: {
+                    suggestedMin: 0,
+                    suggestedMax: 1
+                }
+            },
         };
         // console.log(subjectTodo);
         // console.log(startW,ㄴendW);
@@ -147,7 +156,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                 // console.log(startDate);
                 // timeLabels.push(studyDate.slice(5,10));
                 const totalList = subjectTotalTime !== undefined ? subjectTotalTime[studyDate] : undefined;
-                console.log(studyDate, totalList);
+                // console.log(studyDate, totalList);
                 let sumTime = 0;
                 for(const subject1 in subjectColorPair){
                     let totalTimeFlt;
@@ -211,6 +220,7 @@ function SubjectLineChart ({data,startDate,endDate}){
             let sumTime = 0;
             for(let q = 0 ; q < dateList.length ; q++){
                 const studyDate = dateList[q];
+                // console.log(studyDate);
                 if(calWeek(startYearDay,new Date(studyDate)) !== curruntW){
                     curruntW = calWeek(startYearDay ,new Date(studyDate));
                     timeLabels.push("ww"+curruntW);
@@ -252,9 +262,10 @@ function SubjectLineChart ({data,startDate,endDate}){
                 12 : "Dec",
             }
             
+            
             inputLineDataSet["datasets"].push({
                 label : "Total",
-                data : Array.from({length:endM-startM+1},()=>0),
+                data : Array.from({length:periodM},()=>0),
                 borderColor : "#000000",
                 backgroundColor : "#000000",
                 borderDash : [10,10],
@@ -269,7 +280,7 @@ function SubjectLineChart ({data,startDate,endDate}){
 
                 const dataSetForm ={
                     label : subject,
-                    data : Array.from({length : endM-startM+1}, ()=> 0),
+                    data : Array.from({length : periodM}, ()=> 0),
                     borderColor : subjectColorPair[subject],
                     backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
@@ -284,9 +295,16 @@ function SubjectLineChart ({data,startDate,endDate}){
             let sumTime = 0;
             for(let r=0 ; r < dateList.length ; r++){
                 const studyDate = dateList[r];
-                if(calWeek(new Date(studyDate).getMonth()+1) !== curruntM){
-                    curruntM = new Date(studyDate).getMonth()+1;
+                // console.log(studyDate.getMonth()+1);
+                if(new Date(studyDate).getMonth()+1 !== curruntM){
+                    if(curruntM === 12){
+                        curruntM = 1;
+                    }else{
+                        curruntM += 1
+                    }
+                    // curruntM = new Date(studyDate).getMonth()+1;
                     timeLabels.push(monthPair[curruntM]);
+                    // console.log(sumTime);
                     inputLineDataSet["datasets"][0]["data"][i] = sumTime;
                     i = i+1;
                     sumTime = 0;
@@ -295,10 +313,13 @@ function SubjectLineChart ({data,startDate,endDate}){
                 const totalList = subjectTotalTime !== undefined ? subjectTotalTime[studyDate] : undefined;
                 for(const subject in subjectColorPair){
                     const currentIdx = subjectIndexColor[subject][0];
+                    // console.log(totalList);
                     let totalTimeFlt;
                     if(totalList !== undefined && subject in totalList){
                         const totalTimeStr = totalList[subject]["totalTime"];
+                        // console.log(totalTimeStr, "idx : ",currentIdx , i);
                         totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        console.log(totalTimeFlt);
                     }else{
                         totalTimeFlt = 0;
                     }
@@ -311,7 +332,7 @@ function SubjectLineChart ({data,startDate,endDate}){
         }
 
         // }
-        // console.log(inputLineDataSet);
+        console.log(inputLineDataSet);
 
 
 

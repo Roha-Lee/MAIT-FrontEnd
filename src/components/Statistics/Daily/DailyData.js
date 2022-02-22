@@ -2,7 +2,7 @@ import DailyChart from "./DailyChart";
 import style from "./DailyData.module.css";
 import axios from "axios";
 
-function DailyData ({data , labels, subjectColors}){
+function DailyData ({data , labels, subjectColors, isZeroShow}){
     // console.log("im here");
     const subjectTotalData = data?.subjectTotalTime;
     
@@ -33,7 +33,7 @@ function DailyData ({data , labels, subjectColors}){
                 <h1 className={style.dailyDetails}>Daily Details</h1>
             </div>
         
-            <DailyChart data={data} labels={labels} subjectColors={subjectColors}/>
+            <DailyChart data={data} labels={labels} subjectColors={subjectColors} isZeroShow={isZeroShow}/>
         
         </div>
     );

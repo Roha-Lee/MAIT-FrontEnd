@@ -3,7 +3,9 @@ import DailyData from "./DailyData";
 import style from "./Daily.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { DatePicker,Space } from "antd";
+import { DatePicker } from "antd";
+import { Switch } from "antd";
+
 
 const today = new Date().toJSON().slice(0,10);
 const todayY = today.slice(0,4);
@@ -74,19 +76,19 @@ const todayD = today.slice(8,10);
 //             startTime : '2022-02-09 21:52:00',
 //             endTime : '2022-02-09 22:07:00'
 //         },
+//         // {
+//         //     subjectId : 3,
+//         //     subjectName : "Javascript",
+//         //     color : "#6dbf84",
+//         //     startTime : '2022-02-09 22:12:00',
+//         //     endTime : '2022-02-09 23:04:00'
+//         // },          
 //         {
 //             subjectId : 3,
 //             subjectName : "Javascript",
 //             color : "#6dbf84",
-//             startTime : '2022-02-09 22:12:00',
-//             endTime : '2022-02-09 23:04:00'
-//         },          
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 23:17:00',
-//             endTime : '2022-02-09 24:00:00'
+//             startTime : '2022-02-09 22:17:00',
+//             endTime : '2022-02-10 00:00:00'
 //         },          
 //     ],
 //     subjectTotalTime : [
@@ -115,6 +117,7 @@ function Daily (){
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [isZeroShow , setIsZeroShow] = useState(false);
     const yongHourl = "http://192.249.29.5:3001/statistics/daily";
     const jongHourl = "http://143.248.196.37:3001/statistics/daily";
     const fetchData = async () => {
@@ -122,9 +125,9 @@ function Daily (){
             setError(null);
             setData(null);
             setLoading(true);
-            console.log("fetch date",selectDate);
+            // console.log("fetch date",selectDate);
             const response = await axios.get(jongHourl,{params : {'today' : selectDate}});
-            console.log(response);
+            console.log(response.data);
             setData(response.data);
         }catch(e){
             setError(e);
@@ -146,7 +149,7 @@ function Daily (){
     // }
 
     function onChange(date, dateString){
-        console.log(date,dateString);
+        // console.log(date,dateString);
         if(parseInt(dateString.slice(0,4)) > todayY){
             alert("기간을 다시 선택해 주세요!");
         }else if(parseInt(dateString.slice(5,7)) > todayM){
@@ -155,39 +158,52 @@ function Daily (){
             alert("기간을 다시 선택해 주세요!");
         }else{
             setSelectDate(dateString);
-            // console.log(,endDate);
-            // fetchData(range[0],range[1]);
         }
 
         
     }
-
+    function onChangeToggle(checked){
+        // console.log("switch to",checked);
+        setIsZeroShow(!checked);
+    }
     
 
     const subjectTotalData = data?.subjectTotalTime;
+    // const subjectTotalData = fakedata?.subjectTotalTime;
     
     let labels = [];
     let subjectColors = [];
+    console.log(subjectTotalData);
     
     for(let i = 0 ; i < subjectTotalData?.length ; i++){
-        labels.push(subjectTotalData[i].subjectName);
-        subjectColors.push(subjectTotalData[i].color);
+        if(isZeroShow){
+            labels.push(subjectTotalData[i].subjectName);
+            subjectColors.push(subjectTotalData[i].color);
+        }else if(subjectTotalData[i].totalTime !== "00:00:00"){
+            labels.push(subjectTotalData[i].subjectName);
+            subjectColors.push(subjectTotalData[i].color);
+        }
     }
-    
+    console.log(labels,subjectColors)
     return (
         <div className = {style.daily}>
             <div>
             <DatePicker onChange={onChange} />
+            <Switch defaultChecked checkedChildren="학습" unCheckedChildren="전체" onChange={onChangeToggle} style={{marginLeft : "15px"}}/>
             <DailyData
                 data = {data}
+                // data = {fakedata}
                 labels = {labels}
                 subjectColors = {subjectColors}
+                isZeroShow = {isZeroShow}
             />
             </div>
             <TimeHeatmap
                 data = {data}
+                // data = {fakedata}
                 labels = {labels}
                 subjectColors = {subjectColors}
+                isZeroShow = {isZeroShow}
             />
         </div>
     );

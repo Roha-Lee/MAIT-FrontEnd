@@ -36,7 +36,13 @@ function SubjectBarChart ({data}){
             },
             datalabels : {
                 // display: true,
-                formatter : (value) => {return Math.round(value) + " hr"},
+                formatter : (value) => {
+                    if(value !== 0){
+                        return Math.round(value) + " hr"
+                    }else{
+                        return null
+                    }
+                },
                 font : {
                     weight : "bold",
                     size : "15rem"

@@ -10,7 +10,7 @@ import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from "chartjs-plugin-datalabels"
 ChartJS.register(LinearScale, Tooltip, Legend,ChartDataLabels);
 
-function DailyChart ({data , labels, subjectColors}){
+function DailyChart ({data , labels, subjectColors, isZeroShow}){
     
     const subjectTotalData = data?.subjectTotalTime;
     
@@ -19,12 +19,17 @@ function DailyChart ({data , labels, subjectColors}){
     
     
     for(let i = 0 ; i < subjectTotalData?.length ; i++){
+        
         const timeStr = subjectTotalData[i].totalTime;
         const hour = parseInt(timeStr.slice(0,2));
         const minute = parseInt(timeStr.slice(3,5));
+        if(isZeroShow){
+            dataInput.push(parseFloat((hour + minute/60).toFixed(1)));
+        }else if(timeStr !== "00:00:00"){
+            dataInput.push(parseFloat((hour + minute/60).toFixed(1)));
+        }
         // console.log((minute/60).toFixed(1))
         // console.log(parseFloat((hour + minute/60).toFixed(1)))
-        dataInput.push(parseFloat((hour + minute/60).toFixed(1)));
         // totalTime = totalTime + hour * 60 + minute;
     }
     // console.log(dataInput);
@@ -74,7 +79,7 @@ function DailyChart ({data , labels, subjectColors}){
         
     
     };
-    // console.log(dataChart);
+    console.log(dataChart);
 
     return (
 <div className={style.dailychart}>

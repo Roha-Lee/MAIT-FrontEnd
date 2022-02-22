@@ -22,19 +22,18 @@ function hexToRgb(hex) {
 function TimeHeatmap ({data , labels , subjectColors}){
     const [subject , setSubject] = useState("전체");
     const xLabels = new Array(6).fill(0).map((_, i) => `${i}`);
-    const yLabels = new Array(25).fill(0).map((_, i) => `${i}h`.padStart(3,0));
+    const yLabels = new Array(24).fill(0).map((_, i) => `${i}h`.padStart(3,0));
     const subjectTotalTime = data?.subjectTotalTime;
     const colorRGB = {};
-    const totalInputData = {};
     const timeColorYX = {};
     const getData = data?.rangeTime;
 
     subjectTotalTime?.map((e)=>{
         colorRGB[e.subjectName] = hexToRgb(e.color); 
     });
-
-
-    const inputData = new Array(25).fill(0).map(()=>
+    
+    console.log(data , colorRGB, subjectTotalTime , getData);
+    const inputData = new Array(24).fill(0).map(()=>
         new Array(6).fill(0)
     )
 
@@ -45,31 +44,51 @@ function TimeHeatmap ({data , labels , subjectColors}){
         const startH = parseInt(value.startTime.slice(11,13));
         const startM = parseInt(value.startTime.slice(14,16));
         const startX = parseInt(startM / 10);
-        const endH = parseInt(value.endTime.slice(11,13));
-        const endM = parseInt(value.endTime.slice(14,16));
+        let endH , endM;
+        if(value.startTime.slice(8,10) !== value.endTime.slice(8,10)){
+            endH = 23;
+            endM = 59;
+        }else{
+            endH = parseInt(value.endTime.slice(11,13));
+            endM = parseInt(value.endTime.slice(14,16));
+        }
+        // endH = parseInt(value.endTime.slice(11,13));
+        // endM = parseInt(value.endTime.slice(14,16));
         const endX = parseInt(endM / 10);
         
-
         if(startH === endH){
-            if(inputData[startH][startX] < startM - startX * 10){
-                inputData[startH][startX] = startM - startX * 10;
+            if(endM - startM < 10 && inputData[startH][startX] < endM - startM){
+                if(endM > 49){
+                    inputData[startH][startX] = endM - startM + 1;
+                }else{
+                    inputData[startH][startX] = endM - startM;
+                }
                 timeColorYX[String(startH)+String(startX)] = subjectName;
-            }
-            if(inputData[endH][endX] < endM - endX * 10){
-                inputData[endH][endX] = endM - endX * 10;
-                timeColorYX[String(endH)+String(endX)] = subjectName;
-            }
-            for(let i = startX + 1 ; i < endX ; i++){
-                inputData[startH][i] = 10;
-                timeColorYX[String(startH)+String(i)] = subjectName;
+            }else{
+                if(inputData[startH][startX] < 10 - (startM - startX * 10)){
+                    inputData[startH][startX] = 10 - (startM - startX * 10)
+                    timeColorYX[String(startH)+String(startX)] = subjectName; 
+                }
+                for(let i = startX + 1 ; i < endX ; i++){
+                    inputData[startH][i] = 10;
+                    timeColorYX[String(startH)+String(i)] = subjectName;
+                }
+                if(inputData[startH][endX] < endM - endX * 10){
+                    if(endX !== 5){
+                        inputData[startH][endX] = endM - endX * 10;
+                    }else{
+                        inputData[startH][endX] = endM - endX * 10 + 1;
+                    }
+                    timeColorYX[String(startH)+String(endX)] = subjectName;
+                }    
+                
             }
         }
         else{
-            if(inputData[startH][startX] < startM - startX * 10){
-                inputData[startH][startX] = startM - startX * 10;
+            if(inputData[startH][startX] < 10 - (startM - startX * 10)){
+                inputData[startH][startX] = 10 - (startM - startX * 10);
                 timeColorYX[String(startH)+String(startX)] = subjectName;
             }
-
             for(let i = startX + 1 ; i < 6 ; i++){
                 inputData[startH][i] = 10;
                 timeColorYX[String(startH)+String(i)] = subjectName;
@@ -85,7 +104,11 @@ function TimeHeatmap ({data , labels , subjectColors}){
                 timeColorYX[String(endH)+String(j)] = subjectName;
             }
             if(inputData[endH][endX] < endM - endX * 10){
-                inputData[endH][endX] = endM - endX * 10;
+                if(endX !== 5){
+                    inputData[endH][endX] = endM - endX * 10;
+                }else{
+                    inputData[endH][endX] = endM - endX * 10 + 1;
+                }
                 timeColorYX[String(endH)+String(endX)] = subjectName;
             }
         }
