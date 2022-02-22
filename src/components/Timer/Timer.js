@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { timeStamp } from '../../utils/utils';
+import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
 import style from './Timer.module.css'
 import 'animate.css'
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
-
+let currentStudyTimeId = null;
 function Timer({
   subjects, 
   setSubjects,
@@ -20,14 +20,24 @@ function Timer({
   isEditMode,
   setIsEditMode,
 }) {
-  useEffect(() => {
+  useEffect(async () => {
     if(timerOn){
-      startTimeFormatted = timeStamp();
-      startTime = Date.now();
-      offset = currentTime;
-      interval = setInterval(() => {
-        setCurrentTime(offset + Date.now() - startTime);
-      }, 73)
+      try {
+        startTimeFormatted = timeStamp();
+        startTime = Date.now();
+        offset = currentTime;
+        interval = setInterval(() => {
+          setCurrentTime(offset + Date.now() - startTime);
+        }, 73)
+        const currentSubjectId = subjects.find(elem => elem.name === currentSubject).subjectId;  
+        const result = await postStudyTime(currentSubjectId, startTimeFormatted);
+        if(result.data.message === 'SUCCESS'){
+          currentStudyTimeId = result.data.id;
+        }
+      } catch(error) {
+        console.log(error);
+      }
+      
     }
     else {
       endTimeFormatted = timeStamp();
@@ -38,11 +48,15 @@ function Timer({
         updatedSubject[subjectIdx].totalTime = currentTime;
         setSubjects(updatedSubject);
       }
-      
+      if (!!currentStudyTimeId){
+        const result = await patchStudyTime(currentStudyTimeId, endTimeFormatted);
+        console.log(result);
+        currentStudyTimeId = null;  
+      }
       // sendStudyInterval(startTimeFormatted, endTimeFormatted, currentSubjectId);  
       // onChangeStudyLog(indexToName(subjects, currentSubjectId), currentTime);
     }
-  }, [timerOn, faceDetected]);
+  }, [timerOn]);
 
   const timer = (
     <span className={style.timer}>{ (currentTime >= 3600000 ? Math.floor((currentTime / 3600000) % 24) : Math.floor((currentTime/ 60000) % 60)).toString().padStart(2, '0') }
