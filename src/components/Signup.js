@@ -43,9 +43,9 @@ function Signup() {
         console.log('click signup');
         axios.post(`${serverUrl}/auth/signup`, {
             nickname : nickname,
-            name : name,
+            username : name,
             email : email,
-            pw : password,
+            password : password,
         }).then(response => console.log(response.data))
     }
   }
