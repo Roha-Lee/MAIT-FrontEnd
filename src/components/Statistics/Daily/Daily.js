@@ -120,14 +120,14 @@ function Daily (){
     const [isZeroShow , setIsZeroShow] = useState(false);
     const yongHourl = "http://192.249.29.5:3001/statistics/daily";
     const jongHourl = "http://143.248.196.37:3001/statistics/daily";
-    const serverUrl = "https://mait.shop/statistics/daily";
+    const serverUrl = "https://mait.shop/statistics/daily"
     const fetchData = async () => {
         try {
             setError(null);
             setData(null);
             setLoading(true);
             // console.log("fetch date",selectDate);
-            const response = await axios.get(serverUrl,{params : {'today' : selectDate}});
+            const response = await axios.get(serverUrl, {params : {'today' : selectDate}});
             console.log(response.data);
             setData(response.data);
         }catch(e){

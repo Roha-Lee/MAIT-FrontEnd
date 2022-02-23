@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import style from './Subjects.module.css'
 import { Modal, Button } from 'antd';
-import {postNewSubject, deleteSubject} from '../../utils/utils'
+import {postSubject, deleteSubject, putSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
 import 'animate.css';
 
-const INITIAL_COLOR_HEX = 'FFEB3B';
+const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
 
 function hexToRgb(hex) {
@@ -40,7 +40,7 @@ function Subjects({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [value, setValue] = useState('');
-  const [color, setColor] = useState('FFEB3B');
+  const [color, setColor] = useState(INITIAL_COLOR_HEX);
   const [newSubject, setNewSubject] = useState(null); // 새로 생성된 과목의 subjectId
   const [nowEditing, setNowEditing] = useState(null); // 현재 수정하고 있는 과목의 subjectId
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
@@ -60,20 +60,38 @@ function Subjects({
     setIsEditModalVisible(true);
   }
   
-  const handleModifyOk = (event) => {
+  const handleModifyOk = async (event) => {
     event.preventDefault();
-    setIsEditModalVisible(false);
-    const editingSubject = subjects.find(subject => subject.subjectId === nowEditing).name;
-    let newSubjects = [...subjects];
-    const idx = subjects.findIndex(subject => subject.subjectId === nowEditing);
-    newSubjects[idx].name = value;
-    newSubjects[idx].colorId = colorsCodetoId[color];
-    setSubjects(newSubjects);
-    if (currentSubject ===  editingSubject) {
-      setCurrentSubject(newSubjects[idx].name);
+    try {
+      const result = await putSubject(value, colorsCodetoId[color], nowEditing);
+      setIsEditModalVisible(false);
+      const editingSubject = subjects.find(subject => subject.subjectId === nowEditing).name;
+      let newSubjects = [...subjects];
+      const idx = subjects.findIndex(subject => subject.subjectId === nowEditing);
+      newSubjects[idx].name = value;
+      newSubjects[idx].colorId = colorsCodetoId[color];
+      setSubjects(newSubjects);
+      if (currentSubject ===  editingSubject) {
+        setCurrentSubject(newSubjects[idx].name);
+      } 
+      resetModal()
+      setIsEditMode(false);
     } 
-    resetModal()
-    setIsEditMode(false);
+    catch (error) {
+      if(error.response.data.message === 'SUBJECT_EXISTS'){
+        alert('이미 사용중인 과목입니다.');
+      }
+      else if (error.response.data.message === 'INVALID_COLOR'){
+        alert('유효하지 않은 색깔입니다.')
+      }
+      else if (error.response.data.message === 'INVALID_NAME'){
+        alert('유효하지 않은 이름입니다.')
+      }
+      else {
+        alert('서버 에러.')
+      }
+    }
+    
   };
 
   const handleOk = async (event) => {
@@ -81,7 +99,7 @@ function Subjects({
     setIsModalVisible(false);
     // 새로운 과목 추가 API
     try{
-      const result = await postNewSubject(value, colorsCodetoId[color])
+      const result = await postSubject(value, colorsCodetoId[color])
       const {id, name, colorId} = result.data;
       setSubjects([
         ...subjects, 
@@ -100,6 +118,9 @@ function Subjects({
       }
       else if(error.response.data.message === 'NO_SUBJECT_PROVIDED'){
         alert('과목 이름을 입력해야 합니다.')
+      }
+      else{
+        alert('서버 에러.')
       }
     }
     resetModal();
@@ -126,10 +147,9 @@ function Subjects({
   };
   
   const editSubject = (event) => {
-    
     setValue(event.target.innerText)
     // 중복이 없다고 가정. 
-    setColor(subjects.find(subject=> subject.name === event.target.innerText).colorId)
+    setColor(colorsIdtoCode[subjects.find(subject=> subject.name === event.target.innerText).colorId])
     setNowEditing(subjects.find(subject=> subject.name === event.target.innerText).subjectId)
     const currentColorId = subjects.find(subject=> subject.name === event.target.innerText).colorId
     setPickerColor(hexToRgb(colorsIdtoCode[currentColorId]))
@@ -140,25 +160,28 @@ function Subjects({
 
   const removeSubject = async (event) => {
     const delSubject = subjects.find(subject => subject.subjectId === nowEditing).name;
-    alert(`${delSubject} 삭제 완료!`);
     // 삭제 통신 
-    // const status = await deleteSubject(nowEditing);
-    
+    try{
+      const status = await deleteSubject(nowEditing);
+      if(currentSubject === delSubject){
+        setCurrentSubject(null);
+        setCurrentTime(0);
+      }
+  
+      const newSubjects = subjects.filter(subject => subject.subjectId !== nowEditing);
+      if(newSubjects.length === 0){
+        // console.log('subject is empty')
+        setIsEditMode(false);
+      }
+      setSubjects(newSubjects);
+      setNowEditing(null);
+      setIsEditModalVisible(false);
+    }
+    catch (error) {
+      alert('서버 에러.')
+    }
+    // console.log(status);
     // nowEditing 이랑 currentSubject랑 같으면 
-    if(currentSubject === delSubject){
-      setCurrentSubject(null);
-      setCurrentTime(0);
-    }
-
-    const newSubjects = subjects.filter(subject => subject.subjectId !== nowEditing);
-    if(newSubjects.length === 0){
-      console.log('subject is empty')
-      setIsEditMode(false);
-    }
-    setSubjects(newSubjects);
-    setNowEditing(null);
-    setIsEditModalVisible(false);
-    
     resetModal();
   }
 
@@ -239,7 +262,7 @@ function Subjects({
               <form onSubmit={handleOk} className={style.form}>
                 <label className={style.formTitle}>
                   <span>과목 입력</span>
-                  <input  required className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
+                  <input  required maxlength={16} className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
                 </label>
                 <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
               </form>
@@ -267,7 +290,7 @@ function Subjects({
               <form onSubmit={handleModifyOk} className={style.form}>
                 <label className={style.formTitle}>
                   <span>과목 입력</span>
-                  <input  required className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
+                  <input  required maxlength={16} className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
                 </label>
                 <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
               </form>
