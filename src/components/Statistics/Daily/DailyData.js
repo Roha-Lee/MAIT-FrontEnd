@@ -1,6 +1,5 @@
 import DailyChart from "./DailyChart";
 import style from "./DailyData.module.css";
-import axios from "axios";
 
 function DailyData ({data , labels, subjectColors, isZeroShow}){
     // console.log("im here");

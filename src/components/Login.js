@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { LoginContainer, LoginInput, LoginButton, LoginImage } from './Login.styled'
 import { useNavigate } from "react-router-dom";
+axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 const serverUrl = 'https://mait.shop';
 
