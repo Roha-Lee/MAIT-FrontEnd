@@ -1,5 +1,5 @@
 import Axios from 'axios';
-
+Axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const serverAddress = 'https://mait.shop';
 const serverAddress2 = 'http://192.249.29.5:3001';
 

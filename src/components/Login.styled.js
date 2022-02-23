@@ -1,22 +1,27 @@
-import { Button } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import styled from 'styled-components'
 
-export const LoginContainer = styled.div`
+export const LoginForm = styled.div`
     position: absolute;
     left: 50%;
     top: 40%;
     transform: translate(-50%,-50%);
-    width: 700px;
     font-size: 1.5rem;
     border-radius: 15px;
-    background: #EBB057;
     text-align: center;
+    background: #EBB057;
+    padding: 40px;
 `
 
 export const LoginInput = styled.input`
     margin: 10px;
     padding: 5px;
-    border-radius: 30px;
+    border: none;
+    border-radius: 5px;
+    &:focus {
+        background-color: #444444;
+        color: white;
+    }
 `
 
 export const LoginButton = styled(Button).attrs({ variant: "danger" })`

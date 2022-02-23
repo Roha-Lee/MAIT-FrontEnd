@@ -7,7 +7,7 @@ import axios from "axios";
 import SubjectBarChart from "./SubjectBarChart";
 import TodoBarChart from "./TodoBarChart";
 import SubjectLineChart from "./SubjectLineChart";
-
+axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const todayY = new Date().getFullYear();
 const todayM = new Date().getMonth()+1;
 const todayD = new Date().getDate();

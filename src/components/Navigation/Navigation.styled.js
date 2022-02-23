@@ -53,3 +53,8 @@ export const StyledLink = styled(Link)`
         border-radius: 15px;
     }
 `
+
+//728 부터 적용되는 미디어 쿼리 작성
+// @media screen and (max-width: 768px) {
+
+// }
