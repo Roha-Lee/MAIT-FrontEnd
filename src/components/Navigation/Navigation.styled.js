@@ -13,6 +13,9 @@ export const HeadNavigate = styled.header`
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    @media screen and (max-width: 520px) {
+        height: 150px;
+    }
 `
 export const NavigationContents = styled.div`
     flex-basis: 700px;
@@ -20,6 +23,9 @@ export const NavigationContents = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    @media screen and (max-width: 520px) {
+        flex-direction: column;
+    }
 `
 export const NavigationBlank = styled.div`
     flex-grow: 1;
@@ -30,11 +36,9 @@ export const LoginContainer = styled.div`
 `
 
 export const StyledLinkHome = styled(Link)`
-    
     text-decoration: none;
     color: #EEE7E1;
     font-size: 3rem;
-    
     &:focus, &:visited, &:link, &:active,&:hover {
         text-decoration: none;
         color: #EEE7E1;

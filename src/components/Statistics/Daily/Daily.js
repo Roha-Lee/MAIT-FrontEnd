@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { DatePicker } from "antd";
 import { Switch } from "antd";
-
+axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 const today = new Date().toJSON().slice(0,10);
 const todayY = today.slice(0,4);

@@ -16,6 +16,9 @@ export const SubjectsContainer = styled.div`
     width: 500px;
     border-radius: 20px;
     padding: 20px 0;
+    @media screen and (max-width: 520px) {
+        width: 320px;
+    }
 `
 
 export const CamButton = styled.button`
@@ -29,7 +32,7 @@ export const CamButton = styled.button`
 `
 
 export const FlexBox = styled.div`
-    display: flex
+    display: flex;
 `
 
 export const DropdownContainer = styled.div`

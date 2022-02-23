@@ -4,7 +4,8 @@ import styled from 'styled-components'
 export const LoginForm = styled.div`
     position: absolute;
     left: 50%;
-    top: 40%;
+    margin-top: 70px;
+    top: 50%;
     transform: translate(-50%,-50%);
     font-size: 1.5rem;
     border-radius: 15px;

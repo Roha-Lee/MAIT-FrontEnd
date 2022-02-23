@@ -1,4 +1,5 @@
-import style from "./TimeHeatmap.module.css";
+// import style from "./TimeHeatmap.module.css";
+import { Heatmap, HeatmapGrid} from './TimeHeatmap.styled'
 import {HeatMapGrid} from "react-grid-heatmap";
 import { useState } from "react";
 
@@ -125,12 +126,12 @@ function TimeHeatmap ({data , labels , subjectColors}){
     // console.log(subject);
 
     return(
-        <div className={style.heatmap}>
+        <Heatmap>
             <select onChange={handleSelect} style={{marginRight:"100px", marginBottom : "5px",}}>
                 <option key="total" value="전체">전체</option>
                 {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
             </select>
-            <div className={style.heatmapgrid}>
+            <HeatmapGrid>
                 <HeatMapGrid
                     data={inputData}
                     xLabels={xLabels}
@@ -160,9 +161,9 @@ function TimeHeatmap ({data , labels , subjectColors}){
                     
                     
                 />
-            </div>
+            </HeatmapGrid>
             
-        </div>
+        </Heatmap>
     );
 }
 
