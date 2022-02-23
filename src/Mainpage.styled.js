@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 export const AiContainer = styled.div`
-    display: 'flex';
-    margin: '1rem auto';  
-    flex-direction: 'row';
-    justify-content: 'center';
+    display: flex;
+    margin: 1rem auto;  
+    flex-direction: row;
+    justify-content: center;
 `
 
 export const SubjectsContainer = styled.div`
@@ -13,7 +13,7 @@ export const SubjectsContainer = styled.div`
     align-items: center;
     background-color: #EBB057;
     margin: 20px auto;
-    width: 600px;
+    width: 500px;
     border-radius: 20px;
     padding: 20px 0;
 `

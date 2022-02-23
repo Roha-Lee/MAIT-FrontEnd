@@ -31,7 +31,7 @@ function Mainpage() {
           />
         </AiContainer>
       : null}
-      <SubjectsContainer>          
+      <SubjectsContainer>       
         <Subjects 
           setModalState={setModalOpen}
           modalOpen={modalOpen}

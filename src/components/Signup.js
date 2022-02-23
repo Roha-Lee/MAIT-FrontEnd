@@ -1,7 +1,12 @@
 import React, {useState} from 'react'
 import axios from "axios"
-import { SignupContainer, SignupInput, SignupButton } from './Signup.styled';
+import { SignupContainer, SignupInput, SignupButton, SignupForm } from './Signup.styled';
 
+import Form from "react-bootstrap/Form"; 
+import Button from "react-bootstrap/Button";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 function Signup() {
   const [nickname, setNickname] = useState("");
@@ -11,7 +16,7 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const onNicknameHandler = (event) => {
-      setNickname(event.currentTarget.value)
+    setNickname(event.currentTarget.value)
   }
 
   const onNameHandler = (event) => {
@@ -19,11 +24,11 @@ function Signup() {
   }
 
   const onEmailHandler = (event) => {
-      setEmail(event.currentTarget.value)
+    setEmail(event.currentTarget.value)
   }
 
   const onPasswordHandler = (event) => {
-      setPassword(event.currentTarget.value)
+    setPassword(event.currentTarget.value)
   }
 
   const onConfirmPasswordHandler = (event) => {
@@ -51,21 +56,17 @@ function Signup() {
 
   return (
     <>
-      <div className="loginregister"> 
-          <form onSubmit={onSubmit}>
-              <SignupContainer>
-                <div><SignupInput name="name" type="text" placeholder="이름" value={name} onChange={onNameHandler}/></div>
-                <div><SignupInput name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/></div>
-                <div><SignupInput name="email" type="email" placeholder="이메일" value={email} onChange={onEmailHandler}/></div>
-                <div><SignupInput name="password" type="password" placeholder="비밀번호" value={password} onChange={onPasswordHandler}/></div>
-                <div><SignupInput name="confirmPassword" type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={onConfirmPasswordHandler}/></div>
-                <div>
-                  <SignupButton type="submit" onClick={onSubmit}>Sign Up</SignupButton>
-                  <SignupButton type="submit" onClick={onSubmit}>Sign In</SignupButton>
-                </div>
-              </SignupContainer>
-          </form>
-      </div>
+      <SignupForm onSubmit={onSubmit}> 
+        <div><SignupInput name="name" type="text" placeholder="이름" value={name} onChange={onNameHandler}/></div>
+        <div><SignupInput name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/></div>
+        <div><SignupInput name="email" type="email" placeholder="이메일" value={email} onChange={onEmailHandler}/></div>
+        <div><SignupInput name="password" type="password" placeholder="비밀번호" value={password} onChange={onPasswordHandler}/></div>
+        <div><SignupInput name="confirmPassword" type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={onConfirmPasswordHandler}/></div>
+        <div>
+            <SignupButton type="submit" onClick={onSubmit}>회원 가입</SignupButton>
+        </div>
+      </SignupForm>
+   
     </>
   );
 }
