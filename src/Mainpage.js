@@ -3,7 +3,8 @@ import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
-import { Menu, Dropdown, Button } from 'antd';
+import CamstudyLobby from './components/CamstudyLobby/CamstudyLobby';
+import { Menu, Dropdown, Button, Modal } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
@@ -40,6 +41,11 @@ function Mainpage() {
   const [useHandAi, setUseHandAi] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [todoList, setTodoList] = useState([]);
+  const [isCamstudyLobbyVisible, setIsCamstudyLobbyVisible] = useState(false);
+  const showCamstudyLobbyModal = () => {
+    setIsCamstudyLobbyVisible(true);
+  };
+  
   const buttonRef = useRef(null);
 
   useEffect(() => {
@@ -190,9 +196,12 @@ function Mainpage() {
       </SubjectsContainer>
       <FlexBox>
         <CamButton
-          onClick={() => {window.open("/camstudy")}}>
-            Cam Study
+          onClick={showCamstudyLobbyModal}>
+          Cam Study
         </CamButton>
+        <CamstudyLobby 
+            isCamstudyLobbyVisible={isCamstudyLobbyVisible}
+            setIsCamstudyLobbyVisible={setIsCamstudyLobbyVisible}/>
       </FlexBox>
       <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
     </div>
