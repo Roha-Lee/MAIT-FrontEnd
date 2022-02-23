@@ -140,7 +140,7 @@ function Mainpage() {
           />
         </AiContainer>
       : null}
-      <SubjectsContainer>          
+      <SubjectsContainer>       
         <Subjects 
           colorsIdtoCode={colorsIdtoCode}
           colorsCodetoId={colorsCodetoId}

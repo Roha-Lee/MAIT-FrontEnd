@@ -1,10 +1,16 @@
 import React, { useState } from "react"
 import axios from "axios"
-import { LoginContainer, LoginInput, LoginButton, LoginImage } from './Login.styled'
+import { LoginContainer, LoginInput, LoginButton, LoginImage, LoginForm } from './Login.styled'
 import { useNavigate } from "react-router-dom";
 axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
-const serverUrl = 'https://mait.shop';
+// import Form from "react-bootstrap/Form"; 
+// import Button from "react-bootstrap/Button";
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
+// import Container from 'react-bootstrap/Container';
+
+const serverAddress = 'http://192.249.29.198:3001';
 
 function Login() {
     const [inputId, setInputId] = useState('')
@@ -45,26 +51,52 @@ function Login() {
 
     return (
         <>
-        <LoginContainer>
-            <div display="flex"><div>EMIT</div></div>
-            <div>
-                <label htmlFor='input_id'/>
-                <LoginInput type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='ID'/>
-            </div>
-            <div>
-                <label htmlFor='input_pw'/>
-                <LoginInput type='password' name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='Password'/>
-            </div>
-            <div>
-                <LoginButton type='button' onClick={onClickLogin}>Sign In</LoginButton>
-            </div>
-            <LoginImage>
-            <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" width="250px"/>
-            </LoginImage>
-            <LoginImage>
-            <img src="./kakao_login_medium_narrow.png" alt="kakao" width="250"/>
-            </LoginImage>
-        </LoginContainer>
+            <LoginForm>
+                <h1>M.AI.T</h1>
+                <div>
+                    <label htmlFor='input_id'/>
+                    <LoginInput type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='ID'/>
+                </div>
+                <div>
+                    <label htmlFor='input_pw'/>
+                    <LoginInput type='password' name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='Password'/>
+                </div>
+                <div>
+                    <LoginButton type='button' onClick={onClickLogin}>로그인</LoginButton>
+                </div>
+                <LoginImage>
+                    <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" width="250px"/>
+                    </LoginImage>
+                    <LoginImage>
+                    <img src="./kakao_login_medium_narrow.png" alt="kakao" width="250"/>
+                </LoginImage>
+            </LoginForm>
+
+        {/* <LoginContainer>
+            <Container className="panel">
+                <Form>
+                    <br/>
+                    <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                        <Col sm>
+                            <Form.Control type="text" placeholder="UserID" />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
+                        <Col sm>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Col>
+                    </Form.Group>
+                    <div className="d-grid gap-1">
+                        <Button variant="primary" type='button' onClick={onClickLogin}>
+                           로그인
+                        </Button>
+                    </div>
+                    <div style={{paddingTop:"10px"}}>
+                    
+                    </div>
+                </Form>
+            </Container>
+        </LoginContainer> */}
         </>
     )
 }
