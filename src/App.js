@@ -16,14 +16,13 @@ function App() {
       <BrowserRouter>
           <Navigation/>
           <Routes>
-
+            
             <Route path="/Signup" element={<Signup/>}/>
             <Route path="/Login" element={<Login/>}/>
             <Route path="/camstudy" element={<MaitCamstudy/>}/>
+            {/* <Route path="/camstudy" element={<CamStudy/>}/> */}
             <Route path="Statistics" element={<Statistics/>}/>
             <Route path="/" element={<Mainpage/>}/>
-
-        
           </Routes>
         </BrowserRouter>
           )
