@@ -3,7 +3,7 @@ import axios from "axios"
 import { LoginContainer, LoginInput, LoginButton, LoginImage } from './Login.styled'
 import { useNavigate } from "react-router-dom";
 
-const serverAddress = 'http://192.249.29.198:3001';
+const serverAddress = 'https://mait.shop';
 
 function Login() {
     const [inputId, setInputId] = useState('')
@@ -22,7 +22,7 @@ function Login() {
     const onClickLogin = () => {
         console.log('click login');
         axios.post(
-            `${serverAddress}/signin`, 
+            `${serverAddress}/auth/signin`, 
             {
                 username: inputId,
                 password: inputPw,

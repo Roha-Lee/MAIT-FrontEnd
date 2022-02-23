@@ -9,6 +9,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const serverUrl = "https://mait.shop"
 
   const onNicknameHandler = (event) => {
       setNickname(event.currentTarget.value)
@@ -40,7 +41,7 @@ function Signup() {
     }
     else {
         console.log('click signup');
-        axios.post("http://192.249.29.38:3001/signup", {
+        axios.post(`${serverUrl}/auth/signup`, {
             nickname : nickname,
             name : name,
             email : email,
