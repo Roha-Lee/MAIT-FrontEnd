@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from "axios"
 import { SignupContainer, SignupInput, SignupButton } from './Signup.styled';
-
+const serverUrl = "https://mait.shop"
 
 function Signup() {
   const [nickname, setNickname] = useState("");
@@ -39,13 +39,12 @@ function Signup() {
       return alert('비밀번호와 비밀번호확인은 같아야 합니다.')
     }
     else {
-        console.log('click signup');
-        axios.post("http://192.249.29.38:3001/signup", {
-            nickname : nickname,
-            name : name,
-            email : email,
-            pw : password,
-        }).then(response => console.log(response.data))
+      axios.post(`${serverUrl}/auth/signup`, {
+        nickname : nickname,
+        username : name,
+        email : email,
+        password : password,
+      }).then(response => console.log(response.data))
     }
   }
 
