@@ -1,5 +1,5 @@
 import style from "./ManyDays.module.css"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { DatePicker, Button, Tooltip } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 const { RangePicker } = DatePicker;
@@ -7,13 +7,19 @@ import axios from "axios";
 import SubjectBarChart from "./SubjectBarChart";
 import TodoBarChart from "./TodoBarChart";
 import SubjectLineChart from "./SubjectLineChart";
+import moment from "moment";
+
 axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const todayY = new Date().getFullYear();
 const todayM = new Date().getMonth()+1;
 const todayD = new Date().getDate();
+const today = new Date().toJSON().slice(0,10);
+const dateObj = new Date();
+const todayBefore7Obj = dateObj.setDate(dateObj.getDate()-7);
+const todayBefore7 = new Date(todayBefore7Obj).toJSON().slice(0,10);
 
 function ManyDays (){
-    const [range, setRange] = useState([]);
+    const [range, setRange] = useState([todayBefore7,today]);
     const [click , setClick] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -301,10 +307,18 @@ function ManyDays (){
         
     }
 
+    useEffect(()=>{
+        console.log(range, "첫 로딩");
+        fetchData(range[0],range[1]);
+    },[]);
+
     return (
         <div className={style.statistics}>
             <div className={style.rangepicker}>
-            <RangePicker onChange={onChange}/>
+            <RangePicker 
+                onChange={onChange}
+                defaultValue={[moment(todayBefore7, `YYYY-MM-DD`), moment(today, `YYYY-MM-DD`)]}
+            />
             <Tooltip title="search">
                 <Button 
                     onClick={onOk}

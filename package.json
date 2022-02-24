@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "font-awesome": "^4.7.0",
+    "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",
