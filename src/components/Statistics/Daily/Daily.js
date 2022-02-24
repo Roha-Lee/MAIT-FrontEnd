@@ -8,10 +8,13 @@ import { Switch } from "antd";
 import moment from "moment";
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
-const today = new Date().toJSON().slice(0,10);
-const todayY = today.slice(0,4);
-const todayM = today.slice(5,7);
-const todayD = today.slice(8,10);
+function timeStamp(){ 
+    let today = new Date(); 
+    today.setHours(today.getHours() + 9); 
+    return today.toISOString().replace('T', ' ').substring(0, 19); 
+}
+
+const today = timeStamp().slice(0,10);
 // const fakedata = {
 //     rangeTime : [
 //         {
