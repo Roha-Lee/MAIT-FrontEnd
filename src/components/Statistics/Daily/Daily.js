@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { DatePicker } from "antd";
 import { Switch } from "antd";
+import moment from "moment";
+// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 const today = new Date().toJSON().slice(0,10);
 const todayY = today.slice(0,4);
@@ -17,78 +19,78 @@ const todayD = today.slice(8,10);
 //             subjectName : "Javascript",
 //             color : "#6dbf84",
 //             startTime : '2022-02-09 00:32:00',
-//             endTime : '2022-02-09 01:47:00'
+//             endTime : '2022-02-09 00:32:20'
 //         }, 
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 02:18:00',
-//             endTime : '2022-02-09 03:47:00'
-//         }, 
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 09:21:00',
-//             endTime : '2022-02-09 10:16:00'
-//         },
-//         {
-//             subjectId : 1,
-//             subjectName : "Algorithm",
-//             color : "#a67ebf",
-//             startTime : '2022-02-09 10:35:20',
-//             endTime : '2022-02-09 11:39:10'
-//         },
-//         {
-//             subjectId : 2,
-//             subjectName : "OS",
-//             color : "#bf6d7f",
-//             startTime : '2022-02-09 11:41:40',
-//             endTime : '2022-02-09 13:12:02'
-//         },
-//         {
-//             subjectId : 2,
-//             subjectName : "OS",
-//             color : "#bf6d7f",
-//             startTime : '2022-02-09 14:35:40',
-//             endTime : '2022-02-09 15:22:02'
-//         },
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 16:46:00',
-//             endTime : '2022-02-09 17:41:00'
-//         },
-//         {
-//             subjectId : 1,
-//             subjectName : "Algorithm",
-//             color : "#a67ebf",
-//             startTime : '2022-02-09 18:01:00',
-//             endTime : '2022-02-09 20:04:00'
-//         },          
-//         {
-//             subjectId : 1,
-//             subjectName : "Algorithm",
-//             color : "#a67ebf",
-//             startTime : '2022-02-09 21:52:00',
-//             endTime : '2022-02-09 22:07:00'
-//         },
-//         // {
-//         //     subjectId : 3,
-//         //     subjectName : "Javascript",
-//         //     color : "#6dbf84",
-//         //     startTime : '2022-02-09 22:12:00',
-//         //     endTime : '2022-02-09 23:04:00'
-//         // },          
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 22:17:00',
-//             endTime : '2022-02-10 00:00:00'
-//         },          
+        // {
+        //     subjectId : 3,
+        //     subjectName : "Javascript",
+        //     color : "#6dbf84",
+        //     startTime : '2022-02-09 02:18:00',
+        //     endTime : '2022-02-09 03:47:00'
+        // }, 
+        // {
+        //     subjectId : 3,
+        //     subjectName : "Javascript",
+        //     color : "#6dbf84",
+        //     startTime : '2022-02-09 09:21:00',
+        //     endTime : '2022-02-09 10:16:00'
+        // },
+        // {
+        //     subjectId : 1,
+        //     subjectName : "Algorithm",
+        //     color : "#a67ebf",
+        //     startTime : '2022-02-09 10:35:20',
+        //     endTime : '2022-02-09 11:39:10'
+        // },
+        // {
+        //     subjectId : 2,
+        //     subjectName : "OS",
+        //     color : "#bf6d7f",
+        //     startTime : '2022-02-09 11:41:40',
+        //     endTime : '2022-02-09 13:12:02'
+        // },
+        // {
+        //     subjectId : 2,
+        //     subjectName : "OS",
+        //     color : "#bf6d7f",
+        //     startTime : '2022-02-09 14:35:40',
+        //     endTime : '2022-02-09 15:22:02'
+        // },
+        // {
+        //     subjectId : 3,
+        //     subjectName : "Javascript",
+        //     color : "#6dbf84",
+        //     startTime : '2022-02-09 16:46:00',
+        //     endTime : '2022-02-09 17:41:00'
+        // },
+        // {
+        //     subjectId : 1,
+        //     subjectName : "Algorithm",
+        //     color : "#a67ebf",
+        //     startTime : '2022-02-09 18:01:00',
+        //     endTime : '2022-02-09 20:04:00'
+        // },          
+        // {
+        //     subjectId : 1,
+        //     subjectName : "Algorithm",
+        //     color : "#a67ebf",
+        //     startTime : '2022-02-09 21:52:00',
+        //     endTime : '2022-02-09 22:07:00'
+        // },
+        // {
+        //     subjectId : 3,
+        //     subjectName : "Javascript",
+        //     color : "#6dbf84",
+        //     startTime : '2022-02-09 22:12:00',
+        //     endTime : '2022-02-09 23:04:00'
+        // },          
+        // {
+        //     subjectId : 3,
+        //     subjectName : "Javascript",
+        //     color : "#6dbf84",
+        //     startTime : '2022-02-09 22:17:00',
+        //     endTime : '2022-02-10 00:00:00'
+        // },          
 //     ],
 //     subjectTotalTime : [
 //         {
@@ -111,6 +113,8 @@ const todayD = today.slice(8,10);
 //         },
 //     ] 
 // }
+
+
 function Daily (){
     const [selectDate , setSelectDate] = useState(today);
     const [data, setData] = useState(null);
@@ -193,7 +197,7 @@ function Daily (){
     return (
         <div className = {style.daily}>
             <div>
-            <DatePicker onChange={onChange} />
+            <DatePicker onChange={onChange} defaultValue={moment(today,`YYYY-MM-DD`)}/>
             <Switch defaultChecked checkedChildren="학습" unCheckedChildren="전체" onChange={onChangeToggle} style={{marginLeft : "15px"}}/>
             <DailyData
                 data = {data}

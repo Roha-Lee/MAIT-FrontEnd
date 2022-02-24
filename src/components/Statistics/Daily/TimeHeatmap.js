@@ -57,7 +57,9 @@ function TimeHeatmap ({data , labels , subjectColors}){
         const endX = parseInt(endM / 10);
         
         if(startH === endH){
-            if(endM - startM < 10 && inputData[startH][startX] < endM - startM){
+            if(endM === startM){
+
+            }else if(endM - startM < 10 && inputData[startH][startX] < endM - startM){
                 if(endM > 49){
                     inputData[startH][startX] = endM - startM + 1;
                 }else{
@@ -119,7 +121,7 @@ function TimeHeatmap ({data , labels , subjectColors}){
         setSubject(e.target.value);
     }
 
-    // console.log(inputData);
+    console.log(inputData);
     // console.log(colorRGB);
     // console.log(timeColorYX);
     // console.log(subject);
