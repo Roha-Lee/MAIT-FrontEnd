@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 // import Col from 'react-bootstrap/Col';
 // import Container from 'react-bootstrap/Container';
 
-const serverUrl = 'localhost:3001';
+const serverAddress = 'http://192.249.29.198:3001';
+const serverUrl = "https://mait.shop";
 
 function Login() {
     const [inputId, setInputId] = useState('')
