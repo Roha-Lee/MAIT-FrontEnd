@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from "axios"
 import { SignupContainer, SignupInput, SignupButton, SignupForm } from './Signup.styled';
 axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
+
 const serverUrl = "https://mait.shop"
 
 function Signup() {
@@ -9,8 +10,7 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const serverUrl = "https://mait.shop"
+  const [confirmPassword, setConfirmPassword] = useState("");  
 
   const onNicknameHandler = (event) => {
     setNickname(event.currentTarget.value)
