@@ -9,12 +9,19 @@ import TodoBarChart from "./TodoBarChart";
 import SubjectLineChart from "./SubjectLineChart";
 import moment from "moment";
 
+function timeStamp(){ 
+    let today = new Date(); 
+    today.setHours(today.getHours() + 9); 
+    return today.toISOString().replace('T', ' ').substring(0, 19); 
+}
+
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const todayY = new Date().getFullYear();
 const todayM = new Date().getMonth()+1;
 const todayD = new Date().getDate();
-const today = new Date().toJSON().slice(0,10);
+const today = timeStamp().slice(0,10);
 const dateObj = new Date();
+dateObj.setHours(dateObj.getHours()+9);
 const todayBefore7Obj = dateObj.setDate(dateObj.getDate()-7);
 const todayBefore7 = new Date(todayBefore7Obj).toJSON().slice(0,10);
 
