@@ -1,7 +1,7 @@
 import Axios from 'axios';
-Axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
+// Axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const serverAddress = 'https://mait.shop';
-const serverAddress2 = 'http://192.249.29.5:3001';
+// const serverAddress2 = 'http://192.249.29.5:3001';
 
 function timeStamp(){ 
   let today = new Date(); 
@@ -10,7 +10,11 @@ function timeStamp(){
 }
 
 function getAllUserData() {
-  return Axios.get(`${serverAddress}/mainpage`, {});
+  return Axios.get(`${serverAddress}/mainpage`, {
+    headers: {
+        Authorization: `${window.localStorage.getItem('accessToken')}`
+    }
+});
 }
 
 function postSubject(subject, colorCode) {
@@ -19,45 +23,71 @@ function postSubject(subject, colorCode) {
     {
       subject,
       colorId:colorCode,
-    });
+    }, {} , {
+      headers: {
+          Authorization: `${window.localStorage.getItem('accessToken')}`
+      }
+  });
 }
 
 function putSubject(name, colorId, subjectId) {
-  return Axios.put(`${serverAddress}/subject/${subjectId}`, {name, colorId});
+  return Axios.put(`${serverAddress}/subject/${subjectId}`, {name, colorId}, {
+    headers: {
+        Authorization: `${window.localStorage.getItem('accessToken')}`
+    }
+});
 }
 
 function deleteSubject(subjectId) {
-  return Axios.delete(`${serverAddress}/subject/${subjectId}`);
+  return Axios.delete(`${serverAddress}/subject/${subjectId}`, {
+    headers: {
+        Authorization: `${window.localStorage.getItem('accessToken')}`
+    }
+});
 }
 
 function postNewTodo(content, subjectId) {
   return Axios.post(`${serverAddress2}/todos`, {
     content, 
     subjectId
-  })
+  }, {
+    headers: {
+        Authorization: `${window.localStorage.getItem('accessToken')}`
+    }
+})
 }
 
 function todoUpdate(todoId) {
-  return Axios.patch(`${serverAddress2}/todos/${todoId}`);
+  return Axios.patch(`${serverAddress2}/todos/${todoId}`,{}, {
+    headers: {
+        Authorization: `${window.localStorage.getItem('accessToken')}`
+    }
+});
 }
 
 function postStudyTime(subjectId, startTime) {
-  console.log("postStudyTime", subjectId, startTime)
   return Axios.post(
     `${serverAddress}/studytime`,
     {
       subjectId,
       startTime, 
-    })
+    }, {
+      headers: {
+          Authorization: `${window.localStorage.getItem('accessToken')}`
+      }
+  })
 }
 
 function patchStudyTime(studyTimeId, endTime) {
-  console.log("patchStudyTime", endTime)
   return Axios.patch(
     `${serverAddress}/studytime/${studyTimeId}`,
     {
       endTime, 
-    })
+    }, {
+      headers: {
+          Authorization: `${window.localStorage.getItem('accessToken')}`
+      }
+  })
 }
 
 export {getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime}

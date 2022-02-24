@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Modal, Button, FormControl, Form} from 'react-bootstrap'
 import axios from 'axios'
-axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
+// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
     // console.log(subjects)
 
@@ -9,7 +9,11 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     useEffect(() => setContent(todo?.content || ''), [todo])
 
     const deleteTodo = () => {
-        axios.delete(`/todos/${todo.id}`)
+        axios.delete(`/todos/${todo.id}`, {
+            headers: {
+                Authorization: `${window.localStorage.getItem('accessToken')}`
+            }
+        })
         .then(() => onDelete(todo))    
     }
 
