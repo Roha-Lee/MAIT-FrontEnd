@@ -159,15 +159,15 @@ function Daily (){
 
     function onChange(date, dateString){
         // console.log(date,dateString);
-        if(parseInt(dateString.slice(0,4)) > todayY){
-            alert("기간을 다시 선택해 주세요!");
-        }else if(parseInt(dateString.slice(5,7)) > todayM){
-            alert("기간을 다시 선택해 주세요!");
-        }else if(parseInt(dateString.slice(8,10)) > todayD){
-            alert("기간을 다시 선택해 주세요!");
-        }else{
+        // if(parseInt(dateString.slice(0,4)) > todayY){
+        //     alert("기간을 다시 선택해 주세요!");
+        // }else if(parseInt(dateString.slice(5,7)) > todayM){
+        //     alert("기간을 다시 선택해 주세요!");
+        // }else if(parseInt(dateString.slice(8,10)) > todayD){
+        //     alert("기간을 다시 선택해 주세요!");
+        // }else{
             setSelectDate(dateString);
-        }
+        // }
 
         
     }
