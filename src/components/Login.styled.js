@@ -4,12 +4,13 @@ import styled from 'styled-components'
 export const LoginForm = styled.div`
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 400px;
     transform: translate(-50%,-50%);
     font-size: 1.5rem;
     border-radius: 15px;
     text-align: center;
-    background: #EBB057;
+    /* background: #EBB057; */
+    background: #eeeeee;
     padding: 40px;
 `
 
@@ -31,5 +32,5 @@ export const LoginButton = styled(Button).attrs({ variant: "danger" })`
     border-radius: 10px;
 `
 export const LoginImage = styled.div`
-    padding: 10px
+    padding: 10px;
 `

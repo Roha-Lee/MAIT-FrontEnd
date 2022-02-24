@@ -53,7 +53,6 @@ function Login() {
     return (
         <>
             <LoginForm>
-                <h1>M.AI.T</h1>
                 <div>
                     <label htmlFor='input_id'/>
                     <LoginInput type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='ID'/>
@@ -65,12 +64,12 @@ function Login() {
                 <div>
                     <LoginButton type='button' onClick={onClickLogin}>로그인</LoginButton>
                 </div>
-                <LoginImage>
+                {/* <LoginImage>
                     <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" width="250px"/>
                     </LoginImage>
                     <LoginImage>
                     <img src="./kakao_login_medium_narrow.png" alt="kakao" width="250"/>
-                </LoginImage>
+                </LoginImage> */}
             </LoginForm>
 
         {/* <LoginContainer>

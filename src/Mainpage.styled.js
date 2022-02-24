@@ -23,7 +23,7 @@ export const CamButton = styled.button`
     padding: 10px 30px;
     border-radius: 10px;
     border: none;
-    background-color: #6693B2;
+    background-color: #669966;
     color: #EEE7E1;
     font-size: 1.2rem;
 `

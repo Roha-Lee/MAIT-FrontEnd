@@ -2,8 +2,11 @@ import { Badge } from 'react-bootstrap'
 import styled from 'styled-components'
 
 export const TodoListDiv = styled.div`
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
+    @media screen and (max-width: 520px) {
+        width: 320px;
+    }
 `
 
 export const TodoListHeader = styled.h2`

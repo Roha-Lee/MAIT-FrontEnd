@@ -4,12 +4,12 @@ import styled from 'styled-components'
 export const SignupForm = styled.div`
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 400px;
     transform: translate(-50%,-50%);
     font-size: 1.5rem;
     border-radius: 15px;
     text-align: center;
-    background: #EBB057;
+    background: #eeeeee;
     padding: 40px;
 `
 
