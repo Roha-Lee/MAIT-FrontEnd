@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { DatePicker } from "antd";
 import { Switch } from "antd";
-axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 const today = new Date().toJSON().slice(0,10);
 const todayY = today.slice(0,4);
@@ -127,7 +126,12 @@ function Daily (){
             setData(null);
             setLoading(true);
             // console.log("fetch date",selectDate);
-            const response = await axios.get(serverUrl, {params : {'today' : selectDate}});
+            
+            const response = await axios.get(serverUrl, 
+                {
+                    params : {'today' : selectDate}, 
+                    headers: {Authorization: `${window.localStorage.getItem('accessToken')}`}
+                });
             console.log(response.data);
             setData(response.data);
         }catch(e){

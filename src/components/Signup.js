@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from "axios"
 import { SignupContainer, SignupInput, SignupButton, SignupForm } from './Signup.styled';
-axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
+// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 const serverUrl = "https://mait.shop"
 

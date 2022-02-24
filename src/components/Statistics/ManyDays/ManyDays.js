@@ -7,7 +7,7 @@ import axios from "axios";
 import SubjectBarChart from "./SubjectBarChart";
 import TodoBarChart from "./TodoBarChart";
 import SubjectLineChart from "./SubjectLineChart";
-axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
+// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const todayY = new Date().getFullYear();
 const todayM = new Date().getMonth()+1;
 const todayD = new Date().getDate();
@@ -29,7 +29,7 @@ function ManyDays (){
             setData(null);
             setLoading(true);
             // console.log(startDate,endDate);
-            const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}});
+            const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}, headers: {Authorization: `${window.localStorage.getItem('accessToken')}`}});
             console.log(response.data);
             setData(response.data)
         }catch(e){

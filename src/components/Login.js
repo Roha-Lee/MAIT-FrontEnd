@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { LoginContainer, LoginInput, LoginButton, LoginImage, LoginForm } from './Login.styled'
 import { useNavigate } from "react-router-dom";
-axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
+// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 // import Form from "react-bootstrap/Form"; 
 // import Button from "react-bootstrap/Button";
@@ -10,7 +10,7 @@ axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem(
 // import Col from 'react-bootstrap/Col';
 // import Container from 'react-bootstrap/Container';
 
-const serverUrl = 'http://192.249.29.198:3001';
+const serverUrl = 'localhost:3001';
 
 function Login() {
     const [inputId, setInputId] = useState('')
@@ -34,7 +34,10 @@ function Login() {
                 username: inputId,
                 password: inputPw,
             },
-            { withCredentials: true },
+            {
+                withCredentials: true 
+            }
+            ,
         ).then(response => {
             if(response.data.message === 'success'){
                 window.localStorage.setItem('accessToken', response.data.accessToken)
