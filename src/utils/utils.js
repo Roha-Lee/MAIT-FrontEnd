@@ -23,7 +23,7 @@ function postSubject(subject, colorCode) {
     {
       subject,
       colorId:colorCode,
-    }, {} , {
+    }, {
       headers: {
           Authorization: `${window.localStorage.getItem('accessToken')}`
       }
@@ -66,6 +66,7 @@ function todoUpdate(todoId) {
 }
 
 function postStudyTime(subjectId, startTime) {
+  console.log('postStudyTime', subjectId, startTime);
   return Axios.post(
     `${serverAddress}/studytime`,
     {
@@ -79,6 +80,7 @@ function postStudyTime(subjectId, startTime) {
 }
 
 function patchStudyTime(studyTimeId, endTime) {
+  console.log('patchStudyTime', studyTimeId, endTime);
   return Axios.patch(
     `${serverAddress}/studytime/${studyTimeId}`,
     {
