@@ -8,6 +8,7 @@ import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
 import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
+import axios from 'axios';
 
 const colorsIdtoCode = {};
 const colorsCodetoId = {};
@@ -190,7 +191,9 @@ function Mainpage() {
       </SubjectsContainer>
       <FlexBox>
         <CamButton
-          onClick={() => {window.open("/camstudyLobby")}}>
+          onClick={() => {
+            window.open("/camstudyLobby")
+            }}>
             Cam Study
         </CamButton>
       </FlexBox>

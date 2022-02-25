@@ -1,26 +1,62 @@
 import React, { useRef, useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components';
-import socket from '../../socket';
 import { notification, Modal } from 'antd';
+import axios from 'axios'
+import socket from '../../socket'
+import Peer from 'simple-peer';
 
-const Main = (props) => {
-  
-  
+const CamstudyLobby = (props) => {
+    useEffect(() => {
+        const callerPeer = new Peer({
+            initiator: true, 
+            stream: callerStream,
+        });
+        console.log("INITIAL", socket);
+        socket.on("new-message", (data) => {
+            console.log('receive', data);
+            socket.emit('new-message', 'ROHA needs free!')
+        });
+    }, [])
+    
+const navigate = useNavigate();
 const [isModalVisible, setIsModalVisible] = useState(false);
 const [roomCode, setRoomCode] = useState('');
 
   function createRoom() {
-    notification.open({
-    message: "",
-    description: `새로운 방에 입장합니다.`,
-    });
+    axios.get("https://mait.shop/cam", {headers :{
+        Authorization: `${window.localStorage.getItem('accessToken')}`,
+    }})
+    .then(res => {
+        if(res.data.message === "SUCCESS"){
+            notification.open({
+            message: "",
+            description: `새로운 방에 입장합니다.`,
+            });
+            socket.emit('join-room', res.data.roomid, socket.id)
+            navigate(`/camstudyRoom/?roomId=${res.data.roomid}`)
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
   }
 
   function joinRoom() {
-    notification.open({
-    message: "",
-    description: `기존 방에 참여합니다.`,
-    });
+    axios.get(`https://mait.shop/cam/${roomCode}`, {headers :{
+        Authorization: `${window.localStorage.getItem('accessToken')}`,
+      }})
+    .then(res => {
+        if(res.data.message ==="SUCCESS"){
+            notification.open({
+                message: "",
+                description: `기존 방에 참여합니다.`,
+            });
+            socket.emit('join-room', roomCode, socket.id);
+            navigate(`/camstudyRoom/?roomId=${roomCode}`);
+        }
+    })
+    
   }
  
   const showModal = () => {
@@ -40,6 +76,11 @@ const [roomCode, setRoomCode] = useState('');
     <MainContainer>
       <JoinButton onClick={createRoom}> 방 생성하기 </JoinButton>
       <JoinButton onClick={showModal}> 방 참여하기 </JoinButton>
+      <JoinButton onClick={() => {
+          console.log(socket.id);
+          socket.emit('me', socket.id);
+      }}> 테스트 </JoinButton>
+      
     </MainContainer>
     <Modal title={"방 코드를 입력해주세요"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
         <Form onSubmit={(e) => {e.preventDefault()}}>
@@ -110,4 +151,4 @@ const JoinButton = styled.button`
   }
 `;
 
-export default Main;
+export default CamstudyLobby;

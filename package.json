@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "font-awesome": "^4.7.0",
+    "http-proxy-middleware": "^2.0.3",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "react": "^17.0.2",
@@ -35,8 +36,8 @@
     "react-toggle-button": "^2.2.0",
     "react-webcam": "^6.0.1",
     "simple-peer": "^9.11.0",
-    "socket.io": "^4.0.1",
-    "socket.io-client": "^4.4.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
