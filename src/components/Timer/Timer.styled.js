@@ -19,6 +19,9 @@ export const Timer_set = styled.span`
     font-size: 5rem;    
     text-shadow: 2px 0 0 #EEE7E1, -2px 0 0 #EEE7E1, 0 2px 0 #EEE7E1, 0 -2px 0 #EEE7E1, 1px 1px #EEE7E1, -1px -1px 0 #EEE7E1, 1px -1px 0 #EEE7E1, -1px 1px 0 #EEE7E1;
     padding: 20px 0 10px;
+    @media screen and (max-width: 520px) {
+        font-size: 2.5rem;  
+    }
 `
 
 export const TimerButton = styled.div`
@@ -26,8 +29,8 @@ export const TimerButton = styled.div`
     border-radius: 15px;
     border: none;
     font-size:1.5rem;
-    color: #EEE7E1;
-    background-color: #B23930;
+    color: white;
+    background-color: #6F8D7A;
     &:hover {
         background-color: brightness(70%)
     }

@@ -64,39 +64,14 @@ function Login() {
                 <div>
                     <LoginButton type='button' onClick={onClickLogin}>로그인</LoginButton>
                 </div>
-                {/* <LoginImage>
+                <LoginImage>
                     <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" width="250px"/>
                     </LoginImage>
                     <LoginImage>
                     <img src="./kakao_login_medium_narrow.png" alt="kakao" width="250"/>
-                </LoginImage> */}
+                </LoginImage>
             </LoginForm>
 
-        {/* <LoginContainer>
-            <Container className="panel">
-                <Form>
-                    <br/>
-                    <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                        <Col sm>
-                            <Form.Control type="text" placeholder="UserID" />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
-                        <Col sm>
-                            <Form.Control type="password" placeholder="Password" />
-                        </Col>
-                    </Form.Group>
-                    <div className="d-grid gap-1">
-                        <Button variant="primary" type='button' onClick={onClickLogin}>
-                           로그인
-                        </Button>
-                    </div>
-                    <div style={{paddingTop:"10px"}}>
-                    
-                    </div>
-                </Form>
-            </Container>
-        </LoginContainer> */}
         </>
     )
 }

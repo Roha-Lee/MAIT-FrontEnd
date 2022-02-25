@@ -169,12 +169,15 @@ function Mainpage() {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
-        <DropdownContainer>
+        <FlexBox>
+        <CamButton
+          onClick={() => {window.open("/camstudy")}}>
+            같이 하기
+        </CamButton>
           <Dropdown overlay={menu} placement="bottomCenter">
           <Button ref={buttonRef} style={{borderRadius: "10px", backgroundColor: "#EEE7E1"}}>AI 모드 선택</Button>
           </Dropdown>
-        </DropdownContainer>
-        
+        </FlexBox>
         {/* <ToggleButton
           value={ useFaceAi || false }
           
@@ -187,13 +190,8 @@ function Mainpage() {
         onToggle={(value) => {
           setUseHandAi(!value);
         }} /> */}
+        
       </SubjectsContainer>
-      <FlexBox>
-        <CamButton
-          onClick={() => {window.open("/camstudy")}}>
-            같이 하기
-        </CamButton>
-      </FlexBox>
       <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
     </div>
           )

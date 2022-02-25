@@ -11,6 +11,9 @@ export const SignupForm = styled.div`
     text-align: center;
     background: #eeeeee;
     padding: 40px;
+    @media screen and (max-width: 520px) {
+        top: 500px
+    }
 `
 
 export const SignupInput = styled.input`

@@ -3,6 +3,7 @@ import { InputGroup, DropdownButton, Dropdown, FormControl } from 'react-bootstr
 import { 
     TodoInputContainer,
     FormButton,
+    Flexbox
 } from './TodoInput.styled'
 import { postNewTodo } from '../../utils/utils'
 const TodoInput = ({ todoList, subjects, onItemAdd }) => {
@@ -28,18 +29,20 @@ const TodoInput = ({ todoList, subjects, onItemAdd }) => {
 
     return (
         <TodoInputContainer>
-            <InputGroup className="mb-3">
-                <FormControl maxLength={30} value={text} onChange={(event) => {setText(event.target.value)}} />
-                <select 
-                    onChange={(event) => {
-                        setSubject(event.target.value)
-                    }}
-                    title={subject?.name || 'Subject...'}>
-                    <option key={'unselect'} value={'Unselect'}>Unselect</option>
-                    {subjects.map(item => <option key={item.subjectId} value={item.name}>{item.name}</option>)}
-                </select>
-            </InputGroup>
-            <FormButton onClick={onSubmit}>Add</FormButton>
+            <Flexbox>
+                <InputGroup className="mb-3">
+                    <FormControl maxLength={30} value={text} onChange={(event) => {setText(event.target.value)}} />
+                    <select 
+                        onChange={(event) => {
+                            setSubject(event.target.value)
+                        }}
+                        title={subject?.name || 'Subject...'}>
+                        <option key={'unselect'} value={'Unselect'}>Unselect</option>
+                        {subjects.map(item => <option key={item.subjectId} value={item.name}>{item.name}</option>)}
+                    </select>
+                </InputGroup>
+                <FormButton onClick={onSubmit}>Add</FormButton>
+            </Flexbox>
         </TodoInputContainer>
     )
 }

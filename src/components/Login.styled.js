@@ -12,6 +12,9 @@ export const LoginForm = styled.div`
     /* background: #EBB057; */
     background: #eeeeee;
     padding: 40px;
+    @media screen and (max-width: 520px) {
+        top: 500px
+    }
 `
 
 export const LoginInput = styled.input`
