@@ -1,10 +1,41 @@
 import React, { useRef, useState, useEffect } from 'react';
-import MyVideo from '../CamstudyMyVideo/CamstudyMyVideo'
 import PeerVideo from '../CamstudyPeerVideo/CamstudyPeerVideo'
 import styled from 'styled-components';
 import socket from '../../socket'
-
+import 'animate.css'
+let myStream;
 const CamstudyRoom = (props) => {
+    const myVideoRef = useRef();
+    const [isHover, setIsHover] = useState(false);
+    useEffect(async ()=> {
+    
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+            audio: false, 
+            video: true}
+        );
+        // console.log(userVideoRef.current);
+        myVideoRef.current.srcObject = stream;
+        myStream = stream;
+        const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
+        socket.emit('join-room', roomId, socket.id);
+        socket.on('user-join', (users) => {
+            const peers = []
+        })
+        } catch(error) {
+            console.log(error)
+        }      
+    }, []);
+
+    const changeFullScreen = (e) => {
+        // TODO: 화면에 전체화면 아이콘 그리기
+        const elem = e.target;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } 
+    }
   return (
     <RoomContainer>
         TODO: 초대 링크 복사하기 기능 추가
@@ -15,7 +46,30 @@ const CamstudyRoom = (props) => {
             mute
             autoPlay
             playInline
-          ></MyVideo>
+            ref={myVideoRef}
+            onClick={changeFullScreen}
+            isHover={isHover}
+            onMouseEnter={() => {
+                setIsHover(true)
+            }}
+            onMouseLeave={() => {
+                setIsHover(false)
+            }}
+        >
+        </MyVideo>
+        <VideoOptions isHover={isHover} onMouseEnter={() => {
+            setIsHover(true)
+            }}>
+            <OptionsButton>
+            </OptionsButton>
+            <OptionsButton>
+            </OptionsButton>
+            <OptionsButton>
+            </OptionsButton>
+            <OptionsButton>
+            </OptionsButton>
+
+        </VideoOptions>
         </VideoBox>
         <VideoBox>
         </VideoBox>
@@ -48,7 +102,14 @@ const VideoContainer = styled.div`
   box-sizing: border-box;
   gap: 10px;
 `;
-
+const MyVideo = styled.video`
+    border-radius: 20px;
+    :hover {
+        filter: brightness(50%);
+        transition: .5s;
+    }
+    
+`;
 const VideoAndBarContainer = styled.div`
   position: relative;
   width: 100%;
@@ -74,6 +135,33 @@ const VideoBox = styled.div`
   }
 `;
 
+const VideoOptions = styled.div`
+  {
+    position: absolute;
+    ${props => props.isHover===true?'display: flex;': 'display: none;'}
+    justify-content: space-evenly;
+    align-items: center;
+    width: 200px;
+    height: 40px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8);
+    bottom: 10%;
+    left: calc((100% - 200px) / 2);
+    border-radius: 20px;
+    ${props => props.isHover===true?'animation: fadeInUp;': 'animation: fadeOutDown;'}
+    animation-duration: .5s;  
+  }
+`
+
+const OptionsButton = styled.button`
+{
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+}
+`
 const UserName = styled.div`
   position: absolute;
   font-size: calc(20px + 5vmin);

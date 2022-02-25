@@ -8,10 +8,6 @@ import Peer from 'simple-peer';
 
 const CamstudyLobby = (props) => {
     useEffect(() => {
-        const callerPeer = new Peer({
-            initiator: true, 
-            stream: callerStream,
-        });
         console.log("INITIAL", socket);
         socket.on("new-message", (data) => {
             console.log('receive', data);
@@ -33,7 +29,6 @@ const [roomCode, setRoomCode] = useState('');
             message: "",
             description: `새로운 방에 입장합니다.`,
             });
-            socket.emit('join-room', res.data.roomid, socket.id)
             navigate(`/camstudyRoom/?roomId=${res.data.roomid}`)
         }
     })
@@ -52,7 +47,6 @@ const [roomCode, setRoomCode] = useState('');
                 message: "",
                 description: `기존 방에 참여합니다.`,
             });
-            socket.emit('join-room', roomCode, socket.id);
             navigate(`/camstudyRoom/?roomId=${roomCode}`);
         }
     })
