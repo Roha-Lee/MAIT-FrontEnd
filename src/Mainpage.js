@@ -190,7 +190,7 @@ function Mainpage() {
       </SubjectsContainer>
       <FlexBox>
         <CamButton
-          onClick={() => {window.open("/camstudy")}}>
+          onClick={() => {window.open("/camstudyLobby")}}>
             Cam Study
         </CamButton>
       </FlexBox>
