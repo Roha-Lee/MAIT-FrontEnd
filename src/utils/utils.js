@@ -12,7 +12,7 @@ function timeStamp(){
 function getAllUserData() {
   return Axios.get(`${serverAddress}/mainpage`, {
     headers: {
-        Authorization: `${window.localStorage.getItem('accessToken')}`
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
     }
 });
 }
@@ -25,7 +25,7 @@ function postSubject(subject, colorCode) {
       colorId:colorCode,
     }, {
       headers: {
-          Authorization: `${window.localStorage.getItem('accessToken')}`
+          Authorization: `${window.sessionStorage.getItem('accessToken')}`
       }
   });
 }
@@ -33,7 +33,7 @@ function postSubject(subject, colorCode) {
 function putSubject(name, colorId, subjectId) {
   return Axios.put(`${serverAddress}/subject/${subjectId}`, {name, colorId}, {
     headers: {
-        Authorization: `${window.localStorage.getItem('accessToken')}`
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
     }
 });
 }
@@ -41,7 +41,7 @@ function putSubject(name, colorId, subjectId) {
 function deleteSubject(subjectId) {
   return Axios.delete(`${serverAddress}/subject/${subjectId}`, {
     headers: {
-        Authorization: `${window.localStorage.getItem('accessToken')}`
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
     }
 });
 }
@@ -52,7 +52,7 @@ function postNewTodo(content, subjectId) {
     subjectId
   }, {
     headers: {
-        Authorization: `${window.localStorage.getItem('accessToken')}`
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
     }
 })
 }
@@ -60,7 +60,7 @@ function postNewTodo(content, subjectId) {
 function todoUpdate(todoId) {
   return Axios.patch(`${serverAddress2}/todos/${todoId}`,{}, {
     headers: {
-        Authorization: `${window.localStorage.getItem('accessToken')}`
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
     }
 });
 }
@@ -74,7 +74,7 @@ function postStudyTime(subjectId, startTime) {
       startTime, 
     }, {
       headers: {
-          Authorization: `${window.localStorage.getItem('accessToken')}`
+          Authorization: `${window.sessionStorage.getItem('accessToken')}`
       }
   })
 }
@@ -87,7 +87,7 @@ function patchStudyTime(studyTimeId, endTime) {
       endTime, 
     }, {
       headers: {
-          Authorization: `${window.localStorage.getItem('accessToken')}`
+          Authorization: `${window.sessionStorage.getItem('accessToken')}`
       }
   })
 }

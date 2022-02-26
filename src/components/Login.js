@@ -42,7 +42,7 @@ function Login() {
             ,
         ).then(response => {
             if(response.data.message === 'success'){
-                window.localStorage.setItem('accessToken', response.data.accessToken)
+                window.sessionStorage.setItem('accessToken', response.data.accessToken)
                 // useNavigate()
                 navigate("/");
             }

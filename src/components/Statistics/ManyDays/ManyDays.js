@@ -42,7 +42,7 @@ function ManyDays (){
             setData(null);
             setLoading(true);
             // console.log(startDate,endDate);
-            const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}, headers: {Authorization: `${window.localStorage.getItem('accessToken')}`}});
+            const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}, headers: {Authorization: `${window.sessionStorage.getItem('accessToken')}`}});
             console.log(response.data);
             setData(response.data)
         }catch(e){

@@ -137,7 +137,7 @@ function Daily (){
             const response = await axios.get(serverUrl, 
                 {
                     params : {'today' : selectDate}, 
-                    headers: {Authorization: `${window.localStorage.getItem('accessToken')}`}
+                    headers: {Authorization: `${window.sessionStorage.getItem('accessToken')}`}
                 });
             console.log(response.data);
             setData(response.data);

@@ -2,12 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import 'animate.css'
 import { notification } from 'antd';
-import { AudioOutlined, AudioMutedOutlined, MessageOutlined } from '@ant-design/icons';
+import { BellOutlined } from '@ant-design/icons';
+import videoOnSVG from '../CamstudyRoom/assets/video.svg';
+import videoOffSVG from '../CamstudyRoom/assets/video-off.svg';
+import socket from '../../socket';
 
 const ButtonStyle = {
   fontSize: '20px',
   color: '#6F8D7A',
 }
+
 const VideoCard = styled.div`
   {
     position: relative;
@@ -27,12 +31,12 @@ const VideoOptions = styled.div`
     ${props => props.isHover===true?'display: flex;': 'display: none;'}
     justify-content: space-evenly;
     align-items: center;
-    width: 200px;
+    width: 140px;
     height: 40px;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.8);
     bottom: 10%;
-    left: calc((100% - 200px) / 2);
+    left: calc((100% - 140px) / 2);
     border-radius: 20px;
     ${props => props.isHover===true?'animation: fadeInUp;': 'animation: fadeOutDown;'}
     animation-duration: .5s;  
@@ -49,12 +53,11 @@ const OptionsButton = styled.button`
 }
 `
 
-let myStream;
 const CamstudyPeerVideo = (props) => {
   const [isHover, setIsHover] = useState(false);
   const [audioMute, setAudioMute] = useState(true);
   const [videoOff, setVideoOff] = useState(false);
-
+  
   const ref = useRef();
   const peer = props.peer;
 
@@ -65,29 +68,18 @@ const CamstudyPeerVideo = (props) => {
     peer.on('track', (track, stream) => {
     });
   }, [peer]);
-  const changeFullScreen = () => {
-
-  }
-
-  const handleMute = () => {
-    setAudioMute(!audioMute);
-    const audioTracks = myStream.getAudioTracks();
-    audioTracks.forEach(track => {
-      track.enabled = !track.enabled;
-    });
-    notification.open({
-      message: "오디오 상태 변경",
-      description: `ROHA: GRU!`,
-      icon: <AudioOutlined style={{ color: "#6F8D7A" }} />,
-    });
-  }
+  
+  const sirenFire = (e) => {
+    console.log(props.currentUser, peer.userName);
+    socket.emit("siren", {sender:props.currentUser, receiver:peer.userName});
+  };
   
   return (
     <>
       <Video
         autoPlay
         playsInline
-        onClick={changeFullScreen}
+        onClick={props.changeFullScreen}
         isHover={isHover}
         onMouseEnter={() => {
           setIsHover(true)
@@ -101,16 +93,16 @@ const CamstudyPeerVideo = (props) => {
           setIsHover(true)
         }}>
           <OptionsButton>
-            This
+            <img src={ true ? videoOnSVG : videoOffSVG } width="20" height="20"></img>
           </OptionsButton>
           <OptionsButton>
-            is
+            <i
+            className={`fa fa-microphone${true ? "" : "-slash"}`}
+            style={{ transform: "scaleX(1.2) scaleY(1.2)" }}>
+            </i>
           </OptionsButton>
-          <OptionsButton>
-            peer
-          </OptionsButton>
-          <OptionsButton>
-            🙆‍♂️
+          <OptionsButton onClick={sirenFire}>
+            <BellOutlined style={{ fontSize: "20px" }}/>
           </OptionsButton>
 
         </VideoOptions>
@@ -118,5 +110,5 @@ const CamstudyPeerVideo = (props) => {
     
   );
 };
-
+// TODO: 버튼들 기능 구현 
 export default CamstudyPeerVideo;

@@ -12,7 +12,7 @@ const [roomCode, setRoomCode] = useState('');
 
   function createRoom() {
     axios.get("https://mait.shop/cam", {headers :{
-        Authorization: `${window.localStorage.getItem('accessToken')}`,
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`,
     }})
     .then(res => {
         if(res.data.message === "SUCCESS"){
@@ -20,6 +20,7 @@ const [roomCode, setRoomCode] = useState('');
             message: "",
             description: `새로운 방에 입장합니다.`,
             });
+            window.sessionStorage.setItem("currentUser", res.data.userName);// Todo
             navigate(`/camstudyRoom/?roomId=${res.data.roomid}`)
         }
     })
@@ -30,7 +31,7 @@ const [roomCode, setRoomCode] = useState('');
 
   function joinRoom() {
     axios.get(`https://mait.shop/cam/${roomCode}`, {headers :{
-        Authorization: `${window.localStorage.getItem('accessToken')}`,
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`,
       }})
     .then(res => {
         if(res.data.message ==="SUCCESS"){
@@ -38,6 +39,7 @@ const [roomCode, setRoomCode] = useState('');
                 message: "",
                 description: `기존 방에 참여합니다.`,
             });
+            window.sessionStorage.setItem("currentUser", res.data.userName);// Todo
             navigate(`/camstudyRoom/?roomId=${roomCode}`);
         }
     })

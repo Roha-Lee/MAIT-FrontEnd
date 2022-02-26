@@ -10,14 +10,19 @@ import videoOffSVG from './assets/video-off.svg';
 import shareScreenSVG from './assets/share_screen.svg';
 import messageSVG from './assets/msg.svg';
 import Navigation from './RoomNavigation'
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { notification } from 'antd';
+import { BellOutlined } from '@ant-design/icons';
+import Bell from "./assets/bell.mp3";
+
+
 const CamstudyRoom = (props) => {
-  const currentUser = 'Roha';
+  const currentUser = window.sessionStorage.getItem('currentUser');
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
   const myVideoRef = useRef();
   const myStreamRef = useRef();
   const peersRef = useRef([]); 
   const screenTrackRef = useRef();
+  const sirenRef = useRef();
   const [isHover, setIsHover] = useState(false);
   const [peers, setPeers] = useState([]);
   const [screenShare, setScreenShare] = useState(false);
@@ -36,7 +41,7 @@ const CamstudyRoom = (props) => {
       myVideoRef.current.srcObject = stream;
       myStreamRef.current = stream;
       // socket.emit('join-room', roomId, socket.id);
-      socket.emit('join-room', roomId, socket.id);
+      socket.emit('join-room', roomId, currentUser);
       socket.on('user-join', (users) => {
         const peers = [];
         console.log('this is users list', users);
@@ -45,7 +50,7 @@ const CamstudyRoom = (props) => {
           console.log("unpack info", info);
         let { userName, video, audio } = info;
 
-        if (userName !== socket.id) {
+        if (userName !== currentUser) {
           const peer = createPeer(userId, socket.id, stream);
           peer.userName = userName;
           peer.peerID = userId;
@@ -93,6 +98,14 @@ const CamstudyRoom = (props) => {
           };
         });
       }
+    });
+    socket.on('siren-fire', (sender) => {
+      sirenRef.current.play();
+      notification.open({
+        message: "집중하세요!",
+        description: `${sender}로부터 주의를 받았습니다.`,
+        icon: <BellOutlined/>,
+      });
     });
 
     socket.on('call-accepted', ({ signal, answerId }) => {
@@ -244,15 +257,14 @@ const CamstudyRoom = (props) => {
   };
 
   function createUserVideo(peer, index, arr) {
+    console.log("피어이올시다.", peer.userName)
     return (
       <VideoBox
         className={`width-peer${peers.length > 8 ? '' : peers.length}`}
-        onClick={changeFullScreen}
         key={index}
       >
         {writeUserName(peer.userName)}
-        <FaIcon className='fas fa-expand' />
-        <PeerVideo key={index} peer={peer} number={arr.length} />
+        <PeerVideo key={index} peer={peer} number={arr.length} currentUser={currentUser} changeFullScreen={changeFullScreen}/>
         <InFrameUserName>Roha</InFrameUserName>
       </VideoBox>
     );
@@ -354,7 +366,7 @@ const CamstudyRoom = (props) => {
       <OptionsButton onClick={clickScreenSharing}>
         <img src={ shareScreenSVG } width="20" height="20"></img>
       </OptionsButton>
-
+      <audio src={Bell} ref={sirenRef} />
     </VideoOptions>
     <InFrameUserName>Roha</InFrameUserName>
     </VideoBox>

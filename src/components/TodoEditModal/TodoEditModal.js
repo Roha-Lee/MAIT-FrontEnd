@@ -11,7 +11,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     const deleteTodo = () => {
         axios.delete(`/todos/${todo.id}`, {
             headers: {
-                Authorization: `${window.localStorage.getItem('accessToken')}`
+                Authorization: `${window.sessionStorage.getItem('accessToken')}`
             }
         })
         .then(() => onDelete(todo))    
