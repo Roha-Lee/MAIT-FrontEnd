@@ -35,9 +35,9 @@ const CamstudyRoom = (props) => {
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-      audio: false, 
+      audio: true, 
       video: true});
-      // console.log(userVideoRef.current);
+      
       myVideoRef.current.srcObject = stream;
       myStreamRef.current = stream;
       // socket.emit('join-room', roomId, socket.id);
@@ -78,7 +78,6 @@ const CamstudyRoom = (props) => {
       const peerIdx = findPeer(from);
 
       if (!peerIdx) {
-        console.log("ADDPEER???")
         const peer = addPeer(signal, from, stream);
         
         peer.userName = userName;
@@ -109,14 +108,11 @@ const CamstudyRoom = (props) => {
     });
 
     socket.on('call-accepted', ({ signal, answerId }) => {
-      console.log("FINDPEER???")
       const peerIdx = findPeer(answerId);
       peerIdx.peer.signal(signal);
     });
 
     socket.on('user-leave', ({ userId, userName }) => {
-      console.log("leave - FINDPEER???", userId)
-      console.log("My id", socket.id);
       const peerIdx = findPeer(userId);
       peerIdx.peer.destroy();
       setPeers((users) => {
@@ -265,7 +261,7 @@ const CamstudyRoom = (props) => {
       >
         {writeUserName(peer.userName)}
         <PeerVideo key={index} peer={peer} number={arr.length} currentUser={currentUser} changeFullScreen={changeFullScreen}/>
-        <InFrameUserName>Roha</InFrameUserName>
+        <InFrameUserName>{peer.userName}</InFrameUserName>
       </VideoBox>
     );
   }
@@ -368,7 +364,7 @@ const CamstudyRoom = (props) => {
       </OptionsButton>
       <audio src={Bell} ref={sirenRef} />
     </VideoOptions>
-    <InFrameUserName>Roha</InFrameUserName>
+    <InFrameUserName>{currentUser}</InFrameUserName>
     </VideoBox>
     
     {peers &&
