@@ -43,7 +43,7 @@ function ManyDays (){
             setLoading(true);
             // console.log(startDate,endDate);
             const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}, headers: {Authorization: `${window.localStorage.getItem('accessToken')}`}});
-            console.log(response.data);
+            // console.log(response.data);
             setData(response.data)
         }catch(e){
             setError(e);
@@ -315,7 +315,7 @@ function ManyDays (){
     }
 
     useEffect(()=>{
-        console.log(range, "첫 로딩");
+        // console.log(range, "첫 로딩");
         fetchData(range[0],range[1]);
     },[]);
 
