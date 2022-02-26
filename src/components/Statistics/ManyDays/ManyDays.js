@@ -42,8 +42,13 @@ function ManyDays (){
             setData(null);
             setLoading(true);
             // console.log(startDate,endDate);
+<<<<<<< HEAD
             const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}, headers: {Authorization: `${window.sessionStorage.getItem('accessToken')}`}});
             console.log(response.data);
+=======
+            const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}, headers: {Authorization: `${window.localStorage.getItem('accessToken')}`}});
+            // console.log(response.data);
+>>>>>>> fix/statistics-detail
             setData(response.data)
         }catch(e){
             setError(e);
@@ -315,7 +320,7 @@ function ManyDays (){
     }
 
     useEffect(()=>{
-        console.log(range, "첫 로딩");
+        // console.log(range, "첫 로딩");
         fetchData(range[0],range[1]);
     },[]);
 
