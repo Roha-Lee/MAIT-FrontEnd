@@ -2,8 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import socket from '../../socket';
 
-const CamstudyChat = ({ display, roomId }) => {
-    const currentUser = sessionStorage.getItem('user');
+const CamstudyChat = ({ display, roomId, currentUser }) => {
     const [msg, setMsg] = useState([]);
     const messagesEndRef = useRef(null);
     const inputRef = useRef();
