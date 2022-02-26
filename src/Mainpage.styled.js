@@ -1,27 +1,22 @@
 import styled from 'styled-components'
 
 export const AiContainer = styled.div`
-    /* display: flex;
-    margin: 1rem auto;  
-    flex-direction: row;
-    justify-content: center; */
     position: fixed;
-    bottom: 0;
     right: 0;
     padding : 20px;
-    margin: 10px 0;
     background: #CDE8F7;
     border-radius: 10px 0 0 10px;
-    color : white;
     border: solid 0.5px lightgrey;
     @media screen and (max-width: 900px) {
         display: flex;
-        justify-content: space-evenly;
+        position: static;
+        flex-direction: row;
+        justify-content: center;
         width: 100%;
-        height: 60px;
-        position: fixed;
-        left: 0;
-        padding: 5px 5px;
+        padding: 0;
+        height: 150px;
+        background: none;
+        border: none;
     }
 `
 

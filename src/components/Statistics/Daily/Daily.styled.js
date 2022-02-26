@@ -1,4 +1,6 @@
-.daily{
+import styled from 'styled-components'
+
+export const DailyBox = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -6,9 +8,4 @@
     width: 100%;
     justify-content: center;
     gap: 40px;
-
-    
-}
-.dateswitch{
-    margin-left: 10px;
-}
+`

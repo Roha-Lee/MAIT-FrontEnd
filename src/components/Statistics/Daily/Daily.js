@@ -1,6 +1,6 @@
 import TimeHeatmap from "./TimeHeatmap";
 import DailyData from "./DailyData";
-import style from "./Daily.module.css";
+import { DailyBox } from './Daily.styled';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { DatePicker } from "antd";
@@ -187,7 +187,7 @@ function Daily (){
     }
     console.log(labels,subjectColors)
     return (
-        <div className = {style.daily}>
+        <DailyBox>
             <div>
             <DatePicker onChange={onChange} />
             <Switch defaultChecked checkedChildren="학습" unCheckedChildren="전체" onChange={onChangeToggle} style={{marginLeft : "15px"}}/>
@@ -206,7 +206,7 @@ function Daily (){
                 subjectColors = {subjectColors}
                 isZeroShow = {isZeroShow}
             />
-        </div>
+        </DailyBox>
     );
 }
 

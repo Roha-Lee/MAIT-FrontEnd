@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useCallback} from 'react';
 import Subjects from './components/Subjects/Subjects';
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
@@ -40,7 +40,25 @@ function Mainpage() {
   const [useHandAi, setUseHandAi] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [todoList, setTodoList] = useState([]);
+  const [floatVideo, setFloatVideo] = useState(false);
   const buttonRef = useRef(null);
+  const videoContainerRef = useRef();
+
+  const handleScroll = useCallback(e => {
+    if (videoContainerRef.current) {
+      const { y } = videoContainerRef.current.getBoundingClientRect();
+
+      setFloatVideo(y < 0);
+    }
+  }, [videoContainerRef, setFloatVideo]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
   useEffect(() => {
     getAllUserData().then((userData)=> {
@@ -116,30 +134,16 @@ function Mainpage() {
   
   return (
     <div className="App">
-      {useFaceAi ? 
-        <AiContainer>
+      {useFaceAi || useHandAi ? 
+        <AiContainer ref={videoContainerRef}>
           <AIFaceFunctionViewer 
             timerOn={timerOn}
             setTimerOn={setTimerOn}
             userTimerOn={userTimerOn}
-            setUserTimerOn={setUserTimerOn}
-            useFaceAi = { useFaceAi || false }
-            setUseFaceAi = {setUseFaceAi}
+            useFaceAi={useFaceAi}
+            useHandAi={useHandAi}
+            floatVideo={floatVideo}
           />
-          <div>여기에 토글</div>
-        </AiContainer>
-      : null}
-      {useHandAi ? 
-        <AiContainer>
-          <AIHandFunctionViewer 
-            timerOn={timerOn}
-            setTimerOn={setTimerOn}
-            userTimerOn={userTimerOn}
-            setUserTimerOn={setUserTimerOn}
-            useHandAi = { useHandAi || false }
-            setUseHandAi = {setUseHandAi}
-          />
-          <div>여기에 토글</div>
         </AiContainer>
       : null}
       <SubjectsContainer>       
@@ -197,6 +201,7 @@ function Mainpage() {
         </CamButton>
       </FlexBox>
       <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
+      <div style={{height:150}}/>
     </div>
           )
   }

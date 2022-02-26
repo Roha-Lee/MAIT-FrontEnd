@@ -1,6 +1,6 @@
 import Webcam from "react-webcam";
 import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Capture from "./Capture";
 import {AiOn, SrcCanvas, DstCanvas, ImgFace} from './AIFaceFunctionViewer.styled'
 
@@ -9,9 +9,8 @@ function AIFaceFunctionViewer ({
   timerOn, 
   setTimerOn, 
   userTimerOn,
-  setUserTimerOn,
   useFaceAi,
-  setUseFaceAi,
+  floatVideo,
 }){
   const webcamRef = useRef(null);
   const srcCanvas = document.getElementById("srccanvas");
@@ -92,24 +91,25 @@ function AIFaceFunctionViewer ({
   // console.log("캡쳐 명령");
   // capture();
   // Capture();
+
+  const videoSize = useMemo(() => floatVideo ? 80 : 150, [floatVideo]);
+
   return(
-    <div className="aitest">
-        <AiOn> 
-          <Webcam
-            ref={webcamRef}
-            audio={false}
-            height={150}
-            screenshotFormat="image/jpeg"
-            width={150}
-            position='fixed'          
-            videoConstraints={videoConstraints}
-          />
-          <SrcCanvas id="srccanvas"/>
-          <DstCanvas id="dstcanvas"/>
-          <ImgFace id="imgFace" src={faceImage}/>
-          <button id="captureFace" style={{display: "none"}} onClick={(e)=>{capture();}}>Capture</button>
-        </AiOn>
-    </div>
+    <AiOn floatVideo={floatVideo}> 
+      <Webcam
+        ref={webcamRef}
+        audio={false}
+        width={videoSize}
+        height={videoSize}
+        screenshotFormat="image/jpeg"
+        position="fixed"       
+        videoConstraints={videoConstraints}
+      />
+      <SrcCanvas id="srccanvas"/>
+      <DstCanvas id="dstcanvas"/>
+      <ImgFace id="imgFace" src={faceImage}/>
+      <button id="captureFace" style={{display: "none"}} onClick={(e)=>{capture();}}>Capture</button>
+    </AiOn>
   );
 }
 // 
