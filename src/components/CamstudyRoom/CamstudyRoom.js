@@ -26,7 +26,7 @@ const CamstudyRoom = (props) => {
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-      audio: false, 
+      audio: true, 
       video: true});
       // console.log(userVideoRef.current);
       myVideoRef.current.srcObject = stream;
@@ -284,13 +284,34 @@ const CamstudyRoom = (props) => {
 
     socket.emit('toggle-camera-audio', { roomId, switchTarget: 'video' });
   };
-  
+
+  const toggleMic = (e) => {
+    setUserVideoAudio((preList) => {
+      let videoSwitch = preList['localUser'].video;
+      let audioSwitch = preList['localUser'].audio;
+
+      const userAudioTrack = myVideoRef.current.srcObject.getAudioTracks()[0];
+      audioSwitch = !audioSwitch;
+
+      if (userAudioTrack) {
+        userAudioTrack.enabled = audioSwitch;
+      } else {
+        userStream.current.getAudioTracks()[0].enabled = audioSwitch;
+      }
+
+      return {
+        ...preList,
+        localUser: { video: videoSwitch, audio: audioSwitch },
+      };
+    });
+    socket.emit('toggle-camera-audio', { roomId, switchTarget: 'audio' });
+  };
   //TODO: 초대 링크 복사하기 기능 추가
   return (
   <RoomContainer>
     
   <VideoAndBarContainer>
-    <VideoContainer>
+    <VideoContainer displayChat={displayChat}> 
     <VideoBox className={`width-peer${peers.length > 8 ? '' : peers.length}`}>
       {userVideoAudio['localUser'].video ? null : (<UserName>{currentUser}</UserName>)}
       <MyVideo
@@ -315,8 +336,11 @@ const CamstudyRoom = (props) => {
         <img src={
           userVideoAudio['localUser'].video ? videoOn : videoOff } width="20" height="20"></img>
       </OptionsButton>
-      <OptionsButton>
-        is
+      <OptionsButton onClick={toggleMic}>
+        <i
+          className={`fa fa-microphone${userVideoAudio['localUser'].audio ? "" : "-slash"}`}
+          style={{ transform: "scaleX(1.2) scaleY(1.2)" }}
+        ></i>
       </OptionsButton>
       <OptionsButton onClick={clickChat}>
         me
@@ -344,19 +368,16 @@ export default CamstudyRoom;
 const RoomContainer = styled.div`
   margin: 0 auto;
   display: flex;
-  width: 60%;
+  width: 100%;
   max-height: 100vh;
   flex-direction: row;
-  @media screen and (max-width: 1200px) {
-    width: 80%;
-  }
   @media screen and (max-width: 1000px) {
-    width: 100%;
-  }
+    flex-direction: column;
+  } 
 `;
-
 const VideoContainer = styled.div`
-  max-width: 100%;
+  margin: 0 auto;
+  max-width: 60%;
   height: 92%;
   display: flex;
   flex-direction: row;
@@ -365,6 +386,22 @@ const VideoContainer = styled.div`
   align-items: center;
   padding: 15px;
   box-sizing: border-box;
+  @media screen and (max-width: 1400px) {
+    max-width: 70%;
+  }
+  @media screen and (max-width: 1200px) {
+    max-width: 80%;
+  }
+  @media screen and (max-width: 1000px) {
+    max-width: 90%;
+    height: ${props => props.displayChat===true? '52%': '92%'};
+    transition: height 0.5s ease;
+  }
+  @media screen and (max-width: 800px) {
+    max-width: 100%;
+    height: ${props => props.displayChat===true? '52%': '92%'};
+    transition: height 0.5s ease;
+  } 
 `;
 
 const MyVideo = styled.video`
