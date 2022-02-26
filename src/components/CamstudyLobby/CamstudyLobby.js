@@ -3,18 +3,8 @@ import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components';
 import { notification, Modal } from 'antd';
 import axios from 'axios'
-import socket from '../../socket'
-import Peer from 'simple-peer';
 
 const CamstudyLobby = (props) => {
-    useEffect(() => {
-        console.log("INITIAL", socket);
-        socket.on("new-message", (data) => {
-            console.log('receive', data);
-            socket.emit('new-message', 'ROHA needs free!')
-        });
-    }, [])
-    
 const navigate = useNavigate();
 const [isModalVisible, setIsModalVisible] = useState(false);
 const [roomCode, setRoomCode] = useState('');
@@ -70,11 +60,6 @@ const [roomCode, setRoomCode] = useState('');
     <MainContainer>
       <JoinButton onClick={createRoom}> 방 생성하기 </JoinButton>
       <JoinButton onClick={showModal}> 방 참여하기 </JoinButton>
-      <JoinButton onClick={() => {
-          console.log(socket.id);
-          socket.emit('me', socket.id);
-      }}> 테스트 </JoinButton>
-      
     </MainContainer>
     <Modal title={"방 코드를 입력해주세요"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
         <Form onSubmit={(e) => {e.preventDefault()}}>

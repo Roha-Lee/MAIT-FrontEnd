@@ -11,16 +11,12 @@ const ButtonStyle = {
 const VideoCard = styled.div`
   {
     position: relative;
-    width: 640px; 
-    height: 480px; 
   }
 `;
 
 const Video = styled.video`
   {
     border-radius: 20px;
-    width: 640px;
-    height: 480px;
     ${props => props.isHover===true? 'filter: brightness(50%);': ''} 
     transition: .5s;
   }`;
@@ -54,16 +50,21 @@ const OptionsButton = styled.button`
 `
 
 let myStream;
-const CamstudyMyVideo = () => {
+const CamstudyPeerVideo = (props) => {
   const [isHover, setIsHover] = useState(false);
   const [audioMute, setAudioMute] = useState(true);
   const [videoOff, setVideoOff] = useState(false);
-  const ref = useRef();
-  useEffect(() => {
-    getMedia();
-    
-  }, []);
 
+  const ref = useRef();
+  const peer = props.peer;
+
+  useEffect(() => {
+    peer.on('stream', (stream) => {
+      ref.current.srcObject = stream;
+    });
+    peer.on('track', (track, stream) => {
+    });
+  }, [peer]);
   const changeFullScreen = () => {
 
   }
@@ -79,17 +80,6 @@ const CamstudyMyVideo = () => {
       description: `ROHA: GRU!`,
       icon: <AudioOutlined style={{ color: "#6F8D7A" }} />,
     });
-  }
-  const getMedia = async() => {
-    try {
-      myStream = await navigator.mediaDevices.getUserMedia({
-      audio: false, 
-      video: true,
-    });
-    ref.current.srcObject = myStream;
-    } catch(error) {
-      console.log(error)
-    }
   }
   
   return (
@@ -111,12 +101,16 @@ const CamstudyMyVideo = () => {
           setIsHover(true)
         }}>
           <OptionsButton>
+            This
           </OptionsButton>
           <OptionsButton>
+            is
           </OptionsButton>
           <OptionsButton>
+            peer
           </OptionsButton>
           <OptionsButton>
+            🙆‍♂️
           </OptionsButton>
 
         </VideoOptions>
@@ -126,4 +120,4 @@ const CamstudyMyVideo = () => {
   );
 };
 
-export default CamstudyMyVideo;
+export default CamstudyPeerVideo;
