@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-export const HeadNavigate = styled.header`
+export const HeadNavigate = styled.div`
     width: 100%;
     height: 70px;
     margin: 0 auto;
     padding: 10px;
     display: flex;
-    background-color: #6F8D7A;
+    background-color: #3F82A2;
     position:relative;
     flex-direction: row;
     justify-content: space-between;

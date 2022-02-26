@@ -11,7 +11,7 @@ export const SubjectsContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f5f5dc;
+    background-color: #EBB057;
     margin: 20px auto;
     width: 500px;
     border-radius: 20px;
@@ -22,13 +22,13 @@ export const SubjectsContainer = styled.div`
 `
 
 export const CamButton = styled.button`
-    /* margin: 0 auto; */
-    /* padding: 10px 30px; */
-    width: 100px;
+    margin: 0 auto;
+    padding: 10px 30px;
     border-radius: 10px;
     border: none;
-    background-color: #F0CE9A;
-    color: black;
+    background-color: #6693B2;
+    color: #EEE7E1;
+    font-size: 1.2rem;
 `
 
 export const FlexBox = styled.div`
@@ -39,4 +39,10 @@ export const DropdownContainer = styled.div`
     display: flex;
     width: 90%;
     flex-direction: row-reverse;
+`
+export const StyledFooter = styled.div`
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 `

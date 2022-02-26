@@ -7,7 +7,7 @@ import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
-import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer, StyledFooter} from './Mainpage.styled'
 
 const colorsIdtoCode = {};
 const colorsCodetoId = {};
@@ -169,15 +169,12 @@ function Mainpage() {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
-        <FlexBox>
-        <CamButton
-          onClick={() => {window.open("/camstudy")}}>
-            같이 하기
-        </CamButton>
+        <DropdownContainer>
           <Dropdown overlay={menu} placement="bottomCenter">
           <Button ref={buttonRef} style={{borderRadius: "10px", backgroundColor: "#EEE7E1"}}>AI 모드 선택</Button>
           </Dropdown>
-        </FlexBox>
+        </DropdownContainer>
+        
         {/* <ToggleButton
           value={ useFaceAi || false }
           
@@ -190,9 +187,18 @@ function Mainpage() {
         onToggle={(value) => {
           setUseHandAi(!value);
         }} /> */}
-        
       </SubjectsContainer>
+      <FlexBox>
+        <CamButton
+          onClick={() => {window.open("/camstudy")}}>
+            Cam Study
+        </CamButton>
+      </FlexBox>
       <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
+      <StyledFooter>
+        <div>비디오 20px * 20px</div>
+        <div>얼굴 감지 중 입니다.</div>
+      </StyledFooter>
     </div>
           )
   }

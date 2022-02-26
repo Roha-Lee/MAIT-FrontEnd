@@ -1,18 +1,19 @@
 import Navigation from "../Navigation/Navigation";
 import Daily from "./Daily/Daily";
 import ManyDays from "./ManyDays/ManyDays";
-import style from "./Statistics.module.css";
+// import style from "./Statistics.module.css";
+import { DailyStatistics, StatisticsDetail } from './Statistics.styled'
 
 function Statistics(){
 
     return(
-        <div className={style.statisticsContainer}>
-            <div className={style.statistics}>
+        <div>
+            <DailyStatistics>
                 <Daily/>
-            </div>
-            <div className={style.statisticsDetail}>
+            </DailyStatistics>
+            <StatisticsDetail>
                 <ManyDays/>
-            </div>
+            </StatisticsDetail>
         </div>
 
     );
