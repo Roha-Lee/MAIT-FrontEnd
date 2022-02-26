@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import socket from '../../socket'
 import 'animate.css'
 import SimplePeer from 'simple-peer';
-import CamstudyChat from '../CamstudyChat/CamstudyChat';
 
 const CamstudyRoom = (props) => {
-  const currentUser = 'Roha';
-  const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
+  const currentUser = 'Roha'
   const myVideoRef = useRef();
   const myStreamRef = useRef();
   const peersRef = useRef([]); 
@@ -17,7 +15,6 @@ const CamstudyRoom = (props) => {
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
-  const [displayChat, setDisplayChat] = useState(false);
   useEffect(async ()=> {
     window.addEventListener('popstate', goToBack);
     try {
@@ -27,6 +24,7 @@ const CamstudyRoom = (props) => {
       // console.log(userVideoRef.current);
       myVideoRef.current.srcObject = stream;
       myStreamRef.current = stream;
+      const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
       socket.emit('join-room', roomId, socket.id);
       socket.on('user-join', (users) => {
         const peers = [];
@@ -208,12 +206,6 @@ const CamstudyRoom = (props) => {
       }
     }
   }
-
-  const clickChat = (e) => {
-    e.stopPropagation();
-    setDisplayChat(!displayChat);
-  };
-  console.log(displayChat);
   return (
   <RoomContainer>
     TODO: 초대 링크 복사하기 기능 추가
@@ -244,7 +236,7 @@ const CamstudyRoom = (props) => {
       <OptionsButton>
         is
       </OptionsButton>
-      <OptionsButton onClick={clickChat}>
+      <OptionsButton>
         me
       </OptionsButton>
       <OptionsButton>
@@ -258,8 +250,6 @@ const CamstudyRoom = (props) => {
       peers.map((peer, index, arr) => createUserVideo(peer, index, arr))}
     </VideoContainer>
   </VideoAndBarContainer>
-  {/* <CamstudyChat display={displayChat ?  "" : "none"} roomId={roomId} /> */}
-  {displayChat ? <CamstudyChat display={displayChat} roomId={roomId}/> : null }
   </RoomContainer>
   );
 };
