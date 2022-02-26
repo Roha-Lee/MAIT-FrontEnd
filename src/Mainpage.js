@@ -126,6 +126,7 @@ function Mainpage() {
             useFaceAi = { useFaceAi || false }
             setUseFaceAi = {setUseFaceAi}
           />
+          <div>여기에 토글</div>
         </AiContainer>
       : null}
       {useHandAi ? 
@@ -138,6 +139,7 @@ function Mainpage() {
             useHandAi = { useHandAi || false }
             setUseHandAi = {setUseHandAi}
           />
+          <div>여기에 토글</div>
         </AiContainer>
       : null}
       <SubjectsContainer>       
@@ -195,10 +197,6 @@ function Mainpage() {
         </CamButton>
       </FlexBox>
       <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
-      <StyledFooter>
-        <div>비디오 20px * 20px</div>
-        <div>얼굴 감지 중 입니다.</div>
-      </StyledFooter>
     </div>
           )
   }

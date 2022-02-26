@@ -9,6 +9,8 @@ import CamStudy from "./components/CamStudy/CamStudy"
 import Statistics from "./components/Statistics/Statistics"
 import "antd/dist/antd.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import style from './css/App.css'
+
 function App() {
   
   return (

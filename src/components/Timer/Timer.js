@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
-// import style from './Timer.module.css'
 import {SubjectTitle, TimerContainer, Timer_set, TimerButton } from './Timer.styled'
 
 import 'animate.css'

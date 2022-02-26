@@ -6,10 +6,10 @@ export const SubjectsContainer = styled.div`
     margin-bottom: 20px;
     padding: 11px;
     width: 100%;
-    background-color: #F0CE9A;
+    background-color: #B2CDD9;
 `
 
-export const Subjects = styled.div`
+export const StyledSubjects = styled.div`
     align-items: center;
     background-color: #EEE7E1;
     display: flex;
@@ -44,7 +44,7 @@ export const Subject = styled.button`
     
 `
 
-export const subjectManager = styled.div`
+export const SubjectManager = styled.div`
     display: flex;
     overflow-x: auto;
     padding: 5px;

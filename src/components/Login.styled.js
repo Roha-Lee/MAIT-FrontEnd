@@ -9,8 +9,6 @@ export const LoginForm = styled.div`
     font-size: 1.5rem;
     border-radius: 15px;
     text-align: center;
-    /* background: #EBB057; */
-    background: #eeeeee;
     padding: 40px;
     @media screen and (max-width: 520px) {
         top: 500px

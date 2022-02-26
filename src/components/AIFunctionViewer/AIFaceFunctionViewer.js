@@ -2,6 +2,8 @@ import Webcam from "react-webcam";
 import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
+import {AiOn, SrcCanvas, DstCanvas, ImgFace} from './AIFaceFunctionViewer.styled'
+
 
 function AIFaceFunctionViewer ({
   timerOn, 
@@ -92,41 +94,21 @@ function AIFaceFunctionViewer ({
   // Capture();
   return(
     <div className="aitest">
-        <div className="ai-on" style={{
-          display:"flex",
-          justifyContent:"center", }}> 
+        <AiOn> 
           <Webcam
             ref={webcamRef}
             audio={false}
-            height={240}
+            height={150}
             screenshotFormat="image/jpeg"
-            width={320}
-            position={'fixed'}          
+            width={150}
+            position='fixed'          
             videoConstraints={videoConstraints}
           />
-          <canvas id="srccanvas"
-            style={{
-              // position: "absolute",
-              // width: "320",
-              // height: "240",
-              display : "none"
-            }}
-          ></canvas>
-          <canvas id="dstcanvas"
-            style={{
-              // position: "absolute",
-              // width: "320",
-              // height: "240",
-              display : "none"
-            }}
-          ></canvas>
-          <img id="imgFace" src={faceImage} style={{
-              width: "320",
-              height: "240",
-              display: "none"
-            }}></img>
+          <SrcCanvas id="srccanvas"/>
+          <DstCanvas id="dstcanvas"/>
+          <ImgFace id="imgFace" src={faceImage}/>
           <button id="captureFace" style={{display: "none"}} onClick={(e)=>{capture();}}>Capture</button>
-        </div>
+        </AiOn>
     </div>
   );
 }

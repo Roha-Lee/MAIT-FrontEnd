@@ -4,6 +4,9 @@ export const SubjectTitle = styled.div`
     font-size: 1.5rem;
     font-weight: bold;
     padding: 20px;
+    @media screen and (max-width: 900px) {
+        padding: 0; 
+    }
 `
 export const TimerContainer = styled.div`
     padding: 20px;
@@ -30,7 +33,7 @@ export const TimerButton = styled.div`
     border: none;
     font-size:1.5rem;
     color: white;
-    background-color: #6F8D7A;
+    background-color: #3F82A2;
     &:hover {
         background-color: brightness(70%)
     }

@@ -1,7 +1,8 @@
 import Webcam from "react-webcam";
 import { HandPoseWorkerManager, generateDefaultHandPoseParams, generateHandPoseDefaultConfig } from '@dannadori/handpose-worker-js';
-import { useEffect, useRef, useState } from "react";
+import React,{ useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
+import {AiOn, SrcCanvas, DstCanvas, ImgFace} from './AIFaceFunctionViewer.styled'
 
 function AIHandFunctionViewer ({
   timerOn, 
@@ -92,43 +93,24 @@ function AIHandFunctionViewer ({
   // console.log("캡쳐 명령");
   // capture();
   // Capture();
+
   return(
     <div className="aitest">
-        <div className="ai-on" style={{
-          display:"flex",
-          justifyContent:"center", }}> 
+        <AiOn> 
           <Webcam
             ref={webcamRef}
             audio={false}
-            height={240}
+            height={150}
+            width={150}
             screenshotFormat="image/jpeg"
-            width={320}
-            position={'fixed'}          
+            position='fixed'          
             videoConstraints={videoConstraints}
           />
-          <canvas id="srccanvas"
-            style={{
-              // position: "absolute",
-              // width: "320",
-              // height: "240",
-              display : "none"
-            }}
-          ></canvas>
-          <canvas id="dstcanvas"
-            style={{
-              // position: "absolute",
-              // width: "320",
-              // height: "240",
-              display : "none"
-            }}
-          ></canvas>
-          <img id="imgHand" src={handImage} style={{
-              width: "320",
-              height: "240",
-              display: "none"
-            }}></img>
+          <SrcCanvas id="srccanvas"/>
+          <DstCanvas id="dstcanvas"/>
+          <ImgFace id="imgHand" src={handImage}/>
           <button id="captureHand" style={{display: "none"}} onClick={(e)=>{capture();}}>Capture</button>
-        </div>
+        </AiOn>
     </div>
   );
 }

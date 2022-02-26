@@ -9,7 +9,6 @@ export const SignupForm = styled.div`
     font-size: 1.5rem;
     border-radius: 15px;
     text-align: center;
-    background: #eeeeee;
     padding: 40px;
     @media screen and (max-width: 520px) {
         top: 500px

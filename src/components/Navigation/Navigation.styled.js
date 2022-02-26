@@ -50,10 +50,14 @@ export const StyledLink = styled(Link)`
     color: #EEE7E1;
     font-size: 1.2rem;
     padding: 15px 25px;
+    margin: 0 3px;
     &:focus, &:visited, &:active,&:hover {
         text-decoration: none;
         color: #EEE7E1;
-        background: #587061;
+        background-color: #2c5b71;
         border-radius: 15px;
+    }
+    @media screen and (max-width: 375px) {
+        font-size: 1rem;
     }
 `
