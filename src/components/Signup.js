@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import Navigation from './Navigation/Navigation'
 import axios from "axios"
 import { SignupContainer, SignupInput, SignupButton, SignupForm } from './Signup.styled';
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
@@ -52,6 +53,7 @@ function Signup() {
 
   return (
     <>
+      <Navigation/>
       <SignupForm onSubmit={onSubmit}> 
         <div><SignupInput name="name" type="text" placeholder="이름" value={name} onChange={onNameHandler}/></div>
         <div><SignupInput name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/></div>

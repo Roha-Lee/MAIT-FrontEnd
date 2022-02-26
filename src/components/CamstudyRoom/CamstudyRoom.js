@@ -5,8 +5,12 @@ import socket from '../../socket'
 import 'animate.css'
 import Peer from 'simple-peer';
 import CamstudyChat from '../CamstudyChat/CamstudyChat';
-import videoOn from './assets/video.svg'
-import videoOff from './assets/video-off.svg'
+import videoOnSVG from './assets/video.svg';
+import videoOffSVG from './assets/video-off.svg';
+import shareScreenSVG from './assets/share_screen.svg';
+import messageSVG from './assets/msg.svg';
+import Navigation from './RoomNavigation'
+import { CopyToClipboard } from "react-copy-to-clipboard";
 const CamstudyRoom = (props) => {
   const currentUser = 'Roha';
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
@@ -26,7 +30,7 @@ const CamstudyRoom = (props) => {
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true, 
+      audio: false, 
       video: true});
       // console.log(userVideoRef.current);
       myVideoRef.current.srcObject = stream;
@@ -161,7 +165,7 @@ const CamstudyRoom = (props) => {
   const goToBack = (e) => {
     e.preventDefault();
     socket.emit('leave-room', { roomId, leaver: currentUser });
-    window.location.href = '/';
+    window.location.href = '/camstudyLobby';
   };
 
   const changeFullScreen = (e) => {
@@ -296,7 +300,7 @@ const CamstudyRoom = (props) => {
       if (userAudioTrack) {
         userAudioTrack.enabled = audioSwitch;
       } else {
-        userStream.current.getAudioTracks()[0].enabled = audioSwitch;
+        myStreamRef.current.getAudioTracks()[0].enabled = audioSwitch;
       }
 
       return {
@@ -308,6 +312,8 @@ const CamstudyRoom = (props) => {
   };
   //TODO: 초대 링크 복사하기 기능 추가
   return (
+    <>
+    <Navigation roomId={roomId} currentUser={currentUser}/>
   <RoomContainer>
     
   <VideoAndBarContainer>
@@ -334,7 +340,7 @@ const CamstudyRoom = (props) => {
       }}>
       <OptionsButton onClick={toggleCamera}>
         <img src={
-          userVideoAudio['localUser'].video ? videoOn : videoOff } width="20" height="20"></img>
+          userVideoAudio['localUser'].video ? videoOnSVG : videoOffSVG } width="20" height="20"></img>
       </OptionsButton>
       <OptionsButton onClick={toggleMic}>
         <i
@@ -343,10 +349,10 @@ const CamstudyRoom = (props) => {
         ></i>
       </OptionsButton>
       <OptionsButton onClick={clickChat}>
-        me
+        <img src={ messageSVG } width="20" height="20"></img>
       </OptionsButton>
-      <OptionsButton>
-        !
+      <OptionsButton onClick={clickScreenSharing}>
+        <img src={ shareScreenSVG } width="20" height="20"></img>
       </OptionsButton>
 
     </VideoOptions>
@@ -361,6 +367,7 @@ const CamstudyRoom = (props) => {
   {/* {displayChat ? <CamstudyChat display={displayChat} roomId={roomId}/> : null } */}
   <CamstudyChat display={displayChat} roomId={roomId}/>
   </RoomContainer>
+  </>
   );
 };
 export default CamstudyRoom;

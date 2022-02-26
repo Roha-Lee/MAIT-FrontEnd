@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components';
 import { notification, Modal } from 'antd';
 import axios from 'axios'
+import Navigation from './LobbyNavigation'
 
 const CamstudyLobby = (props) => {
 const navigate = useNavigate();
@@ -57,6 +58,7 @@ const [roomCode, setRoomCode] = useState('');
     
   return (
     <>
+    <Navigation/>
     <MainContainer>
       <JoinButton onClick={createRoom}> 방 생성하기 </JoinButton>
       <JoinButton onClick={showModal}> 방 참여하기 </JoinButton>

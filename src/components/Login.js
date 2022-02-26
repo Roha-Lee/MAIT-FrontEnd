@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { LoginContainer, LoginInput, LoginButton, LoginImage, LoginForm } from './Login.styled'
 import { useNavigate } from "react-router-dom";
+import Navigation from './Navigation/Navigation'
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 // import Form from "react-bootstrap/Form"; 
@@ -55,6 +56,7 @@ function Login() {
 
     return (
         <>
+            <Navigation/>
             <LoginForm>
                 <h1>M.AI.T</h1>
                 <div>

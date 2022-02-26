@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import Subjects from './components/Subjects/Subjects';
+import Navigation from './components/Navigation/Navigation'
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
@@ -117,6 +118,7 @@ function Mainpage() {
   
   return (
     <div className="App">
+      <Navigation />
       {useFaceAi ? 
         <AiContainer>
           <AIFaceFunctionViewer 

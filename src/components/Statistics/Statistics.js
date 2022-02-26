@@ -6,6 +6,8 @@ import style from "./Statistics.module.css";
 function Statistics(){
 
     return(
+        <>
+        <Navigation />
         <div className={style.statisticsContainer}>
             <div className={style.statistics}>
                 <Daily/>
@@ -14,6 +16,7 @@ function Statistics(){
                 <ManyDays/>
             </div>
         </div>
+        </>
 
     );
 }
