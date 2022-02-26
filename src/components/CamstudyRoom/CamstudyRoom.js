@@ -3,20 +3,25 @@ import PeerVideo from '../CamstudyPeerVideo/CamstudyPeerVideo'
 import styled from 'styled-components';
 import socket from '../../socket'
 import 'animate.css'
-import SimplePeer from 'simple-peer';
+import Peer from 'simple-peer';
+
 
 const CamstudyRoom = (props) => {
-  const currentUser = 'Roha'
+  const currentUser = 'Roha';
+  const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
   const myVideoRef = useRef();
   const myStreamRef = useRef();
   const peersRef = useRef([]); 
+  const screenTrackRef = useRef();
   const [isHover, setIsHover] = useState(false);
   const [peers, setPeers] = useState([]);
+  const [screenShare, setScreenShare] = useState(false);
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
   useEffect(async ()=> {
     window.addEventListener('popstate', goToBack);
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
       audio: false, 
@@ -24,11 +29,14 @@ const CamstudyRoom = (props) => {
       // console.log(userVideoRef.current);
       myVideoRef.current.srcObject = stream;
       myStreamRef.current = stream;
-      const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
+      
       socket.emit('join-room', roomId, socket.id);
       socket.on('user-join', (users) => {
         const peers = [];
+        console.log('this is users list', users);
         users.forEach(({ userId, info }) => {
+          console.log("unpack userId", userId);
+          console.log("unpack info", info);
         let { userName, video, audio } = info;
 
         if (userName !== socket.id) {
@@ -88,9 +96,12 @@ const CamstudyRoom = (props) => {
     });
 
     socket.on('user-leave', ({ userId, userName }) => {
-      console.log("FINDPEER???")
+      console.log("leave - FINDPEER???")
       const peerIdx = findPeer(userId);
+      // console.log(peersRef.current);
+      // console.log(peerIdx);
       peerIdx.peer.destroy();
+      // console.log(peersRef.current);
       setPeers((users) => {
         users = users.filter((user) => user.peerID !== peerIdx.peer.peerID);
         return [...users];
@@ -124,7 +135,7 @@ const CamstudyRoom = (props) => {
   }, []);
   
   function addPeer(incomingSignal, callerId, stream) {
-    const peer = new SimplePeer({
+    const peer = new Peer({
       initiator: false,
       trickle: false,
       stream,
@@ -150,6 +161,7 @@ const CamstudyRoom = (props) => {
   const goToBack = (e) => {
     e.preventDefault();
     socket.emit('leave-room', { roomId, leaver: currentUser });
+    alert('HELLO! :D')
     window.location.href = '/';
   };
 
@@ -165,7 +177,7 @@ const CamstudyRoom = (props) => {
 
 
   function createPeer(userId, caller, stream) {
-    const peer = new SimplePeer({
+    const peer = new Peer({
       initiator: true,
       trickle: false,
       stream,
@@ -184,6 +196,47 @@ const CamstudyRoom = (props) => {
   
     return peer;
   }
+  const clickScreenSharing = () => {
+    if (!screenShare) {
+      navigator.mediaDevices
+        .getDisplayMedia({ cursor: true })
+        .then((stream) => {
+          const screenTrack = stream.getTracks()[0];
+
+          peersRef.current.forEach(({ peer }) => {
+            // replaceTrack (oldTrack, newTrack, oldStream);
+            peer.replaceTrack(
+              peer.streams[0]
+                .getTracks()
+                .find((track) => track.kind === 'video'),
+              screenTrack,
+              myStreamRef.current
+            );
+          });
+
+          // Listen click end
+          screenTrack.onended = () => {
+            peersRef.current.forEach(({ peer }) => {
+              peer.replaceTrack(
+                screenTrack,
+                peer.streams[0]
+                  .getTracks()
+                  .find((track) => track.kind === 'video'),
+                  myStreamRef.current
+              );
+            });
+            myVideoRef.current.srcObject = myStreamRef.current;
+            setScreenShare(false);
+          };
+
+          myVideoRef.current.srcObject = stream;
+          screenTrackRef.current = screenTrack;
+          setScreenShare(true);
+        });
+    } else {
+      screenTrackRef.current.onended();
+    }
+  };
 
   function createUserVideo(peer, index, arr) {
     return (
@@ -230,7 +283,7 @@ const CamstudyRoom = (props) => {
     <VideoOptions isHover={isHover} onMouseEnter={() => {
       setIsHover(true)
       }}>
-      <OptionsButton>
+      <OptionsButton onClick={clickScreenSharing}>
         It
       </OptionsButton>
       <OptionsButton>

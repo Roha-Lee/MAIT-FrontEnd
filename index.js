@@ -2,20 +2,21 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 const path = require('path');
 
 let socketList = {};
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../client/build')));
 
-  app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  });
-}
+//   app.get('/*', function (req, res) {
+//     res.sendFile(path.join(__dirname, '../client/build/index.html'));
+//   });
+// }
 
 // Route
 app.get('/ping', (req, res) => {
@@ -35,7 +36,7 @@ io.on('connection', (socket) => {
     console.log('User disconnected!');
   });
 
-  socket.on('BE-check-user', ({ roomId, userName }) => {
+  socket.on('check-user', ({ roomId, userName }) => {
     let error = false;
 
     io.sockets.in(roomId).clients((err, clients) => {
@@ -44,7 +45,7 @@ io.on('connection', (socket) => {
           error = true;
         }
       });
-      socket.emit('FE-error-user-exist', { error });
+      socket.emit('error-user-exist', { error });
     });
   });
 
@@ -53,7 +54,6 @@ io.on('connection', (socket) => {
    */
   socket.on('join-room', (roomId, userName) => {
     // Socket Join RoomName
-    console.log('JOOOOOIN ROOM')
     socket.join(roomId);
     socketList[socket.id] = { userName, video: true, audio: true };
     // Set User List  
