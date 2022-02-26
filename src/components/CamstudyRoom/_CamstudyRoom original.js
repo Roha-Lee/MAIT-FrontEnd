@@ -231,7 +231,7 @@ const CamstudyRoom = (props) => {
       setIsHover(true)
       }}>
       <OptionsButton>
-        It
+        <i src='./img/video.svg'></i>
       </OptionsButton>
       <OptionsButton>
         is
@@ -284,7 +284,7 @@ const MyVideo = styled.video`
 const VideoAndBarContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
 `;
 
 const VideoBox = styled.div`

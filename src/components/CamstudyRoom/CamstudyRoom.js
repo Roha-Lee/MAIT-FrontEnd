@@ -5,7 +5,8 @@ import socket from '../../socket'
 import 'animate.css'
 import Peer from 'simple-peer';
 import CamstudyChat from '../CamstudyChat/CamstudyChat';
-
+import videoOn from './assets/video.svg'
+import videoOff from './assets/video-off.svg'
 const CamstudyRoom = (props) => {
   const currentUser = 'Roha';
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
@@ -30,6 +31,7 @@ const CamstudyRoom = (props) => {
       // console.log(userVideoRef.current);
       myVideoRef.current.srcObject = stream;
       myStreamRef.current = stream;
+      // socket.emit('join-room', roomId, socket.id);
       socket.emit('join-room', roomId, socket.id);
       socket.on('user-join', (users) => {
         const peers = [];
@@ -69,7 +71,7 @@ const CamstudyRoom = (props) => {
       if (!peerIdx) {
         console.log("ADDPEER???")
         const peer = addPeer(signal, from, stream);
-
+        
         peer.userName = userName;
 
         peersRef.current.push({
@@ -99,10 +101,7 @@ const CamstudyRoom = (props) => {
       console.log("leave - FINDPEER???", userId)
       console.log("My id", socket.id);
       const peerIdx = findPeer(userId);
-      // console.log(peersRef.current);
-      // console.log(peerIdx);
       peerIdx.peer.destroy();
-      // console.log(peersRef.current);
       setPeers((users) => {
         users = users.filter((user) => user.peerID !== peerIdx.peer.peerID);
         return [...users];
@@ -177,6 +176,7 @@ const CamstudyRoom = (props) => {
 
 
   function createPeer(userId, caller, stream) {
+    console.log(stream)
     const peer = new Peer({
       initiator: true,
       trickle: false,
@@ -196,6 +196,7 @@ const CamstudyRoom = (props) => {
   
     return peer;
   }
+
   const clickScreenSharing = () => {
     if (!screenShare) {
       navigator.mediaDevices
@@ -248,6 +249,7 @@ const CamstudyRoom = (props) => {
         {writeUserName(peer.userName)}
         <FaIcon className='fas fa-expand' />
         <PeerVideo key={index} peer={peer} number={arr.length} />
+        <InFrameUserName>Roha</InFrameUserName>
       </VideoBox>
     );
   }
@@ -264,14 +266,33 @@ const CamstudyRoom = (props) => {
     e.stopPropagation();
     setDisplayChat(!displayChat);
   };
-  console.log(displayChat);
+
+  const toggleCamera = (e) => {
+    setUserVideoAudio((preList) => {
+      let videoSwitch = preList['localUser'].video;
+      let audioSwitch = preList['localUser'].audio;
+
+      const userVideoTrack = myVideoRef.current.srcObject.getVideoTracks()[0];
+      videoSwitch = !videoSwitch;
+      userVideoTrack.enabled = videoSwitch;
+    
+      return {
+        ...preList,
+        localUser: { video: videoSwitch, audio: audioSwitch },
+      };
+    });
+
+    socket.emit('toggle-camera-audio', { roomId, switchTarget: 'video' });
+  };
+  
   //TODO: 초대 링크 복사하기 기능 추가
   return (
   <RoomContainer>
     
   <VideoAndBarContainer>
     <VideoContainer>
-    <VideoBox>
+    <VideoBox className={`width-peer${peers.length > 8 ? '' : peers.length}`}>
+      {userVideoAudio['localUser'].video ? null : (<UserName>{currentUser}</UserName>)}
       <MyVideo
       mute
       autoPlay
@@ -290,8 +311,9 @@ const CamstudyRoom = (props) => {
     <VideoOptions isHover={isHover} onMouseEnter={() => {
       setIsHover(true)
       }}>
-      <OptionsButton onClick={clickScreenSharing}>
-        It
+      <OptionsButton onClick={toggleCamera}>
+        <img src={
+          userVideoAudio['localUser'].video ? videoOn : videoOff } width="20" height="20"></img>
       </OptionsButton>
       <OptionsButton>
         is
@@ -304,6 +326,7 @@ const CamstudyRoom = (props) => {
       </OptionsButton>
 
     </VideoOptions>
+    <InFrameUserName>Roha</InFrameUserName>
     </VideoBox>
     
     {peers &&
@@ -319,10 +342,17 @@ const CamstudyRoom = (props) => {
 export default CamstudyRoom;
 
 const RoomContainer = styled.div`
+  margin: 0 auto;
   display: flex;
-  width: 100%;
+  width: 60%;
   max-height: 100vh;
   flex-direction: row;
+  @media screen and (max-width: 1200px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 const VideoContainer = styled.div`
@@ -335,7 +365,6 @@ const VideoContainer = styled.div`
   align-items: center;
   padding: 15px;
   box-sizing: border-box;
-  gap: 10px;
 `;
 
 const MyVideo = styled.video`
@@ -347,7 +376,7 @@ const MyVideo = styled.video`
 const VideoAndBarContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: calc( 100vh - 70px );
 `;
 
 const VideoBox = styled.div`
@@ -369,6 +398,18 @@ const VideoBox = styled.div`
   }
 `;
 
+const InFrameUserName = styled.div`
+position: absolute;
+padding: 0 5px;
+background: rgba(0, 0, 0, 0.5);
+color: white;
+border-radius: 10px;
+top: 5%;
+left: 5%;
+@media screen and (max-width: 500px) {
+  display: none;
+}
+`;
 const VideoOptions = styled.div`
   {
   position: absolute;

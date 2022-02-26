@@ -83,7 +83,7 @@ const CamstudyPeerVideo = (props) => {
   }
   
   return (
-    <VideoCard>
+    <>
       <Video
         autoPlay
         playsInline
@@ -114,8 +114,7 @@ const CamstudyPeerVideo = (props) => {
           </OptionsButton>
 
         </VideoOptions>
-        
-    </VideoCard>
+      </>
     
   );
 };

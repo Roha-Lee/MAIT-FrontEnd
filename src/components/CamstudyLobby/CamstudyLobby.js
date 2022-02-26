@@ -90,7 +90,7 @@ const Input = styled.input`
 const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 40px;
+  gap: 10vw;
   width: 100%;
   height: 80vh;
   justify-content: center;
