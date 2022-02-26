@@ -79,7 +79,7 @@ function DailyChart ({data , labels, subjectColors, isZeroShow}){
         
     
     };
-    console.log(dataChart);
+    // console.log(dataChart);
 
     return (
 <div className={style.dailychart}>

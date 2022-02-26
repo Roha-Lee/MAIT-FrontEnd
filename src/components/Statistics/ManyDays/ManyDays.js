@@ -315,7 +315,7 @@ function ManyDays (){
     }
 
     useEffect(()=>{
-        console.log(range, "첫 로딩");
+        // console.log(range, "첫 로딩");
         fetchData(range[0],range[1]);
     },[]);
 
