@@ -194,12 +194,6 @@ function Mainpage() {
           setUseHandAi(!value);
         }} /> */}
       </SubjectsContainer>
-      <FlexBox>
-        <CamButton
-          onClick={() => {window.open("/camstudy")}}>
-            Cam Study
-        </CamButton>
-      </FlexBox>
       <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
       <div style={{height:150}}/>
     </div>
