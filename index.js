@@ -9,13 +9,13 @@ let socketList = {};
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../client/build')));
 
-  app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  });
-}
+//   app.get('/*', function (req, res) {
+//     res.sendFile(path.join(__dirname, '../client/build/index.html'));
+//   });
+// }
 
 // Route
 app.get('/ping', (req, res) => {
@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
     console.log('User disconnected!');
   });
 
-  socket.on('BE-check-user', ({ roomId, userName }) => {
+  socket.on('check-user', ({ roomId, userName }) => {
     let error = false;
 
     io.sockets.in(roomId).clients((err, clients) => {
@@ -44,19 +44,19 @@ io.on('connection', (socket) => {
           error = true;
         }
       });
-      socket.emit('FE-error-user-exist', { error });
+      socket.emit('error-user-exist', { error });
     });
   });
 
   /**
    * Join Room
    */
-  socket.on('join-room', (roomId, userName) => {
+  socket.on('join-room', ({ roomId, userName }) => {
     // Socket Join RoomName
-    console.log('JOOOOOIN ROOM')
     socket.join(roomId);
     socketList[socket.id] = { userName, video: true, audio: true };
-    // Set User List  
+
+    // Set User List
     io.sockets.in(roomId).clients((err, clients) => {
       try {
         const users = [];
@@ -65,6 +65,7 @@ io.on('connection', (socket) => {
           users.push({ userId: client, info: socketList[client] });
         });
         socket.broadcast.to(roomId).emit('user-join', users);
+        // io.sockets.in(roomId).emit('user-join', users);
       } catch (e) {
         io.sockets.in(roomId).emit('error-user-exist', { err: true });
       }
@@ -86,8 +87,8 @@ io.on('connection', (socket) => {
     });
   });
 
-  socket.on('BE-send-message', ({ roomId, msg, sender }) => {
-    io.sockets.in(roomId).emit('FE-receive-message', { msg, sender });
+  socket.on('send-message', ({ roomId, msg, sender }) => {
+    io.sockets.in(roomId).emit('receive-message', { msg, sender });
   });
 
   socket.on('leave-room', ({ roomId, leaver }) => {
@@ -98,7 +99,7 @@ io.on('connection', (socket) => {
     io.sockets.sockets[socket.id].leave(roomId);
   });
 
-  socket.on('BE-toggle-camera-audio', ({ roomId, switchTarget }) => {
+  socket.on('toggle-camera-audio', ({ roomId, switchTarget }) => {
     if (switchTarget === 'video') {
       socketList[socket.id].video = !socketList[socket.id].video;
     } else {

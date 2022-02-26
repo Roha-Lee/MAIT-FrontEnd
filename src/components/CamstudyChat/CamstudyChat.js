@@ -10,7 +10,7 @@ const CamstudyChat = ({ display, roomId }) => {
     
 
     useEffect(() => {
-        socket.on('FE-receive-message', ({ msg, sender }) => {
+        socket.on('receive-message', ({ msg, sender }) => {
         setMsg((msgs) => [...msgs, { sender, msg }]);
         });
     }, []);
@@ -27,7 +27,7 @@ const CamstudyChat = ({ display, roomId }) => {
             const msg = e.target.value;
 
             if (msg) {
-                socket.emit('BE-send-message', { roomId, msg, sender: currentUser });
+                socket.emit('send-message', { roomId, msg, sender: currentUser });
                 inputRef.current.value = '';
             }
         }
