@@ -83,6 +83,7 @@ function Timer({
         )
     }
     window.sessionStorage.removeItem("accessToken");
+    return event.returnValue = "종료하시겠습니까?";
   })
   
   return ( 

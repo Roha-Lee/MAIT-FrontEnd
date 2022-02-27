@@ -94,7 +94,7 @@ function patchStudyTime(studyTimeId, endTime) {
 
 function signOut(){
   return Axios.post(
-    `${serverAddress}/signout`,
+    `${serverAddress}/auth/signout`,
     {
       accessToken : `${window.sessionStorage.getItem('accessToken')}`
     }, {

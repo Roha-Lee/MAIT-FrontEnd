@@ -27,8 +27,8 @@ const todayBefore7 = new Date(todayBefore7Obj).toJSON().slice(0,10);
 
 function ManyDays (){
     const [range, setRange] = useState([todayBefore7,today]);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [startDate, setStartDate] = useState(todayBefore7);
+    const [endDate, setEndDate] = useState(today);
     const [data , setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
