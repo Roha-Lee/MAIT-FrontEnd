@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {HeadNavigate, NavigationBlank, NavigationContents, Logo, Selected, LoginContainer, StyledLink, StyledLinkHome} from './Navigation.styled'
 import { useNavigate } from 'react-router';
-import { changeLogin } from "../../store";
+import { changeLogin, changeCurrentStudyTimeId } from "../../store";
 import { connect } from "react-redux";
 import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
 

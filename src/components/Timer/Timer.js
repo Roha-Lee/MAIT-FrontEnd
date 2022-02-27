@@ -78,11 +78,11 @@ function Timer({
   window.addEventListener("beforeunload",async (event)=>{
     event.preventDefault();
     if(timerOn){
-        const result = await patchStudyTime(currentStudyTimeId,timeStamp());
-        setCurrentStudyTimeId(null);
-        console.log(result);
+        patchStudyTime(currentStudyTimeId,timeStamp()).then(
+          setCurrentStudyTimeId(null)
+        )
     }
-    return event.returnValue = "종료하시겠습니까?"
+    window.sessionStorage.removeItem("accessToken");
   })
   
   return ( 
