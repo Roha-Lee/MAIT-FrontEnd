@@ -17,7 +17,7 @@ const [roomCode, setRoomCode] = useState('');
   .then(res => {
     if(res.data.message === "SUCCESS"){
       notification.open({
-      message: "",
+      message: "방 입장",
       description: `새로운 방에 입장합니다.`,
       });
       window.sessionStorage.setItem("currentUser", res.data.userName);// Todo
@@ -36,7 +36,7 @@ const [roomCode, setRoomCode] = useState('');
   .then(res => {
     if(res.data.message ==="SUCCESS"){
       notification.open({
-        message: "",
+        message: "방 입장",
         description: `기존 방에 참여합니다.`,
       });
       window.sessionStorage.setItem("currentUser", res.data.userName);// Todo
@@ -85,7 +85,7 @@ justify-content: center;
 `
 const Input = styled.input`
   border-radius: 5px;
-  border: 2px solid #146262;
+  border: 2px solid #606060;
   background-color: #fff;
   padding: 8px 15px;
   margin: 0 20px;  
@@ -108,10 +108,10 @@ const SubmitButton = styled.button`
   border: none;
   border-radius: 5px;
   color: #d8e9ef;
-  background-color: #146262;
+  background-color: #606060;
   font-size: 1em;
   :hover {
-  background-color: #144848;
+  background-color: #4c4c4c;
   cursor: pointer;
   }
 

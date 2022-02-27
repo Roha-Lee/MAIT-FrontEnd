@@ -36,8 +36,8 @@ const SwitchList = styled.div`
     cursor: context-menu !important;
   }
 }
-
 `;
+
 function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice}) {
     const [showVideoList, setShowVideoList] = useState(false);
     const exitRoom = () => {

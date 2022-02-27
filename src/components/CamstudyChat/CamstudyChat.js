@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import socket from '../../socket';
-
+import { notification } from 'antd';
 const CamstudyChat = ({ display, roomId, currentUser }) => {
     const [msg, setMsg] = useState([]);
     const messagesEndRef = useRef(null);
@@ -11,6 +11,14 @@ const CamstudyChat = ({ display, roomId, currentUser }) => {
     useEffect(() => {
         socket.on('receive-message', ({ msg, sender }) => {
         setMsg((msgs) => [...msgs, { sender, msg }]);
+        console.log('sender', sender, 'currentUser', currentUser,  'display', display)
+        if(sender !== currentUser && !display){
+            notification.open({
+                message: `${sender}님으로 부터 메시지`,
+                description: `${msg}`,
+            });    
+        }
+        
         });
     }, []);
 
@@ -70,7 +78,7 @@ const CamstudyChat = ({ display, roomId, currentUser }) => {
 const ChatContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 28%;
     
     background-color: white;
     transition: all 0.5s ease;
@@ -79,7 +87,8 @@ const ChatContainer = styled.div`
         position: fixed;
         width: 100%;
         height: 40%;
-        bottom: 20px;
+        bottom: 0;
+        padding-bottom: 20px;
     } 
 `;
 
@@ -88,7 +97,8 @@ const TopHeader = styled.div`
     margin-top: 15px;
     font-weight: 600;
     font-size: 20px;
-    color: black;
+    color: #606060;
+    text-align: center;
 `;
 
 const ChatArea = styled.div`
@@ -102,8 +112,10 @@ const ChatArea = styled.div`
 const MessageList = styled.div`
     display: flex;
     width: 100%;
+    height: 75%;
+    max-height: 75%;
     flex-direction: column;
-    padding: 15px;
+    padding: 15px 5px;
     color: #454552;
 `;
 
@@ -154,7 +166,7 @@ const UserMessage = styled.div`
         margin-right: 30px;
         border: 1px solid rgb(78, 161, 211, 0.3);
         border-radius: 15px;
-        background-color: #4ea1d3;
+        background-color: #639ECC;
         color: white;
         font-size: 14px;
         text-align: left;
