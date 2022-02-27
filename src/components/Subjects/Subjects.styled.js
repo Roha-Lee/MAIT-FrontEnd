@@ -78,7 +78,7 @@ export const FlexBox = styled.div`
 
 export const SubjectBox = styled.div`
     display: flex;
-    width: 530px;
+    width: 700px;
 `
 
 export const ButtonBox = styled.div`

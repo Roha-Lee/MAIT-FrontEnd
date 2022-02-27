@@ -13,7 +13,7 @@ export const TimerContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    width: 680px;
+    width: 880px;
     background-color: white;
 `
 
