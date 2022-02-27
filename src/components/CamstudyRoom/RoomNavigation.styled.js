@@ -7,7 +7,7 @@ export const HeadNavigate = styled.header`
     margin: 0 auto;
     padding: 10px;
     display: flex;
-    background-color: #6F8D7A;
+    background-color: #639ECC;
     position:relative;
     flex-direction: row;
     justify-content: space-between;
@@ -49,7 +49,7 @@ export const StyledLink = styled(Link)`
     &:focus, &:visited, &:active,&:hover {
         text-decoration: none;
         color: #EEE7E1;
-        background: #587061;
+        background: #4f7ea3;
         border-radius: 15px;
     }
 `
@@ -63,7 +63,7 @@ export const StyledDiv = styled.div`
     &:focus, &:visited, &:active,&:hover {
         text-decoration: none;
         color: #EEE7E1;
-        background: #587061;
+        background: #4f7ea3;
         border-radius: 15px;
     }
 `
