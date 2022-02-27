@@ -15,7 +15,7 @@ import { BellOutlined } from '@ant-design/icons';
 import Bell from "./assets/bell.mp3";
 
 const CamstudyRoom = (props) => {
-  const currentUser = window.sessionStorage.getItem('currentUser');
+  const currentUser = window.sessionStorage.getItem('currentUser') + Math.ceil(Math.random() * 100);
   // const currentUser = socket.id;
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
   const myVideoRef = useRef();
@@ -29,11 +29,18 @@ const CamstudyRoom = (props) => {
   const [userVideoAudio, setUserVideoAudio] = useState({
     localUser: { video: true, audio: true },
   });
+  const [videoDevices, setVideoDevices] = useState([]);
   const [displayChat, setDisplayChat] = useState(false);
+  
   useEffect(async ()=> {
     window.addEventListener('popstate', goToBack);
     window.addEventListener('beforeunload', goToBack);
     
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      const filtered = devices.filter((device) => device.kind === 'videoinput');
+      setVideoDevices(filtered);
+    });
+
     setUserVideoAudio({
       localUser: { video: true, audio: true },
     })
@@ -321,10 +328,42 @@ const CamstudyRoom = (props) => {
     });
     socket.emit('toggle-camera-audio', { roomId, switchTarget: 'audio' });
   };
-  //TODO: 초대 링크 복사하기 기능 추가
+  const clickCameraDevice = (event) => {
+    if (event && event.target && event.target.dataset && event.target.dataset.value) {
+      const deviceId = event.target.dataset.value;
+      const enabledAudio = myVideoRef.current.srcObject.getAudioTracks()[0].enabled;
+
+      navigator.mediaDevices
+        .getUserMedia({ video: { deviceId }, audio: enabledAudio })
+        .then((stream) => {
+          const newStreamTrack = stream.getTracks().find((track) => track.kind === 'video');
+          newStreamTrack.enabled = userVideoAudio['localUser'].video;
+          const oldStreamTrack = myStreamRef.current
+            .getTracks()
+            .find((track) => track.kind === 'video');
+
+          myStreamRef.current.removeTrack(oldStreamTrack);
+          myStreamRef.current.addTrack(newStreamTrack);
+
+          peersRef.current.forEach(({ peer }) => {
+            // replaceTrack (oldTrack, newTrack, oldStream);
+            peer.replaceTrack(
+              oldStreamTrack,
+              newStreamTrack,
+              myStreamRef.current
+            );
+          });
+        });
+    }
+  };
+
   return (
     <>
-    <Navigation roomId={roomId} currentUser={currentUser}/>
+    <Navigation 
+      roomId={roomId} 
+      currentUser={currentUser} 
+      videoDevices={videoDevices} 
+      clickCameraDevice={clickCameraDevice} />
   <RoomContainer>
     
   <VideoAndBarContainer>
