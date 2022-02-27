@@ -9,15 +9,20 @@ import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
 
 
 function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTimeId, timerOn}) {
+    
+    
     let navigate = useNavigate();
 
     async function handleSignIn(){
         if(isLogin === true){
             //TODO : 로그아웃시 서버와 통신 필요 ex. 토큰 삭제 및 타이머 정지하여 데이터 기록
             // setIsLogin(!isLogin); //TO Check
-            const result = await patchStudyTime(currentStudyTimeId,timeStamp());
-            setCurrentStudyTimeId(null);
-            console.log(result);
+            if(timerOn){
+                patchStudyTime(currentStudyTimeId,timeStamp()).then(
+                    setCurrentStudyTimeId(null)
+                )
+                console.log(result);
+            }
             const signOutResponse = await signOut();
 
             if(signOutResponse.data.message === 'success'){
@@ -43,6 +48,12 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
 
     function handleStatistics(){
         if(isLogin === true){
+            if(timerOn){
+                patchStudyTime(currentStudyTimeId,timeStamp()).then(
+                    setCurrentStudyTimeId(null)
+                )
+                console.log(result);
+            }
             navigate("/Statistics");
         }else{
             alert("로그인을 해주세요.");

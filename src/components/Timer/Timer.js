@@ -75,6 +75,15 @@ function Timer({
   //   : { Math.floor((currentTime / 60000) % 60).toString().padStart(2, '0') }
   //   : { Math.floor((currentTime / 1000) % 60).toString().padStart(2, '0') }</span>
   // );
+  window.addEventListener("beforeunload",async (event)=>{
+    event.preventDefault();
+    if(timerOn){
+        const result = await patchStudyTime(currentStudyTimeId,timeStamp());
+        setCurrentStudyTimeId(null);
+        console.log(result);
+    }
+    return event.returnValue = "종료하시겠습니까?"
+  })
   
   return ( 
     <div className = {style.timerContainer} >
