@@ -7,7 +7,7 @@ import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
-import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer, StyledFooter} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer, GreyBox, TabBox} from './Mainpage.styled'
 
 const colorsIdtoCode = {};
 const colorsCodetoId = {};
@@ -161,6 +161,7 @@ function Mainpage() {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
+        
         <Timer
           subjects={subjects}
           setSubjects={setSubjects}

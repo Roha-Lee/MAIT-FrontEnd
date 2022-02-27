@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
-import {SubjectTitle, TimerContainer, Timer_set, TimerButton } from './Timer.styled'
-
+import style from './Timer.module.css'
+import {GreyBox} from './Timer.styled'
 import 'animate.css'
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
 let currentStudyTimeId = null;
@@ -60,9 +60,9 @@ function Timer({
   }, [timerOn]);
 
   const timer = (
-    <Timer_set>{ (currentTime >= 3600000 ? Math.floor((currentTime / 3600000) % 24) : Math.floor((currentTime/ 60000) % 60)).toString().padStart(2, '0') }
+    <span className={style.timer}>{ (currentTime >= 3600000 ? Math.floor((currentTime / 3600000) % 24) : Math.floor((currentTime/ 60000) % 60)).toString().padStart(2, '0') }
     : { (currentTime >= 3600000 ? Math.floor((currentTime / 60000) % 60) : Math.floor((currentTime/ 1000) % 60)).toString().padStart(2, '0') }
-    : { (currentTime >= 3600000 ? Math.floor((currentTime / 1000) % 60) : Math.floor((currentTime % 1000) / 10)).toString().padStart(2, '0') }</Timer_set>
+    : { (currentTime >= 3600000 ? Math.floor((currentTime / 1000) % 60) : Math.floor((currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
   );
   
   // const timer = (
@@ -72,12 +72,13 @@ function Timer({
   // );
   
   return ( 
-    <TimerContainer>
-      <SubjectTitle>
+    <>
+    <div className = {style.timerContainer} >
+      <div className={style.subjectTitle}>
         {currentSubject === null ? "과목 없음" : currentSubject}
-      </SubjectTitle>
+      </div>
       {timer}
-      <TimerButton 
+      <button className={style.timerButton} 
         onClick = {
         (event) => {
           // if(event.target.classList.contains('animate__animated')){
@@ -98,8 +99,9 @@ function Timer({
           }
         }}> 
         {timerOn ? "STOP" : "START"}
-      </TimerButton> 
-    </TimerContainer>
+      </button> 
+    </div>
+    </>
   );
 }
 

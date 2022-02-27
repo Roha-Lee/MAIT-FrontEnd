@@ -64,3 +64,20 @@ export const AddButton = styled.button`
 export const Active =  styled.div`
     background-color: #EBB057;
 `
+
+export const GreyBox = styled.div`
+    margin: 70px auto 0 auto;
+    height: 50px;
+    width: 680px;
+    background: #E0E0DF;
+    display: flex;
+    justify-content: space-evenly;
+`
+
+export const TabBox = styled.div`
+    margin-top: 11px;
+    background: white;
+    height: 40px;
+    width: 65px;
+    border-radius: 5px 5px 0 0;
+`

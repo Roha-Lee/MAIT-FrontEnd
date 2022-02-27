@@ -7,7 +7,7 @@ export const HeadNavigate = styled.div`
     margin: 0 auto;
     padding: 10px;
     display: flex;
-    background-color: #3F82A2;
+    background-color: #639ECC;
     position:relative;
     flex-direction: row;
     justify-content: space-between;

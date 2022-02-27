@@ -55,19 +55,16 @@ function Login() {
             <LoginForm>
                 <div>
                     <label htmlFor='input_id'/>
-                    <LoginInput type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='ID'/>
+                    <LoginInput type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='아이디'/>
                 </div>
                 <div>
                     <label htmlFor='input_pw'/>
-                    <LoginInput type='password' name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='Password'/>
+                    <LoginInput type='password' name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='패스워드'/>
                 </div>
                 <div>
                     <LoginButton type='button' onClick={onClickLogin}>로그인</LoginButton>
-                </div>
+                </div>                
                 <LoginImage>
-                    <img src="./btn_google_signin_dark_focus_web@2x.png" alt="logo" width="250px"/>
-                    </LoginImage>
-                    <LoginImage>
                     <img src="./kakao_login_medium_narrow.png" alt="kakao" width="250"/>
                 </LoginImage>
             </LoginForm>

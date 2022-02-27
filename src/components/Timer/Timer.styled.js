@@ -4,9 +4,6 @@ export const SubjectTitle = styled.div`
     font-size: 1.5rem;
     font-weight: bold;
     padding: 20px;
-    @media screen and (max-width: 900px) {
-        padding: 0; 
-    }
 `
 export const TimerContainer = styled.div`
     padding: 20px;
@@ -22,9 +19,6 @@ export const Timer_set = styled.span`
     font-size: 5rem;    
     text-shadow: 2px 0 0 #EEE7E1, -2px 0 0 #EEE7E1, 0 2px 0 #EEE7E1, 0 -2px 0 #EEE7E1, 1px 1px #EEE7E1, -1px -1px 0 #EEE7E1, 1px -1px 0 #EEE7E1, -1px 1px 0 #EEE7E1;
     padding: 20px 0 10px;
-    @media screen and (max-width: 520px) {
-        font-size: 2.5rem;  
-    }
 `
 
 export const TimerButton = styled.div`
@@ -32,10 +26,9 @@ export const TimerButton = styled.div`
     border-radius: 15px;
     border: none;
     font-size:1.5rem;
-    color: white;
-    background-color: #3F82A2;
+    color: #EEE7E1;
+    background-color: #B23930;
     &:hover {
         background-color: brightness(70%)
     }
 `
-

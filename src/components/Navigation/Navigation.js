@@ -3,6 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {HeadNavigate, NavigationBlank, NavigationContents, Logo, Selected, LoginContainer, StyledLink, StyledLinkHome, StyledA} from './Navigation.styled'
 
+
+
 function Navigation () {
     return (
         <HeadNavigate>

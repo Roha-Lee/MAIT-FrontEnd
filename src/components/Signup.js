@@ -53,7 +53,7 @@ function Signup() {
   return (
     <>
       <SignupForm onSubmit={onSubmit}> 
-        <div><SignupInput name="name" type="text" placeholder="이름" value={name} onChange={onNameHandler}/></div>
+        <div><SignupInput name="name" type="text" placeholder="아이디" value={name} onChange={onNameHandler}/></div>
         <div><SignupInput name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/></div>
         <div><SignupInput name="email" type="email" placeholder="이메일" value={email} onChange={onEmailHandler}/></div>
         <div><SignupInput name="password" type="password" placeholder="비밀번호" value={password} onChange={onPasswordHandler}/></div>
