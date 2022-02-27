@@ -5,7 +5,9 @@ import {
     FormButton,
 } from './TodoInput.styled'
 import { postNewTodo } from '../../utils/utils'
-const TodoInput = ({ todoList, subjects, onItemAdd }) => {
+import {connect} from "react-redux";
+
+const TodoInput = ({ todoList, subjects, onItemAdd, isLogin }) => {
     //subject dropbox에 대한 설정 초기 값은 null
     const [subject, setSubject] = useState('Unselect')
     
@@ -14,16 +16,20 @@ const TodoInput = ({ todoList, subjects, onItemAdd }) => {
     
     //add button을 누를때 불리는 함수
     const onSubmit = useCallback(async () => {
-        const todoSubjectId = subject !== 'Unselect' ? subjects.find(elem => elem.name === subject).subjectId : null;
-        try {
-            const result = await postNewTodo(text, todoSubjectId);
-            setText('')
-            // onItemAdd({ subjectId: subject?.subjectId, content: text, id: todoList.length + 1})
-        }
-        catch (error) {
-            console.log(error);
-        }            
 
+        if(isLogin){
+            const todoSubjectId = subject !== 'Unselect' ? subjects.find(elem => elem.name === subject).subjectId : null;
+            try {
+                const result = await postNewTodo(text, todoSubjectId);
+                setText('')
+                // onItemAdd({ subjectId: subject?.subjectId, content: text, id: todoList.length + 1})
+            }
+            catch (error) {
+                console.log(error);
+            }            
+        }else{
+            alert("로그인을 해주세요.");
+        }
     }, [onItemAdd, subject, text])
 
     return (
@@ -44,4 +50,10 @@ const TodoInput = ({ todoList, subjects, onItemAdd }) => {
     )
 }
 
-export default TodoInput
+function mapStateToProps(state){
+    return{
+        isLogin : state
+    };
+}
+
+export default connect(mapStateToProps) (TodoInput);

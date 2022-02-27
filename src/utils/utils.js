@@ -47,7 +47,7 @@ function deleteSubject(subjectId) {
 }
 
 function postNewTodo(content, subjectId) {
-  return Axios.post(`${serverAddress2}/todos`, {
+  return Axios.post(`${serverAddress}/todos`, {
     content, 
     subjectId
   }, {
@@ -58,7 +58,7 @@ function postNewTodo(content, subjectId) {
 }
 
 function todoUpdate(todoId) {
-  return Axios.patch(`${serverAddress2}/todos/${todoId}`,{}, {
+  return Axios.patch(`${serverAddress}/todos/${todoId}`,{}, {
     headers: {
         Authorization: `${window.sessionStorage.getItem('accessToken')}`
     }
@@ -92,4 +92,16 @@ function patchStudyTime(studyTimeId, endTime) {
   })
 }
 
-export {getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime}
+function signOut(){
+  return Axios.post(
+    `${serverAddress}/signout`,
+    {
+      accessToken : `${window.sessionStorage.getItem('accessToken')}`
+    }, {
+      headers: {
+          Authorization: `${window.sessionStorage.getItem('accessToken')}`
+      }
+  })
+}
+
+export {getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime,signOut}

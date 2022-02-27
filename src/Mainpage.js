@@ -10,11 +10,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
 import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
 import axios from 'axios';
+import {connect} from "react-redux";
 
 const colorsIdtoCode = {};
 const colorsCodetoId = {};
 
-function Mainpage() {
+function Mainpage({isLogin}) {
   // {
   //   subjectId: 1, 
   //   name: 'Algorithm',
@@ -43,7 +44,8 @@ function Mainpage() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [todoList, setTodoList] = useState([]);
   const buttonRef = useRef(null);
-
+  
+  
   useEffect(() => {
     getAllUserData().then((userData)=> {
       const newSubjects = userData.data.subjects.map(subject => {
@@ -96,18 +98,26 @@ function Mainpage() {
       </Menu.Item>
       <Menu.Item>  
         <div onClick={() => {
-          setUseFaceAi(true);
-          setUseHandAi(false);
-          buttonRef.current.querySelector('span').innerText = "얼굴 인식 모드"
+          if(isLogin){
+            setUseFaceAi(true);
+            setUseHandAi(false);
+            buttonRef.current.querySelector('span').innerText = "얼굴 인식 모드"
+          }else{
+            alert("로그인을 해주세요.")
+          }
         }}>
           얼굴 인식 모드
         </div>
       </Menu.Item>
       <Menu.Item>
         <div onClick={() => {
-          setUseFaceAi(false);
-          setUseHandAi(true);
-          buttonRef.current.querySelector('span').innerText = "손 인식 모드"
+          if(isLogin){
+            setUseFaceAi(false);
+            setUseHandAi(true);
+            buttonRef.current.querySelector('span').innerText = "손 인식 모드"
+          }else{
+            alert("로그인을 해주세요.")
+          }
           }}>
           손 인식 모드
         </div>
@@ -115,7 +125,7 @@ function Mainpage() {
       
     </Menu>
   );
-  
+
   return (
     <div className="App">
       <Navigation />
@@ -194,14 +204,24 @@ function Mainpage() {
       <FlexBox>
         <CamButton
           onClick={() => {
-            window.open("/camstudyLobby")
+            if(isLogin){
+              window.open("/camstudyLobby")
+            }else{
+              alert("로그인을 해주세요.")
+            }
             }}>
             Cam Study
         </CamButton>
       </FlexBox>
       <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
     </div>
-          )
-  }
+    );
+}
 
-export default Mainpage;
+function mapStateToProps(state){
+    return{
+        isLogin : state.isLogin,
+    };
+}
+
+export default connect(mapStateToProps) (Mainpage);

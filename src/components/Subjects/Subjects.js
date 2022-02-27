@@ -4,6 +4,7 @@ import { Modal, Button } from 'antd';
 import {postSubject, deleteSubject, putSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
 import 'animate.css';
+import {connect} from "react-redux";
 
 const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
@@ -36,6 +37,7 @@ function Subjects({
   setIsEditMode,
   colorsIdtoCode,
   colorsCodetoId,
+  isLogin,
 }){
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -62,6 +64,7 @@ function Subjects({
   
   const handleModifyOk = async (event) => {
     event.preventDefault();
+    
     try {
       const result = await putSubject(value, colorsCodetoId[color], nowEditing);
       setIsEditModalVisible(false);
@@ -91,12 +94,12 @@ function Subjects({
         alert('서버 에러.')
       }
     }
-    
   };
 
   const handleOk = async (event) => {
     event.preventDefault();
     setIsModalVisible(false);
+    
     // 새로운 과목 추가 API
     try{
       const result = await postSubject(value, colorsCodetoId[color])
@@ -224,22 +227,26 @@ function Subjects({
             <button 
               className={style.addButton} 
               onClick={(event) => {
-                if(isEditMode === false){
-                  showModal(event);
-                }
-                else {
-                  let target = event.target;
-                  if (target.tagName === 'IMG'){
-                    target = target.parentElement;
+                if(isLogin){
+                  if(isEditMode === false){
+                    showModal(event);
                   }
-                  target.classList.add('animate__animated')
-                  target.classList.add('animate__headShake')
-                  setTimeout(() => {
-                    target.classList.remove('animate__animated')
-                    target.classList.remove('animate__headShake')
-                  }, 500);
+                  else {
+                    let target = event.target;
+                    if (target.tagName === 'IMG'){
+                      target = target.parentElement;
+                    }
+                    target.classList.add('animate__animated')
+                    target.classList.add('animate__headShake')
+                    setTimeout(() => {
+                      target.classList.remove('animate__animated')
+                      target.classList.remove('animate__headShake')
+                    }, 500);
+                  }
+                  setNewSubject(null);  
+                }else{
+                  alert("로그인을 해주세요.");
                 }
-                setNewSubject(null);  
               }}
               >
               <img src="img/add.svg" width="20" height="20"/>
@@ -247,12 +254,16 @@ function Subjects({
             <button 
               className={style.addButton} 
               onClick={() => {
-                setNewSubject(null);  
-                if(subjects.length !== 0){
-                  setIsEditMode(!isEditMode);
-                  // 설정 버튼 누르면 타이머 정지시켜야함. 
-                  setUserTimerOn(false);
-                  setTimerOn(false); 
+                if(isLogin){
+                  setNewSubject(null);  
+                  if(subjects.length !== 0){
+                    setIsEditMode(!isEditMode);
+                    // 설정 버튼 누르면 타이머 정지시켜야함. 
+                    setUserTimerOn(false);
+                    setTimerOn(false); 
+                  }
+                }else{
+                  alert("로그인을 해주세요.");
                 }
               }}>
               <img src="img/edit.svg" width="20" height="20"/>
@@ -298,7 +309,13 @@ function Subjects({
           </div>);
 }
 
-export default Subjects;
+function mapStateToProps(state){
+  return{
+      isLogin : state
+  };
+}
+
+export default connect(mapStateToProps) (Subjects);
 
 
 //   <div className={style.trashContainer}>

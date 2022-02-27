@@ -41,7 +41,7 @@ export const StyledLinkHome = styled(Link)`
     }
 `
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled.div`
     text-decoration: none;
     color: #EEE7E1;
     font-size: 1.2rem;

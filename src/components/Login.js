@@ -3,6 +3,8 @@ import axios from "axios"
 import { LoginContainer, LoginInput, LoginButton, LoginImage, LoginForm } from './Login.styled'
 import { useNavigate } from "react-router-dom";
 import Navigation from './Navigation/Navigation'
+import { changeLogin } from "../store";
+import { connect } from "react-redux";
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 // import Form from "react-bootstrap/Form"; 
@@ -14,7 +16,8 @@ import Navigation from './Navigation/Navigation'
 const serverAddress = 'http://192.249.29.198:3001';
 const serverUrl = "https://mait.shop";
 
-function Login() {
+function Login({isLogin , setIsLogin}) {
+ 
     const [inputId, setInputId] = useState('')
     const [inputPw, setInputPw] = useState('')
     let navigate = useNavigate();
@@ -29,7 +32,8 @@ function Login() {
 
     // login 버튼 클릭 이벤트
     const onClickLogin = () => {
-        console.log('click login');
+        
+        setIsLogin(!isLogin); //TO Check
         axios.post(
             `${serverUrl}/auth/signin`, 
             {
@@ -43,6 +47,7 @@ function Login() {
         ).then(response => {
             if(response.data.message === 'success'){
                 window.sessionStorage.setItem('accessToken', response.data.accessToken)
+                setIsLogin(!isLogin);
                 // useNavigate()
                 navigate("/");
             }
@@ -56,7 +61,7 @@ function Login() {
 
     return (
         <>
-            <Navigation/>
+            <Navigation />
             <LoginForm>
                 <h1>M.AI.T</h1>
                 <div>
@@ -106,5 +111,18 @@ function Login() {
         </>
     )
 }
- 
-export default Login;
+
+function mapStateToProps(state){
+    return{
+        isLogin : state.isLogin,
+    };
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        setIsLogin : isLogin => dispatch(changeLogin(isLogin))
+    };
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps) (Login);

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
 import style from './Timer.module.css'
 import 'animate.css'
+import {connect} from "react-redux";
+import {changeCurrentStudyTimeId, changeTimerOn} from "../../store";
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
 let currentStudyTimeId = null;
 function Timer({
@@ -19,6 +21,9 @@ function Timer({
   setUserTimerOn,
   isEditMode,
   setIsEditMode,
+  isLogin,
+  setCurrentStudyTimeId,
+  setGlobalTimerOn,
 }) {
   useEffect(async () => {
     if(timerOn){
@@ -33,6 +38,7 @@ function Timer({
         const result = await postStudyTime(currentSubjectId, startTimeFormatted);
         if(result.data.message === 'SUCCESS'){
           currentStudyTimeId = result.data.id;
+          setCurrentStudyTimeId(currentStudyTimeId);
         }
       } catch(error) {
         console.log(error);
@@ -69,6 +75,15 @@ function Timer({
   //   : { Math.floor((currentTime / 60000) % 60).toString().padStart(2, '0') }
   //   : { Math.floor((currentTime / 1000) % 60).toString().padStart(2, '0') }</span>
   // );
+  window.addEventListener("beforeunload",async (event)=>{
+    event.preventDefault();
+    if(timerOn){
+        const result = await patchStudyTime(currentStudyTimeId,timeStamp());
+        setCurrentStudyTimeId(null);
+        console.log(result);
+    }
+    return event.returnValue = "종료하시겠습니까?"
+  })
   
   return ( 
     <div className = {style.timerContainer} >
@@ -76,24 +91,28 @@ function Timer({
         {currentSubject === null ? "과목 없음" : currentSubject}
       </div>
       {timer}
-      <button className={style.timerButton} 
+      <button className={style.timerButton} id={"timerButton"}
         onClick = {
         (event) => {
           // if(event.target.classList.contains('animate__animated')){
           //   event.target.classList.remove('animate__animated')
           //   event.target.classList.remove('animate__shakeX')
           // }
-
-          if(isEditMode !== true){
-            setTimerOn(!timerOn);          
-            setUserTimerOn(!timerOn);
-          } else {
-            event.target.classList.add('animate__animated')
-            event.target.classList.add('animate__headShake')
-            setTimeout(() => {
-              event.target.classList.remove('animate__animated')
-              event.target.classList.remove('animate__headShake')
-            }, 500);
+          if(isLogin){
+            if(isEditMode !== true){
+              setTimerOn(!timerOn);          
+              setUserTimerOn(!timerOn);
+              setGlobalTimerOn(!timerOn);
+            } else {
+              event.target.classList.add('animate__animated')
+              event.target.classList.add('animate__headShake')
+              setTimeout(() => {
+                event.target.classList.remove('animate__animated')
+                event.target.classList.remove('animate__headShake')
+              }, 500);
+            }
+          }else{
+            alert("로그인을 해주세요.");
           }
         }}> 
         {timerOn ? "STOP" : "START"}
@@ -156,5 +175,18 @@ function Timer({
 //   : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 60000) % 60) : Math.floor((props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }
 //   : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 1000) % 60) : Math.floor((props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
 // </h1>);
-  
-export default Timer;
+
+function mapStateToProps(state){
+  return{
+      isLogin : state.isLogin,
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+      setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id)),
+      setGlobalTimerOn : timerOn => dispatch(changeTimerOn(timerOn)),
+  };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (Timer);
