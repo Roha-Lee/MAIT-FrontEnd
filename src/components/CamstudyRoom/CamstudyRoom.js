@@ -15,7 +15,7 @@ import { BellOutlined } from '@ant-design/icons';
 import Bell from "./assets/bell.mp3";
 
 const CamstudyRoom = (props) => {
-  const currentUser = window.sessionStorage.getItem('currentUser') + Math.ceil(Math.random() * 100);
+  const currentUser = window.sessionStorage.getItem('currentUser');
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
   const myVideoRef = useRef();
   const myStreamRef = useRef();

@@ -19,7 +19,7 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     }
 
     const totalHour = Math.floor(totalTime/60);
-    const totalMinute = totalTime-totalHour*60;
+    const totalMinute = Math.round(totalTime-totalHour*60);
 
     return (
         <div className={style.dailydata}>
