@@ -7,7 +7,6 @@ const CamstudyChat = ({ display, roomId, currentUser }) => {
     const messagesEndRef = useRef(null);
     const inputRef = useRef();
     
-
     useEffect(() => {
         socket.on('receive-message', ({ msg, sender }) => {
         setMsg((msgs) => [...msgs, { sender, msg }]);
