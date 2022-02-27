@@ -27,7 +27,7 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
             if(signOutResponse.data.message === 'success'){
                 window.sessionStorage.removeItem("accessToken");
                 setIsLogin(!isLogin);
-                navigate("/");
+                window.location.replace("/");
             }else{
                 alert("서버오류");
             }

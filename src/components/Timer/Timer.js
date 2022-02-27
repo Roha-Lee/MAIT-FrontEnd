@@ -75,12 +75,10 @@ function Timer({
   //   : { Math.floor((currentTime / 60000) % 60).toString().padStart(2, '0') }
   //   : { Math.floor((currentTime / 1000) % 60).toString().padStart(2, '0') }</span>
   // );
-  window.addEventListener("beforeunload",async (event)=>{
+  window.addEventListener("beforeunload", (event)=>{
     event.preventDefault();
     if(timerOn){
-        patchStudyTime(currentStudyTimeId,timeStamp()).then(
-          setCurrentStudyTimeId(null)
-        )
+      patchStudyTime(currentStudyTimeId,timeStamp());
     }
     window.sessionStorage.removeItem("accessToken");
     return event.returnValue = "종료하시겠습니까?";
