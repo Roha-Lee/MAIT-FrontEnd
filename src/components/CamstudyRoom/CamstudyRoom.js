@@ -51,6 +51,7 @@ const CamstudyRoom = (props) => {
       height: 480});
       
       myVideoRef.current.srcObject = stream;
+      myVideoRef.current.muted = true;
       myStreamRef.current = stream;
       console.log('LET ME CHECK', roomId, currentUser)
       socket.emit('join-room', roomId, currentUser);
@@ -72,7 +73,6 @@ const CamstudyRoom = (props) => {
           peers.push(peer);
           
           setUserVideoAudio((preList) => {
-            console.log("What is pre List?", preList)
             return {
               ...preList,
               [peer.userName]: { video, audio },
