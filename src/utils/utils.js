@@ -2,13 +2,25 @@ import Axios from 'axios';
 // Axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const serverAddress = 'https://mait.shop';
 // const serverAddress2 = 'http://192.249.29.5:3001';
+function msToHmsFormat(time) {
+  const sec = Math.floor((time / 1000) % 60);
+  const min = Math.floor((time / (1000 * 60)) % 60);
+  const hour = Math.floor((time / (1000 * 60 * 60)) % 24);
+  return `${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
+}
 
 function timeStamp(){ 
   let today = new Date(); 
   today.setHours(today.getHours() + 9); 
   return today.toISOString().replace('T', ' ').substring(0, 19); 
 }
-
+function getRankingData() {
+  return Axios.get(`${serverAddress}/statistics/ranking`,{
+    headers: {
+      Authorization: `${window.sessionStorage.getItem('accessToken')}`
+    }    
+  });
+}
 function getAllUserData() {
   return Axios.get(`${serverAddress}/mainpage`, {
     headers: {
@@ -104,4 +116,4 @@ function signOut(){
   })
 }
 
-export {getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime,signOut}
+export {msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}
