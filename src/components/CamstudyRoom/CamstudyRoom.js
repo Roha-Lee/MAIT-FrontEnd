@@ -359,6 +359,7 @@ const CamstudyRoom = (props) => {
   return (
     <>
     <Navigation 
+      clickChat={clickChat}
       roomId={roomId} 
       currentUser={currentUser} 
       videoDevices={videoDevices} 
@@ -395,9 +396,6 @@ const CamstudyRoom = (props) => {
           className={`fa fa-microphone${userVideoAudio['localUser'].audio ? "" : "-slash"}`}
           style={{ transform: "scaleX(1.2) scaleY(1.2)" }}
         ></i>
-      </OptionsButton>
-      <OptionsButton onClick={clickChat}>
-        <img src={ messageSVG } width="20" height="20"></img>
       </OptionsButton>
       <OptionsButton onClick={clickScreenSharing}>
         <img src={ shareScreenSVG } width="20" height="20"></img>
@@ -508,12 +506,12 @@ const VideoOptions = styled.div`
   ${props => props.isHover===true?'display: flex;': 'display: none;'}
   justify-content: space-evenly;
   align-items: center;
-  width: 200px;
+  width: 140px;
   height: 40px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.8);
   bottom: 10%;
-  left: calc((100% - 200px) / 2);
+  left: calc((100% - 140px) / 2);
   border-radius: 20px;
   ${props => props.isHover===true?'animation: fadeInUp;': 'animation: fadeOutDown;'}
   animation-duration: .5s;  

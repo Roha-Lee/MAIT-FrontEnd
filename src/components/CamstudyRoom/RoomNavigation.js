@@ -5,8 +5,8 @@ import {SwitchList, HeadNavigate, NavigationBlank, NavigationContents, StyledDiv
 import { notification } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import socket from '../../socket'
-
-function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice}) {
+      
+function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice, clickChat}) {
     const [showVideoList, setShowVideoList] = useState(false);
     const exitRoom = () => {
         socket.emit('leave-room', { roomId, leaver: currentUser });
@@ -36,7 +36,8 @@ function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice}) {
                     </StyledLinkHome>
                 </div>
             </NavigationContents>
-            <CopyToClipboard text={roomId}><StyledDiv onClick={copyLinkSuccess}>초대하기</StyledDiv></CopyToClipboard>
+            <CopyToClipboard text={roomId}><StyledDiv onClick={copyLinkSuccess}>초대</StyledDiv></CopyToClipboard>
+            <StyledDiv onClick={clickChat}>채팅</StyledDiv>
             <StyledDiv onClick={toggleVideoList} style={{position: "relative"}}>카메라 변경
             {showVideoList?<SwitchList>
             {videoDevices.length > 0 &&
@@ -46,8 +47,6 @@ function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice}) {
               <div>카메라 목록</div>
             </SwitchList>: null}
             </StyledDiv>
-            
-            
             <StyledDiv onClick={exitRoom}>나가기</StyledDiv>
             <NavigationBlank/>
         </HeadNavigate>
