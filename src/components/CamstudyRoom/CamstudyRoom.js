@@ -15,7 +15,7 @@ import { BellOutlined } from '@ant-design/icons';
 import Bell from "./assets/bell.mp3";
 
 const CamstudyRoom = (props) => {
-  const currentUser = window.sessionStorage.getItem('currentUser');
+  const currentUser = window.sessionStorage.getItem('currentUser') + Math.ceil(Math.random() * 100);
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
   const myVideoRef = useRef();
   const myStreamRef = useRef();
@@ -359,6 +359,7 @@ const CamstudyRoom = (props) => {
   return (
     <>
     <Navigation 
+      clickChat={clickChat}
       roomId={roomId} 
       currentUser={currentUser} 
       videoDevices={videoDevices} 
@@ -396,9 +397,6 @@ const CamstudyRoom = (props) => {
           style={{ transform: "scaleX(1.2) scaleY(1.2)" }}
         ></i>
       </OptionsButton>
-      <OptionsButton onClick={clickChat}>
-        <img src={ messageSVG } width="20" height="20"></img>
-      </OptionsButton>
       <OptionsButton onClick={clickScreenSharing}>
         <img src={ shareScreenSVG } width="20" height="20"></img>
       </OptionsButton>
@@ -413,7 +411,7 @@ const CamstudyRoom = (props) => {
   </VideoAndBarContainer>
   {/* <CamstudyChat display={displayChat ?  "" : "none"} roomId={roomId} /> */}
   {/* {displayChat ? <CamstudyChat display={displayChat} roomId={roomId}/> : null } */}
-  <CamstudyChat display={displayChat} roomId={roomId} currentUser={currentUser}/>
+  <CamstudyChat display={displayChat} roomId={roomId} currentUser={currentUser} setDisplayChat={setDisplayChat}/>
   </RoomContainer>
   </>
   );
@@ -508,12 +506,12 @@ const VideoOptions = styled.div`
   ${props => props.isHover===true?'display: flex;': 'display: none;'}
   justify-content: space-evenly;
   align-items: center;
-  width: 200px;
+  width: 140px;
   height: 40px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.8);
   bottom: 10%;
-  left: calc((100% - 200px) / 2);
+  left: calc((100% - 140px) / 2);
   border-radius: 20px;
   ${props => props.isHover===true?'animation: fadeInUp;': 'animation: fadeOutDown;'}
   animation-duration: .5s;  

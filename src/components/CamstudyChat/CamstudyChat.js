@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import socket from '../../socket';
 import { notification } from 'antd';
-const CamstudyChat = ({ display, roomId, currentUser }) => {
+const CamstudyChat = ({ display, roomId, currentUser, setDisplayChat }) => {
     const [msg, setMsg] = useState([]);
     const messagesEndRef = useRef(null);
     const inputRef = useRef();
@@ -15,6 +15,9 @@ const CamstudyChat = ({ display, roomId, currentUser }) => {
             notification.open({
                 message: `${sender}님으로 부터 메시지`,
                 description: `${msg}`,
+                onClick() {
+                    setDisplayChat(true);
+                }
             });    
         }
         
