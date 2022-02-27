@@ -27,7 +27,6 @@ const todayBefore7 = new Date(todayBefore7Obj).toJSON().slice(0,10);
 
 function ManyDays (){
     const [range, setRange] = useState([todayBefore7,today]);
-    const [click , setClick] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [data , setData] = useState(null);
@@ -305,7 +304,6 @@ function ManyDays (){
         //     console.log(todayD," D!");
         //     alert("기간을 다시 선택해 주세요!");
         // }else{
-            setClick(true);
             setStartDate(range[0]);
             setEndDate(range[1]);
             // console.log(,endDate);
@@ -336,7 +334,7 @@ function ManyDays (){
                 />
             </Tooltip>
             </div>
-            {click ?
+            
             <div className={style.chartcontainer}>
                 <div className={style.uppercontainer}>
                     <div className={style.subjectbar}>
@@ -376,7 +374,6 @@ function ManyDays (){
                     />
                 </div>
             </div>
-            : null}
 
             
         </div>
