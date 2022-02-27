@@ -114,7 +114,7 @@ function Login({isLogin , setIsLogin}) {
 
 function mapStateToProps(state){
     return{
-        isLogin : state
+        isLogin : state.isLogin,
     };
 }
 

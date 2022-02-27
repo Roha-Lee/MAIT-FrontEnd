@@ -3,6 +3,7 @@ import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
 import style from './Timer.module.css'
 import 'animate.css'
 import {connect} from "react-redux";
+import {changeCurrentStudyTimeId, changeTimerOn} from "../../store";
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
 let currentStudyTimeId = null;
 function Timer({
@@ -21,6 +22,8 @@ function Timer({
   isEditMode,
   setIsEditMode,
   isLogin,
+  setCurrentStudyTimeId,
+  setGlobalTimerOn,
 }) {
   useEffect(async () => {
     if(timerOn){
@@ -35,6 +38,7 @@ function Timer({
         const result = await postStudyTime(currentSubjectId, startTimeFormatted);
         if(result.data.message === 'SUCCESS'){
           currentStudyTimeId = result.data.id;
+          setCurrentStudyTimeId(currentStudyTimeId);
         }
       } catch(error) {
         console.log(error);
@@ -89,6 +93,7 @@ function Timer({
             if(isEditMode !== true){
               setTimerOn(!timerOn);          
               setUserTimerOn(!timerOn);
+              setGlobalTimerOn(!timerOn);
             } else {
               event.target.classList.add('animate__animated')
               event.target.classList.add('animate__headShake')
@@ -164,8 +169,15 @@ function Timer({
 
 function mapStateToProps(state){
   return{
-      isLogin : state
+      isLogin : state.isLogin,
   };
 }
 
-export default connect(mapStateToProps) (Timer);
+function mapDispatchToProps(dispatch){
+  return{
+      setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id)),
+      setGlobalTimerOn : timerOn => dispatch(changeTimerOn(timerOn)),
+  };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (Timer);

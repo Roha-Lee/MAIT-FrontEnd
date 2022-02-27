@@ -5,16 +5,19 @@ import {HeadNavigate, NavigationBlank, NavigationContents, Logo, Selected, Login
 import { useNavigate } from 'react-router';
 import { changeLogin } from "../../store";
 import { connect } from "react-redux";
-import {signOut} from "../../utils/utils"
+import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
 
 
-function Navigation ({isLogin , setIsLogin}) {
+function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTimeId, timerOn}) {
     let navigate = useNavigate();
 
     async function handleSignIn(){
         if(isLogin === true){
             //TODO : 로그아웃시 서버와 통신 필요 ex. 토큰 삭제 및 타이머 정지하여 데이터 기록
             // setIsLogin(!isLogin); //TO Check
+            const result = await patchStudyTime(currentStudyTimeId,timeStamp());
+            setCurrentStudyTimeId(null);
+            console.log(result);
             const signOutResponse = await signOut();
 
             if(signOutResponse.data.message === 'success'){
@@ -66,13 +69,16 @@ function Navigation ({isLogin , setIsLogin}) {
 
 function mapStateToProps(state){
     return{
-        isLogin : state
+        isLogin : state.isLogin,
+        currentStudyTimeId : state.currentStudyTimeId,
+        timerOn : state.timerOn,
     };
 }
 
 function mapDispatchToProps(dispatch){
     return{
-        setIsLogin : isLogin => dispatch(changeLogin(isLogin))
+        setIsLogin : isLogin => dispatch(changeLogin(isLogin)),
+        setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id))
     };
 }
 
