@@ -13,7 +13,7 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     for(let i = 0 ; i < subjectTotalData?.length ; i++){
         const timeStr = subjectTotalData[i].totalTime;
         const hour = parseInt(timeStr.slice(0,2));
-        const minute = parseInt(timeStr.slice(3,5));
+        const minute = parseInt(timeStr.slice(3,5)) + parseInt(timeStr.slice(6,8))/60;
         // dataInput.push(hour + (minute/60).toFixed(1));
         totalTime = totalTime + hour * 60 + minute;
     }
