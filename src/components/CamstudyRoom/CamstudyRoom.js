@@ -32,11 +32,15 @@ const CamstudyRoom = (props) => {
   const [displayChat, setDisplayChat] = useState(false);
   useEffect(async ()=> {
     window.addEventListener('popstate', goToBack);
-
+    setUserVideoAudio({
+      localUser: { video: true, audio: true },
+    })
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
       audio: true, 
-      video: true});
+      video: true,
+      width: 640, 
+      height: 480});
       
       myVideoRef.current.srcObject = stream;
       myStreamRef.current = stream;
@@ -44,10 +48,7 @@ const CamstudyRoom = (props) => {
       socket.emit('join-room', roomId, currentUser);
       socket.on('user-join', (users) => {
         const peers = [];
-        console.log('this is users list', users);
         users.forEach(({ userId, info }) => {
-          console.log("unpack userId", userId);
-          console.log("unpack info", info);
         let { userName, video, audio } = info;
 
         if (userName !== currentUser) {
@@ -61,8 +62,9 @@ const CamstudyRoom = (props) => {
             userName,
           });
           peers.push(peer);
-
+          
           setUserVideoAudio((preList) => {
+            console.log("What is pre List?", preList)
             return {
               ...preList,
               [peer.userName]: { video, audio },
@@ -100,6 +102,7 @@ const CamstudyRoom = (props) => {
     });
     socket.on('siren-fire', (sender) => {
       sirenRef.current.play();
+      console.log('userVideoAudio format check', userVideoAudio)
       notification.open({
         message: "집중하세요!",
         description: `${sender}로부터 주의를 받았습니다.`,
@@ -126,6 +129,7 @@ const CamstudyRoom = (props) => {
     }    
 
     socket.on('toggle-camera', ({ userId, switchTarget }) => {
+      console.log('toggle-camera', userId);
       const peerIdx = findPeer(userId);
 
       setUserVideoAudio((preList) => {
@@ -258,7 +262,6 @@ const CamstudyRoom = (props) => {
         className={`width-peer${peers.length > 8 ? '' : peers.length}`}
         key={index}
       >
-        {writeUserName(peer.userName)}
         <PeerVideo 
           key={index} 
           peer={peer} 
@@ -270,14 +273,6 @@ const CamstudyRoom = (props) => {
         <InFrameUserName>{peer.userName}</InFrameUserName>
       </VideoBox>
     );
-  }
-
-  function writeUserName(userName, index) {
-    if (userVideoAudio.hasOwnProperty(userName)) {
-      if (!userVideoAudio[userName].video) {
-        return <UserName key={userName}>{userName}</UserName>;
-      }
-    }
   }
 
   const clickChat = (e) => {
@@ -310,7 +305,7 @@ const CamstudyRoom = (props) => {
 
       const userAudioTrack = myVideoRef.current.srcObject.getAudioTracks()[0];
       audioSwitch = !audioSwitch;
-
+      // userAudioTrack.enabled = audioSwitch;
       if (userAudioTrack) {
         userAudioTrack.enabled = audioSwitch;
       } else {
@@ -333,7 +328,6 @@ const CamstudyRoom = (props) => {
   <VideoAndBarContainer>
     <VideoContainer displayChat={displayChat}> 
     <VideoBox className={`width-peer${peers.length > 8 ? '' : peers.length}`}>
-      {userVideoAudio['localUser'].video ? null : (<UserName>{currentUser}</UserName>)}
       <MyVideo
       mute
       autoPlay
