@@ -74,6 +74,21 @@ const CamstudyPeerVideo = (props) => {
     socket.emit("siren", {sender:props.currentUser, receiver:peer.userName});
   };
   
+  const toggleCamera = (e) => {
+    props.setUserVideoAudio((preList) => {
+      let videoSwitch = preList[peer.userName].video;
+      let audioSwitch = preList[peer.userName].audio;
+
+      const peerVideoTrack = ref.current.srcObject.getVideoTracks()[0];
+      videoSwitch = !videoSwitch;
+      peerVideoTrack.enabled = videoSwitch;
+    
+      return {
+        ...preList,
+        [peer.userName]: { video: videoSwitch, audio: audioSwitch },
+      };
+    });
+  };
   return (
     <>
       <Video

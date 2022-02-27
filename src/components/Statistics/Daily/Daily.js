@@ -1,12 +1,24 @@
 import TimeHeatmap from "./TimeHeatmap";
 import DailyData from "./DailyData";
-import style from "./Daily.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { DatePicker } from "antd";
 import { Switch } from "antd";
 import moment from "moment";
-
+import styled from 'styled-components'
+const DailyContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 25px 0px;
+    width: 100%;
+    justify-content: center;
+    @media screen and (max-width: 850px) {
+        flex-direction: column;
+        margin: 0 auto;
+        align-items: center;
+    }
+`;
 
 function timeStamp(){ 
     let today = new Date(); 
@@ -198,26 +210,28 @@ function Daily (){
     }
     // console.log(labels,subjectColors)
     return (
-        <div className = {style.daily}>
+        <DailyContainer>
             <div>
-            <DatePicker onChange={onChange} defaultValue={moment(today,`YYYY-MM-DD`)}/>
-            <Switch defaultChecked checkedChildren="학습" unCheckedChildren="전체" onChange={onChangeToggle} style={{marginLeft : "15px"}}/>
-            <DailyData
-                data = {data}
-                // data = {fakedata}
-                labels = {labels}
-                subjectColors = {subjectColors}
-                isZeroShow = {isZeroShow}
-            />
+                <DatePicker onChange={onChange} defaultValue={moment(today,`YYYY-MM-DD`)}/>
+                <Switch defaultChecked checkedChildren="학습" unCheckedChildren="전체" onChange={onChangeToggle} style={{marginLeft : "15px"}}/>
+                <DailyData
+                    data = {data}
+                    // data = {fakedata}
+                    labels = {labels}
+                    subjectColors = {subjectColors}
+                    isZeroShow = {isZeroShow}
+                />
             </div>
-            <TimeHeatmap
-                data = {data}
-                // data = {fakedata}
-                labels = {labels}
-                subjectColors = {subjectColors}
-                isZeroShow = {isZeroShow}
-            />
-        </div>
+            <div>
+                <TimeHeatmap
+                    data = {data}
+                    // data = {fakedata}
+                    labels = {labels}
+                    subjectColors = {subjectColors}
+                    isZeroShow = {isZeroShow}
+                />
+            </div>
+        </DailyContainer>
     );
 }
 

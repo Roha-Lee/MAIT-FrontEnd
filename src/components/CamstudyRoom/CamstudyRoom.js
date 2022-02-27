@@ -39,7 +39,7 @@ const CamstudyRoom = (props) => {
       
       myVideoRef.current.srcObject = stream;
       myStreamRef.current = stream;
-      // socket.emit('join-room', roomId, socket.id);
+
       socket.emit('join-room', roomId, currentUser);
       socket.on('user-join', (users) => {
         const peers = [];
@@ -252,14 +252,20 @@ const CamstudyRoom = (props) => {
   };
 
   function createUserVideo(peer, index, arr) {
-    console.log("피어이올시다.", peer.userName)
     return (
       <VideoBox
         className={`width-peer${peers.length > 8 ? '' : peers.length}`}
         key={index}
       >
         {writeUserName(peer.userName)}
-        <PeerVideo key={index} peer={peer} number={arr.length} currentUser={currentUser} changeFullScreen={changeFullScreen}/>
+        <PeerVideo 
+          key={index} 
+          peer={peer} 
+          number={arr.length} 
+          currentUser={currentUser} 
+          changeFullScreen={changeFullScreen} 
+          setUserVideoAudio={setUserVideoAudio} 
+          userVideoAudio={userVideoAudio}/>
         <InFrameUserName>{peer.userName}</InFrameUserName>
       </VideoBox>
     );

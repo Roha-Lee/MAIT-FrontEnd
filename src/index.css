@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
-@import url('https://use.fontawesome.com/releases/v5.14.0/css/all.css');
+@font-face { font-family: 'IBMPlexSansKR-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'IBMPlexSansKR-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Bold.woff') format('woff'); font-weight: normal; font-style: normal; }
 
 html,
 body {
@@ -9,7 +9,7 @@ body {
   padding: 0;
   
   font-size: 100%;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'IBMPlexSansKR-Regular', sans-serif;
   /* overflow: hidden; */
   background-color: ivory;
 }
