@@ -8,7 +8,7 @@ import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
-import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex} from './Mainpage.styled'
 import axios from 'axios';
 
 const colorsIdtoCode = {};
@@ -117,8 +117,9 @@ function Mainpage() {
   );
   
   return (
-    <div className="App">
+    <>
       <Navigation />
+      <ColFlex>
       {useFaceAi ? 
         <AiContainer>
           <AIFaceFunctionViewer 
@@ -158,6 +159,7 @@ function Mainpage() {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
+      </SubjectsContainer>
         <Timer
           subjects={subjects}
           setSubjects={setSubjects}
@@ -172,35 +174,15 @@ function Mainpage() {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
-        <DropdownContainer>
+        <BottomFlexBox>
           <Dropdown overlay={menu} placement="bottomCenter">
-          <Button ref={buttonRef} style={{borderRadius: "10px", backgroundColor: "#EEE7E1"}}>AI 모드 선택</Button>
+            <Button Button ref={buttonRef} style={{marginLeft:"25px"}}>AI 모드 선택</Button>
           </Dropdown>
-        </DropdownContainer>
-        
-        {/* <ToggleButton
-          value={ useFaceAi || false }
-          
-          onToggle={(value) => { 
-            setUseFaceAi(!value);      
-          }} />
-          <span>손 인식</span>
-        <ToggleButton
-        value={ useHandAi || false }
-        onToggle={(value) => {
-          setUseHandAi(!value);
-        }} /> */}
-      </SubjectsContainer>
-      <FlexBox>
-        <CamButton
-          onClick={() => {
-            window.open("/camstudyLobby")
-            }}>
-            Cam Study
-        </CamButton>
-      </FlexBox>
-      <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
-    </div>
+          <div style={{margin:"0 20px", fontSize:"1.8rem"}}>|</div>
+          <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
+        </BottomFlexBox>
+      </ColFlex>
+    </>
           )
   }
 

@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-export const HeadNavigate = styled.header`
+export const HeadNavigate = styled.div`
     width: 100%;
     height: 70px;
     margin: 0 auto;
     padding: 10px;
     display: flex;
-    background-color: #6F8D7A;
+    background-color: #639ECC;
     position:relative;
     flex-direction: row;
     justify-content: space-between;
@@ -32,7 +32,7 @@ export const LoginContainer = styled.div`
 export const StyledLinkHome = styled(Link)`
     
     text-decoration: none;
-    color: #EEE7E1;
+    color: white;
     font-size: 3rem;
     
     &:focus, &:visited, &:link, &:active,&:hover {
@@ -43,18 +43,29 @@ export const StyledLinkHome = styled(Link)`
 
 export const StyledLink = styled(Link)`
     text-decoration: none;
-    color: #EEE7E1;
+    color: white;
     font-size: 1.2rem;
     padding: 15px 25px;
     &:focus, &:visited, &:active,&:hover {
         text-decoration: none;
-        color: #EEE7E1;
-        background: #587061;
+        color: white;
+        background: #4F7EA3;
         border-radius: 15px;
     }
 `
-
-//728 부터 적용되는 미디어 쿼리 작성
-// @media screen and (max-width: 768px) {
-
-// }
+export const StyledA = styled.a`
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    padding: 15px 25px;
+    margin: 0 3px;
+    &:focus, &:visited, &:active,&:hover {
+        text-decoration: none;
+        color: white;
+        background-color: #4F7EA3;
+        border-radius: 15px;
+    }
+    @media screen and (max-width: 375px) {
+        font-size: 1rem;
+    }
+`

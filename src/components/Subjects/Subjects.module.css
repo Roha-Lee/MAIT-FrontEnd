@@ -42,7 +42,9 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding: 5px;
-    width: 500px;
+    width: 620px;
+    height: 80px;
+    background-color: #E0E0DF;
 }
 
 .subjectManager::-webkit-scrollbar {
@@ -65,7 +67,7 @@
     border: none;
     border-radius: 10px;
     padding: 5px 10px;
-    /* margin: 0 10px; */
+    margin: 10px 10px;
     margin-right: 10px;
 }
 /* 

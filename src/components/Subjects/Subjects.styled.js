@@ -52,7 +52,6 @@ export const subjectManager = styled.div`
 `
 
 export const AddButton = styled.button`
-    font-family: "Noto Sans KR", sans-serif;
     font-size: 1rem;
     font-weight: 400;
     border: none;
@@ -63,4 +62,25 @@ export const AddButton = styled.button`
 
 export const Active =  styled.div`
     background-color: #EBB057;
+`
+
+export const TabBox = styled.div`
+    margin: 15px 15px 0 0;
+    background: white;
+    height: 40px;
+    width: 80px;
+    border-radius: 15px 15px 0 0;
+`
+
+export const FlexBox = styled.div`
+    display: flex;
+`
+
+export const SubjectBox = styled.div`
+    display: flex;
+    width: 530px;
+`
+
+export const ButtonBox = styled.div`
+    display: flex;
 `
