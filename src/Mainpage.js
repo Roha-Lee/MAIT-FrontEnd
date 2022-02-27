@@ -47,41 +47,44 @@ function Mainpage({isLogin}) {
   
   
   useEffect(() => {
-    getAllUserData().then((userData)=> {
-      const newSubjects = userData.data.subjects.map(subject => {
-        return {
-          subjectId: subject.id, 
-          name: subject.name,
-          colorId: subject.colorId,
-          totalTime: 0,
-        }
-      });
-
-      userData.data.study.forEach(subject => {
-        let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
-        newSubjects
-        .find(elem => elem.subjectId === subject.id)
-        .totalTime = (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000 ;
-      })
+    if(isLogin){
       
+      getAllUserData().then((userData)=> {
+        const newSubjects = userData.data.subjects.map(subject => {
+          return {
+            subjectId: subject.id, 
+            name: subject.name,
+            colorId: subject.colorId,
+            totalTime: 0,
+          }
+        });
+  
+        userData.data.study.forEach(subject => {
+          let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
+          newSubjects
+          .find(elem => elem.subjectId === subject.id)
+          .totalTime = (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000 ;
+        })
         
-      //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
-      const newTodos = userData.data.todos.map(todo => {
-        return {
-          todoId: todo.id,
-          content: todo.content,
-          subjectId: todo.subjectId,
-          isDone: todo.isDone
-        }
+          
+        //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
+        const newTodos = userData.data.todos.map(todo => {
+          return {
+            todoId: todo.id,
+            content: todo.content,
+            subjectId: todo.subjectId,
+            isDone: todo.isDone
+          }
+        });
+        userData.data.colors.forEach(color => {
+          colorsCodetoId[color.code] = color.id;
+          colorsIdtoCode[color.id] = color.code;
+        })
+      
+        setSubjects(newSubjects); // 과목 정보 
+        setTodoList(newTodos);
       });
-      userData.data.colors.forEach(color => {
-        colorsCodetoId[color.code] = color.id;
-        colorsIdtoCode[color.id] = color.code;
-      })
-    
-      setSubjects(newSubjects); // 과목 정보 
-      setTodoList(newTodos);
-    });
+    }
     
   }, []);
 
