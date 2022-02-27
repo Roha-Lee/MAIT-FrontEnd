@@ -15,8 +15,8 @@ import { BellOutlined } from '@ant-design/icons';
 import Bell from "./assets/bell.mp3";
 
 const CamstudyRoom = (props) => {
-  // const currentUser = window.sessionStorage.getItem('currentUser');
-  const currentUser = socket.id;
+  const currentUser = window.sessionStorage.getItem('currentUser');
+  // const currentUser = socket.id;
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
   const myVideoRef = useRef();
   const myStreamRef = useRef();
@@ -32,6 +32,8 @@ const CamstudyRoom = (props) => {
   const [displayChat, setDisplayChat] = useState(false);
   useEffect(async ()=> {
     window.addEventListener('popstate', goToBack);
+    window.addEventListener('beforeunload', goToBack);
+    
     setUserVideoAudio({
       localUser: { video: true, audio: true },
     })
@@ -44,7 +46,7 @@ const CamstudyRoom = (props) => {
       
       myVideoRef.current.srcObject = stream;
       myStreamRef.current = stream;
-
+      console.log('LET ME CHECK', roomId, currentUser)
       socket.emit('join-room', roomId, currentUser);
       socket.on('user-join', (users) => {
         const peers = [];
