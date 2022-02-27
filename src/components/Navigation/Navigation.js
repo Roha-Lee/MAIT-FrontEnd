@@ -21,7 +21,6 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
                 patchStudyTime(currentStudyTimeId,timeStamp()).then(
                     setCurrentStudyTimeId(null)
                 )
-                console.log(result);
             }
             const signOutResponse = await signOut();
 
@@ -52,7 +51,6 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
                 patchStudyTime(currentStudyTimeId,timeStamp()).then(
                     setCurrentStudyTimeId(null)
                 )
-                console.log(result);
             }
             navigate("/Statistics");
         }else{
