@@ -1,6 +1,37 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+export const SwitchList = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top:65px;
+  left: -105px;
+  width: 350px;
+  z-index: 1;
+  border-radius: 0 0 10px 10px;
+  background-color: rgba(96, 96, 96, 0.8);
+  padding: 5px 10px 0;
+  color: white;
+  text-align: center;
+  > div {
+    font-size: 0.85rem;
+    padding: 1px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    :not(:last-child):hover {
+      background-color: #77b7dd;
+      cursor: pointer;
+    }
+  }
+
+  > div:last-child {
+    border-top: 1px solid white;
+    cursor: context-menu !important;
+  }
+}
+`;
+
 export const HeadNavigate = styled.header`
     width: 100%;
     height: 70px;
