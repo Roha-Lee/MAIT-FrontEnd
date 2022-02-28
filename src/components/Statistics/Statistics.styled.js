@@ -7,12 +7,12 @@ export const TapContainer = styled.div`
 
 export const TabBox = styled.div`
     margin: 15px 10px 0 0;
-    background: yellow;
     height: 45px;
     width: 110px;
     border-radius: 15px 15px 0 0;
     text-align : center;
     padding-top : 10px;
+    color : #606060;
 `
 
 export const BlankBox = styled.div`
