@@ -33,14 +33,6 @@ export const Subject = styled.button`
     &:hover {
         filter: brightness(70%);
     }
-    &:-webkit-scrollbar {
-        height: 8px;
-    }
-    &:-webkit-scrollbar-thumb {
-        background-color: #EEE7E1; /*스크롤바의 색상*/    
-        border: 1px solid grey;
-    }
-    
 `
 
 export const subjectManager = styled.div`
@@ -93,10 +85,20 @@ export const SubjectBox = styled.div`
     overflow-y: hidden;
     :hover{
         overflow-x: auto;
+        
     }
-    ::-webkit-scrollbar-track{
-        background-color: rgba(255, 255, 255, 0.5);
+    ::-webkit-scrollbar
+    {
+        height: 10px;
+        background-color: #FFFFFF;
     }
+    ::-webkit-scrollbar-thumb
+    {
+	border-radius: 10px;
+	background-color: #E0E0DF;
+}
+
+    
 `
 
 export const ButtonBox = styled.div`

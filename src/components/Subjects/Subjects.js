@@ -103,8 +103,11 @@ function Subjects({
     
     // 새로운 과목 추가 API
     try{
-      const result = await postSubject(value, colorsCodetoId[color])
-      const {id, name, colorId} = result.data;
+      // const result = await postSubject(value, colorsCodetoId[color])
+      // const {id, name, colorId} = result.data;
+      const id = Math.ceil(Math.random() * 10000);
+      const name = value;
+      const colorId = colorsCodetoId[color];
       setSubjects([
         ...subjects, 
         {
@@ -114,7 +117,6 @@ function Subjects({
           totalTime: 0
         }
       ]);
-      subjectBoxRef.current.scrollLeft(subjectBoxRef.current.width())
       setNewSubject(id); 
     } catch (error) {
       if (error.response.data.message === 'SUBJECT_EXISTS') {
@@ -254,7 +256,7 @@ function Subjects({
   return (
           <>
           <FlexBox>
-            <SubjectBox ref={subjectBoxRef}>
+            <SubjectBox ref={subjectBoxRef} id="subjectBox">
               {subjectButtons}
             </SubjectBox>
           <ButtonBox>
