@@ -19,7 +19,7 @@ function ManyDays ({startDate,endDate}){
             setData(null);
             setLoading(true);
             const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}, headers: {Authorization: `${window.sessionStorage.getItem('accessToken')}`}});
-            console.log(response.data);
+            // console.log(response.data);
             setData(response.data)
         }catch(e){
             setError(e);
@@ -31,217 +31,217 @@ function ManyDays ({startDate,endDate}){
 
     // const fakeData = {
     //     'subjectTotalTime' : {
-    //         "2022-02-18" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '03:12:32' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '02:54:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '05:22:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-19" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '01:56:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '04:21:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '04:32:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-20" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '01:56:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '06:02:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '02:11:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-21" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '00:56:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '02:12:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '03:45:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-22" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '04:12:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '03:23:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '01:34:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-23" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '07:12:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '00:12:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '05:52:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-24" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '02:53:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '01:32:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '04:16:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-25" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '02:45:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '02:54:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '03:13:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-26" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '00:56:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '08:02:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '04:32:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-27" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '02:34:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '01:23:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '07:26:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-02-28" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '04:26:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '05:23:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '00:00:00' //누적 시간
-    //             },
-    //         },
+    //         // "2022-02-18" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '03:12:32' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '02:54:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '05:22:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-19" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '01:56:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '04:21:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '04:32:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-20" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '01:56:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '06:02:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '02:11:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-21" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '00:56:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '02:12:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '03:45:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-22" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '04:12:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '03:23:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '01:34:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-23" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '07:12:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '00:12:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '05:52:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-24" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '02:53:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '01:32:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '04:16:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-25" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '02:45:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '02:54:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '03:13:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-26" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '00:56:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '08:02:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '04:32:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-27" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '02:34:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '01:23:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '07:26:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-02-28" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '04:26:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '05:23:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '00:00:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-03-01" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '00:00:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '00:00:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '02:13:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-03-02" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '04:23:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '01:23:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '05:12:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-03-03" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '00:56:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '02:27:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '01:54:00' //누적 시간
+    //         //     },
+    //         // },
+    //         // "2022-03-04" : {
+    //         //     "Algorithm" : { 
+    //         //         color : "#a67ebf",
+    //         //         totalTime : '03:23:00' //누적 시간
+    //         //     },
+    //         //     "OS" : { 
+    //         //         color : "#bf6d7f",
+    //         //         totalTime : '04:23:00' //누적 시간
+    //         //     },
+    //         //     "Javascript" : { 
+    //         //         color : "#6dbf84",
+    //         //         totalTime : '04:23:00' //누적 시간
+    //         //     },
+    //         // },
     //         "2022-03-01" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '00:00:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '00:00:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '02:13:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-03-02" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '04:23:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '01:23:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '05:12:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-03-03" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '00:56:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '02:27:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '01:54:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-03-04" : {
-    //             "Algorithm" : { 
-    //                 color : "#a67ebf",
-    //                 totalTime : '03:23:00' //누적 시간
-    //             },
-    //             "OS" : { 
-    //                 color : "#bf6d7f",
-    //                 totalTime : '04:23:00' //누적 시간
-    //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '04:23:00' //누적 시간
-    //             },
-    //         },
-    //         "2022-03-05" : {
     //             "Algorithm" : { 
     //                 color : "#a67ebf",
     //                 totalTime : '02:51:00' //누적 시간
@@ -250,10 +250,10 @@ function ManyDays ({startDate,endDate}){
     //                 color : "#bf6d7f",
     //                 totalTime : '01:52:00' //누적 시간
     //             },
-    //             "Javascript" : { 
-    //                 color : "#6dbf84",
-    //                 totalTime : '03:27:00' //누적 시간
-    //             },
+    //             // "Javascript" : { 
+    //             //     color : "#6dbf84",
+    //             //     totalTime : '03:27:00' //누적 시간
+    //             // },
     //         },
     //     },
     //     'subjectTodo' : {

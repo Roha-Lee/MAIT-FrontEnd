@@ -148,7 +148,7 @@ function Mainpage({isLogin}) {
         </AiContainer>
       : null}
       {useHandAi ? 
-        <AiContainer>
+        // <AiContainer>
           <AIHandFunctionViewer 
             timerOn={timerOn}
             setTimerOn={setTimerOn}
@@ -157,7 +157,7 @@ function Mainpage({isLogin}) {
             useHandAi = { useHandAi || false }
             setUseHandAi = {setUseHandAi}
           />
-        </AiContainer>
+        // </AiContainer>
       : null}
       <SubjectsContainer>       
         <Subjects 

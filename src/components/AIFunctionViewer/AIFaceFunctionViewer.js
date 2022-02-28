@@ -2,6 +2,7 @@ import Webcam from "react-webcam";
 import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
+import Draggable from "react-draggable";
 
 function AIFaceFunctionViewer ({
   timerOn, 
@@ -94,16 +95,20 @@ function AIFaceFunctionViewer ({
     <div className="aitest">
         <div className="ai-on" style={{
           display:"flex",
-          justifyContent:"center", }}> 
-          <Webcam
-            ref={webcamRef}
-            audio={false}
-            height={240}
-            screenshotFormat="image/jpeg"
-            width={320}
-            position={'fixed'}          
-            videoConstraints={videoConstraints}
-          />
+          justifyContent:"center", }}>
+          <Draggable
+            position={null}
+          >
+            <Webcam
+              ref={webcamRef}
+              audio={false}
+              height={240}
+              screenshotFormat="image/jpeg"
+              width={320}
+              position={'fixed'}          
+              videoConstraints={videoConstraints}
+            />
+          </Draggable>
           <canvas id="srccanvas"
             style={{
               // position: "absolute",

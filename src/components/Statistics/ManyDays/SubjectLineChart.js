@@ -67,12 +67,12 @@ function SubjectLineChart ({data,startDate,endDate}){
         // console.log(subjectTotalTime);
         // console.log(subjectTotalTime);
         // const subjectTodo = data?.subjectTodo;
-        const subjectColorPair = data?.subjectColorPair;
-        // const subjectColorPair = {
-        //     "Algorithm" : "#a67ebf",
-        //     "OS" : "#bf6d7f",
-        //     "Javascript" : "#6dbf84"
-        // };
+        // const subjectColorPair = data?.subjectColorPair;
+        const subjectColorPair = {
+            "Algorithm" : "#a67ebf",
+            "OS" : "#bf6d7f",
+            "Javascript" : "#6dbf84"
+        };
         
         const inputLineDataSet = {labels : null, datasets :[]};
     

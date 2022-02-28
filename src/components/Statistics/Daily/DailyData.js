@@ -25,7 +25,7 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     return (
         <div className={style.dailydata}>
             <div className={style.titleContainer}>
-                <h1 className={style.dailySummary}>일간 총 학습시간</h1>
+                <h1 className={style.dailySummary}>총 학습시간</h1>
             </div>
             <div className={style.totalTimes}>{`${totalHour}시간 ${totalMinute}분`}</div>
             <div className={style.titlecontainer}>
