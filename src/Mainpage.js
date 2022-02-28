@@ -58,7 +58,9 @@ function Mainpage({isLogin}) {
             totalTime: 0,
           }
         });
-  
+
+        setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "")
+        
         userData.data.study.forEach(subject => {
           let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
           newSubjects
@@ -206,7 +208,8 @@ function Mainpage({isLogin}) {
 
   function mapStateToProps(state){
     return{
-        isLogin : state.isLogin,
+        // isLogin : state.isLogin,
+        isLogin: true,
     };
 }
 

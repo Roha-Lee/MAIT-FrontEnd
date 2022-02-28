@@ -5,7 +5,7 @@ import {postSubject, deleteSubject, putSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
 import 'animate.css';
 import {connect} from "react-redux";
-import { TabBox, FlexBox, SubjectBox, ButtonBox } from './Subjects.styled'
+import { TabBox, FlexBox, SubjectBox, ButtonBox, SubjectName, SubjectColorCircle} from './Subjects.styled'
 
 const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
@@ -168,7 +168,7 @@ function Subjects({
     try{
       const status = await deleteSubject(nowEditing);
       if(currentSubject === delSubject){
-        setCurrentSubject(null);
+        setCurrentSubject("");
         setCurrentTime(0);
       }
   
@@ -191,13 +191,8 @@ function Subjects({
 
 
   const changeSubject = (event) => {
-    let newSubject = event.target.innerText;
+    let newSubject = event.target.innerText ||event.target.parentElement.querySelector('span').innerText;
     let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;
-    // 과목 없음 부분 
-    if(currentSubject === newSubject){
-      newSubject = null
-      newCurrentTime = 0;
-    }
     setTimerOn(false);
     setCurrentSubject(newSubject);
     setCurrentTime(newCurrentTime);
@@ -205,23 +200,20 @@ function Subjects({
   }
   
   const subjectButtons = (
-    <TabBox>
-      {subjects.map((subject) => (
-        <button 
+      subjects.map((subject) => (
+        <TabBox 
           key={subject.subjectId}
-          className={style.subject} 
+          isSelected={subject.name === currentSubject}
           style={{
-            backgroundColor: `#${colorsIdtoCode[subject.colorId]}`,
             filter: isEditMode === true ?  'brightness(80%)' : 'brightness(100%)',
             animation: isEditMode === true ? 'swing' : (subject.subjectId === newSubject ? 'bounce' : null) , 
             animationDuration: isEditMode === true ? '800ms' : (subject.subjectId === newSubject ? '800ms' : null) ,           
           }}
-          onClick={(event)=>{
-            isEditMode === true ? editSubject(event) :changeSubject(event)}}>
-          {subject.name}
-        </button>        
-      ))}
-    </TabBox>
+          onClick={(event)=>{isEditMode === true ? editSubject(event) :changeSubject(event)}}>
+          <SubjectColorCircle subjectColor={colorsIdtoCode[subject.colorId]}/>
+          <SubjectName>{subject.name}</SubjectName>
+        </TabBox>
+      ))
   )
   return (
           <>
@@ -319,7 +311,8 @@ function Subjects({
 
 function mapStateToProps(state){
   return{
-      isLogin : state.isLogin
+      isLogin : state.isLogin,
+      isLogin : true,
   };
 }
 

@@ -87,8 +87,9 @@ function Timer({
   
   return ( 
     <TimerContainer>
-      <SubjectTitle>
-        {currentSubject === null ? "과목 없음" : currentSubject}
+      {subjects.length > 0 ? 
+      (<><SubjectTitle>
+        {currentSubject}
       </SubjectTitle>
       {timer}
       <TimerButton 
@@ -116,7 +117,7 @@ function Timer({
           }
         }}> 
         {timerOn ? "STOP" : "START"}
-      </TimerButton> 
+      </TimerButton></>) : "과목을 추가해주세요."}
     </TimerContainer>
   );
 }
