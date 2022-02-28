@@ -108,6 +108,7 @@ function Subjects({
       const id = Math.ceil(Math.random() * 10000);
       const name = value;
       const colorId = colorsCodetoId[color];
+      const isSubjectEmpty = subjects.length === 0;
       setSubjects([
         ...subjects, 
         {
@@ -117,6 +118,9 @@ function Subjects({
           totalTime: 0
         }
       ]);
+      if(isSubjectEmpty){
+        setCurrentSubject(name);
+      }
       setNewSubject(id); 
     } catch (error) {
       if (error.response.data.message === 'SUBJECT_EXISTS') {
@@ -170,13 +174,12 @@ function Subjects({
     try{
       const status = await deleteSubject(nowEditing);
       if(currentSubject === delSubject){
-        setCurrentSubject("");
-        setCurrentTime(0);
+        setCurrentSubject(subjects.length > 0 ? subjects[0].name : "");
+        setCurrentTime(subjects.length > 0 ? subjects[0].totalTime : 0);
       }
   
       const newSubjects = subjects.filter(subject => subject.subjectId !== nowEditing);
-      if(newSubjects.length === 0){
-        // console.log('subject is empty')
+      if(newSubjects.length === 0){ 
         setIsEditMode(false);
       }
       setSubjects(newSubjects);
@@ -186,8 +189,6 @@ function Subjects({
     catch (error) {
       alert('서버 에러.')
     }
-    // console.log(status);
-    // nowEditing 이랑 currentSubject랑 같으면 
     resetModal();
   }
 
