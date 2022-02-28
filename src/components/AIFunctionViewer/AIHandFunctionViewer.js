@@ -95,9 +95,7 @@ function AIHandFunctionViewer ({
   // Capture();
   return(
     <>
-        <Draggable
-          defaultPosition={{x:200,y:800}}
-        >
+        <Draggable>
           <Webcam
             ref={webcamRef}
             audio={false}

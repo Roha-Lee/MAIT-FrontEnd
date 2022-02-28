@@ -1,12 +1,15 @@
 import styled from 'styled-components'
 
 export const AiContainer = styled.div`
-    display: flex;
-    margin: 1rem auto;  
-    flex-direction: row;
-    justify-content: center;
+    position: fixed;
+    z-index: 9999;
+    bottom: 30px;
+    right: 30px;
 `
-
+// display: flex;
+// margin: 1rem auto;  
+// flex-direction: row;
+// justify-content: center;
 export const SubjectsContainer = styled.div`
     display: flex;
     flex-direction: column;
