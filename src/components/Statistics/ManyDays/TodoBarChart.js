@@ -80,7 +80,7 @@ function TodoBarChart ({data}){
                     display: false,
                 },
                 title: {
-                    display: true,
+                    display: false,
                     text: '과목별 Todo 달성률(%)',
                 },
                 datalabels : {

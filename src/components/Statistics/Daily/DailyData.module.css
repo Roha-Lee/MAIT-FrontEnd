@@ -25,12 +25,12 @@
     display:block;
     position:absolute; 
     top:50%; 
-    width:175px; 
+    width:165px; 
     border-bottom:1.5px solid grey;
 }
 
 .dailySummary::after {
-    left:auto; right:-195px; 
+    left:auto; right:-185px; 
 }
 
 .totalTimes {
@@ -56,12 +56,12 @@
     display:block;
     position:absolute; 
     top:50%; 
-    width:170px; 
+    width:160px; 
     border-bottom:1.5px solid grey;
 }
 
 .dailyDetails::after {
-    left:auto; right:-200px; 
+    left:auto; right:-193px; 
 }
 
 

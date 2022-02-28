@@ -61,7 +61,7 @@ function DailyChart ({data , labels, subjectColors, isZeroShow}){
                 display: false,
             },
             title: {
-                display: true,
+                display: false,
                 text: '과목별 학습시간(hr)',
                 
             },
