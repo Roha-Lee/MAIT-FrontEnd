@@ -2,6 +2,7 @@ import Webcam from "react-webcam";
 import { HandPoseWorkerManager, generateDefaultHandPoseParams, generateHandPoseDefaultConfig } from '@dannadori/handpose-worker-js';
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
+import Draggable from "react-draggable";
 
 function AIHandFunctionViewer ({
   timerOn, 
@@ -93,19 +94,20 @@ function AIHandFunctionViewer ({
   // capture();
   // Capture();
   return(
-    <div className="aitest">
-        <div className="ai-on" style={{
-          display:"flex",
-          justifyContent:"center", }}> 
+    <>
+        <Draggable
+          defaultPosition={{x:200,y:800}}
+        >
           <Webcam
             ref={webcamRef}
             audio={false}
             height={240}
             screenshotFormat="image/jpeg"
-            width={320}
-            position={'fixed'}          
+            width={320}          
             videoConstraints={videoConstraints}
           />
+        </Draggable>
+        <> 
           <canvas id="srccanvas"
             style={{
               // position: "absolute",
@@ -128,8 +130,8 @@ function AIHandFunctionViewer ({
               display: "none"
             }}></img>
           <button id="captureHand" style={{display: "none"}} onClick={(e)=>{capture();}}>Capture</button>
-        </div>
-    </div>
+        </>
+    </>
   );
 }
 // 

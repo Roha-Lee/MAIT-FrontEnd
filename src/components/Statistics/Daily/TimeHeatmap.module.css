@@ -18,7 +18,7 @@
     text-overflow: ellipsis;
     white-space:nowrap;
     overflow: hidden;
-    margin-right: 100px;
+    margin-left: 227px;
     margin-bottom: 5px;
 }
 
@@ -29,6 +29,7 @@
     display:inline-block;
     color: grey;
     margin: 20px;
+    margin-top: 0px;
     width: 220px;
 }
 
@@ -37,7 +38,7 @@
     display: inline;
     position: absolute;
     top: 50%;
-    width: 110px;
+    width: 175px;
     border-bottom: 1.5px solid grey;
     margin-inline-start: 22px;
 }
