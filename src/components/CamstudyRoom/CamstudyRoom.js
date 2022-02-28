@@ -8,8 +8,7 @@ import CamstudyChat from '../CamstudyChat/CamstudyChat';
 import videoOnSVG from './assets/video.svg';
 import videoOffSVG from './assets/video-off.svg';
 import shareScreenSVG from './assets/share_screen.svg';
-import messageSVG from './assets/msg.svg';
-import Navigation from './RoomNavigation'
+import Navigation from './NavigationNew'
 import { notification } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import Bell from "./assets/bell.mp3";

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Navigation from './Navigation/Navigation'
+import Navigation from './Navigation/NavigationNew'
 import axios from "axios"
 import { SignupContainer, SignupInput, SignupButton, SignupForm } from './Signup.styled';
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`

@@ -1,4 +1,4 @@
-import Navigation from "../Navigation/Navigation";
+import Navigation from "../Navigation/NavigationNew";
 import Daily from "./Daily/Daily";
 import ManyDays from "./ManyDays/ManyDays";
 import style from "./Statistics.module.css";

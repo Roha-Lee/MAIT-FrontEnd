@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import Subjects from './components/Subjects/Subjects';
-import Navigation from './components/Navigation/Navigation'
+import Navigation from './components/Navigation/NavigationNew'
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
@@ -9,7 +9,6 @@ import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
 import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex, BottomColor, Seperator} from './Mainpage.styled'
-import axios from 'axios';
 import {connect} from "react-redux";
 
 const colorsIdtoCode = {};
@@ -42,6 +41,7 @@ function Mainpage({isLogin}) {
   const [useFaceAi, setUseFaceAi] = useState(false);
   const [useHandAi, setUseHandAi] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [userName, setUserName] = useState('');
   const [todoList, setTodoList] = useState([]);
   const buttonRef = useRef(null);
   
@@ -58,7 +58,7 @@ function Mainpage({isLogin}) {
             totalTime: 0,
           }
         });
-
+        setUserName(userData.data.nickname);
         setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "")
         
         userData.data.study.forEach(subject => {
@@ -195,7 +195,7 @@ function Mainpage({isLogin}) {
             <Button Button ref={buttonRef} style={{marginLeft:"25px"}}>AI 모드 선택</Button>
           </Dropdown>
           <Seperator>|</Seperator>
-          <div>000님 안녕하세요</div>
+          <div>{userName}님 안녕하세요!</div>
           
           <Seperator>|</Seperator>
           <div>오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 입니다.</div>
