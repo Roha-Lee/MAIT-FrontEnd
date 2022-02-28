@@ -68,7 +68,7 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
                     <div><StyledLink onClick={handleSignUp}>회원가입</StyledLink></div>
                     <div><StyledLink onClick={handleSignIn}>{isLogin === true ? "로그아웃" : "로그인"}</StyledLink></div>
                     <div><StyledLink onClick={handleStatistics}>통계</StyledLink></div>
-                    <div><StyledA onClick = {() => {window.open("/camstudy")}}>캠스터디</StyledA></div>
+                    <div><StyledA onClick = {() => {window.open("/camstudyLobby")}}>캠스터디</StyledA></div>
                 </LoginContainer>
             </NavigationContents>
             <NavigationBlank/>

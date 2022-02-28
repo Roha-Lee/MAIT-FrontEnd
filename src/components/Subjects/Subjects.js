@@ -103,11 +103,11 @@ function Subjects({
     
     // 새로운 과목 추가 API
     try{
-      // const result = await postSubject(value, colorsCodetoId[color])
-      // const {id, name, colorId} = result.data;
-      const id = Math.ceil(Math.random() * 10000);
-      const name = value;
-      const colorId = colorsCodetoId[color];
+      const result = await postSubject(value, colorsCodetoId[color])
+      const {id, name, colorId} = result.data;
+      // const id = Math.ceil(Math.random() * 10000);
+      // const name = value;
+      // const colorId = colorsCodetoId[color];
       setSubjects([
         ...subjects, 
         {
