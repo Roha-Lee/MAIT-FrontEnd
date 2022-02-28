@@ -9,7 +9,7 @@ const DailyContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    margin: 10px 0px;
+    margin: 30px 0px;
     width: 100%;
     gap : 100px;
     justify-content: center;

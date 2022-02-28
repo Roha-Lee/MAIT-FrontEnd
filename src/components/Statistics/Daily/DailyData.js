@@ -25,12 +25,11 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     return (
         <div className={style.dailydata}>
             <div className={style.titleContainer}>
-                <h1 className={style.dailySummary}>Daily Summary</h1>
+                <h1 className={style.dailySummary}>일간 총 학습시간</h1>
             </div>
-            <h2>총 학습시간</h2>
             <div className={style.totalTimes}>{`${totalHour}h ${totalMinute}m`}</div>
             <div className={style.titlecontainer}>
-                <h1 className={style.dailyDetails}>Daily Details</h1>
+                <span className={style.dailyDetails}>과목별 학습시간</span>
             </div>
         
             <DailyChart data={data} labels={labels} subjectColors={subjectColors} isZeroShow={isZeroShow}/>
