@@ -102,9 +102,13 @@ function Subjects({
     setIsModalVisible(false);
     
     // 새로운 과목 추가 API
-    try{
-      const result = await postSubject(value, colorsCodetoId[color])
-      const {id, name, colorId} = result.data;
+    // try{
+      // const result = await postSubject(value, colorsCodetoId[color])
+      // const {id, name, colorId} = result.data;
+      const id = Math.ceil(Math.random() *10000);
+      const name = value;
+      const colorId = colorsCodetoId[color];
+      const isSubjectEmpty = subjects.length === 0;
       setSubjects([
         ...subjects, 
         {
@@ -118,17 +122,17 @@ function Subjects({
         setCurrentSubject(name);
       }
       setNewSubject(id); 
-    } catch (error) {
-      if (error.response.data.message === 'SUBJECT_EXISTS') {
-        alert('이미 사용중인 과목 이름입니다. ')
-      }
-      else if(error.response.data.message === 'NO_SUBJECT_PROVIDED'){
-        alert('과목 이름을 입력해야 합니다.')
-      }
-      else{
-        alert('서버 에러.')
-      }
-    }
+    // } catch (error) {
+    //   if (error.response.data.message === 'SUBJECT_EXISTS') {
+    //     alert('이미 사용중인 과목 이름입니다. ')
+    //   }
+    //   else if(error.response.data.message === 'NO_SUBJECT_PROVIDED'){
+    //     alert('과목 이름을 입력해야 합니다.')
+    //   }
+    //   else{
+    //     alert('서버 에러.')
+    //   }
+    // }
     resetModal();
     
     // console.log(result.data)
@@ -169,15 +173,17 @@ function Subjects({
     // 삭제 통신 
     try{
       const status = await deleteSubject(nowEditing);
-      if(currentSubject === delSubject){
-        setCurrentSubject(subjects.length > 0 ? subjects[0].name : "");
-        setCurrentTime(subjects.length > 0 ? subjects[0].totalTime : 0);
-      }
-  
+      
       const newSubjects = subjects.filter(subject => subject.subjectId !== nowEditing);
       if(newSubjects.length === 0){ 
         setIsEditMode(false);
       }
+
+      if(currentSubject === delSubject){
+        setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "");
+        setCurrentTime(newSubjects.length > 0 ? newSubjects[0].totalTime : 0);
+      }
+
       setSubjects(newSubjects);
       setNowEditing(null);
       setIsEditModalVisible(false);
@@ -315,6 +321,7 @@ function Subjects({
 function mapStateToProps(state){
   return{
       isLogin : state.isLogin,
+      isLogin : true,
   };
 }
 
