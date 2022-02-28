@@ -206,7 +206,8 @@ function Mainpage({isLogin}) {
 
   function mapStateToProps(state){
     return{
-        isLogin : state.isLogin,
+        // isLogin : state.isLogin,
+        isLogin: true,
     };
 }
 

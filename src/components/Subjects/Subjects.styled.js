@@ -67,10 +67,13 @@ export const Active =  styled.div`
 
 export const TabBox = styled.div`
     margin: 15px 10px 0 0;
-    background: white;
-    height: 50px;
-    width: 100px;
+    ${props => `background-color: ${props.isSelected? "#FFFFFF" :"#BFBFBF"};`}
+    height: 45px;
+    width: 110px;
     border-radius: 15px 15px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center
 `
 
 export const FlexBox = styled.div`
@@ -84,4 +87,21 @@ export const SubjectBox = styled.div`
 
 export const ButtonBox = styled.div`
     display: flex;
+`
+
+export const SubjectColorCircle = styled.div`
+    width: 18px;
+    height: 18px;
+    ${props => `background-color: #${props.subjectColor};`}
+    border-radius: 9px;
+    margin:5px 5px 0;
+`
+
+export const SubjectName = styled.span`
+    width: 60px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
+    margin-top: 5px;
 `
