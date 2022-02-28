@@ -20,7 +20,6 @@ export const TimerContainer = styled.div`
 
 export const Timer_set = styled.span`
     font-size: 5rem;    
-    text-shadow: 2px 0 0 #EEE7E1, -2px 0 0 #EEE7E1, 0 2px 0 #EEE7E1, 0 -2px 0 #EEE7E1, 1px 1px #EEE7E1, -1px -1px 0 #EEE7E1, 1px -1px 0 #EEE7E1, -1px 1px 0 #EEE7E1;
     padding: 0 10px;
 `
 

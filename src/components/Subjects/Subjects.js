@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import 'animate.css';
 import style from './Subjects.module.css'
 import { Modal, Button } from 'antd';
@@ -48,7 +48,7 @@ function Subjects({
   const [nowEditing, setNowEditing] = useState(null); // 현재 수정하고 있는 과목의 subjectId
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [pickerColor, setPickerColor] = useState(INITIAL_COLOR);
-  
+  const subjectBoxRef = useRef();
   function resetModal() {
     setPickerColor(INITIAL_COLOR)
     setValue('');
@@ -114,7 +114,7 @@ function Subjects({
           totalTime: 0
         }
       ]);
-      
+      subjectBoxRef.current.scrollLeft(subjectBoxRef.current.width())
       setNewSubject(id); 
     } catch (error) {
       if (error.response.data.message === 'SUBJECT_EXISTS') {
@@ -254,7 +254,7 @@ function Subjects({
   return (
           <>
           <FlexBox>
-            <SubjectBox>
+            <SubjectBox ref={subjectBoxRef}>
               {subjectButtons}
             </SubjectBox>
           <ButtonBox>
@@ -316,6 +316,7 @@ function Subjects({
 function mapStateToProps(state){
   return{
       isLogin : state.isLogin,
+      isLogin: true, 
   };
 }
 

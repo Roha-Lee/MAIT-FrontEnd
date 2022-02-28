@@ -88,8 +88,15 @@ export const FlexBox = styled.div`
 export const SubjectBox = styled.div`
     display: flex;
     width: 700px;
-    overflow-x: auto;
+    margin-right: 15px;
+    overflow-x: hidden;
     overflow-y: hidden;
+    :hover{
+        overflow-x: auto;
+    }
+    ::-webkit-scrollbar-track{
+        background-color: rgba(255, 255, 255, 0.5);
+    }
 `
 
 export const ButtonBox = styled.div`
