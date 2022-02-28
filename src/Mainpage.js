@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
 import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex, BottomColor, Seperator} from './Mainpage.styled'
 import axios from 'axios';
+// import { Modal } from 'react-bootstrap'
 
 const colorsIdtoCode = {};
 const colorsCodetoId = {};
@@ -181,12 +182,14 @@ function Mainpage() {
           </Dropdown>
           <Seperator>|</Seperator>
           <div>000님 안녕하세요</div>
-          {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
+          
           <Seperator>|</Seperator>
           <div>오늘은 2022년 00월 00일 입니다.</div>
         </BottomFlexBox>
         </BottomColor>
       </ColFlex>
+        {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
+      
     </>
           )
   }
