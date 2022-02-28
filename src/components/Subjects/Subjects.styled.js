@@ -88,6 +88,8 @@ export const FlexBox = styled.div`
 export const SubjectBox = styled.div`
     display: flex;
     width: 700px;
+    overflow-x: auto;
+    overflow-y: hidden;
 `
 
 export const ButtonBox = styled.div`
@@ -105,6 +107,7 @@ export const SubjectColorCircle = styled.div`
 export const SubjectName = styled.span`
     width: 60px;
     text-overflow: ellipsis;
+    white-space:nowrap;
     overflow: hidden;
     display: inline-block;
     text-align: center;
