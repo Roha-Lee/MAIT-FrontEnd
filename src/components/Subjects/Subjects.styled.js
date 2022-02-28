@@ -45,11 +45,10 @@ export const subjectManager = styled.div`
 export const SubjectControlButton = styled.button`
     font-size: 1rem;
     font-weight: 400;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     border: none;
-    border-radius: 20px;
-    padding: 5px 5px;
+    border-radius: 18px;
     margin: 15px 10px 0;
     background-color: ${props => props.type === 'add' ? "#F07623" : "#5FB973"};
     ${props => props.type === 'add' && props.noSubject ? `
