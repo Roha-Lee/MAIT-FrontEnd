@@ -7,12 +7,15 @@ import { changeLogin, changeCurrentStudyTimeId } from "../../store";
 import { connect } from "react-redux";
 import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
 
+import { Modal, Button, FormControl, Form} from 'react-bootstrap'
+import { TodoInputContainer } from "../TodoInput/TodoInput.styled";
+import TodoListContainer from "../TodoListContainer/TodoListContainer";
+
+
 
 function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTimeId, timerOn}) {
-    
-    
+    const [show, setShow] = useState(false);
     let navigate = useNavigate();
-
     async function handleSignIn(){
         if(isLogin === true){
             //TODO : 로그아웃시 서버와 통신 필요 ex. 토큰 삭제 및 타이머 정지하여 데이터 기록
@@ -57,9 +60,11 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
             alert("로그인을 해주세요.");
         }
     }
-
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);    
 
     return (
+        <>
         <HeadNavigate>
             <NavigationBlank/>
             <NavigationContents>
@@ -69,10 +74,28 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
                     <div><StyledLink onClick={handleSignIn}>{isLogin === true ? "로그아웃" : "로그인"}</StyledLink></div>
                     <div><StyledLink onClick={handleStatistics}>통계</StyledLink></div>
                     <div><StyledA onClick = {() => {window.open("/camstudyLobby")}}>캠스터디</StyledA></div>
+                    <div onClick={handleShow}>할일</div>
                 </LoginContainer>
             </NavigationContents>
             <NavigationBlank/>
         </HeadNavigate>
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>오늘 할일</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {/* <TodoListContainer/> */}
+            </Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+                Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+                Save Changes
+            </Button>
+            </Modal.Footer>
+        </Modal>
+      </>
     );
 
 }
