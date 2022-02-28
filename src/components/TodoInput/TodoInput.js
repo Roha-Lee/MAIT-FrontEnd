@@ -5,6 +5,7 @@ import {
     FormButton,
 } from './TodoInput.styled'
 import { postNewTodo } from '../../utils/utils'
+
 const TodoInput = ({ todoList, subjects, onItemAdd }) => {
     //subject dropbox에 대한 설정 초기 값은 null
     const [subject, setSubject] = useState('Unselect')

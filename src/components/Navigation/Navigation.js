@@ -5,13 +5,16 @@ import {HeadNavigate, NavigationBlank, NavigationContents, Logo, Selected, Login
 import { Modal, Button, FormControl, Form} from 'react-bootstrap'
 import { TodoInputContainer } from "../TodoInput/TodoInput.styled";
 import TodoListContainer from "../TodoListContainer/TodoListContainer";
+import TodoInput from '../TodoInput/TodoInput'
 
-function Navigation () {
+function Navigation ({
+    todoList,
+    subjects,
+}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
-    console.log(TodoListContainer)
+
     return (
         <>
         <HeadNavigate>
@@ -33,7 +36,7 @@ function Navigation () {
             <Modal.Title>오늘 할일</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* <TodoListContainer/> */}
+                <TodoListContainer todoList={todoList} subjects={subjects} />
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -48,4 +51,5 @@ function Navigation () {
     );
 
 }
+
 export default Navigation;

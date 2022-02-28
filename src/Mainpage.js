@@ -119,7 +119,7 @@ function Mainpage() {
   
   return (
     <>
-      <Navigation />
+      <Navigation todoList={todoList} subjects={subjects} />
       <ColFlex>
       {useFaceAi ? 
         <AiContainer>
@@ -182,7 +182,6 @@ function Mainpage() {
           </Dropdown>
           <Seperator>|</Seperator>
           <div>000님 안녕하세요</div>
-          
           <Seperator>|</Seperator>
           <div>오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 입니다.</div>
         </BottomFlexBox>
