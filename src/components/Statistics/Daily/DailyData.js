@@ -1,5 +1,6 @@
 import DailyChart from "./DailyChart";
 import style from "./DailyData.module.css";
+import {connect} from "react-redux";
 
 function DailyData ({data , labels, subjectColors, isZeroShow}){
     // console.log("im here");
@@ -38,4 +39,11 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     );
 }
 
-export default DailyData;
+function mapStateToProps(state){
+    return{
+        isZeroShow : state.isZeroShow,
+    };
+}
+
+
+export default connect(mapStateToProps) (DailyData);

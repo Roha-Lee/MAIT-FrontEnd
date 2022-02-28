@@ -2,6 +2,7 @@ import style from "./TimeHeatmap.module.css";
 import {HeatMapGrid} from "react-grid-heatmap";
 import { useState } from "react";
 
+
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
     let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -160,4 +161,4 @@ function TimeHeatmap ({data , labels , subjectColors}){
     );
 }
 
-export default TimeHeatmap; 
+export default TimeHeatmap;
