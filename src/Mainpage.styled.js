@@ -12,9 +12,9 @@ export const SubjectsContainer = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: #E0E0DF;
-    margin: 40px auto 0 auto;
+    margin: 15vh auto 0 auto;
     width: 880px;
-    height: 50px;
+    height: 60px;
     border-radius: 25px 25px 0 0;
 `
 

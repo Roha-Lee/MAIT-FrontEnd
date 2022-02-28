@@ -15,6 +15,7 @@ export const TimerContainer = styled.div`
     margin: 0 auto;
     width: 880px;
     background-color: white;
+    padding: 40px;
 `
 
 export const Timer_set = styled.span`

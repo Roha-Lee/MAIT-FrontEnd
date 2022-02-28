@@ -20,7 +20,6 @@ export const Subjects = styled.div`
 export const Subject = styled.button`
     margin: 0 .5rem;
     padding: 0.5rem 1rem;
-    font-family: "Noto Sans KR", sans-serif;
     font-size: 1rem;
     font-weight: 400;
     text-align: center;
@@ -54,9 +53,11 @@ export const subjectManager = styled.div`
 export const AddButton = styled.button`
     font-size: 1rem;
     font-weight: 400;
+    width: 50px;
+    height: 50px;
     border: none;
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 10px 10px;
     margin: 0 10px;
 `
 
@@ -65,10 +66,10 @@ export const Active =  styled.div`
 `
 
 export const TabBox = styled.div`
-    margin: 15px 15px 0 0;
+    margin: 15px 10px 0 0;
     background: white;
-    height: 40px;
-    width: 80px;
+    height: 50px;
+    width: 100px;
     border-radius: 15px 15px 0 0;
 `
 

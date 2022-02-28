@@ -9,7 +9,7 @@ import CamstudyLobby from "./components/CamstudyLobby/CamstudyLobby"
 import CamstudyRoom from "./components/CamstudyRoom/CamstudyRoom"
 import Statistics from "./components/Statistics/Statistics"
 import "antd/dist/antd.min.css";
-import "font-awesome/css/font-awesome.min.css";
+
 function App() {
   
   return (
