@@ -45,3 +45,8 @@ export const BottomItems = styled.div`
     margin: 0 20px;
     font-size: 1.8rem;
 `
+
+export const Seperator = styled.div`
+    margin: 0 20px;
+    font-size: 1.8rem
+`

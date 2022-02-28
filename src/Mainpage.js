@@ -8,7 +8,7 @@ import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
-import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex, BottomColor} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex, BottomColor, Seperator} from './Mainpage.styled'
 import axios from 'axios';
 
 const colorsIdtoCode = {};
@@ -179,8 +179,11 @@ function Mainpage() {
           <Dropdown overlay={menu} placement="bottomCenter">
             <Button Button ref={buttonRef} style={{marginLeft:"25px"}}>AI 모드 선택</Button>
           </Dropdown>
-          <div style={{margin:"0 20px", fontSize:"1.8rem"}}>|</div>
-          <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
+          <Seperator>|</Seperator>
+          <div>000님 안녕하세요</div>
+          {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
+          <Seperator>|</Seperator>
+          <div>오늘은 2022년 00월 00일 입니다.</div>
         </BottomFlexBox>
         </BottomColor>
       </ColFlex>

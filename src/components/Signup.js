@@ -55,6 +55,7 @@ function Signup() {
     <>
       <Navigation/>
       <SignupForm onSubmit={onSubmit}> 
+      <h1>M.AI.T 회원가입</h1>
         <div><SignupInput name="name" type="text" placeholder="이름" value={name} onChange={onNameHandler}/></div>
         <div><SignupInput name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/></div>
         <div><SignupInput name="email" type="email" placeholder="이메일" value={email} onChange={onEmailHandler}/></div>
