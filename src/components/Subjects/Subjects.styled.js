@@ -104,4 +104,5 @@ export const SubjectName = styled.span`
     display: inline-block;
     text-align: center;
     margin-top: 5px;
+    color : #606060;
 `
