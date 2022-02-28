@@ -10,10 +10,9 @@ import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
 import { Modal, Button, FormControl, Form} from 'react-bootstrap'
 import { TodoInputContainer } from "../TodoInput/TodoInput.styled";
 import TodoListContainer from "../TodoListContainer/TodoListContainer";
+import TodoInput from '../TodoInput/TodoInput'
 
-
-
-function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTimeId, timerOn}) {
+function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTimeId, timerOn, todoList, subjects}) {
     const [show, setShow] = useState(false);
     let navigate = useNavigate();
     async function handleSignIn(){
@@ -61,7 +60,7 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
         }
     }
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);    
+    const handleShow = () => setShow(true);
 
     return (
         <>
@@ -84,7 +83,7 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
             <Modal.Title>오늘 할일</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* <TodoListContainer/> */}
+                <TodoListContainer todoList={todoList} subjects={subjects} />
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
