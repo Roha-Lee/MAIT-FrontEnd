@@ -118,7 +118,8 @@ function TimeHeatmap ({data , labels , subjectColors}){
 
     return(
         <div className={style.heatmap}>
-            <select onChange={handleSelect} style={{marginRight:"100px", marginBottom : "5px",}}>
+            <span className={style.heatmaptitle}>일간 학습기록</span>
+            <select onChange={handleSelect} className={style.select}>
                 <option key="total" value="전체">전체</option>
                 {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
             </select>

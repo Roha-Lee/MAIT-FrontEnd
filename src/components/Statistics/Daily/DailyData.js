@@ -27,7 +27,7 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
             <div className={style.titleContainer}>
                 <h1 className={style.dailySummary}>일간 총 학습시간</h1>
             </div>
-            <div className={style.totalTimes}>{`${totalHour}h ${totalMinute}m`}</div>
+            <div className={style.totalTimes}>{`${totalHour}시간 ${totalMinute}분`}</div>
             <div className={style.titlecontainer}>
                 <span className={style.dailyDetails}>과목별 학습시간</span>
             </div>
