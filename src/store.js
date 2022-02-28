@@ -5,6 +5,7 @@ const dateObj = new Date();
 dateObj.setHours(dateObj.getHours()+9);
 const todayBefore7Obj = dateObj.setDate(dateObj.getDate()-7);
 const todayBefore7 = new Date(todayBefore7Obj).toJSON().slice(0,10);
+const today = timeStamp().slice(0,10);
 
 const globalState = createSlice({
     name : "globalStateReducer",
@@ -13,9 +14,9 @@ const globalState = createSlice({
         currentStudyTimeId : null,
         timerOn : false,
         currentStatistics : 1,
-        dailyDate : timeStamp(),
+        dailyDate : today,
         startDate : todayBefore7,
-        endDate : timeStamp(),
+        endDate : today,
         isZeroShow : false,
     },
     reducers : {
