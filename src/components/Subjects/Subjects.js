@@ -168,7 +168,7 @@ function Subjects({
     try{
       const status = await deleteSubject(nowEditing);
       if(currentSubject === delSubject){
-        setCurrentSubject(null);
+        setCurrentSubject("");
         setCurrentTime(0);
       }
   
@@ -191,13 +191,8 @@ function Subjects({
 
 
   const changeSubject = (event) => {
-    let newSubject = event.target.innerText;
+    let newSubject = event.target.innerText ||event.target.parentElement.querySelector('span').innerText;
     let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;
-    // 과목 없음 부분 
-    if(currentSubject === newSubject){
-      newSubject = null
-      newCurrentTime = 0;
-    }
     setTimerOn(false);
     setCurrentSubject(newSubject);
     setCurrentTime(newCurrentTime);
