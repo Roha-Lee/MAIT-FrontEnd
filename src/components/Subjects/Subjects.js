@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import 'animate.css';
 import style from './Subjects.module.css'
 import { Modal, Button } from 'antd';
@@ -48,7 +48,10 @@ function Subjects({
   const [nowEditing, setNowEditing] = useState(null); // 현재 수정하고 있는 과목의 subjectId
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [pickerColor, setPickerColor] = useState(INITIAL_COLOR);
-  const subjectBoxRef = useRef();
+  const subjectEndRef = useRef();
+  
+  useEffect(() => {scrollToRight()}, [subjects]);
+
   function resetModal() {
     setPickerColor(INITIAL_COLOR)
     setValue('');
@@ -254,13 +257,16 @@ function Subjects({
     }else{
       alert("로그인을 해주세요.");
     }
-  
   }
+  const scrollToRight = () => {
+    subjectEndRef.current.scrollIntoView({inline: 'end', behavior: 'smooth'});
+}
   return (
           <>
           <FlexBox>
-            <SubjectBox ref={subjectBoxRef} id="subjectBox">
+            <SubjectBox id="subjectBox">
               {subjectButtons}
+              <div style={{float:'left', clear: 'both'}} ref={subjectEndRef} />
             </SubjectBox>
           <ButtonBox>
             <SubjectControlButton 
