@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { LoginContainer, LoginInput, LoginButton, LoginImage, LoginForm } from './Login.styled'
 import { useNavigate } from "react-router-dom";
-import Navigation from './Navigation/Navigation'
+import Navigation from './Navigation/NavigationNew'
 import { changeLogin } from "../store";
 import { connect } from "react-redux";
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`

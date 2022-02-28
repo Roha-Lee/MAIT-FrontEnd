@@ -1,157 +1,103 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { NavBar, MainContainer, NavContainer, NavMenu, NavIcon, NavLink ,NavItem } from './NavigationNew.styled'
+import { NavBar, MainContainer, NavContainer,NavLogo,  NavMenu, NavIcon, NavSpan, NavLink ,NavItem } from './NavigationNew.styled'
 import { useNavigate } from 'react-router';
 import { changeLogin, changeCurrentStudyTimeId } from "../../store";
 import { connect } from "react-redux";
 import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
 
 function Navigation() {
-    const [click, setClick] = useState(false);
+  const [click, setClick] = useState(false);
   
-    const handleClick = () => setClick(!click);
-    const Close = () => setClick(false);
+  const handleClick = () => setClick(!click);
+  const Close = () => setClick(false);
+  const goToCamstudyLobby = () => {
+      click ? handleClick() : null;
+      window.open("/camstudyLobby");
+  }
+  const openTodoModal = () => {
+      click ? handleClick() : null;
+      // TODO: todo modal 여는 로직 추가 
+  }
+  const navigations = (  <NavBar onClick={e => e.stopPropagation()}>
+  <NavContainer>
+    <NavLogo><NavLink exact to="/">M.AI.T</NavLink></NavLogo>
+  <NavMenu className={click ? "active" : ""}>
+    <NavItem>
+    <NavLink
+      exact
+      to="/"
+      onClick={click ? handleClick : null}
+    >
+      AI 타이머
+    </NavLink>
+    </NavItem>
     
-    return (
-      <div>
-       {click ? 
-        <MainContainer onClick={() => Close()}>
-            <NavBar onClick={e => e.stopPropagation()}>
-                <NavContainer>
-                    <NavLink exact to="/" className="nav-logo">
-                        M.AI.T
-                    </NavLink>
-                <NavMenu className={click ? "active" : ""}>
-                    <NavItem>
-                    <NavLink
-                        exact
-                        to="/"
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={click ? handleClick : null}
-                    >
-                        Home
-                    </NavLink>
-                    </NavItem>
-                    <NavItem>
-                    <NavLink
-                        exact
-                        to="/about"
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={click ? handleClick : null}
-                    >
-                        About
-                    </NavLink>
-                    </NavItem>
-                    <NavItem>
-                    <NavLink
-                        exact
-                        to="/blog"
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={click ? handleClick : null}
-                    >
-                        Blog
-                    </NavLink>
-                    </NavItem>
-                    <NavItem>
-                    <NavLink
-                        exact
-                        to="/contact"
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={click ? handleClick : null}
-                    >
-                        Contact Us
-                    </NavLink>
-                    </NavItem>
-                </NavMenu>
-                <NavIcon onClick={handleClick}>
-                    <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
-                </NavIcon>
-                </NavContainer>
-            </NavBar>
-        </MainContainer> : 
-       <>
-       <NavBar onClick={e => e.stopPropagation()}>
-                <NavContainer>
-                    <NavLink exact to="/" className="nav-logo">
-                        M.AI.T
-                    </NavLink>
-                <NavMenu className={click ? "active" : ""}>
-                    <NavItem>
-                    <NavLink
-                        exact
-                        to="/"
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={click ? handleClick : null}
-                    >
-                        Home
-                    </NavLink>
-                    </NavItem>
-                    <NavItem>
-                    <NavLink
-                        exact
-                        to="/about"
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={click ? handleClick : null}
-                    >
-                        About
-                    </NavLink>
-                    </NavItem>
-                    <NavItem>
-                    <NavLink
-                        exact
-                        to="/blog"
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={click ? handleClick : null}
-                    >
-                        Blog
-                    </NavLink>
-                    </NavItem>
-                    <NavItem>
-                    <NavLink
-                        exact
-                        to="/contact"
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={click ? handleClick : null}
-                    >
-                        Contact Us
-                    </NavLink>
-                    </NavItem>
-                </NavMenu>
-                <NavIcon onClick={handleClick}>
-                    <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
-                </NavIcon>
-                </NavContainer>
-            </NavBar>
-       </>} 
-        
-      </ div>
-    );
+    <NavItem>
+    <NavSpan
+      onClick={openTodoModal}
+    >
+      할일
+    </NavSpan>
+    </NavItem>
+    <NavItem>
+    <NavLink
+      exact
+      to="/statistics"
+      onClick={click ? handleClick : null}
+    >
+      통계
+    </NavLink>
+    </NavItem>
+    <NavItem>
+    <NavSpan
+      onClick={goToCamstudyLobby}
+    >
+      캠스터디
+    </NavSpan>
+    </NavItem>
+    <NavItem>
+    <NavLink
+      exact
+      to="/Login"
+      onClick={click ? handleClick : null}
+    >
+      로그인
+    </NavLink>
+    </NavItem>
+  </NavMenu>
+  <NavIcon onClick={handleClick}>
+    <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
+  </NavIcon>
+  </NavContainer>
+</NavBar>);
+  return (
+    <div>
+     {click ? 
+    <MainContainer onClick={() => Close()}>
+      {navigations}
+    </MainContainer> : <>{navigations}</>} 
+    
+    </ div>
+  );
   }
   
 
 
 function mapStateToProps(state){
-    return{
-        isLogin : state.isLogin,
-        currentStudyTimeId : state.currentStudyTimeId,
-        timerOn : state.timerOn,
-    };
+  return{
+    isLogin : state.isLogin,
+    currentStudyTimeId : state.currentStudyTimeId,
+    timerOn : state.timerOn,
+  };
 }
 
 function mapDispatchToProps(dispatch){
-    return{
-        setIsLogin : isLogin => dispatch(changeLogin(isLogin)),
-        setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id))
-    };
+  return{
+    setIsLogin : isLogin => dispatch(changeLogin(isLogin)),
+    setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id))
+  };
 }
 
 
