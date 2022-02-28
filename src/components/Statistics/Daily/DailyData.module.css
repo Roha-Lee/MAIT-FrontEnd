@@ -34,11 +34,12 @@
 }
 
 .totalTimes {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
     text-align: center;
-    color:black;
+    color:#606060;
     margin: 40px 0;
+    margin-bottom: 80px;
     height: 80px;
 }
 
@@ -55,20 +56,14 @@
     display:block;
     position:absolute; 
     top:50%; 
-    width:210px; 
+    width:170px; 
     border-bottom:1.5px solid grey;
 }
 
 .dailyDetails::after {
-    left:auto; right:-230px; 
+    left:auto; right:-200px; 
 }
 
-.totalTimes {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    color:black;
-}
 
 h2 {
     font-size:1.5rem;

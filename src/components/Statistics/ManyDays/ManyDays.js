@@ -274,10 +274,6 @@ function ManyDays ({startDate,endDate}){
 
     return (
         <div className={style.statistics}>
-            <div className={style.rangepicker}>
-            
-            </div>
-            
             <div className={style.chartcontainer}>
                 <div className={style.uppercontainer}>
                     <div className={style.subjectbar}>

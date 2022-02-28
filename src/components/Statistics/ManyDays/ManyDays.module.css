@@ -1,18 +1,11 @@
 .statistics{
     flex-basis: 700px;
     height: 800px;
-}
-
-.rangepicker{
-
-    /* margin-left: -70px; */
-    width: 840px;
-    padding-bottom: 30px;
-
+    margin-top: 30px;
 }
 
 .chartcontainer{
-    width: 820px;
+    width: 780px;
     height: 800px;
 
 }
@@ -35,7 +28,7 @@
 
 .subjectline{
     padding-top: 30px;
-    width: 835px;
+    width: 780px;
     height: 500px;
     padding-bottom: 100px;
 }
