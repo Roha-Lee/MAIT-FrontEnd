@@ -3,7 +3,7 @@ import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshD
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 import Draggable from "react-draggable";
-
+// const MyWebcam = styled
 function AIFaceFunctionViewer ({
   timerOn, 
   setTimerOn, 
@@ -96,9 +96,7 @@ function AIFaceFunctionViewer ({
         <div className="ai-on" style={{
           display:"flex",
           justifyContent:"center", }}>
-          <Draggable
-            position={null}
-          >
+          <Draggable>
             <Webcam
               ref={webcamRef}
               audio={false}

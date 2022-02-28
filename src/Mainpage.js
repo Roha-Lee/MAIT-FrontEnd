@@ -135,30 +135,7 @@ function Mainpage({isLogin}) {
     <>
       <Navigation todoList={todoList} subjects={subjects} />
       <ColFlex>
-      {useFaceAi ? 
-        <AiContainer>
-          <AIFaceFunctionViewer 
-            timerOn={timerOn}
-            setTimerOn={setTimerOn}
-            userTimerOn={userTimerOn}
-            setUserTimerOn={setUserTimerOn}
-            useFaceAi = { useFaceAi || false }
-            setUseFaceAi = {setUseFaceAi}
-          />
-        </AiContainer>
-      : null}
-      {useHandAi ? 
-        // <AiContainer>
-          <AIHandFunctionViewer 
-            timerOn={timerOn}
-            setTimerOn={setTimerOn}
-            userTimerOn={userTimerOn}
-            setUserTimerOn={setUserTimerOn}
-            useHandAi = { useHandAi || false }
-            setUseHandAi = {setUseHandAi}
-          />
-        // </AiContainer>
-      : null}
+      
       <SubjectsContainer>       
         <Subjects 
           colorsIdtoCode={colorsIdtoCode}
@@ -202,6 +179,30 @@ function Mainpage({isLogin}) {
         </BottomFlexBox>
         </BottomColor>
       </ColFlex>
+      {useFaceAi ? 
+        <AiContainer>
+          <AIFaceFunctionViewer 
+            timerOn={timerOn}
+            setTimerOn={setTimerOn}
+            userTimerOn={userTimerOn}
+            setUserTimerOn={setUserTimerOn}
+            useFaceAi = { useFaceAi || false }
+            setUseFaceAi = {setUseFaceAi}
+          />
+        </AiContainer>
+      : null}
+      {useHandAi ? 
+        <AiContainer>
+          <AIHandFunctionViewer 
+            timerOn={timerOn}
+            setTimerOn={setTimerOn}
+            userTimerOn={userTimerOn}
+            setUserTimerOn={setUserTimerOn}
+            useHandAi = { useHandAi || false }
+            setUseHandAi = {setUseHandAi}
+          />
+        </AiContainer>
+      : null}
         {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
       
     </>
