@@ -2,16 +2,16 @@ import TimeHeatmap from "./TimeHeatmap";
 import DailyData from "./DailyData";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { DatePicker } from "antd";
-import { Switch } from "antd";
-import moment from "moment";
-import styled from 'styled-components'
+import styled from 'styled-components';
+import {connect} from "react-redux";
+
 const DailyContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    margin: 25px 0px;
+    margin: 10px 0px;
     width: 100%;
+    gap : 100px;
     justify-content: center;
     @media screen and (max-width: 850px) {
         flex-direction: column;
@@ -20,13 +20,6 @@ const DailyContainer = styled.div`
     }
 `;
 
-function timeStamp(){ 
-    let today = new Date(); 
-    today.setHours(today.getHours() + 9); 
-    return today.toISOString().replace('T', ' ').substring(0, 19); 
-}
-
-const today = timeStamp().slice(0,10);
 // const fakedata = {
 //     rangeTime : [
 //         {
@@ -130,12 +123,10 @@ const today = timeStamp().slice(0,10);
 // }
 
 
-function Daily (){
-    const [selectDate , setSelectDate] = useState(today);
+function Daily ({dailyDate, isZeroShow}){
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [isZeroShow , setIsZeroShow] = useState(false);
     const yongHourl = "http://192.249.29.5:3001/statistics/daily";
     const jongHourl = "http://143.248.196.37:3001/statistics/daily";
     const serverUrl = "https://mait.shop/statistics/daily"
@@ -148,7 +139,7 @@ function Daily (){
             
             const response = await axios.get(serverUrl, 
                 {
-                    params : {'today' : selectDate}, 
+                    params : {'today' : dailyDate}, 
                     headers: {Authorization: `${window.sessionStorage.getItem('accessToken')}`}
                 });
             // console.log(response.data);
@@ -156,14 +147,12 @@ function Daily (){
         }catch(e){
             setError(e);
         }
-
         setLoading(false);
-
     };
 
     useEffect(()=>{
         fetchData();
-    },[selectDate]);
+    },[dailyDate]);
 
     // if(loading){
     //     return (<div>로딩중..</div>);
@@ -172,24 +161,7 @@ function Daily (){
     //     return(<div>{error}</div>);
     // }
 
-    function onChange(date, dateString){
-        // console.log(date,dateString);
-        // if(parseInt(dateString.slice(0,4)) > todayY){
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else if(parseInt(dateString.slice(5,7)) > todayM){
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else if(parseInt(dateString.slice(8,10)) > todayD){
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else{
-            setSelectDate(dateString);
-        // }
-
-        
-    }
-    function onChangeToggle(checked){
-        // console.log("switch to",checked);
-        setIsZeroShow(!checked);
-    }
+    
     
     // 테스트용 
     const subjectTotalData = data?.subjectTotalTime;
@@ -212,14 +184,11 @@ function Daily (){
     return (
         <DailyContainer>
             <div>
-                <DatePicker onChange={onChange} defaultValue={moment(today,`YYYY-MM-DD`)}/>
-                <Switch defaultChecked checkedChildren="학습" unCheckedChildren="전체" onChange={onChangeToggle} style={{marginLeft : "15px"}}/>
                 <DailyData
                     data = {data}
                     // data = {fakedata}
                     labels = {labels}
                     subjectColors = {subjectColors}
-                    isZeroShow = {isZeroShow}
                 />
             </div>
             <div>
@@ -228,11 +197,18 @@ function Daily (){
                     // data = {fakedata}
                     labels = {labels}
                     subjectColors = {subjectColors}
-                    isZeroShow = {isZeroShow}
                 />
             </div>
         </DailyContainer>
     );
 }
 
-export default Daily;
+function mapStateToProps(state){
+    return{
+        dailyDate : state.dailyDate,
+        isZeroShow : state.isZeroShow,
+    };
+}
+
+
+export default connect(mapStateToProps) (Daily);

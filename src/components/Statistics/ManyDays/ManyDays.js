@@ -1,34 +1,12 @@
 import style from "./ManyDays.module.css"
 import React, {useEffect, useState} from "react";
-import { DatePicker, Button, Tooltip } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
-const { RangePicker } = DatePicker;
 import axios from "axios";
 import SubjectBarChart from "./SubjectBarChart";
 import TodoBarChart from "./TodoBarChart";
 import SubjectLineChart from "./SubjectLineChart";
-import moment from "moment";
 
-function timeStamp(){ 
-    let today = new Date(); 
-    today.setHours(today.getHours() + 9); 
-    return today.toISOString().replace('T', ' ').substring(0, 19); 
-}
 
-// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
-const todayY = new Date().getFullYear();
-const todayM = new Date().getMonth()+1;
-const todayD = new Date().getDate();
-const today = timeStamp().slice(0,10);
-const dateObj = new Date();
-dateObj.setHours(dateObj.getHours()+9);
-const todayBefore7Obj = dateObj.setDate(dateObj.getDate()-7);
-const todayBefore7 = new Date(todayBefore7Obj).toJSON().slice(0,10);
-
-function ManyDays (){
-    const [range, setRange] = useState([todayBefore7,today]);
-    const [startDate, setStartDate] = useState(todayBefore7);
-    const [endDate, setEndDate] = useState(today);
+function ManyDays ({startDate,endDate}){
     const [data , setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -288,51 +266,17 @@ function ManyDays (){
 
     // setData(fakeData);
 
-    const onChange = (value, dateString) => {
-        setRange(dateString)
-    }
-
-    const onOk = () => {
-
-        // if(parseInt(range[1].slice(0,4)) > todayY){
-        //     console.log("Y");
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else if(parseInt(range[1].slice(0,4)) === todayY && parseInt(range[1].slice(5,7)) > todayM){
-        //     console.log("M");
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else if(parseInt(range[1].slice(5,7)) === todayM && parseInt(range[1].slice(8,10)) > todayD){
-        //     console.log(todayD," D!");
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else{
-            setStartDate(range[0]);
-            setEndDate(range[1]);
-            // console.log(,endDate);
-            fetchData(range[0],range[1]);
-        // }
-        
-    }
+    
 
     useEffect(()=>{
         // console.log(range, "첫 로딩");
-        fetchData(range[0],range[1]);
-    },[]);
+        fetchData(startDate,endDate);
+    },[startDate,endDate]);
 
     return (
         <div className={style.statistics}>
             <div className={style.rangepicker}>
-            <RangePicker 
-                onChange={onChange}
-                defaultValue={[moment(todayBefore7, `YYYY-MM-DD`), moment(today, `YYYY-MM-DD`)]}
-            />
-            <Tooltip title="search">
-                <Button 
-                    onClick={onOk}
-                    type="primary" 
-                    shape="circle" 
-                    icon={<SearchOutlined />} 
-                    size="large" 
-                />
-            </Tooltip>
+            
             </div>
             
             <div className={style.chartcontainer}>

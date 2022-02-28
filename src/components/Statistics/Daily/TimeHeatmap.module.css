@@ -1,10 +1,10 @@
 .heatmap {
-    width: 400px;
+    width: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
     /* padding-left: 80px; */
-    padding-top: 30px;
+    /* padding-top: 30px; */
 }
 
 .heatmapgrid{

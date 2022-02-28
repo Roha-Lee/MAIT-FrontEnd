@@ -20,17 +20,17 @@
 .uppercontainer{
     display: flex;
     justify-content: space-between;
-    height: 450px;
+    height: 350px;
 }
 
 .subjectbar{
     width: 350px;
-    height: 350px;
+    height: 300px;
 }
 
 .todobar{   
     width: 350px;
-    height: 350px;
+    height: 300px;
 }
 
 .subjectline{

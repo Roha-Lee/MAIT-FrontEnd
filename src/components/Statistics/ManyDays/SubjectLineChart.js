@@ -18,6 +18,7 @@ ChartJS.register(
     Tooltip,
     Legend
 );
+import {connect} from "react-redux";
 
 function calWeek(startYearDay,targetDate){
 
@@ -346,4 +347,12 @@ function SubjectLineChart ({data,startDate,endDate}){
     );
 }
 
-export default SubjectLineChart;
+function mapStateToProps(state){
+    return{
+        startDate : state.startDate,
+        endDate : state.endDate,
+    };
+}
+
+
+export default connect(mapStateToProps) (SubjectLineChart);

@@ -9,6 +9,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from "chartjs-plugin-datalabels"
 ChartJS.register(LinearScale, Tooltip, Legend,ChartDataLabels);
+import {connect} from "react-redux";
 
 function DailyChart ({data , labels, subjectColors, isZeroShow}){
     
@@ -88,4 +89,11 @@ function DailyChart ({data , labels, subjectColors, isZeroShow}){
     );
 }
 
-export default DailyChart;
+function mapStateToProps(state){
+    return{
+        isZeroShow : state.isZeroShow,
+    };
+}
+
+
+export default connect(mapStateToProps) (DailyChart);
