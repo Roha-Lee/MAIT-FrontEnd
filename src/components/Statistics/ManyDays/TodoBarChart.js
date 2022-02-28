@@ -78,9 +78,12 @@ function TodoBarChart ({data}){
             plugins: {
                 legend: {
                     display: false,
+                    labels : {
+                        filter : (legendItem , data) => data.datasets[0].data[legendItem.index] != 0
+                    },
                 },
                 title: {
-                    display: true,
+                    display: false,
                     text: '과목별 Todo 달성률(%)',
                 },
                 datalabels : {

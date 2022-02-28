@@ -19,7 +19,6 @@
     margin: 0 .3rem;
     padding: 0.5rem 1rem;
     position:relative;
-    font-family: "Noto Sans KR", sans-serif;
     font-size: 1rem;
     font-weight: 400;
     text-align: center;
@@ -42,7 +41,9 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding: 5px;
-    width: 500px;
+    width: 620px;
+    height: 80px;
+    background-color: #E0E0DF;
 }
 
 .subjectManager::-webkit-scrollbar {
@@ -59,15 +60,30 @@
 }
 
 .addButton {
-    font-family: "Noto Sans KR", sans-serif;
     font-size: 1rem;
     font-weight: 400;
+    width: 35px;
+    height: 35px;
     border: none;
-    border-radius: 10px;
-    padding: 5px 10px;
-    /* margin: 0 10px; */
-    margin-right: 10px;
+    border-radius: 20px;
+    padding: 5px 5px;
+    margin: 15px 10px 0;
+    background-color: #F07623;
 }
+
+.editButton {
+    font-size: 1rem;
+    font-weight: 400;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 5px;
+    margin: 15px 10px 0;
+    background-color: #5FB973;
+}
+
+
 /* 
 .trashContainer {
     display:inline-block;

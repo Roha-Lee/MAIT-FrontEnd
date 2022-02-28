@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import 'animate.css';
 import style from './Subjects.module.css'
 import { Modal, Button } from 'antd';
 import {postSubject, deleteSubject, putSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
-import 'animate.css';
+import {connect} from "react-redux";
+import { TabBox, FlexBox, SubjectBox, ButtonBox, SubjectName, SubjectColorCircle, SubjectControlButton} from './Subjects.styled'
 
 const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
@@ -36,6 +38,7 @@ function Subjects({
   setIsEditMode,
   colorsIdtoCode,
   colorsCodetoId,
+  isLogin,
 }){
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -45,7 +48,7 @@ function Subjects({
   const [nowEditing, setNowEditing] = useState(null); // 현재 수정하고 있는 과목의 subjectId
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [pickerColor, setPickerColor] = useState(INITIAL_COLOR);
-  
+  const subjectBoxRef = useRef();
   function resetModal() {
     setPickerColor(INITIAL_COLOR)
     setValue('');
@@ -62,6 +65,7 @@ function Subjects({
   
   const handleModifyOk = async (event) => {
     event.preventDefault();
+    
     try {
       const result = await putSubject(value, colorsCodetoId[color], nowEditing);
       setIsEditModalVisible(false);
@@ -91,16 +95,20 @@ function Subjects({
         alert('서버 에러.')
       }
     }
-    
   };
 
   const handleOk = async (event) => {
     event.preventDefault();
     setIsModalVisible(false);
+    
     // 새로운 과목 추가 API
     try{
       const result = await postSubject(value, colorsCodetoId[color])
       const {id, name, colorId} = result.data;
+      // const id = Math.ceil(Math.random() *10000);
+      // const name = value;
+      // const colorId = colorsCodetoId[color];
+      const isSubjectEmpty = subjects.length === 0;
       setSubjects([
         ...subjects, 
         {
@@ -110,7 +118,9 @@ function Subjects({
           totalTime: 0
         }
       ]);
-      
+      if(isSubjectEmpty){
+        setCurrentSubject(name);
+      }
       setNewSubject(id); 
     } catch (error) {
       if (error.response.data.message === 'SUBJECT_EXISTS') {
@@ -163,16 +173,17 @@ function Subjects({
     // 삭제 통신 
     try{
       const status = await deleteSubject(nowEditing);
-      if(currentSubject === delSubject){
-        setCurrentSubject(null);
-        setCurrentTime(0);
-      }
-  
+      
       const newSubjects = subjects.filter(subject => subject.subjectId !== nowEditing);
-      if(newSubjects.length === 0){
-        // console.log('subject is empty')
+      if(newSubjects.length === 0){ 
         setIsEditMode(false);
       }
+
+      if(currentSubject === delSubject){
+        setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "");
+        setCurrentTime(newSubjects.length > 0 ? newSubjects[0].totalTime : 0);
+      }
+
       setSubjects(newSubjects);
       setNowEditing(null);
       setIsEditModalVisible(false);
@@ -180,20 +191,13 @@ function Subjects({
     catch (error) {
       alert('서버 에러.')
     }
-    // console.log(status);
-    // nowEditing 이랑 currentSubject랑 같으면 
     resetModal();
   }
 
 
   const changeSubject = (event) => {
-    let newSubject = event.target.innerText;
+    let newSubject = event.target.innerText ||event.target.parentElement.querySelector('span').innerText;
     let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;
-    // 과목 없음 부분 
-    if(currentSubject === newSubject){
-      newSubject = null
-      newCurrentTime = 0;
-    }
     setTimerOn(false);
     setCurrentSubject(newSubject);
     setCurrentTime(newCurrentTime);
@@ -201,68 +205,84 @@ function Subjects({
   }
   
   const subjectButtons = (
-    <div className={style.subjectManager}>
-      {subjects.map((subject) => (
-        <button 
+      subjects.map((subject) => (
+        <TabBox 
           key={subject.subjectId}
-          className={style.subject} 
+          isSelected={subject.name === currentSubject}
           style={{
-            backgroundColor: `#${colorsIdtoCode[subject.colorId]}`,
             filter: isEditMode === true ?  'brightness(80%)' : 'brightness(100%)',
             animation: isEditMode === true ? 'swing' : (subject.subjectId === newSubject ? 'bounce' : null) , 
             animationDuration: isEditMode === true ? '800ms' : (subject.subjectId === newSubject ? '800ms' : null) ,           
           }}
-          onClick={(event)=>{
-            isEditMode === true ? editSubject(event) :changeSubject(event)}}>
-          {subject.name}
-        </button>        
-      ))}
-    </div>
+          onClick={(event)=>{isEditMode === true ? editSubject(event) :changeSubject(event)}}>
+          <SubjectColorCircle subjectColor={colorsIdtoCode[subject.colorId]}/>
+          <SubjectName>{subject.name}</SubjectName>
+        </TabBox>
+      ))
   )
-  return (<div className={style.subjectsContainer}>
-            {subjectButtons}
-            <button 
-              className={style.addButton} 
-              onClick={(event) => {
-                if(isEditMode === false){
-                  showModal(event);
-                }
-                else {
-                  let target = event.target;
-                  if (target.tagName === 'IMG'){
-                    target = target.parentElement;
-                  }
-                  target.classList.add('animate__animated')
-                  target.classList.add('animate__headShake')
-                  setTimeout(() => {
-                    target.classList.remove('animate__animated')
-                    target.classList.remove('animate__headShake')
-                  }, 500);
-                }
-                setNewSubject(null);  
-              }}
+  const subjectControlEditButtonClick = (event) => {
+    if(isLogin){
+      setNewSubject(null);  
+      if(subjects.length !== 0){
+        setIsEditMode(!isEditMode);
+        // 설정 버튼 누르면 타이머 정지시켜야함. 
+        setUserTimerOn(false);
+        setTimerOn(false); 
+      }
+    }else{
+      alert("로그인을 해주세요.");
+    }
+  }
+  const subjectControlAddButtonClick = (event) => {
+    if(isLogin){
+      if(isEditMode === false){
+        showModal(event);
+      }
+      else {
+        let target = event.target;
+        if (target.tagName === 'IMG'){
+          target = target.parentElement;
+        }
+        target.classList.add('animate__animated')
+        target.classList.add('animate__headShake')
+        setTimeout(() => {
+          target.classList.remove('animate__animated')
+          target.classList.remove('animate__headShake')
+        }, 500);
+      }
+      setNewSubject(null);  
+    }else{
+      alert("로그인을 해주세요.");
+    }
+  
+  }
+  return (
+          <>
+          <FlexBox>
+            <SubjectBox ref={subjectBoxRef} id="subjectBox">
+              {subjectButtons}
+            </SubjectBox>
+          <ButtonBox>
+            <SubjectControlButton 
+              onClick={subjectControlAddButtonClick}
+              type="add"
+              noSubject={subjects.length === 0}
               >
               <img src="img/add.svg" width="20" height="20"/>
-            </button>
-            <button 
-              className={style.addButton} 
-              onClick={() => {
-                setNewSubject(null);  
-                if(subjects.length !== 0){
-                  setIsEditMode(!isEditMode);
-                  // 설정 버튼 누르면 타이머 정지시켜야함. 
-                  setUserTimerOn(false);
-                  setTimerOn(false); 
-                }
-              }}>
+            </SubjectControlButton>
+            <SubjectControlButton
+              onClick={subjectControlEditButtonClick}
+              type="edit">
               <img src="img/edit.svg" width="20" height="20"/>
-            </button>
+            </SubjectControlButton>  
+          </ButtonBox>
+            </FlexBox>
             <Modal title="새 과목 추가하기" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
               {/* <NameForm onSubmit={handleOk} subjects={subjects} setSubjects={setSubjects} value={value} setValue={setValue} color={color} setColor={setColor}/> */}
               <form onSubmit={handleOk} className={style.form}>
                 <label className={style.formTitle}>
                   <span>과목 입력</span>
-                  <input  required maxlength={16} className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
+                  <input  required maxLength={16} className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
                 </label>
                 <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
               </form>
@@ -290,15 +310,21 @@ function Subjects({
               <form onSubmit={handleModifyOk} className={style.form}>
                 <label className={style.formTitle}>
                   <span>과목 입력</span>
-                  <input  required maxlength={16} className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
+                  <input  required maxLength={16} className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
                 </label>
                 <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
               </form>
             </Modal>
-          </div>);
+          </>);
 }
 
-export default Subjects;
+function mapStateToProps(state){
+  return{
+      isLogin : state.isLogin,
+  };
+}
+
+export default connect(mapStateToProps) (Subjects);
 
 
 //   <div className={style.trashContainer}>

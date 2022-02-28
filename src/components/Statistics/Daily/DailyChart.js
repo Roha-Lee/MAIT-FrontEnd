@@ -9,6 +9,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from "chartjs-plugin-datalabels"
 ChartJS.register(LinearScale, Tooltip, Legend,ChartDataLabels);
+import {connect} from "react-redux";
 
 function DailyChart ({data , labels, subjectColors, isZeroShow}){
     
@@ -60,7 +61,7 @@ function DailyChart ({data , labels, subjectColors, isZeroShow}){
                 display: false,
             },
             title: {
-                display: true,
+                display: false,
                 text: '과목별 학습시간(hr)',
                 
             },
@@ -79,7 +80,7 @@ function DailyChart ({data , labels, subjectColors, isZeroShow}){
         
     
     };
-    console.log(dataChart);
+    // console.log(dataChart);
 
     return (
 <div className={style.dailychart}>
@@ -88,4 +89,11 @@ function DailyChart ({data , labels, subjectColors, isZeroShow}){
     );
 }
 
-export default DailyChart;
+function mapStateToProps(state){
+    return{
+        isZeroShow : state.isZeroShow,
+    };
+}
+
+
+export default connect(mapStateToProps) (DailyChart);

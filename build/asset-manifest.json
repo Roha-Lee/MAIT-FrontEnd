@@ -1,28 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.407f391c.css",
-    "main.js": "/static/js/main.ce3d0404.js",
+    "main.css": "/static/css/main.c8294b29.css",
+    "main.js": "/static/js/main.744a11e1.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
     "static/media/fontawesome-webfont.eot": "/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
     "static/media/fontawesome-webfont.ttf?v=4.7.0": "/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
-    "static/media/small-bell-ring-01a.mp3": "/static/media/small-bell-ring-01a.08e6fd36a003870f35fb.mp3",
-    "static/media/teams.mp3": "/static/media/teams.23d1d865aef25a8a9da4.mp3",
+    "static/media/bell.mp3": "/static/media/bell.08e6fd36a003870f35fb.mp3",
     "static/media/fontawesome-webfont.woff?v=4.7.0": "/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
     "static/media/fontawesome-webfont.woff2?v=4.7.0": "/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
-    "static/media/phone.gif": "/static/media/phone.b2c1ae6bbc583b062222.gif",
-    "static/media/msg_illus.svg": "/static/media/msg_illus.a7fd59ce03e6837038910be7639264c4.svg",
-    "static/media/man.svg": "/static/media/man.2e482fe5ae8e381dd68cdd9cf280fa20.svg",
-    "static/media/hang.svg": "/static/media/hang.abe09c6d9603d3123231793e3ccab130.svg",
     "static/media/share_screen.svg": "/static/media/share_screen.35f2d5497601d19eaa11f5fdcd575cab.svg",
     "index.html": "/index.html",
     "static/media/video-off.svg": "/static/media/video-off.81281c31155ad96b059c3da18342966f.svg",
     "static/media/video.svg": "/static/media/video.e038b6705ba3470adb0db87526e100df.svg",
-    "static/media/msg.svg": "/static/media/msg.590bd963681ba490b2f6fbcacb93fd71.svg",
-    "main.407f391c.css.map": "/static/css/main.407f391c.css.map",
-    "main.ce3d0404.js.map": "/static/js/main.ce3d0404.js.map"
+    "main.c8294b29.css.map": "/static/css/main.c8294b29.css.map",
+    "main.744a11e1.js.map": "/static/js/main.744a11e1.js.map"
   },
   "entrypoints": [
-    "static/css/main.407f391c.css",
-    "static/js/main.ce3d0404.js"
+    "static/css/main.c8294b29.css",
+    "static/js/main.744a11e1.js"
   ]
 }

@@ -1,18 +1,11 @@
 .statistics{
     flex-basis: 700px;
     height: 800px;
-}
-
-.rangepicker{
-
-    /* margin-left: -70px; */
-    width: 840px;
-    padding-bottom: 30px;
-
+    margin-top: 30px;
 }
 
 .chartcontainer{
-    width: 820px;
+    width: 800px;
     height: 800px;
 
 }
@@ -20,24 +13,24 @@
 .uppercontainer{
     display: flex;
     justify-content: space-between;
-    height: 450px;
+    height: 350px;
 }
 
 .subjectbar{
-    width: 350px;
-    height: 350px;
+    width: 400px;
+    height: 300px;
 }
 
 .todobar{   
-    width: 350px;
-    height: 350px;
+    width: 400px;
+    height: 300px;
 }
 
 .subjectline{
     padding-top: 30px;
-    width: 835px;
+    width: 800px;
     height: 500px;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
 }
 
 .subjectbartitlecontainer {
@@ -78,7 +71,7 @@
     display: inline;
     position: absolute;
     top: 50%;
-    width: 60px;
+    width: 200px;
     border-bottom: 1.5px solid grey;
     margin-inline-start: 22px;
 }
@@ -99,7 +92,7 @@
     display: inline;
     position: absolute;
     top: 50%;
-    width: 520px;
+    width: 570px;
     border-bottom: 1.5px solid grey;
     margin-inline-start: 22px;
 }

@@ -20,7 +20,6 @@ export const Subjects = styled.div`
 export const Subject = styled.button`
     margin: 0 .5rem;
     padding: 0.5rem 1rem;
-    font-family: "Noto Sans KR", sans-serif;
     font-size: 1rem;
     font-weight: 400;
     text-align: center;
@@ -34,14 +33,6 @@ export const Subject = styled.button`
     &:hover {
         filter: brightness(70%);
     }
-    &:-webkit-scrollbar {
-        height: 8px;
-    }
-    &:-webkit-scrollbar-thumb {
-        background-color: #EEE7E1; /*스크롤바의 색상*/    
-        border: 1px solid grey;
-    }
-    
 `
 
 export const subjectManager = styled.div`
@@ -51,16 +42,83 @@ export const subjectManager = styled.div`
     width: 400px;
 `
 
-export const AddButton = styled.button`
-    font-family: "Noto Sans KR", sans-serif;
+export const SubjectControlButton = styled.button`
     font-size: 1rem;
     font-weight: 400;
+    width: 36px;
+    height: 36px;
     border: none;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin: 0 10px;
+    border-radius: 18px;
+    margin: 15px 10px 0;
+    background-color: ${props => props.type === 'add' ? "#F07623" : "#5FB973"};
+    ${props => props.type === 'add' && props.noSubject ? `
+    animation: bounce;
+    animation-duration: 1s;
+    `: null}
 `
 
 export const Active =  styled.div`
     background-color: #EBB057;
+`
+
+export const TabBox = styled.div`
+    margin: 15px 10px 0 0;
+    ${props => `background-color: ${props.isSelected? "#FFFFFF" :"#BFBFBF"};`}
+    height: 45px;
+    width: 110px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center
+`
+
+export const FlexBox = styled.div`
+    display: flex;
+`
+
+export const SubjectBox = styled.div`
+    display: flex;
+    width: 700px;
+    margin-right: 15px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    :hover{
+        overflow-x: auto;
+        
+    }
+    ::-webkit-scrollbar
+    {
+        height: 10px;
+        background-color: #FFFFFF;
+    }
+    ::-webkit-scrollbar-thumb
+    {
+	border-radius: 10px;
+	background-color: #E0E0DF;
+}
+
+    
+`
+
+export const ButtonBox = styled.div`
+    display: flex;
+`
+
+export const SubjectColorCircle = styled.div`
+    width: 18px;
+    height: 18px;
+    ${props => `background-color: #${props.subjectColor};`}
+    border-radius: 9px;
+    margin:5px 5px 0;
+`
+
+export const SubjectName = styled.span`
+    width: 60px;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
+    margin-top: 5px;
+    color: #606060;
 `

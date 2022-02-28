@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import Subjects from './components/Subjects/Subjects';
+import Navigation from './components/Navigation/NavigationNew'
 import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
@@ -7,12 +8,13 @@ import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
-import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex, BottomColor, Seperator} from './Mainpage.styled'
+import {connect} from "react-redux";
 
 const colorsIdtoCode = {};
 const colorsCodetoId = {};
 
-function Mainpage() {
+function Mainpage({isLogin}) {
   // {
   //   subjectId: 1, 
   //   name: 'Algorithm',
@@ -39,45 +41,52 @@ function Mainpage() {
   const [useFaceAi, setUseFaceAi] = useState(false);
   const [useHandAi, setUseHandAi] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [userName, setUserName] = useState('');
   const [todoList, setTodoList] = useState([]);
   const buttonRef = useRef(null);
-
+  
+  
   useEffect(() => {
-    getAllUserData().then((userData)=> {
-      const newSubjects = userData.data.subjects.map(subject => {
-        return {
-          subjectId: subject.id, 
-          name: subject.name,
-          colorId: subject.colorId,
-          totalTime: 0,
-        }
-      });
-
-      userData.data.study.forEach(subject => {
-        let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
-        newSubjects
-        .find(elem => elem.subjectId === subject.id)
-        .totalTime = (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000 ;
-      })
+    if(isLogin){
       
+      getAllUserData().then((userData)=> {
+        const newSubjects = userData.data.subjects.map(subject => {
+          return {
+            subjectId: subject.id, 
+            name: subject.name,
+            colorId: subject.colorId,
+            totalTime: 0,
+          }
+        });
+        setUserName(userData.data.nickname);
+        setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "")
         
-      //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
-      const newTodos = userData.data.todos.map(todo => {
-        return {
-          todoId: todo.id,
-          content: todo.content,
-          subjectId: todo.subjectId,
-          isDone: todo.isDone
-        }
+        userData.data.study.forEach(subject => {
+          let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
+          newSubjects
+          .find(elem => elem.subjectId === subject.id)
+          .totalTime = (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000 ;
+        })
+        
+          
+        //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
+        const newTodos = userData.data.todos.map(todo => {
+          return {
+            todoId: todo.id,
+            content: todo.content,
+            subjectId: todo.subjectId,
+            isDone: todo.isDone
+          }
+        });
+        userData.data.colors.forEach(color => {
+          colorsCodetoId[color.code] = color.id;
+          colorsIdtoCode[color.id] = color.code;
+        })
+      
+        setSubjects(newSubjects); // 과목 정보 
+        setTodoList(newTodos);
       });
-      userData.data.colors.forEach(color => {
-        colorsCodetoId[color.code] = color.id;
-        colorsIdtoCode[color.id] = color.code;
-      })
-    
-      setSubjects(newSubjects); // 과목 정보 
-      setTodoList(newTodos);
-    });
+    }
     
   }, []);
 
@@ -94,18 +103,26 @@ function Mainpage() {
       </Menu.Item>
       <Menu.Item>  
         <div onClick={() => {
-          setUseFaceAi(true);
-          setUseHandAi(false);
-          buttonRef.current.querySelector('span').innerText = "얼굴 인식 모드"
+          if(isLogin){
+            setUseFaceAi(true);
+            setUseHandAi(false);
+            buttonRef.current.querySelector('span').innerText = "얼굴 인식 모드"
+          }else{
+            alert("로그인을 해주세요.")
+          }
         }}>
           얼굴 인식 모드
         </div>
       </Menu.Item>
       <Menu.Item>
         <div onClick={() => {
-          setUseFaceAi(false);
-          setUseHandAi(true);
-          buttonRef.current.querySelector('span').innerText = "손 인식 모드"
+          if(isLogin){
+            setUseFaceAi(false);
+            setUseHandAi(true);
+            buttonRef.current.querySelector('span').innerText = "손 인식 모드"
+          }else{
+            alert("로그인을 해주세요.")
+          }
           }}>
           손 인식 모드
         </div>
@@ -113,9 +130,11 @@ function Mainpage() {
       
     </Menu>
   );
-  
+
   return (
-    <div className="App">
+    <>
+      <Navigation todoList={todoList} subjects={subjects} />
+      <ColFlex>
       {useFaceAi ? 
         <AiContainer>
           <AIFaceFunctionViewer 
@@ -129,7 +148,7 @@ function Mainpage() {
         </AiContainer>
       : null}
       {useHandAi ? 
-        <AiContainer>
+        // <AiContainer>
           <AIHandFunctionViewer 
             timerOn={timerOn}
             setTimerOn={setTimerOn}
@@ -138,7 +157,7 @@ function Mainpage() {
             useHandAi = { useHandAi || false }
             setUseHandAi = {setUseHandAi}
           />
-        </AiContainer>
+        // </AiContainer>
       : null}
       <SubjectsContainer>       
         <Subjects 
@@ -155,6 +174,7 @@ function Mainpage() {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
+      </SubjectsContainer>
         <Timer
           subjects={subjects}
           setSubjects={setSubjects}
@@ -169,34 +189,29 @@ function Mainpage() {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
-        <DropdownContainer>
+        <BottomColor>
+        <BottomFlexBox>
           <Dropdown overlay={menu} placement="bottomCenter">
-          <Button ref={buttonRef} style={{borderRadius: "10px", backgroundColor: "#EEE7E1"}}>AI 모드 선택</Button>
+            <Button Button ref={buttonRef} style={{marginLeft:"25px"}}>AI 모드 선택</Button>
           </Dropdown>
-        </DropdownContainer>
-        
-        {/* <ToggleButton
-          value={ useFaceAi || false }
+          <Seperator>|</Seperator>
+          <div>{userName}님 안녕하세요!</div>
           
-          onToggle={(value) => { 
-            setUseFaceAi(!value);      
-          }} />
-          <span>손 인식</span>
-        <ToggleButton
-        value={ useHandAi || false }
-        onToggle={(value) => {
-          setUseHandAi(!value);
-        }} /> */}
-      </SubjectsContainer>
-      <FlexBox>
-        <CamButton
-          onClick={() => {window.open("/camstudy")}}>
-            Cam Study
-        </CamButton>
-      </FlexBox>
-      <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
-    </div>
+          <Seperator>|</Seperator>
+          <div>오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 입니다.</div>
+        </BottomFlexBox>
+        </BottomColor>
+      </ColFlex>
+        {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
+      
+    </>
           )
   }
 
-export default Mainpage;
+  function mapStateToProps(state){
+    return{
+        isLogin : state.isLogin,
+    };
+}
+
+export default connect(mapStateToProps) (Mainpage);

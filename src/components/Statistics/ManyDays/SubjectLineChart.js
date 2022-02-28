@@ -18,6 +18,7 @@ ChartJS.register(
     Tooltip,
     Legend
 );
+import {connect} from "react-redux";
 
 function calWeek(startYearDay,targetDate){
 
@@ -66,12 +67,12 @@ function SubjectLineChart ({data,startDate,endDate}){
         // console.log(subjectTotalTime);
         // console.log(subjectTotalTime);
         // const subjectTodo = data?.subjectTodo;
-        const subjectColorPair = data?.subjectColorPair;
-        // const subjectColorPair = {
-        //     "Algorithm" : "#a67ebf",
-        //     "OS" : "#bf6d7f",
-        //     "Javascript" : "#6dbf84"
-        // };
+        // const subjectColorPair = data?.subjectColorPair;
+        const subjectColorPair = {
+            "Algorithm" : "#a67ebf",
+            "OS" : "#bf6d7f",
+            "Javascript" : "#6dbf84"
+        };
         
         const inputLineDataSet = {labels : null, datasets :[]};
     
@@ -98,7 +99,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                     display: true,
                 },
                 title: {
-                    display: true,
+                    display: false,
                     text: chartTitle,
                 },
                 datalabels : {
@@ -346,4 +347,12 @@ function SubjectLineChart ({data,startDate,endDate}){
     );
 }
 
-export default SubjectLineChart;
+function mapStateToProps(state){
+    return{
+        startDate : state.startDate,
+        endDate : state.endDate,
+    };
+}
+
+
+export default connect(mapStateToProps) (SubjectLineChart);

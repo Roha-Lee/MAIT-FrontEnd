@@ -1,5 +1,6 @@
 import DailyChart from "./DailyChart";
 import style from "./DailyData.module.css";
+import {connect} from "react-redux";
 
 function DailyData ({data , labels, subjectColors, isZeroShow}){
     // console.log("im here");
@@ -13,23 +14,22 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     for(let i = 0 ; i < subjectTotalData?.length ; i++){
         const timeStr = subjectTotalData[i].totalTime;
         const hour = parseInt(timeStr.slice(0,2));
-        const minute = parseInt(timeStr.slice(3,5));
+        const minute = parseInt(timeStr.slice(3,5)) + parseInt(timeStr.slice(6,8))/60;
         // dataInput.push(hour + (minute/60).toFixed(1));
         totalTime = totalTime + hour * 60 + minute;
     }
 
     const totalHour = Math.floor(totalTime/60);
-    const totalMinute = totalTime-totalHour*60;
+    const totalMinute = Math.round(totalTime-totalHour*60);
 
     return (
         <div className={style.dailydata}>
             <div className={style.titleContainer}>
-                <h1 className={style.dailySummary}>Daily Summary</h1>
+                <h1 className={style.dailySummary}>총 학습시간</h1>
             </div>
-            <h2>총 학습시간</h2>
-            <div className={style.totalTimes}>{`${totalHour}h ${totalMinute}m`}</div>
+            <div className={style.totalTimes}>{`${totalHour}시간 ${totalMinute}분`}</div>
             <div className={style.titlecontainer}>
-                <h1 className={style.dailyDetails}>Daily Details</h1>
+                <span className={style.dailyDetails}>과목별 학습시간</span>
             </div>
         
             <DailyChart data={data} labels={labels} subjectColors={subjectColors} isZeroShow={isZeroShow}/>
@@ -38,4 +38,11 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     );
 }
 
-export default DailyData;
+function mapStateToProps(state){
+    return{
+        isZeroShow : state.isZeroShow,
+    };
+}
+
+
+export default connect(mapStateToProps) (DailyData);

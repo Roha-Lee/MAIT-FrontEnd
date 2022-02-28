@@ -1,20 +1,24 @@
 import TimeHeatmap from "./TimeHeatmap";
 import DailyData from "./DailyData";
-import style from "./Daily.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { DatePicker } from "antd";
-import { Switch } from "antd";
-import moment from "moment";
-// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
+import styled from 'styled-components';
+import {connect} from "react-redux";
 
-function timeStamp(){ 
-    let today = new Date(); 
-    today.setHours(today.getHours() + 9); 
-    return today.toISOString().replace('T', ' ').substring(0, 19); 
-}
+const DailyContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 30px 0px;
+    width: 800px;
+    justify-content: center;
+    @media screen and (max-width: 850px) {
+        flex-direction: column;
+        margin: 0 auto;
+        align-items: center;
+    }
+`;
 
-const today = timeStamp().slice(0,10);
 // const fakedata = {
 //     rangeTime : [
 //         {
@@ -24,76 +28,76 @@ const today = timeStamp().slice(0,10);
 //             startTime : '2022-02-09 00:32:00',
 //             endTime : '2022-02-09 00:32:20'
 //         }, 
-        // {
-        //     subjectId : 3,
-        //     subjectName : "Javascript",
-        //     color : "#6dbf84",
-        //     startTime : '2022-02-09 02:18:00',
-        //     endTime : '2022-02-09 03:47:00'
-        // }, 
-        // {
-        //     subjectId : 3,
-        //     subjectName : "Javascript",
-        //     color : "#6dbf84",
-        //     startTime : '2022-02-09 09:21:00',
-        //     endTime : '2022-02-09 10:16:00'
-        // },
-        // {
-        //     subjectId : 1,
-        //     subjectName : "Algorithm",
-        //     color : "#a67ebf",
-        //     startTime : '2022-02-09 10:35:20',
-        //     endTime : '2022-02-09 11:39:10'
-        // },
-        // {
-        //     subjectId : 2,
-        //     subjectName : "OS",
-        //     color : "#bf6d7f",
-        //     startTime : '2022-02-09 11:41:40',
-        //     endTime : '2022-02-09 13:12:02'
-        // },
-        // {
-        //     subjectId : 2,
-        //     subjectName : "OS",
-        //     color : "#bf6d7f",
-        //     startTime : '2022-02-09 14:35:40',
-        //     endTime : '2022-02-09 15:22:02'
-        // },
-        // {
-        //     subjectId : 3,
-        //     subjectName : "Javascript",
-        //     color : "#6dbf84",
-        //     startTime : '2022-02-09 16:46:00',
-        //     endTime : '2022-02-09 17:41:00'
-        // },
-        // {
-        //     subjectId : 1,
-        //     subjectName : "Algorithm",
-        //     color : "#a67ebf",
-        //     startTime : '2022-02-09 18:01:00',
-        //     endTime : '2022-02-09 20:04:00'
-        // },          
-        // {
-        //     subjectId : 1,
-        //     subjectName : "Algorithm",
-        //     color : "#a67ebf",
-        //     startTime : '2022-02-09 21:52:00',
-        //     endTime : '2022-02-09 22:07:00'
-        // },
-        // {
-        //     subjectId : 3,
-        //     subjectName : "Javascript",
-        //     color : "#6dbf84",
-        //     startTime : '2022-02-09 22:12:00',
-        //     endTime : '2022-02-09 23:04:00'
-        // },          
-        // {
-        //     subjectId : 3,
-        //     subjectName : "Javascript",
-        //     color : "#6dbf84",
-        //     startTime : '2022-02-09 22:17:00',
-        //     endTime : '2022-02-10 00:00:00'
-        // },          
+//         {
+//             subjectId : 3,
+//             subjectName : "Javascript",
+//             color : "#6dbf84",
+//             startTime : '2022-02-09 02:18:00',
+//             endTime : '2022-02-09 02:19:00'
+//         }, 
+//         {
+//             subjectId : 3,
+//             subjectName : "Javascript",
+//             color : "#6dbf84",
+//             startTime : '2022-02-09 09:21:00',
+//             endTime : '2022-02-09 10:16:00'
+//         },
+//         {
+//             subjectId : 1,
+//             subjectName : "Algorithm",
+//             color : "#a67ebf",
+//             startTime : '2022-02-09 10:35:20',
+//             endTime : '2022-02-09 11:39:10'
+//         },
+//         {
+//             subjectId : 2,
+//             subjectName : "OS",
+//             color : "#bf6d7f",
+//             startTime : '2022-02-09 11:41:40',
+//             endTime : '2022-02-09 13:12:02'
+//         },
+//         {
+//             subjectId : 2,
+//             subjectName : "OS",
+//             color : "#bf6d7f",
+//             startTime : '2022-02-09 14:35:40',
+//             endTime : '2022-02-09 15:22:02'
+//         },
+//         {
+//             subjectId : 3,
+//             subjectName : "Javascript",
+//             color : "#6dbf84",
+//             startTime : '2022-02-09 16:46:00',
+//             endTime : '2022-02-09 17:41:00'
+//         },
+//         {
+//             subjectId : 1,
+//             subjectName : "Algorithm",
+//             color : "#a67ebf",
+//             startTime : '2022-02-09 18:01:00',
+//             endTime : '2022-02-09 20:04:00'
+//         },          
+//         {
+//             subjectId : 1,
+//             subjectName : "Algorithm",
+//             color : "#a67ebf",
+//             startTime : '2022-02-09 21:52:00',
+//             endTime : '2022-02-09 22:07:00'
+//         },
+//         {
+//             subjectId : 3,
+//             subjectName : "Javascript",
+//             color : "#6dbf84",
+//             startTime : '2022-02-09 22:12:00',
+//             endTime : '2022-02-09 23:04:00'
+//         },          
+//         {
+//             subjectId : 3,
+//             subjectName : "Javascript",
+//             color : "#6dbf84",
+//             startTime : '2022-02-09 22:17:00',
+//             endTime : '2022-02-10 00:00:00'
+//         },          
 //     ],
 //     subjectTotalTime : [
 //         {
@@ -118,12 +122,10 @@ const today = timeStamp().slice(0,10);
 // }
 
 
-function Daily (){
-    const [selectDate , setSelectDate] = useState(today);
+function Daily ({dailyDate, isZeroShow}){
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [isZeroShow , setIsZeroShow] = useState(false);
     const yongHourl = "http://192.249.29.5:3001/statistics/daily";
     const jongHourl = "http://143.248.196.37:3001/statistics/daily";
     const serverUrl = "https://mait.shop/statistics/daily"
@@ -136,22 +138,20 @@ function Daily (){
             
             const response = await axios.get(serverUrl, 
                 {
-                    params : {'today' : selectDate}, 
-                    headers: {Authorization: `${window.localStorage.getItem('accessToken')}`}
+                    params : {'today' : dailyDate}, 
+                    headers: {Authorization: `${window.sessionStorage.getItem('accessToken')}`}
                 });
-            console.log(response.data);
+            // console.log(response.data);
             setData(response.data);
         }catch(e){
             setError(e);
         }
-
         setLoading(false);
-
     };
 
     useEffect(()=>{
         fetchData();
-    },[selectDate]);
+    },[dailyDate]);
 
     // if(loading){
     //     return (<div>로딩중..</div>);
@@ -160,32 +160,15 @@ function Daily (){
     //     return(<div>{error}</div>);
     // }
 
-    function onChange(date, dateString){
-        // console.log(date,dateString);
-        // if(parseInt(dateString.slice(0,4)) > todayY){
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else if(parseInt(dateString.slice(5,7)) > todayM){
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else if(parseInt(dateString.slice(8,10)) > todayD){
-        //     alert("기간을 다시 선택해 주세요!");
-        // }else{
-            setSelectDate(dateString);
-        // }
-
-        
-    }
-    function onChangeToggle(checked){
-        // console.log("switch to",checked);
-        setIsZeroShow(!checked);
-    }
     
-
+    
+    // 테스트용 
     const subjectTotalData = data?.subjectTotalTime;
     // const subjectTotalData = fakedata?.subjectTotalTime;
     
     let labels = [];
     let subjectColors = [];
-    console.log(subjectTotalData);
+    // console.log(subjectTotalData);
     
     for(let i = 0 ; i < subjectTotalData?.length ; i++){
         if(isZeroShow){
@@ -196,29 +179,35 @@ function Daily (){
             subjectColors.push(subjectTotalData[i].color);
         }
     }
-    console.log(labels,subjectColors)
+    // console.log(labels,subjectColors)
     return (
-        <div className = {style.daily}>
+        <DailyContainer>
             <div>
-            <DatePicker onChange={onChange} defaultValue={moment(today,`YYYY-MM-DD`)}/>
-            <Switch defaultChecked checkedChildren="학습" unCheckedChildren="전체" onChange={onChangeToggle} style={{marginLeft : "15px"}}/>
-            <DailyData
-                data = {data}
-                // data = {fakedata}
-                labels = {labels}
-                subjectColors = {subjectColors}
-                isZeroShow = {isZeroShow}
-            />
+                <DailyData
+                    data = {data}
+                    // data = {fakedata}
+                    labels = {labels}
+                    subjectColors = {subjectColors}
+                />
             </div>
-            <TimeHeatmap
-                data = {data}
-                // data = {fakedata}
-                labels = {labels}
-                subjectColors = {subjectColors}
-                isZeroShow = {isZeroShow}
-            />
-        </div>
+            <div>
+                <TimeHeatmap
+                    data = {data}
+                    // data = {fakedata}
+                    labels = {labels}
+                    subjectColors = {subjectColors}
+                />
+            </div>
+        </DailyContainer>
     );
 }
 
-export default Daily;
+function mapStateToProps(state){
+    return{
+        dailyDate : state.dailyDate,
+        isZeroShow : state.isZeroShow,
+    };
+}
+
+
+export default connect(mapStateToProps) (Daily);
