@@ -12,12 +12,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: white;
 }
 
 .timer {
     font-size: 5rem;    
     text-shadow: 2px 0 0 #EEE7E1, -2px 0 0 #EEE7E1, 0 2px 0 #EEE7E1, 0 -2px 0 #EEE7E1, 1px 1px #EEE7E1, -1px -1px 0 #EEE7E1, 1px -1px 0 #EEE7E1, -1px 1px 0 #EEE7E1;
-    /* padding: 20px 0 10px; */
     padding: 0 10px;
 }
 

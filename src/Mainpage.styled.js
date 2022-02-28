@@ -11,25 +11,25 @@ export const SubjectsContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #EBB057;
-    margin: 20px auto;
-    width: 500px;
-    border-radius: 20px;
-    padding: 20px 0;
+    background-color: #E0E0DF;
+    margin: 40px auto 0 auto;
+    width: 880px;
+    height: 50px;
+    border-radius: 25px 25px 0 0;
 `
 
-export const CamButton = styled.button`
+export const BottomFlexBox = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     margin: 0 auto;
-    padding: 10px 30px;
-    border-radius: 10px;
-    border: none;
-    background-color: #6693B2;
-    color: #EEE7E1;
-    font-size: 1.2rem;
 `
-
-export const FlexBox = styled.div`
-    display: flex
+export const BottomColor = styled.div`
+    width: 880px;
+    background-color: #e5f7ff;
+    border-radius: 0 0 25px 25px;
+    margin: 0 auto;
+    height: 50px;
 `
 
 export const DropdownContainer = styled.div`
@@ -37,4 +37,16 @@ export const DropdownContainer = styled.div`
     width: 90%;
     flex-direction: row-reverse;
 `
+export const ColFlex = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+export const BottomItems = styled.div`
+    margin: 0 20px;
+    font-size: 1.8rem;
+`
 
+export const Seperator = styled.div`
+    margin: 0 20px;
+    font-size: 1.8rem
+`

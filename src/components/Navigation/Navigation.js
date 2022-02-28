@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {HeadNavigate, NavigationBlank, NavigationContents, Logo, Selected, LoginContainer, StyledLink, StyledLinkHome} from './Navigation.styled'
+import {HeadNavigate, NavigationBlank, NavigationContents, Logo, Selected, StyledA, LoginContainer, StyledLink, StyledLinkHome} from './Navigation.styled'
 import { useNavigate } from 'react-router';
 import { changeLogin, changeCurrentStudyTimeId } from "../../store";
 import { connect } from "react-redux";
@@ -68,6 +68,7 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
                     <div><StyledLink onClick={handleSignUp}>회원가입</StyledLink></div>
                     <div><StyledLink onClick={handleSignIn}>{isLogin === true ? "로그아웃" : "로그인"}</StyledLink></div>
                     <div><StyledLink onClick={handleStatistics}>통계</StyledLink></div>
+                    <div><StyledA onClick = {() => {window.open("/camstudy")}}>캠스터디</StyledA></div>
                 </LoginContainer>
             </NavigationContents>
             <NavigationBlank/>

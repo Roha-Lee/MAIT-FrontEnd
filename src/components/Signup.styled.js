@@ -9,7 +9,6 @@ export const SignupForm = styled.div`
     font-size: 1.5rem;
     border-radius: 15px;
     text-align: center;
-    background: #EBB057;
     padding: 40px;
 `
 
@@ -24,9 +23,11 @@ export const SignupInput = styled.input`
     }
 `
 
-export const SignupButton = styled(Button).attrs({ variant: "danger" })`
+export const SignupButton = styled.button`
     margin: 10px;
-    width: 250px;
+    width: 270px;
     font-size: 1.5rem;
     border-radius: 10px;
+    background-color: #639ECC;
+    border: solid 1px #4F7EA3;
 `

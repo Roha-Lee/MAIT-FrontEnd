@@ -8,7 +8,7 @@ import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
-import {AiContainer, SubjectsContainer, CamButton, FlexBox, DropdownContainer} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex, BottomColor, Seperator} from './Mainpage.styled'
 import axios from 'axios';
 import {connect} from "react-redux";
 
@@ -130,8 +130,9 @@ function Mainpage({isLogin}) {
   );
 
   return (
-    <div className="App">
+    <>
       <Navigation />
+      <ColFlex>
       {useFaceAi ? 
         <AiContainer>
           <AIFaceFunctionViewer 
@@ -171,6 +172,7 @@ function Mainpage({isLogin}) {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
+      </SubjectsContainer>
         <Timer
           subjects={subjects}
           setSubjects={setSubjects}
@@ -185,43 +187,24 @@ function Mainpage({isLogin}) {
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
         />
-        <DropdownContainer>
+        <BottomColor>
+        <BottomFlexBox>
           <Dropdown overlay={menu} placement="bottomCenter">
-          <Button ref={buttonRef} style={{borderRadius: "10px", backgroundColor: "#EEE7E1"}}>AI 모드 선택</Button>
+            <Button Button ref={buttonRef} style={{marginLeft:"25px"}}>AI 모드 선택</Button>
           </Dropdown>
-        </DropdownContainer>
-        
-        {/* <ToggleButton
-          value={ useFaceAi || false }
-          
-          onToggle={(value) => { 
-            setUseFaceAi(!value);      
-          }} />
-          <span>손 인식</span>
-        <ToggleButton
-        value={ useHandAi || false }
-        onToggle={(value) => {
-          setUseHandAi(!value);
-        }} /> */}
-      </SubjectsContainer>
-      <FlexBox>
-        <CamButton
-          onClick={() => {
-            if(isLogin){
-              window.open("/camstudyLobby")
-            }else{
-              alert("로그인을 해주세요.")
-            }
-            }}>
-            Cam Study
-        </CamButton>
-      </FlexBox>
-      <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/>
-    </div>
-    );
-}
+          <Seperator>|</Seperator>
+          <div>000님 안녕하세요</div>
+          {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
+          <Seperator>|</Seperator>
+          <div>오늘은 2022년 00월 00일 입니다.</div>
+        </BottomFlexBox>
+        </BottomColor>
+      </ColFlex>
+    </>
+          )
+  }
 
-function mapStateToProps(state){
+  function mapStateToProps(state){
     return{
         isLogin : state.isLogin,
     };

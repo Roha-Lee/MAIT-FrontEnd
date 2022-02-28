@@ -5,6 +5,7 @@ import {postSubject, deleteSubject, putSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
 import 'animate.css';
 import {connect} from "react-redux";
+import { TabBox, FlexBox, SubjectBox, ButtonBox } from './Subjects.styled'
 
 const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
@@ -204,7 +205,7 @@ function Subjects({
   }
   
   const subjectButtons = (
-    <div className={style.subjectManager}>
+    <TabBox>
       {subjects.map((subject) => (
         <button 
           key={subject.subjectId}
@@ -220,10 +221,15 @@ function Subjects({
           {subject.name}
         </button>        
       ))}
-    </div>
+    </TabBox>
   )
-  return (<div className={style.subjectsContainer}>
-            {subjectButtons}
+  return (
+          <>
+          <FlexBox>
+            <SubjectBox>
+              {subjectButtons}
+            </SubjectBox>
+          <ButtonBox>
             <button 
               className={style.addButton} 
               onClick={(event) => {
@@ -268,6 +274,8 @@ function Subjects({
               }}>
               <img src="img/edit.svg" width="20" height="20"/>
             </button>
+            </ButtonBox>
+            </FlexBox>
             <Modal title="새 과목 추가하기" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
               {/* <NameForm onSubmit={handleOk} subjects={subjects} setSubjects={setSubjects} value={value} setValue={setValue} color={color} setColor={setColor}/> */}
               <form onSubmit={handleOk} className={style.form}>
@@ -306,7 +314,7 @@ function Subjects({
                 <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
               </form>
             </Modal>
-          </div>);
+          </>);
 }
 
 function mapStateToProps(state){

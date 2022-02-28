@@ -9,7 +9,6 @@ export const LoginForm = styled.div`
     font-size: 1.5rem;
     border-radius: 15px;
     text-align: center;
-    background: #EBB057;
     padding: 40px;
 `
 
@@ -24,12 +23,14 @@ export const LoginInput = styled.input`
     }
 `
 
-export const LoginButton = styled(Button).attrs({ variant: "danger" })`
+export const LoginButton = styled.button`
     margin: 10px;
-    width: 250px;
+    width: 270px;
     font-size: 1.5rem;
     border-radius: 10px;
+    background-color: #639ECC;
+    border: solid 1px #4F7EA3;
 `
 export const LoginImage = styled.div`
-    padding: 10px
+    padding: 10px;
 `

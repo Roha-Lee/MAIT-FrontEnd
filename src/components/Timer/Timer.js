@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
-import style from './Timer.module.css'
+// import style from './Timer.module.css'
+import {SubjectTitle, TimerContainer, Timer_set, TimerButton} from './Timer.styled'
 import 'animate.css'
 import {connect} from "react-redux";
 import {changeCurrentStudyTimeId, changeTimerOn} from "../../store";
@@ -65,9 +66,9 @@ function Timer({
   }, [timerOn]);
 
   const timer = (
-    <span className={style.timer}>{ (currentTime >= 3600000 ? Math.floor((currentTime / 3600000) % 24) : Math.floor((currentTime/ 60000) % 60)).toString().padStart(2, '0') }
+    <Timer_set>{ (currentTime >= 3600000 ? Math.floor((currentTime / 3600000) % 24) : Math.floor((currentTime/ 60000) % 60)).toString().padStart(2, '0') }
     : { (currentTime >= 3600000 ? Math.floor((currentTime / 60000) % 60) : Math.floor((currentTime/ 1000) % 60)).toString().padStart(2, '0') }
-    : { (currentTime >= 3600000 ? Math.floor((currentTime / 1000) % 60) : Math.floor((currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
+    : { (currentTime >= 3600000 ? Math.floor((currentTime / 1000) % 60) : Math.floor((currentTime % 1000) / 10)).toString().padStart(2, '0') }</Timer_set>
   );
   
   // const timer = (
@@ -85,12 +86,12 @@ function Timer({
   // })
   
   return ( 
-    <div className = {style.timerContainer} >
-      <div className={style.subjectTitle}>
+    <TimerContainer>
+      <SubjectTitle>
         {currentSubject === null ? "과목 없음" : currentSubject}
-      </div>
+      </SubjectTitle>
       {timer}
-      <button className={style.timerButton} id={"timerButton"}
+      <TimerButton 
         onClick = {
         (event) => {
           // if(event.target.classList.contains('animate__animated')){
@@ -115,8 +116,8 @@ function Timer({
           }
         }}> 
         {timerOn ? "STOP" : "START"}
-      </button> 
-    </div>
+      </TimerButton> 
+    </TimerContainer>
   );
 }
 
