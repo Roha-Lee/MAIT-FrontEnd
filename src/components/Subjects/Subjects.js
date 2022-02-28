@@ -315,7 +315,6 @@ function Subjects({
 function mapStateToProps(state){
   return{
       isLogin : state.isLogin,
-      isLogin: true, 
   };
 }
 
