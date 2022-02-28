@@ -1,5 +1,5 @@
 .heatmap {
-    width: 250px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,4 +9,35 @@
 
 .heatmapgrid{
     width: 250px;
+    margin-top: 20px;
+    margin-left: 80px;
+}
+
+.select{
+    width: 100px;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+    margin-right: 100px;
+    margin-bottom: 5px;
+}
+
+.heatmaptitle{
+    font-size:2rem;
+    font-weight: bold;
+    position:relative;
+    display:inline-block;
+    color: grey;
+    margin: 20px;
+    width: 220px;
+}
+
+.heatmaptitle::after{
+    content: ' ';
+    display: inline;
+    position: absolute;
+    top: 50%;
+    width: 110px;
+    border-bottom: 1.5px solid grey;
+    margin-inline-start: 22px;
 }

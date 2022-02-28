@@ -31,7 +31,7 @@ function SubjectBarChart ({data}){
                 display: true,
             },
             title: {
-                display: true,
+                display: false,
                 text: '과목별 총 학습시간(hr)',
             },
             datalabels : {

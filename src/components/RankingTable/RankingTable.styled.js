@@ -4,6 +4,7 @@ export const RankingContainer = styled.div`
     display:flex;
     width: 700px;
     margin: 100px auto;
+    flex-direction : column;
 `
 
 export const BlankComment = styled.span`

@@ -99,7 +99,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                     display: true,
                 },
                 title: {
-                    display: true,
+                    display: false,
                     text: chartTitle,
                 },
                 datalabels : {

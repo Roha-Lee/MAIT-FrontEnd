@@ -10,8 +10,7 @@ const DailyContainer = styled.div`
     flex-direction: row;
     align-items: flex-start;
     margin: 30px 0px;
-    width: 100%;
-    gap : 100px;
+    width: 800px;
     justify-content: center;
     @media screen and (max-width: 850px) {
         flex-direction: column;
