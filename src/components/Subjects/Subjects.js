@@ -261,7 +261,7 @@ function Subjects({
             <SubjectControlButton 
               onClick={subjectControlAddButtonClick}
               type="add"
-              noSubject={true}
+              noSubject={subjects.length === 0}
               >
               <img src="img/add.svg" width="20" height="20"/>
             </SubjectControlButton>
