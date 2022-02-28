@@ -198,7 +198,7 @@ function Mainpage({isLogin}) {
           <div>000님 안녕하세요</div>
           {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
           <Seperator>|</Seperator>
-          <div>오늘은 2022년 00월 00일 입니다.</div>
+          <div>오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 입니다.</div>
         </BottomFlexBox>
         </BottomColor>
       </ColFlex>
@@ -208,8 +208,7 @@ function Mainpage({isLogin}) {
 
   function mapStateToProps(state){
     return{
-        // isLogin : state.isLogin,
-        isLogin: true,
+        isLogin : state.isLogin,
     };
 }
 

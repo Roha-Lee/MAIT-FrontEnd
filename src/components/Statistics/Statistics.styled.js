@@ -52,3 +52,7 @@ export const MenuContainer = styled.div`
     height: 60px;
     border-radius: 25px 25px 0 0;
 `
+
+export const TabName = styled.span`
+    margin-top: 5px;
+`

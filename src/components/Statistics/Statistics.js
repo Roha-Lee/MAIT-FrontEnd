@@ -3,7 +3,7 @@ import Daily from "./Daily/Daily";
 import ManyDays from "./ManyDays/ManyDays";
 import style from "./Statistics.module.css";
 import RankingTable from "../RankingTable/RankingTable";
-import {TabBox,TapContainer,StatisticsContainer,BottomColor,MenuContainer, BlankBox} from "./Statistics.styled";
+import {TabBox,TapContainer,StatisticsContainer,BottomColor,MenuContainer, BlankBox, TabName} from "./Statistics.styled";
 import {connect} from "react-redux";
 import {changeCurrentStatistics, changeDailyDate, changeStartDate, changeEndDate, changeIsZeroShow} from "../../store";
 import moment from "moment";
@@ -59,7 +59,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                             : "#bfbfbf"
                         }`
                     }}
-                >일간 통계</TabBox>
+                ><TabName>일간 통계</TabName></TabBox>
                 <TabBox 
                     onClick={handleRank}
                     style={{
@@ -68,7 +68,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                             : "#bfbfbf"
                         }`
                     }}
-                >일간 순위</TabBox>
+                ><TabName>일간 순위</TabName></TabBox>
                 <TabBox 
                     onClick={handleManyDays}
                     style={{
@@ -77,7 +77,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                             : "#bfbfbf"
                         }`
                     }}
-                >기간 통계</TabBox>
+                ><TabName>기간 통계</TabName></TabBox>
                 <BlankBox/>
                 {currentStatistics === 1 ?
                     <DatePicker 
