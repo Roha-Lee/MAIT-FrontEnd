@@ -35,5 +35,11 @@ export const TimerButton = styled.div`
     &:hover {
         background-color: brightness(70%)
     }
-`
+`;
 
+export const NoSubjectMessage = styled.span`
+    font-size: 30px;
+    padding: 10vh 0;
+    color: #606060;
+    text-align: center;
+`;

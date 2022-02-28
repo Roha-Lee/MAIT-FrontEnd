@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import 'animate.css';
 import style from './Subjects.module.css'
 import { Modal, Button } from 'antd';
 import {postSubject, deleteSubject, putSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
-import 'animate.css';
 import {connect} from "react-redux";
-import { TabBox, FlexBox, SubjectBox, ButtonBox, SubjectName, SubjectColorCircle} from './Subjects.styled'
+import { TabBox, FlexBox, SubjectBox, ButtonBox, SubjectName, SubjectColorCircle, SubjectControlButton} from './Subjects.styled'
 
 const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
@@ -215,6 +215,42 @@ function Subjects({
         </TabBox>
       ))
   )
+  const subjectControlEditButtonClick = (event) => {
+    if(isLogin){
+      setNewSubject(null);  
+      if(subjects.length !== 0){
+        setIsEditMode(!isEditMode);
+        // 설정 버튼 누르면 타이머 정지시켜야함. 
+        setUserTimerOn(false);
+        setTimerOn(false); 
+      }
+    }else{
+      alert("로그인을 해주세요.");
+    }
+  }
+  const subjectControlAddButtonClick = (event) => {
+    if(isLogin){
+      if(isEditMode === false){
+        showModal(event);
+      }
+      else {
+        let target = event.target;
+        if (target.tagName === 'IMG'){
+          target = target.parentElement;
+        }
+        target.classList.add('animate__animated')
+        target.classList.add('animate__headShake')
+        setTimeout(() => {
+          target.classList.remove('animate__animated')
+          target.classList.remove('animate__headShake')
+        }, 500);
+      }
+      setNewSubject(null);  
+    }else{
+      alert("로그인을 해주세요.");
+    }
+  
+  }
   return (
           <>
           <FlexBox>
@@ -222,51 +258,19 @@ function Subjects({
               {subjectButtons}
             </SubjectBox>
           <ButtonBox>
-            <button 
-              className={style.addButton} 
-              onClick={(event) => {
-                if(isLogin){
-                  if(isEditMode === false){
-                    showModal(event);
-                  }
-                  else {
-                    let target = event.target;
-                    if (target.tagName === 'IMG'){
-                      target = target.parentElement;
-                    }
-                    target.classList.add('animate__animated')
-                    target.classList.add('animate__headShake')
-                    setTimeout(() => {
-                      target.classList.remove('animate__animated')
-                      target.classList.remove('animate__headShake')
-                    }, 500);
-                  }
-                  setNewSubject(null);  
-                }else{
-                  alert("로그인을 해주세요.");
-                }
-              }}
+            <SubjectControlButton 
+              onClick={subjectControlAddButtonClick}
+              type="add"
+              noSubject={true}
               >
               <img src="img/add.svg" width="20" height="20"/>
-            </button>
-            <button 
-              className={style.editButton} 
-              onClick={() => {
-                if(isLogin){
-                  setNewSubject(null);  
-                  if(subjects.length !== 0){
-                    setIsEditMode(!isEditMode);
-                    // 설정 버튼 누르면 타이머 정지시켜야함. 
-                    setUserTimerOn(false);
-                    setTimerOn(false); 
-                  }
-                }else{
-                  alert("로그인을 해주세요.");
-                }
-              }}>
+            </SubjectControlButton>
+            <SubjectControlButton
+              onClick={subjectControlEditButtonClick}
+              type="edit">
               <img src="img/edit.svg" width="20" height="20"/>
-            </button>
-            </ButtonBox>
+            </SubjectControlButton>  
+          </ButtonBox>
             </FlexBox>
             <Modal title="새 과목 추가하기" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
               {/* <NameForm onSubmit={handleOk} subjects={subjects} setSubjects={setSubjects} value={value} setValue={setValue} color={color} setColor={setColor}/> */}
@@ -312,7 +316,6 @@ function Subjects({
 function mapStateToProps(state){
   return{
       isLogin : state.isLogin,
-      isLogin : true,
   };
 }
 

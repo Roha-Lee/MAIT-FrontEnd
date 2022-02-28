@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
 // import style from './Timer.module.css'
-import {SubjectTitle, TimerContainer, Timer_set, TimerButton} from './Timer.styled'
+import {SubjectTitle, TimerContainer, Timer_set, TimerButton,NoSubjectMessage} from './Timer.styled'
 import 'animate.css'
 import {connect} from "react-redux";
 import {changeCurrentStudyTimeId, changeTimerOn} from "../../store";
@@ -117,7 +117,7 @@ function Timer({
           }
         }}> 
         {timerOn ? "STOP" : "START"}
-      </TimerButton></>) : "과목을 추가해주세요."}
+      </TimerButton></>) : <NoSubjectMessage>과목 정보가 없습니다. <br />버튼을 눌러 과목을 추가해주세요.</NoSubjectMessage>}
     </TimerContainer>
   );
 }

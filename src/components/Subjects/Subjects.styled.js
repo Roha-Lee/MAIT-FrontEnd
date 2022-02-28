@@ -50,15 +50,20 @@ export const subjectManager = styled.div`
     width: 400px;
 `
 
-export const AddButton = styled.button`
+export const SubjectControlButton = styled.button`
     font-size: 1rem;
     font-weight: 400;
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border: none;
-    border-radius: 10px;
-    padding: 10px 10px;
-    margin: 0 10px;
+    border-radius: 20px;
+    padding: 5px 5px;
+    margin: 15px 10px 0;
+    background-color: ${props => props.type === 'add' ? "#F07623" : "#5FB973"};
+    ${props => props.type === 'add' && props.noSubject ? `
+    animation: bounce;
+    animation-duration: 1s;
+    `: null}
 `
 
 export const Active =  styled.div`
@@ -104,4 +109,5 @@ export const SubjectName = styled.span`
     display: inline-block;
     text-align: center;
     margin-top: 5px;
+    color: #606060;
 `
