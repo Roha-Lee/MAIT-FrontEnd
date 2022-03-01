@@ -123,7 +123,7 @@ function Timer({
             }
           }else{
             loginComment();
-            setTimeout(navigate("/Login"),1000);
+            setTimeout(() => navigate("/Login"), 1000);
           }
         }}> 
         {timerOn ? "STOP" : "START"}

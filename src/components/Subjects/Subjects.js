@@ -209,8 +209,15 @@ function Subjects({
 
 
   const changeSubject = (event) => {
+    
     let newSubject = event.target.innerText ||event.target.parentElement.querySelector('span').innerText;
     let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;   
+    if(timerOn && currentSubject !== newSubject){
+      const updatedSubject = [...subjects];
+      const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
+      updatedSubject[subjectIdx].totalTime = currentTime;
+      setSubjects(updatedSubject);
+    }
     setTimerOn(false);
     setCurrentSubject(newSubject);
     setCurrentTime(newCurrentTime);
