@@ -41,7 +41,14 @@ function postSubject(subject, colorCode) {
       }
   });
 }
-
+function postSignup(nickname, name, email, password) {
+  return Axios.post(`${serverAddress}/auth/signup`, {
+    nickname : nickname,
+    username : name,
+    email : email,
+    password : password,
+  })
+}
 function putSubject(name, colorId, subjectId) {
   return Axios.put(`${serverAddress}/subject/${subjectId}`, {name, colorId}, {
     headers: {
@@ -116,4 +123,4 @@ function signOut(){
   })
 }
 
-export {msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}
+export {postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}

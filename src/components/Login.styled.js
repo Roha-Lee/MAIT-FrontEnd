@@ -9,7 +9,7 @@ export const LoginTitle = styled.h1`
 export const LoginForm = styled.form`
     position: absolute;
     left: 50%;
-    top: 45vh;
+    top: 50%;
     transform: translate(-50%,-50%);
     border-radius: 15px;
     text-align: center;
@@ -38,7 +38,7 @@ export const LoginDiv = styled.div`
     }
 `
 export const LoginIcon = styled.i`
-font-size: 1.4rem;
+font-size: 1.3rem;
 color: #606060;
 `
 export const LoginInput = styled.input`
