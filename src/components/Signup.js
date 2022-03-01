@@ -3,7 +3,7 @@ import Navigation from './Navigation/NavigationNew'
 import { SignupTitle, SignupIcon, SignupDiv, SignupInput, SignupButton, SignupForm } from './Signup.styled';
 import { notification } from 'antd';
 import { postSignup } from '../utils/utils'
-import { WarningOutlined } from '@ant-design/icons';
+import { WarningOutlined, CheckOutlined } from '@ant-design/icons';
 
 function Signup() {
   const [nickname, setNickname] = useState("");

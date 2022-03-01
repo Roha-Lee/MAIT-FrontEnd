@@ -7,6 +7,7 @@ import { changeLogin } from "../store";
 import { connect } from "react-redux";
 import { notification } from "antd";
 import { getKakaoSignin } from "../utils/utils"
+import { WarningOutlined } from '@ant-design/icons';
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 // import Form from "react-bootstrap/Form"; 
