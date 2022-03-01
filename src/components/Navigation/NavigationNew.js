@@ -6,21 +6,26 @@ import { useNavigate } from 'react-router';
 import { changeLogin, changeCurrentStudyTimeId } from "../../store";
 import { connect } from "react-redux";
 import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
+import { Modal, Button, FormControl, Form} from 'react-bootstrap'
+import TodoListContainer from "../TodoListContainer/TodoListContainer";
+import TodoInput from '../TodoInput/TodoInput'
 
-function Navigation() {
+function Navigation({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTimeId, timerOn, todoList, subjects}) {
   const [click, setClick] = useState(false);
-  
+  const [show, setShow] = useState(false);
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
   const goToCamstudyLobby = () => {
       click ? handleClick() : null;
       window.open("/camstudyLobby");
   }
+  const closeTodoModal = () => setShow(false);
   const openTodoModal = () => {
       click ? handleClick() : null;
-      // TODO: todo modal 여는 로직 추가 
+      setShow(true);
   }
-  const navigations = (  <NavBar onClick={e => e.stopPropagation()}>
+  const navigations = (  <>
+  <NavBar onClick={e => e.stopPropagation()}>
   <NavContainer>
     <NavLogo><NavLink exact to="/">M.AI.T</NavLink></NavLogo>
   <NavMenu className={click ? "active" : ""}>
@@ -71,7 +76,25 @@ function Navigation() {
     <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
   </NavIcon>
   </NavContainer>
-</NavBar>);
+</NavBar>
+<Modal show={show} onHide={closeTodoModal}>
+    <Modal.Header closeButton>
+    <Modal.Title>{new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 목표!</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        <TodoListContainer todoList={todoList} subjects={subjects} />
+    </Modal.Body>
+    <Modal.Footer>
+    {/* <Button variant="secondary" onClick={handleClose}>
+        Close
+    </Button>
+    <Button variant="primary" onClick={handleClose}>
+        Save Changes
+    </Button> */}
+    </Modal.Footer>
+</Modal>
+</>
+);
   return (
     <div>
      {click ? 
