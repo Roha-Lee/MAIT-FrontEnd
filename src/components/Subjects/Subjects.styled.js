@@ -70,7 +70,7 @@ export const TabBox = styled.div`
     border-radius: 15px 15px 0 0;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 `
 
 export const FlexBox = styled.div`
@@ -79,7 +79,7 @@ export const FlexBox = styled.div`
 
 export const SubjectBox = styled.div`
     display: flex;
-    width: 700px;
+    width: 500px;
     margin-right: 15px;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -96,9 +96,9 @@ export const SubjectBox = styled.div`
     {
 	border-radius: 10px;
 	background-color: #E0E0DF;
+
 }
 
-    
 `
 
 export const ButtonBox = styled.div`

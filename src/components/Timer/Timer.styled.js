@@ -16,6 +16,10 @@ export const TimerContainer = styled.div`
     width: 880px;
     background-color: white;
     padding: 40px;
+    @media screen and (max-width: 1024px) {
+        width: 680px;
+        height: 290px;    
+    }
 `
 
 export const Timer_set = styled.span`
