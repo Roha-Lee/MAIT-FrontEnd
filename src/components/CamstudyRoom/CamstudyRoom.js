@@ -17,6 +17,7 @@ document.body.style.overflow = 'hidden';
 
 const CamstudyRoom = (props) => {
   const currentUser = window.sessionStorage.getItem('currentUser');
+  const currentUserId = window.sessionStorage.getItem('currentUserId');
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
   const myVideoRef = useRef();
   const myStreamRef = useRef();
@@ -55,16 +56,17 @@ const CamstudyRoom = (props) => {
       myVideoRef.current.muted = true;
       myStreamRef.current = stream;
       console.log('LET ME CHECK', roomId, currentUser)
-      socket.emit('join-room', roomId, currentUser);
+      socket.emit('join-room', roomId, currentUser, currentUserId);
       socket.on('user-join', (users) => {
         const peers = [];
         users.forEach(({ userId, info }) => {
-        let { userName, video, audio } = info;
+        let { userUniqueId, userName, video, audio } = info;
 
-        if (userName !== currentUser) {
+        if (userUniqueId !== currentUserId) {
           const peer = createPeer(userId, socket.id, stream);
           peer.userName = userName;
           peer.peerID = userId;
+          peer.userUniqueId = userUniqueId;
 
           peersRef.current.push({
             peerID: userId,
@@ -76,7 +78,7 @@ const CamstudyRoom = (props) => {
           setUserVideoAudio((preList) => {
             return {
               ...preList,
-              [peer.userName]: { video, audio },
+              [peer.userUniqueId]: { video, audio },
             };
           });
         }
@@ -85,14 +87,14 @@ const CamstudyRoom = (props) => {
     });
 
     socket.on('receive-call', ({ signal, from, info }) => {
-      let { userName, video, audio } = info;
+      let { userUniqueId, userName, video, audio } = info;
       const peerIdx = findPeer(from);
 
       if (!peerIdx) {
         const peer = addPeer(signal, from, stream);
-        
+        peer.userId = from;
         peer.userName = userName;
-
+        peer.userUniqueId = userUniqueId;
         peersRef.current.push({
           peerID: from,
           peer,
@@ -104,11 +106,12 @@ const CamstudyRoom = (props) => {
         setUserVideoAudio((preList) => {
           return {
             ...preList,
-            [peer.userName]: { video, audio },
+            [peer.userUniqueId]: { video, audio },
           };
         });
       }
     });
+    
     socket.on('siren-fire', (sender) => {
       sirenRef.current.play();
       console.log('userVideoAudio format check', userVideoAudio)
@@ -142,15 +145,15 @@ const CamstudyRoom = (props) => {
       const peerIdx = findPeer(userId);
 
       setUserVideoAudio((preList) => {
-        let video = preList[peerIdx.userName].video;
-        let audio = preList[peerIdx.userName].audio;
+        let video = preList[peerIdx.userUniqueId].video;
+        let audio = preList[peerIdx.userUniqueId].audio;
 
         if (switchTarget === 'video') video = !video;
         else audio = !audio;
 
         return {
           ...preList,
-          [peerIdx.userName]: { video, audio },
+          [peerIdx.userUniqueId]: { video, audio },
         };
       });
     });
@@ -202,7 +205,6 @@ const CamstudyRoom = (props) => {
 
 
   function createPeer(userId, caller, stream) {
-    console.log(stream)
     const peer = new Peer({
       initiator: true,
       trickle: false,

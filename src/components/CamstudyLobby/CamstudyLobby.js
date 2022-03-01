@@ -20,7 +20,8 @@ const [roomCode, setRoomCode] = useState('');
       message: "방 입장",
       description: `새로운 방에 입장합니다.`,
       });
-      window.sessionStorage.setItem("currentUser", res.data.userName);// Todo
+      window.sessionStorage.setItem("currentUser", res.data.userName);
+      window.sessionStorage.setItem("currentUserId", res.data.userId);
       navigate(`/camstudyRoom/?roomId=${res.data.roomid}`)
     }
   })
@@ -39,7 +40,8 @@ const [roomCode, setRoomCode] = useState('');
         message: "방 입장",
         description: `기존 방에 참여합니다.`,
       });
-      window.sessionStorage.setItem("currentUser", res.data.userName);// Todo
+      window.sessionStorage.setItem("currentUser", res.data.userName);
+      window.sessionStorage.setItem("currentUserId", res.data.userId);
       navigate(`/camstudyRoom/?roomId=${roomCode}`);
     }
   })
