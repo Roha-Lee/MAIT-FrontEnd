@@ -34,6 +34,7 @@ function Subjects({
   currentSubject, 
   setCurrentSubject,
   setCurrentTime,
+  timerOn,
   setTimerOn, 
   setUserTimerOn,
   isEditMode,

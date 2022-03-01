@@ -80,6 +80,7 @@ function Login({isLogin , setIsLogin}) {
 
     const onClickSocialLoginKaKao = (e) => {
         e.preventDefault();
+        window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=357925896ada31b453416004eb936aad&redirect_uri=https://mait.shop/auth/kakao/callback&response_type=code&scope=profile_nickname,account_email"
         getKakaoSignin();
     }
 
