@@ -70,6 +70,7 @@ function Mainpage({isLogin}) {
         
           
         //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
+        console.log('getAlldata', newTodos);
         const newTodos = userData.data.todos.map(todo => {
           return {
             todoId: todo.id,
