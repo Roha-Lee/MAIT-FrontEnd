@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 export const NavBar = styled.div`
     background-color: #639ECC;
     height: 70px;
@@ -81,7 +80,7 @@ border-bottom: 3px solid transparent;
 }
 `
   
-export const NavLink = styled(Link)`
+export const NavLink = styled.div`
 color: #fff;
 text-decoration: none;
 padding: 0.5rem 1rem;

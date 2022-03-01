@@ -5,8 +5,11 @@ import {SubjectTitle, TimerContainer, Timer_set, TimerButton,NoSubjectMessage} f
 import 'animate.css'
 import {connect} from "react-redux";
 import {changeCurrentStudyTimeId, changeTimerOn} from "../../store";
+import { notification} from 'antd';
+import { useNavigate } from 'react-router';
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
 let currentStudyTimeId = null;
+
 function Timer({
   subjects, 
   setSubjects,
@@ -26,6 +29,12 @@ function Timer({
   setCurrentStudyTimeId,
   setGlobalTimerOn,
 }) {
+  let navigate = useNavigate();
+  const loginComment = () =>{
+    notification.open({
+      message : "로그인을 해주세요.",
+    });
+  }
   useEffect(async () => {
     if(timerOn){
       try {
@@ -113,7 +122,8 @@ function Timer({
               }, 500);
             }
           }else{
-            alert("로그인을 해주세요.");
+            loginComment();
+            setTimeout(navigate("/Login"),1000);
           }
         }}> 
         {timerOn ? "STOP" : "START"}

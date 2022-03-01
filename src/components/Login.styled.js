@@ -1,7 +1,7 @@
 import { Button, Form } from 'react-bootstrap'
 import styled from 'styled-components'
 
-export const LoginForm = styled.div`
+export const LoginForm = styled.form`
     position: absolute;
     left: 50%;
     top: 40%;

@@ -32,7 +32,7 @@ function Login({isLogin , setIsLogin}) {
 
     // login 버튼 클릭 이벤트
     const onClickLogin = () => {
-        setIsLogin(!isLogin); //TO Check
+        // setIsLogin(!isLogin); //TO Check
         axios.post(
             `${serverUrl}/auth/signin`, 
             {
@@ -61,7 +61,7 @@ function Login({isLogin , setIsLogin}) {
     return (
         <>
             <Navigation />
-            <LoginForm>
+            <LoginForm onSubmit={onClickLogin}>
                 <h1>M.AI.T 로그인</h1>
                 <div>
                     <label htmlFor='input_id'/>

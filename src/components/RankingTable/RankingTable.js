@@ -50,14 +50,16 @@ function RankingTable () {
 
     return (
         <RankingContainer>
-            {userRanking.length > 0 ?
+            {myRanking !== 0 ?
                 <RankComment>나의 등수 : <strong>{myRanking}</strong>/{userRanking.length}</RankComment>
                 :
                 null
             }
-            {userRanking.length > 0 ? 
-                <Table columns={columns} dataSource={userRanking} /> : 
-                <BlankComment>순위 정보가 없습니다.</BlankComment>}
+            {myRanking !== 0 ? 
+                <Table columns={columns} dataSource={userRanking} /> 
+                : 
+                <BlankComment>순위 정보가 없습니다.</BlankComment>
+            }
         </ RankingContainer>
     );
 

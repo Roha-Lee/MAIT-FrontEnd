@@ -10,11 +10,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
 import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex, BottomColor, Seperator} from './Mainpage.styled'
 import {connect} from "react-redux";
+import { changeLogin } from './store';
+import { notification} from 'antd';
+import { useNavigate } from 'react-router';
 
 const colorsIdtoCode = {};
 const colorsCodetoId = {};
 
-function Mainpage({isLogin}) {
+function Mainpage({isLogin, setIsLogin}) {
   // {
   //   subjectId: 1, 
   //   name: 'Algorithm',
@@ -44,50 +47,58 @@ function Mainpage({isLogin}) {
   const [userName, setUserName] = useState('');
   const [todoList, setTodoList] = useState([]);
   const buttonRef = useRef(null);
-  
+  const loginComment = () =>{
+    notification.open({
+      message : "로그인을 해주세요.",
+    });
+  }
+  let navigate = useNavigate;
   
   useEffect(() => {
-    if(isLogin){
-      
-      getAllUserData().then((userData)=> {
-        const newSubjects = userData.data.subjects.map(subject => {
-          return {
-            subjectId: subject.id, 
-            name: subject.name,
-            colorId: subject.colorId,
-            totalTime: 0,
-          }
-        });
-        setUserName(userData.data.nickname);
-        setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "")
-        
-        userData.data.study.forEach(subject => {
-          let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
-          newSubjects
-          .find(elem => elem.subjectId === subject.id)
-          .totalTime = (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000 ;
-        })
-        
-          
-        //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
-        
-        const newTodos = userData.data.todos.map(todo => {
-          return {
-            todoId: todo.id,
-            content: todo.content,
-            subjectId: todo.subjectId,
-            isDone: todo.isDone
-          }
-        });
 
-        userData.data.colors.forEach(color => {
-          colorsCodetoId[color.code] = color.id;
-          colorsIdtoCode[color.id] = color.code;
-        })
-        setSubjects(newSubjects); // 과목 정보 
-        setTodoList(newTodos);
+    getAllUserData().then((userData)=> {
+      setIsLogin(true);
+      const newSubjects = userData.data.subjects.map(subject => {
+        return {
+          subjectId: subject.id, 
+          name: subject.name,
+          colorId: subject.colorId,
+          totalTime: 0,
+        }
       });
-    }
+      setUserName(userData.data.nickname);
+      setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "")
+      
+      userData.data.study.forEach(subject => {
+        let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
+        newSubjects
+        .find(elem => elem.subjectId === subject.id)
+        .totalTime = (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000 ;
+      })
+      
+        
+      //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
+      
+      const newTodos = userData.data.todos.map(todo => {
+        return {
+          todoId: todo.id,
+          content: todo.content,
+          subjectId: todo.subjectId,
+          isDone: todo.isDone
+        }
+      });
+
+      userData.data.colors.forEach(color => {
+        colorsCodetoId[color.code] = color.id;
+        colorsIdtoCode[color.id] = color.code;
+      })
+      setSubjects(newSubjects); // 과목 정보 
+      setTodoList(newTodos);
+    }).catch((e)=>{
+      console.log(e);
+      setIsLogin(false);
+    })
+    
     
   }, []);
 
@@ -109,7 +120,8 @@ function Mainpage({isLogin}) {
             setUseHandAi(false);
             buttonRef.current.querySelector('span').innerText = "얼굴 인식 모드"
           }else{
-            alert("로그인을 해주세요.")
+            loginComment();
+            setTimeout(navigate("/Login"),1000);
           }
         }}>
           얼굴 인식 모드
@@ -122,7 +134,7 @@ function Mainpage({isLogin}) {
             setUseHandAi(true);
             buttonRef.current.querySelector('span').innerText = "손 인식 모드"
           }else{
-            alert("로그인을 해주세요.")
+            
           }
           }}>
           손 인식 모드
@@ -173,8 +185,7 @@ function Mainpage({isLogin}) {
             <Button Button ref={buttonRef} style={{marginLeft:"25px"}}>AI 모드 선택</Button>
           </Dropdown>
           <Seperator>|</Seperator>
-          <div>{userName}님 안녕하세요!</div>
-          
+          {isLogin ? <div>{userName}님 안녕하세요!</div> : "로그인을 해주세요!"}
           <Seperator>|</Seperator>
           <div>오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 입니다.</div>
         </BottomFlexBox>
@@ -207,13 +218,19 @@ function Mainpage({isLogin}) {
         {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
       
     </>
-          )
-  }
-
-  function mapStateToProps(state){
-    return{
-        isLogin : state.isLogin,
-    };
+  )
 }
 
-export default connect(mapStateToProps) (Mainpage);
+function mapStateToProps(state){
+  return{
+      isLogin : state.isLogin,
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+      setIsLogin : isLogin => dispatch(changeLogin(isLogin)),
+  };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (Mainpage);
