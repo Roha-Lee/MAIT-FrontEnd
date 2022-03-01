@@ -3,6 +3,7 @@ import Navigation from './Navigation/NavigationNew'
 import { SignupTitle, SignupIcon, SignupDiv, SignupInput, SignupButton, SignupForm } from './Signup.styled';
 import { notification } from 'antd';
 import { postSignup } from '../utils/utils'
+import { useNavigate } from "react-router-dom";
 import { WarningOutlined, CheckOutlined } from '@ant-design/icons';
 
 function Signup() {
@@ -12,6 +13,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");  
   const [showPassword, setShowPassword] = useState(false);
+  let navigate = useNavigate();
   const togglePassword = () => {
     setShowPassword(!showPassword);
   }
