@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import { TabBox, FlexBox, SubjectBox, ButtonBox, SubjectName, SubjectColorCircle, SubjectControlButton} from './Subjects.styled'
 import { notification} from 'antd';
 import { useNavigate } from 'react-router';
+import {changeSubjects} from "../../store";
 
 const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
@@ -29,7 +30,8 @@ function hexToRgb(hex) {
 }
 
 function Subjects({
-  setSubjects, 
+  setSubjects,
+  setGlobalSubjects, 
   subjects, 
   currentSubject, 
   setCurrentSubject,
@@ -88,6 +90,7 @@ function Subjects({
       newSubjects[idx].name = value;
       newSubjects[idx].colorId = colorsCodetoId[color];
       setSubjects(newSubjects);
+      setGlobalSubjects(newSubjects);
       if (currentSubject ===  editingSubject) {
         setCurrentSubject(newSubjects[idx].name);
       } 
@@ -131,6 +134,16 @@ function Subjects({
           totalTime: 0
         }
       ]);
+      setGlobalSubjects([
+        ...subjects, 
+        {
+          subjectId: id, 
+          name, 
+          colorId, 
+          totalTime: 0
+        }
+      ]);
+
       if(isSubjectEmpty){
         setCurrentSubject(name);
       }
@@ -343,7 +356,13 @@ function mapStateToProps(state){
   };
 }
 
-export default connect(mapStateToProps) (Subjects);
+function mapDispatchToProps(dispatch){
+  return{
+      setGlobalSubjects : subjects => dispatch(changeSubjects(subjects)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Subjects);
 
 
 //   <div className={style.trashContainer}>

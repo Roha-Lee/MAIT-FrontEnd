@@ -11,6 +11,7 @@ const globalState = createSlice({
     name : "globalStateReducer",
     initialState : {
         isLogin : false,
+        // isLogin : true, //To Check
         currentStudyTimeId : null,
         timerOn : false,
         currentStatistics : 1,
@@ -18,6 +19,10 @@ const globalState = createSlice({
         startDate : todayBefore7,
         endDate : today,
         isZeroShow : false,
+        todoList : [],
+        subjects : [],
+        colorsIdtoCode : {},
+        colorsCodetoId : {},
     },
     reducers : {
         changeLogin : (state, action) => {
@@ -44,6 +49,18 @@ const globalState = createSlice({
         changeIsZeroShow : (state, action) =>{
             state.isZeroShow = action.payload;
         },
+        changeTodoLists : (state, action) => {
+            state.todoList = action.payload;
+        },
+        changeSubjects : (state,action) => {
+            state.subjects = action.payload;
+        },
+        changeColorsCodetoId : (state, action) => {
+            state.colorsCodetoId = action.payload;
+        },
+        changeColorsIdtoCode : (state, action) => {
+            state.colorsIdtoCode = action.payload;
+        },
     }
 });
 
@@ -58,6 +75,10 @@ export const {
     changeStartDate,
     changeEndDate,
     changeIsZeroShow,
+    changeTodoLists,
+    changeSubjects,
+    changeColorsCodetoId,
+    changeColorsIdtoCode,
 } = globalState.actions;
 
 export default store;

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Modal, Button, FormControl, Form} from 'react-bootstrap'
 import axios from 'axios'
+import {connect} from "react-redux";
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
     // console.log(subjects)
@@ -48,4 +49,10 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     )
 }
 
-export default TodoEditModal
+function mapStateToProps(state){
+    return{
+        subjects : state.subjects,
+    };
+}
+
+export default connect(mapStateToProps) (TodoEditModal)
