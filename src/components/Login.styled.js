@@ -9,7 +9,7 @@ export const LoginTitle = styled.h1`
 export const LoginForm = styled.form`
     position: absolute;
     left: 50%;
-    top: 45vh;
+    top: 50%;
     transform: translate(-50%,-50%);
     border-radius: 15px;
     text-align: center;
@@ -32,9 +32,13 @@ export const LoginDiv = styled.div`
     background-color: #ffffff;
     display: flex; 
     align-items: center;
+    @media screen and (max-width: 450px) {
+        width: 95vw;
+        max-width: 95vw;
+    }
 `
 export const LoginIcon = styled.i`
-font-size: 1.4rem;
+font-size: 1.3rem;
 color: #606060;
 `
 export const LoginInput = styled.input`
@@ -45,6 +49,11 @@ export const LoginInput = styled.input`
     max-width: 90vw;
     width: 400px;
     padding: 0 25px;
+    @media screen and (max-width: 450px) {
+        width: 75vw;
+        max-width: 75vw;
+    }
+
     :active, :focus{
         outline: none;
     }
@@ -61,6 +70,10 @@ export const LoginButton = styled.button`
     background-color: #606060;
     color: #FFFFFF;
     border: none;
+    @media screen and (max-width: 450px) {
+        width: 95vw;
+        max-width: 95vw;
+    }
 `
 export const SocialLoginButton = styled.button`
     width: 50px;

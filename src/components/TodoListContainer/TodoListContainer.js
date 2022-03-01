@@ -27,7 +27,7 @@ const TodoListContainer = ({todoList, setTodoList, subjects, colorsIdtoCode, col
     // 통신 코드 추가 
     try {
         const updateResponse = await todoUpdate(target.todoId);
-        if (updateResponse.data.message === 'success') {
+        if (updateResponse.data.message === 'SUCCESS') {
             console.log('updateResponse', updateResponse)
           setTodoList(todoList.map((todo) => todo.todoId === target.todoId ? { ...todo, isDone: !todo.isDone } : todo))            
         }
@@ -63,11 +63,6 @@ const TodoListContainer = ({todoList, setTodoList, subjects, colorsIdtoCode, col
   },[todoList, setTodoList])
 
   const renderTodo = useCallback((todo) => {
-      console.log('[renderTodo] subjects',subjects)
-      console.log('[renderTodo] todo',todo)
-      console.log('colorsIdtoCode', colorsIdtoCode);
-      
-    console.log('boom!', `#${colorsIdtoCode[subjects.find(subject => subject.subjectId === todo.subjectId)?.colorId]}`)
       return (
           <TodoItemContainer key={todo.todoId}>
               <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />

@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import axios from "axios"
-import { LoginContainer, LoginInput, LoginButton, SocialLoginButton, SignUpGuide, StyledLink, LoginIcon, LoginForm, LoginTitle, LoginDiv} from './Login.styled'
+import { LoginInput, LoginButton, SocialLoginButton, SignUpGuide, StyledLink, LoginIcon, LoginForm, LoginTitle, LoginDiv} from './Login.styled'
 import { useNavigate } from "react-router-dom";
 import Navigation from './Navigation/NavigationNew'
 import { changeLogin } from "../store";
 import { connect } from "react-redux";
+import { notification } from "antd";
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 // import Form from "react-bootstrap/Form"; 
@@ -48,14 +49,28 @@ function Login({isLogin , setIsLogin}) {
             }
             ,
         ).then(response => {
-            if(response.data.message === 'success'){
+            if(response.data.message === 'SUCCESS'){
                 window.sessionStorage.setItem('accessToken', response.data.accessToken)
                 setIsLogin(!isLogin);
-                // useNavigate()
                 navigate("/");
             }
+            else if (response.data.message === 'INVALID_USERNAME'){
+                notification.open({
+                    description: "존재하지 않는 사용자 입니다.",
+                    icon: <WarningOutlined style={{ color: "#606060" }}/>,
+                })
+            }
+            else if (response.data.message === "INVALID_PASSWORD") {
+                notification.open({
+                    description: "비밀번호가 일치하지 않습니다.",
+                    icon: <WarningOutlined style={{ color: "#606060" }}/>,
+                })
+            }
             else {
-                alert("로그인에 실패하였습니다. ")
+                notification.open({
+                    description: "로그인에 실패했습니다.",
+                    icon: <WarningOutlined style={{ color: "#606060" }}/>,
+                })
             }
         })
     }
@@ -69,20 +84,20 @@ function Login({isLogin , setIsLogin}) {
     return (
         <>
             <Navigation /> 
-            <LoginForm autoComplete="off" onSubmit={onClickLogin}>
+            <LoginForm id="login-form" autoComplete="off" onSubmit={onClickLogin}>
                 <LoginTitle>My AI Timer</LoginTitle>
                 <LoginDiv>
                     <LoginIcon className="fa fa-user"></LoginIcon>
                     <label htmlFor='input_id'/>
-                    <LoginInput type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='아이디'/>
+                    <LoginInput maxLength={16} required type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='아이디'/>
                 </LoginDiv>
                 <LoginDiv>
                 <LoginIcon className="fa fa-lock"></LoginIcon>
                     <label htmlFor='input_pw'/>
-                    <LoginInput type={showPassword? 'text' : 'password'} name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='비밀번호'/>
+                    <LoginInput required type={showPassword? 'text' : 'password'} name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='비밀번호'/>
                     <LoginIcon className={showPassword? "fa fa-eye": "fa fa-eye-slash"} onClick={togglePassword} style={{cursor: "pointer"}}></LoginIcon>
                 </LoginDiv>
-                <LoginButton onClick={onClickLogin}>로그인</LoginButton>
+                <LoginButton type="submit" onClick={onClickLogin}>로그인</LoginButton>
                 <SocialLoginButton type='button' onClick={onClickSocialLoginKaKao}>
                     <img src='./img/kakaotalk.svg' alt="카카오톡아이콘" width="30" height="30"></img>
                 </SocialLoginButton>
