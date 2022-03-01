@@ -80,18 +80,18 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
         </HeadNavigate>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>오늘 할일</Modal.Title>
+            <Modal.Title>{new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 목표!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <TodoListContainer todoList={todoList} subjects={subjects} />
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            {/* <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
             <Button variant="primary" onClick={handleClose}>
                 Save Changes
-            </Button>
+            </Button> */}
             </Modal.Footer>
         </Modal>
       </>
