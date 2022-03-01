@@ -26,7 +26,7 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
             }
             const signOutResponse = await signOut();
 
-            if(signOutResponse.data.message === 'success'){
+            if(signOutResponse.data.message === 'SUCCESS'){
                 window.sessionStorage.removeItem("accessToken");
                 setIsLogin(!isLogin);
                 window.location.replace("/");

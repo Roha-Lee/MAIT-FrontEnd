@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import 'animate.css';
 import style from './Subjects.module.css'
 import { Modal, Button } from 'antd';
-import {postSubject, deleteSubject, putSubject} from '../../utils/utils'
+import {postSubject, deleteSubject, putSubject, timeStamp} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
 import {connect} from "react-redux";
 import { TabBox, FlexBox, SubjectBox, ButtonBox, SubjectName, SubjectColorCircle, SubjectControlButton} from './Subjects.styled'
@@ -41,6 +41,7 @@ function Subjects({
   colorsIdtoCode,
   colorsCodetoId,
   isLogin,
+  currentStudyTimeId, 
 }){
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -209,7 +210,7 @@ function Subjects({
 
   const changeSubject = (event) => {
     let newSubject = event.target.innerText ||event.target.parentElement.querySelector('span').innerText;
-    let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;
+    let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;   
     setTimerOn(false);
     setCurrentSubject(newSubject);
     setCurrentTime(newCurrentTime);
@@ -338,6 +339,7 @@ function Subjects({
 function mapStateToProps(state){
   return{
       isLogin : state.isLogin,
+      currentStudyTimeId : state.currentStudyTimeId,
   };
 }
 

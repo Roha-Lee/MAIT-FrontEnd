@@ -160,6 +160,7 @@ function Mainpage({isLogin, setIsLogin}) {
           setCurrentSubject={setCurrentSubject}
           currentTime={currentTime}
           setCurrentTime={setCurrentTime}
+          timerOn={timerOn}
           setTimerOn={setTimerOn}
           setUserTimerOn={setUserTimerOn}
           isEditMode={isEditMode}

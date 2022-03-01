@@ -66,7 +66,7 @@ function Timer({
       }
       if (!!currentStudyTimeId){
         const result = await patchStudyTime(currentStudyTimeId, endTimeFormatted);
-        console.log(result);
+        console.log('send patch!', result);
         currentStudyTimeId = null;  
       }
       // sendStudyInterval(startTimeFormatted, endTimeFormatted, currentSubjectId);  
