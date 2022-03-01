@@ -47,7 +47,7 @@ const globalState = createSlice({
     }
 });
 
-const store = configureStore({reducer : globalState.reducer});
+const store = configureStore({reducer : globalState.reducer, devTools :true});
 
 export const {
     changeLogin,

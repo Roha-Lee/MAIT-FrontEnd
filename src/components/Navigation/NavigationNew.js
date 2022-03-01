@@ -47,7 +47,7 @@ function Navigation({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTi
           console.log(signOutResponse);
           if(signOutResponse.data.message === 'success'){
               window.sessionStorage.removeItem("accessToken");
-              navigate("/");
+              window.location.replace("/");
           }else{
               if(click){
                 handleClick();
@@ -79,7 +79,7 @@ function Navigation({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTi
             handleClick();
           }
           loginComment();
-          setTimeout(navigate("/Login"),1000);
+          navigate("/Login");
       }
   }
 

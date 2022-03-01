@@ -23,7 +23,7 @@ export const SubjectsContainer = styled.div`
 
 export const BottomFlexBox = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     margin: 0 auto;
 `
@@ -36,9 +36,9 @@ export const BottomColor = styled.div`
 `
 
 export const DropdownContainer = styled.div`
-    display: flex;
-    width: 90%;
-    flex-direction: row-reverse;
+    width: 30%;
+    display : flex;
+    justify-content : center;
 `
 export const ColFlex = styled.div`
     display: flex;
@@ -50,6 +50,17 @@ export const BottomItems = styled.div`
 `
 
 export const Seperator = styled.div`
-    margin: 0 20px;
-    font-size: 1.8rem
+    font-size: 1.8rem;
+    color : darkslateblue;
+`
+
+export const TodayDate = styled.span`
+    color : #606060;
+    width: 30%;
+    text-align : center;
+`
+export const WelcomeComment = styled.span`
+    color : #606060;
+    width: 30%;
+    text-align : center;
 `

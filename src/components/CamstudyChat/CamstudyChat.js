@@ -81,7 +81,7 @@ const ChatContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 28%;
-    
+    max-height : 93vh;
     background-color: white;
     transition: all 0.5s ease;
     overflow: hidden;

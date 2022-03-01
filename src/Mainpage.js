@@ -8,7 +8,7 @@ import { Menu, Dropdown, Button } from 'antd';
 import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
-import {AiContainer, SubjectsContainer, CamButton, BottomFlexBox, DropdownContainer, ColFlex, BottomColor, Seperator} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, BottomFlexBox, ColFlex, BottomColor, Seperator,TodayDate, WelcomeComment, DropdownContainer} from './Mainpage.styled'
 import {connect} from "react-redux";
 import { changeLogin } from './store';
 import { notification} from 'antd';
@@ -52,7 +52,7 @@ function Mainpage({isLogin, setIsLogin}) {
       message : "로그인을 해주세요.",
     });
   }
-  let navigate = useNavigate;
+  let navigate = useNavigate();
   
   useEffect(() => {
 
@@ -95,7 +95,7 @@ function Mainpage({isLogin, setIsLogin}) {
       setSubjects(newSubjects); // 과목 정보 
       setTodoList(newTodos);
     }).catch((e)=>{
-      console.log(e);
+      // console.log(e);
       setIsLogin(false);
     })
     
@@ -134,7 +134,8 @@ function Mainpage({isLogin, setIsLogin}) {
             setUseHandAi(true);
             buttonRef.current.querySelector('span').innerText = "손 인식 모드"
           }else{
-            
+            loginComment();
+            setTimeout(navigate("/Login"),1000);
           }
           }}>
           손 인식 모드
@@ -181,13 +182,15 @@ function Mainpage({isLogin, setIsLogin}) {
         />
         <BottomColor>
         <BottomFlexBox>
-          <Dropdown overlay={menu} placement="bottomCenter">
-            <Button Button ref={buttonRef} style={{marginLeft:"25px"}}>AI 모드 선택</Button>
-          </Dropdown>
+          <DropdownContainer>
+            <Dropdown overlay={menu} placement="bottomCenter">
+              <Button Button ref={buttonRef} style={{width : "110px",}}>AI 모드 선택</Button>
+            </Dropdown>
+          </DropdownContainer>
           <Seperator>|</Seperator>
-          {isLogin ? <div>{userName}님 안녕하세요!</div> : "로그인을 해주세요!"}
+          <WelcomeComment>{isLogin ? `${userName}님 안녕하세요!` : `로그인을 해주세요!`}</WelcomeComment>
           <Seperator>|</Seperator>
-          <div>오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 입니다.</div>
+          <TodayDate>오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 입니다.</TodayDate>
         </BottomFlexBox>
         </BottomColor>
       </ColFlex>

@@ -6,6 +6,8 @@ import {postSubject, deleteSubject, putSubject} from '../../utils/utils'
 import ColorPicker from '../ColorPicker/ColorPicker'
 import {connect} from "react-redux";
 import { TabBox, FlexBox, SubjectBox, ButtonBox, SubjectName, SubjectColorCircle, SubjectControlButton} from './Subjects.styled'
+import { notification} from 'antd';
+import { useNavigate } from 'react-router';
 
 const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
@@ -51,6 +53,13 @@ function Subjects({
   const subjectEndRef = useRef();
   
   useEffect(() => {scrollToRight()}, [subjects]);
+
+  const loginComment = () =>{
+    notification.open({
+      message : "로그인을 해주세요.",
+    });
+  }
+  let navigate = useNavigate();
 
   function resetModal() {
     setPickerColor(INITIAL_COLOR)
@@ -233,7 +242,8 @@ function Subjects({
         setTimerOn(false); 
       }
     }else{
-      alert("로그인을 해주세요.");
+      loginComment();
+      setTimeout(navigate("/Login"),1000);
     }
   }
   const subjectControlAddButtonClick = (event) => {
@@ -255,7 +265,8 @@ function Subjects({
       }
       setNewSubject(null);  
     }else{
-      alert("로그인을 해주세요.");
+      loginComment();
+      setTimeout(navigate("/Login"),1000);
     }
   }
   const scrollToRight = () => {
