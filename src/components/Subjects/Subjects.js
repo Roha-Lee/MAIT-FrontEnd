@@ -92,7 +92,7 @@ function Subjects({
       newSubjects[idx].name = value;
       newSubjects[idx].colorId = colorsCodetoId[color];
       setSubjects(newSubjects);
-      setGlobalSubjects(newSubjects);
+      setGlobalSubjects([...newSubjects]);
       if (currentSubject ===  editingSubject) {
         setCurrentSubject(newSubjects[idx].name);
       } 
@@ -213,6 +213,7 @@ function Subjects({
       }
 
       setSubjects(newSubjects);
+      setGlobalSubjects([...newSubjects]);
       setNowEditing(null);
       setIsEditModalVisible(false);
     }
@@ -227,12 +228,13 @@ function Subjects({
     
     let newSubject = event.target.innerText ||event.target.parentElement.querySelector('span').innerText;
     let newCurrentTime = subjects.find((elem=>elem.name === newSubject)).totalTime;   
-    // if(timerOn && currentSubject !== newSubject){
-    //   const updatedSubject = [...subjects];
-    //   const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
-    //   updatedSubject[subjectIdx].totalTime = currentTime;
-    //   setSubjects(updatedSubject);
-    // }
+    if(timerOn && currentSubject !== newSubject){
+      const updatedSubject = [...subjects];
+      const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
+      updatedSubject[subjectIdx].totalTime = currentTime;
+      setSubjects(updatedSubject);
+      setGlobalSubjects([...updatedSubject]);
+    }
     setTimerOn(false);
     setCurrentSubject(newSubject);
     setCurrentTime(newCurrentTime);

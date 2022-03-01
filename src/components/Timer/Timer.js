@@ -63,6 +63,7 @@ function Timer({
         const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
         updatedSubject[subjectIdx].totalTime = currentTime;
         setSubjects(updatedSubject);
+        setGlobalSubjects([...updatedSubject]);
       }
       if (!!currentStudyTimeId){
         const result = await patchStudyTime(currentStudyTimeId, endTimeFormatted);

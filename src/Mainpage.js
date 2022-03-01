@@ -99,7 +99,7 @@ function Mainpage({
       });
 
       setSubjects(newSubjects); // 과목 정보 
-      setGlobalSubjects(newSubjects);
+      setGlobalSubjects([...newSubjects]);
       setTodoList(newTodos);
       setColorsCodetoId(colorsCodetoId);
       setColorsIdtoCode(colorsIdtoCode);
