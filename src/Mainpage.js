@@ -70,7 +70,7 @@ function Mainpage({isLogin}) {
         
           
         //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
-        console.log('getAlldata', newTodos);
+        
         const newTodos = userData.data.todos.map(todo => {
           return {
             todoId: todo.id,
@@ -79,6 +79,8 @@ function Mainpage({isLogin}) {
             isDone: todo.isDone
           }
         });
+        console.log('getAlldata', newTodos);
+        
         userData.data.colors.forEach(color => {
           colorsCodetoId[color.code] = color.id;
           colorsIdtoCode[color.id] = color.code;
