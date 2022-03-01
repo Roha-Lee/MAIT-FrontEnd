@@ -95,10 +95,14 @@ export const SubjectBox = styled.div`
     ::-webkit-scrollbar-thumb
     {
 	border-radius: 10px;
-	background-color: #E0E0DF;
-
-}
-
+	background-color: #E0E0DF; 
+    }
+    @media screen and (max-width: 760px) {
+        width: 300px;
+    }
+    @media screen and (max-width: 520px) {
+        width: 200px;   
+    }
 `
 
 export const ButtonBox = styled.div`
