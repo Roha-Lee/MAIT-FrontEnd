@@ -2,16 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import socket from '../../socket';
 import { notification } from 'antd';
-const CamstudyChat = ({ display, roomId, currentUser, setDisplayChat }) => {
+const CamstudyChat = ({ display, roomId, currentUser, currentUserId,  setDisplayChat }) => {
     const [msg, setMsg] = useState([]);
     const messagesEndRef = useRef(null);
     const inputRef = useRef();
     
     useEffect(() => {
-        socket.on('receive-message', ({ msg, sender }) => {
-        setMsg((msgs) => [...msgs, { sender, msg }]);
+        socket.on('receive-message', ({ msg, sender, senderId }) => {
+        setMsg((msgs) => [...msgs, { sender, msg, senderId }]);
         console.log('sender', sender, 'currentUser', currentUser,  'display', display)
-        if(sender !== currentUser && !display){
+        if(senderId !== currentUserId && !display){
             notification.open({
                 message: `${sender}님으로 부터 메시지`,
                 description: `${msg}`,
@@ -36,7 +36,7 @@ const CamstudyChat = ({ display, roomId, currentUser, setDisplayChat }) => {
             const msg = e.target.value;
 
             if (msg) {
-                socket.emit('send-message', { roomId, msg, sender: currentUser });
+                socket.emit('send-message', { roomId, msg, sender: currentUser, senderId: currentUserId });
                 inputRef.current.value = '';
             }
         }
@@ -48,8 +48,8 @@ const CamstudyChat = ({ display, roomId, currentUser, setDisplayChat }) => {
             <ChatArea>
                 <MessageList>
                 {msg &&
-                    msg.map(({ sender, msg }, idx) => {
-                    if (sender !== currentUser) {
+                    msg.map(({ sender, msg, senderId }, idx) => {
+                    if (senderId !== currentUserId) {
                         return (
                         <Message key={idx}>
                             <strong>{sender}</strong>

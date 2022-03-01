@@ -414,7 +414,7 @@ const CamstudyRoom = (props) => {
   </VideoAndBarContainer>
   {/* <CamstudyChat display={displayChat ?  "" : "none"} roomId={roomId} /> */}
   {/* {displayChat ? <CamstudyChat display={displayChat} roomId={roomId}/> : null } */}
-  <CamstudyChat display={displayChat} roomId={roomId} currentUser={currentUser} setDisplayChat={setDisplayChat}/>
+  <CamstudyChat display={displayChat} roomId={roomId} currentUser={currentUser} currentUserId={currentUserId} setDisplayChat={setDisplayChat}/>
   </RoomContainer>
   </>
   );
