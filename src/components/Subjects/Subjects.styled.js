@@ -49,6 +49,7 @@ export const SubjectControlButton = styled.button`
     height: 36px;
     border: none;
     border-radius: 18px;
+    padding: 0 0 1px 0;
     margin: 15px 10px 0;
     background-color: ${props => props.type === 'add' ? "#F07623" : "#5FB973"};
     ${props => props.type === 'add' && props.noSubject ? `
