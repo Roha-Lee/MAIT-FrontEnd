@@ -26,7 +26,8 @@ export const SubjectsContainer = styled.div`
         width: 480px;   
     }
     @media screen and (max-width: 520px) {
-        width: 350px;   
+        width: 350px;
+        height: 50px;   
     }
 `
 
@@ -49,7 +50,8 @@ export const BottomColor = styled.div`
         width: 480px;   
     }
     @media screen and (max-width: 520px) {
-        width: 350px;   
+        width: 350px;
+        height: 44px
     }
 `
 
@@ -70,6 +72,9 @@ export const BottomItems = styled.div`
 export const Seperator = styled.div`
     font-size: 1.8rem;
     color : darkslateblue;
+    @media screen and (max-width: 520px) {
+        font-size: 1.2rem;
+    }
 `
 
 export const TodayDate = styled.span`
@@ -79,15 +84,13 @@ export const TodayDate = styled.span`
     @media screen and (max-width: 1024px) {
         font-size: 0.9rem;   
     }
-    @media screen and (max-width: 760px) {
-        font-size: 0.7rem;   
-    }
+    
 `
 export const WelcomeComment = styled.span`
     color : #606060;
     width: 30%;
     text-align : center;
-    @media screen and (max-width: 760px) {
+    @media screen and (max-width: 1024px) {
         font-size: 0.9rem;   
     }
 `

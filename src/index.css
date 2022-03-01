@@ -26,12 +26,12 @@ video::-webkit-media-controls {
   display: none !important;
 }
 
-@media screen and (max-height: 630px) {
+/* @media screen and (max-height: 630px) {
   html,
   body {
     font-size: 80%;
   }
-} 
+}  */
 
 .hidden {
   display: none !important;
