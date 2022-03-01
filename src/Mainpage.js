@@ -79,13 +79,11 @@ function Mainpage({isLogin}) {
             isDone: todo.isDone
           }
         });
-        console.log('getAlldata', newTodos);
-        
+
         userData.data.colors.forEach(color => {
           colorsCodetoId[color.code] = color.id;
           colorsIdtoCode[color.id] = color.code;
         })
-      
         setSubjects(newSubjects); // 과목 정보 
         setTodoList(newTodos);
       });
@@ -136,7 +134,7 @@ function Mainpage({isLogin}) {
 
   return (
     <>
-      <Navigation todoList={todoList} subjects={subjects} />
+      <Navigation todoList={todoList} subjects={subjects} setTodoList={setTodoList} colorsIdtoCode={colorsIdtoCode} colorsCodetoId={colorsCodetoId}/>
       <ColFlex>
       
       <SubjectsContainer>       

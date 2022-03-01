@@ -32,7 +32,7 @@ function Login({isLogin , setIsLogin}) {
 
     // login 버튼 클릭 이벤트
     const onClickLogin = () => {
-        // setIsLogin(!isLogin); //TO Check
+        setIsLogin(!isLogin); //TO Check
         axios.post(
             `${serverUrl}/auth/signin`, 
             {

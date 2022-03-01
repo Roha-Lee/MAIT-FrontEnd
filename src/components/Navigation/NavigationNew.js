@@ -10,7 +10,7 @@ import { Modal, Button, FormControl, Form} from 'react-bootstrap'
 import TodoListContainer from "../TodoListContainer/TodoListContainer";
 import TodoInput from '../TodoInput/TodoInput'
 
-function Navigation({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTimeId, timerOn, todoList, subjects}) {
+function Navigation({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTimeId, timerOn, todoList, subjects, setTodoList, colorsIdtoCode, colorsCodetoId}) {
   const [click, setClick] = useState(false);
   const [show, setShow] = useState(false);
   const handleClick = () => setClick(!click);
@@ -82,7 +82,7 @@ function Navigation({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyTi
     <Modal.Title>{new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 목표!</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-        <TodoListContainer todoList={todoList} subjects={subjects} />
+        <TodoListContainer todoList={todoList} subjects={subjects} setTodoList={setTodoList} colorsIdtoCode={colorsIdtoCode} colorsCodetoId={colorsCodetoId}/>
     </Modal.Body>
     <Modal.Footer>
     {/* <Button variant="secondary" onClick={handleClose}>

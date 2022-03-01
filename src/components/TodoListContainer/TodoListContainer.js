@@ -65,6 +65,8 @@ const TodoListContainer = ({todoList, setTodoList, subjects, colorsIdtoCode, col
   const renderTodo = useCallback((todo) => {
       console.log('[renderTodo] subjects',subjects)
       console.log('[renderTodo] todo',todo)
+      console.log('colorsIdtoCode', colorsIdtoCode);
+      
     console.log('boom!', `#${colorsIdtoCode[subjects.find(subject => subject.subjectId === todo.subjectId)?.colorId]}`)
       return (
           <TodoItemContainer key={todo.todoId}>
