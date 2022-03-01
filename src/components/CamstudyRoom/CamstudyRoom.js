@@ -280,6 +280,7 @@ const CamstudyRoom = (props) => {
           peer={peer} 
           number={arr.length} 
           currentUser={currentUser} 
+          currentUserId={currentUserId}
           changeFullScreen={changeFullScreen} 
           setUserVideoAudio={setUserVideoAudio} 
           userVideoAudio={userVideoAudio}/>

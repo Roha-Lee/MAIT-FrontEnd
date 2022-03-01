@@ -42,7 +42,7 @@ const OptionsButton = styled.button`
 }
 `
 
-const CamstudyPeerVideo = ({peer, currentUser, changeFullScreen}) => {
+const CamstudyPeerVideo = ({peer, currentUser, currentUserId, changeFullScreen}) => {
   const [isHover, setIsHover] = useState(false);
   const [audioState, setAudioState] = useState(true);
   const [videoState, setVideoState] = useState(true);
@@ -56,7 +56,7 @@ const CamstudyPeerVideo = ({peer, currentUser, changeFullScreen}) => {
   }, [peer]);
   
   const sirenFire = (e) => {
-    socket.emit("siren", {sender:currentUser, receiver:peer.userName});
+    socket.emit("siren", {sender:currentUser, senderId: currentUserId, receiver:peer.userName, receiverId: peer.userUniqueId});
   };
   
   const toggleCamera = (e) => {
