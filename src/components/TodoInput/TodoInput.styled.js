@@ -2,7 +2,6 @@ import { InputGroup, DropdownButton, Dropdown, Button } from 'react-bootstrap'
 import styled from 'styled-components'
 
 export const TodoInputContainer = styled.div`
-    margin-left: 20px;
     text-align: right;
     display: flex;
     align-items: center;

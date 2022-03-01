@@ -85,9 +85,8 @@ const TodoListContainer = ({
 
     return (
         <TodoListDiv>
-            <TodoListHeader>TODO</TodoListHeader>
-            {todoList.map(todo => renderTodo(todo))}
             <TodoInput onItemAdd={onItemAdd}/>
+            {todoList.map(todo => renderTodo(todo))}
             <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete}/>
         </TodoListDiv>
     )

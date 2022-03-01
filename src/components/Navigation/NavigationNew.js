@@ -160,6 +160,7 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
       visible={show} 
       onCancel={handleCancel} 
       onOk={handleOk}
+      centered
     > 
         <TodoListContainer/>
     </Modal>
