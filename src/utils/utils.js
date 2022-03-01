@@ -49,6 +49,11 @@ function postSignup(nickname, name, email, password) {
     password : password,
   })
 }
+
+function getKakaoSignin() {
+  return Axios.get(`${serverAddress}/auth/kakao`, {
+  })
+}
 function putSubject(name, colorId, subjectId) {
   return Axios.put(`${serverAddress}/subject/${subjectId}`, {name, colorId}, {
     headers: {
@@ -123,4 +128,4 @@ function signOut(){
   })
 }
 
-export {postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}
+export {getKakaoSignin, postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}

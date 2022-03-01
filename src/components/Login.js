@@ -6,6 +6,7 @@ import Navigation from './Navigation/NavigationNew'
 import { changeLogin } from "../store";
 import { connect } from "react-redux";
 import { notification } from "antd";
+import { getKakaoSignin } from "../utils/utils"
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
 // import Form from "react-bootstrap/Form"; 
@@ -77,7 +78,7 @@ function Login({isLogin , setIsLogin}) {
 
     const onClickSocialLoginKaKao = (e) => {
         e.preventDefault();
-        console.log("KAKAO!");
+        getKakaoSignin();
     }
 
 
