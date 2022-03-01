@@ -5,19 +5,25 @@ import Timer from './components/Timer/Timer';
 import AIFaceFunctionViewer from './components/AIFunctionViewer/AIFaceFunctionViewer';
 import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionViewer';
 import { Menu, Dropdown, Button } from 'antd';
-import TodoListContainer from './components/TodoListContainer/TodoListContainer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
 import {AiContainer, SubjectsContainer, BottomFlexBox, ColFlex, BottomColor, Seperator,TodayDate, WelcomeComment, DropdownContainer} from './Mainpage.styled'
 import {connect} from "react-redux";
-import { changeLogin } from './store';
+import { changeLogin, changeTodoLists, changeSubjects, changeColorsCodetoId, changeColorsIdtoCode } from './store';
 import { notification} from 'antd';
 import { useNavigate } from 'react-router';
 
 const colorsIdtoCode = {};
 const colorsCodetoId = {};
 
-function Mainpage({isLogin, setIsLogin}) {
+function Mainpage({
+  isLogin,
+  setIsLogin,
+  setTodoList,
+  setGlobalSubjects,
+  setColorsCodetoId,
+  setColorsIdtoCode,
+}) {
   // {
   //   subjectId: 1, 
   //   name: 'Algorithm',
@@ -45,7 +51,6 @@ function Mainpage({isLogin, setIsLogin}) {
   const [useHandAi, setUseHandAi] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [userName, setUserName] = useState('');
-  const [todoList, setTodoList] = useState([]);
   const buttonRef = useRef(null);
   const loginComment = () =>{
     notification.open({
@@ -91,9 +96,13 @@ function Mainpage({isLogin, setIsLogin}) {
       userData.data.colors.forEach(color => {
         colorsCodetoId[color.code] = color.id;
         colorsIdtoCode[color.id] = color.code;
-      })
+      });
+
       setSubjects(newSubjects); // 과목 정보 
+      setGlobalSubjects(newSubjects);
       setTodoList(newTodos);
+      setColorsCodetoId(colorsCodetoId);
+      setColorsIdtoCode(colorsIdtoCode);
     }).catch((e)=>{
       // console.log(e);
       setIsLogin(false);
@@ -147,7 +156,7 @@ function Mainpage({isLogin, setIsLogin}) {
 
   return (
     <>
-      <Navigation todoList={todoList} subjects={subjects} setTodoList={setTodoList} colorsIdtoCode={colorsIdtoCode} colorsCodetoId={colorsCodetoId}/>
+      <Navigation/>
       <ColFlex>
       
       <SubjectsContainer>       
@@ -234,6 +243,10 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return{
       setIsLogin : isLogin => dispatch(changeLogin(isLogin)),
+      setTodoList : newTodos => dispatch(changeTodoLists(newTodos)),
+      setGlobalSubjects : newSubjects => dispatch(changeSubjects(newSubjects)),
+      setColorsCodetoId : value => dispatch(changeColorsCodetoId(value)),
+      setColorsIdtoCode : value => dispatch(changeColorsIdtoCode(value)),
   };
 }
 
