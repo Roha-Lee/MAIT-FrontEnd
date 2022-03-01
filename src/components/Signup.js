@@ -106,6 +106,7 @@ function Signup() {
         }
       })
       .catch(err => {
+        // TODO) 400으로 오면 여기서 처리 해야함. 메시지들 
         console.log(err);
       })
     }

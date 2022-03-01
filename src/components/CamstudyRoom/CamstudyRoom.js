@@ -13,6 +13,8 @@ import { notification } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import Bell from "./assets/bell.mp3";
 
+document.body.style.overflow = 'hidden';
+
 const CamstudyRoom = (props) => {
   const currentUser = window.sessionStorage.getItem('currentUser');
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
