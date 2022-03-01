@@ -32,6 +32,10 @@ export const LoginDiv = styled.div`
     background-color: #ffffff;
     display: flex; 
     align-items: center;
+    @media screen and (max-width: 450px) {
+        width: 95vw;
+        max-width: 95vw;
+    }
 `
 export const LoginIcon = styled.i`
 font-size: 1.4rem;
@@ -45,6 +49,11 @@ export const LoginInput = styled.input`
     max-width: 90vw;
     width: 400px;
     padding: 0 25px;
+    @media screen and (max-width: 450px) {
+        width: 75vw;
+        max-width: 75vw;
+    }
+
     :active, :focus{
         outline: none;
     }
@@ -61,6 +70,10 @@ export const LoginButton = styled.button`
     background-color: #606060;
     color: #FFFFFF;
     border: none;
+    @media screen and (max-width: 450px) {
+        width: 95vw;
+        max-width: 95vw;
+    }
 `
 export const SocialLoginButton = styled.button`
     width: 50px;
