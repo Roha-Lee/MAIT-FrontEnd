@@ -72,6 +72,7 @@ const CamstudyRoom = (props) => {
             peerID: userId,
             peer,
             userName,
+            userUniqueId,
           });
           peers.push(peer);
           
@@ -99,6 +100,7 @@ const CamstudyRoom = (props) => {
           peerID: from,
           peer,
           userName: userName,
+          userUniqueId,
         });
         setPeers((users) => {
           return [...users, peer];

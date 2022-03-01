@@ -33,6 +33,7 @@ function Subjects({
   subjects, 
   currentSubject, 
   setCurrentSubject,
+  currentTime,
   setCurrentTime,
   timerOn,
   setTimerOn, 
