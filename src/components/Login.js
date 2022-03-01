@@ -36,7 +36,6 @@ function Login({isLogin , setIsLogin}) {
     // login 버튼 클릭 이벤트
     const onClickLogin = (e) => {
         e.preventDefault();
-        console.log("TRY TO LOGIN")
         // setIsLogin(!isLogin); //TO Check
         axios.post(
             `${serverUrl}/auth/signin`, 
