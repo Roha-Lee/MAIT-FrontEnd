@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { 
     TodoListDiv,
     TodoItemContainer,
@@ -44,7 +44,7 @@ const TodoListContainer = ({
         }
     }, [todoList]);
 
-    const onItemAdd = useCallback((item) => {
+    const onItemAdd = useEffect((item) => {
       // postNewTodo(item.content, item.subjectId);
         const newItem = {
             subjectId: item.subjectId,
@@ -69,7 +69,7 @@ const TodoListContainer = ({
         setTodoList(todoList.filter((todo) => todo.todoId !== target.todoId))
     },[todoList, setTodoList])
 
-    const renderTodo = useCallback((todo) => {
+    const renderTodo = useEffect((todo) => {
         return (
             <TodoItemContainer key={todo.todoId}>
                 <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
