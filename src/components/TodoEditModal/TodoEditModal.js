@@ -38,7 +38,9 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         })
     }
     
-
+    const handleChange = (value) => {
+        setSelectedSubject(value)}        
+    }
     return (
     <Modal 
         bodyStyle={{ maxHeight: '50vh'}}    
@@ -65,13 +67,9 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         <Input required type="text" value={content} onChange={(event) => setContent(event.target.value)}/>
         <Select 
         style={{width: 100}}
-        defaultValue={selectedSubject}>
-            {subjects.map(item => <Option key={item.subjectId} value={item.name} 
-            onClick={() => {
-                console.log('onclick', item);
-                console.log('onclick', item.name);
-                setSelectedSubject(item.name)}
-            }>{item.name}</Option>)}
+        defaultValue={selectedSubject}
+        onChange={handleChange}>
+            {subjects.map(item => <Option key={item.subjectId} value={item.name}>{item.name}</Option>)}
         </Select>
         </Form>
     </Modal>
