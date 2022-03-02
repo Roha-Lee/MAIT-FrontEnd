@@ -4,7 +4,7 @@ import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
 import {SubjectTitle, TimerContainer, Timer_set, TimerButton,NoSubjectMessage} from './Timer.styled'
 import 'animate.css'
 import {connect} from "react-redux";
-import {changeCurrentStudyTimeId, changeTimerOn} from "../../store";
+import {changeCurrentStudyTimeId, changeTimerOn,changeSubjects} from "../../store";
 import { notification} from 'antd';
 import { useNavigate } from 'react-router';
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
@@ -28,6 +28,7 @@ function Timer({
   isLogin,
   setCurrentStudyTimeId,
   setGlobalTimerOn,
+  setGlobalSubjects,
 }) {
   let navigate = useNavigate();
   const loginComment = () =>{
@@ -63,7 +64,7 @@ function Timer({
         const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
         updatedSubject[subjectIdx].totalTime = currentTime;
         setSubjects(updatedSubject);
-        setGlobalSubjects([...updatedSubject]);
+        setGlobalSubjects(JSON.parse(JSON.stringify(updatedSubject)));
       }
       if (!!currentStudyTimeId){
         const result = await patchStudyTime(currentStudyTimeId, endTimeFormatted);
@@ -198,6 +199,7 @@ function mapDispatchToProps(dispatch){
   return{
       setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id)),
       setGlobalTimerOn : timerOn => dispatch(changeTimerOn(timerOn)),
+      setGlobalSubjects : value => dispatch(changeSubjects(value)),
   };
 }
 
