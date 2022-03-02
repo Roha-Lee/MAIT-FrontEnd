@@ -95,7 +95,9 @@ function AIHandFunctionViewer ({
   // Capture();
   return(
     <>
-        <Draggable>
+        <Draggable
+          bounds="body"
+        >
           <Webcam
             ref={webcamRef}
             audio={false}

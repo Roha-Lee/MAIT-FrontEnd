@@ -96,7 +96,9 @@ function AIFaceFunctionViewer ({
         <div className="ai-on" style={{
           display:"flex",
           justifyContent:"center", }}>
-          <Draggable>
+          <Draggable
+            bounds="body"
+          >
             <Webcam
               ref={webcamRef}
               audio={false}
