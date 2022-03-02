@@ -1,6 +1,6 @@
 import { Badge } from 'react-bootstrap'
 import styled from 'styled-components'
-
+import "animate.css"
 export const TodoListDiv = styled.div`
     display: flex;
     align-items: stretch;
@@ -14,9 +14,15 @@ export const TodoListHeader = styled.div`
 
 export const TodoItemContainer = styled.div`
     display: flex;
+    -webkit-box-align: center;
     align-items: center;
     padding: 8px 12px;
-
+    margin: 5px 0;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    animation: slideInRight;
+    animation-duration: 1s; 
 `
 
 export const TodoItemCheckBox = styled.input.attrs({ type: 'checkbox' })`

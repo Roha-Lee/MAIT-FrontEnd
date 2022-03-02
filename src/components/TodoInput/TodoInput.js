@@ -42,7 +42,7 @@ const TodoInput = ({ todoList, subjects, onItemAdd }) => {
                     {subjects.map(item => <option key={item.subjectId} value={item.name}>{item.name}</option>)}
                 </select>
             </InputGroup>
-            <FormButton onClick={onSubmit}>추가하기</FormButton>
+            <FormButton onClick={onSubmit}>추가</FormButton>
         </TodoInputContainer>
     )
 }
