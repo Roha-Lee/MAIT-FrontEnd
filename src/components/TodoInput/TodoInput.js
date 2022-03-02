@@ -16,13 +16,12 @@ const TodoInput = ({ todoList, subjects, onItemAdd }) => {
     
     //add button을 누를때 불리는 함수
     const onSubmit = useCallback(async () => {
-
-        
-        const todoSubjectId = subject !== 'Unselect' ? subjects.find(elem => elem.name === subject).subjectId : null;
         try {
+            const todoSubjectId = subject !== 'Unselect' ? subjects.find(elem => elem.name === subject).subjectId : null;
             const result = await postNewTodo(text, todoSubjectId);
-            setText('')
-            // onItemAdd({ subjectId: subject?.subjectId, content: text, id: todoList.length + 1})
+            const {id:todoId, content, subject_id:subjectId, is_done:isDone} = result.data.todo;
+            setText('');
+            onItemAdd({ subjectId, content, todoId, isDone});
         }
         catch (error) {
             console.log(error);

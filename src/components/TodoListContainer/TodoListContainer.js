@@ -7,7 +7,7 @@ import {
     TodoItemContent,
     TodoItemBadge,
 } from './TodoListContainer.styled'
-import { todoUpdate } from '../../utils/utils'
+import { patchTodo } from '../../utils/utils'
 import TodoInput from '../TodoInput/TodoInput'
 import TodoEditModal from '../TodoEditModal/TodoEditModal'
 import {connect} from "react-redux";
@@ -27,16 +27,20 @@ const TodoListContainer = ({
   //     { id: 2, content: 'BB', isDone: false, subjectId: 'subject1' },
   //     { id: 3, content: 'C', isDone: true, subjectId: 'subject2' },
   // ])
-
     const [editingTodo, setEditingTodo] = useState(null)
 
     const toggleTodo = useCallback( async (target) => {
         // 통신 코드 추가 
+        console.log('toggleTodo', target);
         try {
-            const updateResponse = await todoUpdate(target.todoId);
+            const updateResponse = await patchTodo(
+                target.todoId, 
+                target.content, 
+                !target.isDone,
+                target.subjectId);
             if (updateResponse.data.message === 'SUCCESS') {
-                console.log('updateResponse', updateResponse)
                 setTodoList(todoList.map((todo) => todo.todoId === target.todoId ? { ...todo, isDone: !todo.isDone } : todo))            
+                console.log('updateResponse', updateResponse)    
             }
         }
         catch (error) {
@@ -49,8 +53,8 @@ const TodoListContainer = ({
         const newItem = {
             subjectId: item.subjectId,
             content: item.content,
-            isDone: false, 
-            todoId: todoList.length + 1,
+            isDone: item.isDone, 
+            todoId: item.todoId,
         }
 
         setTodoList([...todoList, newItem])
@@ -70,11 +74,12 @@ const TodoListContainer = ({
     },[todoList, setTodoList])
 
     const renderTodo = useCallback((todo) => {
+
         return (
             <TodoItemContainer key={todo.todoId}>
-                <TodoItemCheckBox checked={todo.isDone} onClick={() => toggleTodo(todo)} />
+                <TodoItemCheckBox checked={todo.isDone} onChange={() => toggleTodo(todo)} />
                 <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
-                <TodoItemBadge 
+                <TodoItemBadge
                 color={`#${colorsIdtoCode[subjects.find(subject => subject.subjectId === todo.subjectId)?.colorId]}`}
                 >
                     {subjects.find(subject => subject.subjectId === todo.subjectId)?.name}
@@ -86,7 +91,7 @@ const TodoListContainer = ({
     return (
         <TodoListDiv>
             <TodoInput onItemAdd={onItemAdd}/>
-            {todoList.map(todo => renderTodo(todo))}
+                {todoList.map(todo => renderTodo(todo))}
             <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete}/>
         </TodoListDiv>
     )

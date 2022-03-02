@@ -105,7 +105,8 @@ function Mainpage({
       setColorsIdtoCode(JSON.parse(JSON.stringify(colorsIdtoCode)));
     }).catch((e)=>{
       // console.log(e);
-      setIsLogin(false);
+      // setIsLogin(false);
+      setIsLogin(true);
     })
     
     

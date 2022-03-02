@@ -81,8 +81,12 @@ function postNewTodo(content, subjectId) {
 })
 }
 
-function todoUpdate(todoId) {
-  return Axios.patch(`${serverAddress}/todos/${todoId}`,{}, {
+function patchTodo(todoId, content, isDone, subjectId) {
+  return Axios.patch(`${serverAddress}/todos/${todoId}`,{
+    content, 
+    subjectId,
+    isDone, 
+  }, {
     headers: {
         Authorization: `${window.sessionStorage.getItem('accessToken')}`
     }
@@ -128,4 +132,4 @@ function signOut(){
   })
 }
 
-export {getKakaoSignin, postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}
+export {getKakaoSignin, postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, patchTodo, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}

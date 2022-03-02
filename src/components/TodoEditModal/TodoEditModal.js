@@ -2,10 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { Modal, Button, FormControl, Form} from 'react-bootstrap'
 import axios from 'axios'
 import {connect} from "react-redux";
-// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
-const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
-    // console.log(subjects)
 
+const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
     const [content, setContent] = useState('')
     useEffect(() => setContent(todo?.content || ''), [todo])
 
@@ -18,7 +16,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         .then(() => onDelete(todo))    
     }
 
-    const [subject,editSubject] = useState('')
+    const [subject, editSubject] = useState('')
 
     // const [edit, editSubject] = useSate('')
 
@@ -31,14 +29,14 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
                 <FormControl type="text" value={content} onChange={(e) => setContent(e.target.value)} />
                 <Form.Select>
                     <option onClick={() => editSubject(null)}>Unselect</option>
-                        {subjects.map(item => <option onClick={() => editSubject(item)}>{item.name}</option>)}
+                        {subjects.map(item => <option key={item.subjectId} onClick={() => editSubject(item)}>{item.name}</option>)}
                 </Form.Select>
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={onCloseClick}>
                 닫기
             </Button>
-            <Button variant="primary" onClick={() => onChange(todo, content, item.name)}>
+            <Button variant="primary" onClick={() => onChange(todo, content)}>
                 저장
             </Button>
             <Button variant="danger" onClick={deleteTodo}>
