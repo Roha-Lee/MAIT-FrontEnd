@@ -166,7 +166,11 @@ function SubjectLineChart ({data,startDate,endDate}){
                         const currentIdx = subjectIndexColor[subject1][0];
                         // console.log(currentIdx);
                         // console.log(inputLineDataSet["datasets"][currentIdx]);
-                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        // totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        totalTimeFlt = parseFloat(
+                            parseInt(totalTimeStr.slice(0,2)) + 
+                            parseInt(totalTimeStr.slice(3,5))/60 + 
+                            parseInt(totalTimeStr.slice(6,8))/3600).toFixed(2);
                         // inputSubjectBarData[currentIdx] = parseFloat((inputSubjectBarData[currentIdx] + totalTimeFlt).toFixed(1)); 
                         inputLineDataSet["datasets"][currentIdx]["data"][p] = totalTimeFlt;
 
@@ -236,7 +240,11 @@ function SubjectLineChart ({data,startDate,endDate}){
                     let totalTimeFlt;
                     if(totalList !== undefined && subject in totalList){
                         const totalTimeStr = totalList[subject]["totalTime"];
-                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        // totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        totalTimeFlt = parseFloat(
+                            parseInt(totalTimeStr.slice(0,2)) + 
+                            parseInt(totalTimeStr.slice(3,5))/60 + 
+                            parseInt(totalTimeStr.slice(6,8))/3600).toFixed(2);
                     }else{
                         totalTimeFlt = 0;
                     }
@@ -319,7 +327,11 @@ function SubjectLineChart ({data,startDate,endDate}){
                     if(totalList !== undefined && subject in totalList){
                         const totalTimeStr = totalList[subject]["totalTime"];
                         // console.log(totalTimeStr, "idx : ",currentIdx , i);
-                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        // totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        totalTimeFlt = parseFloat(
+                            parseInt(totalTimeStr.slice(0,2)) + 
+                            parseInt(totalTimeStr.slice(3,5))/60 + 
+                            parseInt(totalTimeStr.slice(6,8))/3600).toFixed(2);
                         console.log(totalTimeFlt);
                     }else{
                         totalTimeFlt = 0;

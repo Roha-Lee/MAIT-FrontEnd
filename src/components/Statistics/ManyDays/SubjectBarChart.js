@@ -84,8 +84,11 @@ function SubjectBarChart ({data}){
             if(totalList[subject1] !== undefined){
                 const totalTimeStr = totalList[subject1]["totalTime"];
                 const currentIdx = subjectIndexColor[subject1][0];
-                const totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
-                inputSubjectBarData[currentIdx] = parseFloat((inputSubjectBarData[currentIdx] + totalTimeFlt).toFixed(1)); 
+                const totalTimeFlt = parseFloat(
+                    parseInt(totalTimeStr.slice(0,2)) + 
+                    parseInt(totalTimeStr.slice(3,5))/60 + 
+                    parseInt(totalTimeStr.slice(6,8))/3600);
+                inputSubjectBarData[currentIdx] = parseFloat((inputSubjectBarData[currentIdx] + totalTimeFlt).toFixed(2)); 
             }
         }
     }
