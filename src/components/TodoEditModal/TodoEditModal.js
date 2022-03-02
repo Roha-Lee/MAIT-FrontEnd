@@ -13,6 +13,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         setContent(todo?.content || '');
         if(!!todo){
             console.log('useEffect', todo);
+            console.log('useEffect-changed', subjects.find(subject=> subject.subjectId === todo.subjectId ).name)
             setSelectedSubject(subjects.find(subject=> subject.subjectId === todo.subjectId ).name);
         }
     }, [todo])
