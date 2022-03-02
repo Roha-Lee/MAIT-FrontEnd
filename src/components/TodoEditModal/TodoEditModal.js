@@ -11,7 +11,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     
     useEffect(() => {
         setContent(todo?.content || '');
-        if(todo !== null){
+        if(!!todo){
             setSelectedSubject(subjects.find(subject=> subject.subjectId === todo.subjectId ).name);
         }
     }, [todo])
@@ -27,7 +27,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         const changeSubjectId = subjects.find(subject => subject.name === selectedSubject).subjectId;
         patchTodo(todo.todoId, content, todo.isDone, changeSubjectId)
         .then(() => {
-            onChange(todo, content);
+            onChange(todo, content, changeSubjectId);
             onCloseClick(e);
         })
     }
@@ -85,7 +85,6 @@ const Input = styled.input`
   margin: 0 20px;  
   width: 300px;
 `
-
 
 
 export default connect(mapStateToProps) (TodoEditModal)

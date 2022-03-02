@@ -67,8 +67,8 @@ const TodoListContainer = ({
         setEditingTodo(null)
     }, [setEditingTodo])
 
-    const handleChange = useCallback((target, content) => {
-        setTodoList(todoList.map((todo) => todo.todoId === target.todoId ? { ...todo, content } : todo))
+    const handleChange = useCallback((target, content, subjectId) => {
+        setTodoList(todoList.map((todo) => todo.todoId === target.todoId ? { ...todo, content, subjectId } : todo))
         handleCloseEditModal()
     }, [todoList, setTodoList, handleCloseEditModal])
 

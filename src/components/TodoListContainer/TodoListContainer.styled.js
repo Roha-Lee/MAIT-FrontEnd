@@ -22,7 +22,7 @@ export const TodoItemContainer = styled.div`
     border-radius: 10px;
     background-color: #f1f1f1;
     animation: slideInRight;
-    animation-duration: 1s; 
+    animation-duration: .6s; 
 `
 
 export const TodoItemCheckBox = styled.input.attrs({ type: 'checkbox' })`
