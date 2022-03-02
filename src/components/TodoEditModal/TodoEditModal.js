@@ -7,6 +7,10 @@ import { Modal, Button, Select } from 'antd'
 const { Option } = Select;
 const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
     const [content, setContent] = useState('')
+    const [selectedSubject, setSelectedSubject] = useState(
+        subjects.find(subject=> subject.subjectId === todo.subjectId).name
+    )
+
     useEffect(() => setContent(todo?.content || ''), [todo])
 
     const onDeleteTodo = (e) => {
@@ -17,19 +21,18 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         })    
     }
     const onChangeTodo = (e) => {
-        patchTodo(todo.todoId, todo.content, todo.isDone, todo.subjectId)
+        const changeSubjectId = subjects.find(subject => subject.name === selectedSubject).subjectId;
+        patchTodo(todo.todoId, content, todo.isDone, changeSubjectId)
         .then(() => {
             onChange(todo, content);
             onCloseClick(e);
         })
     }
-    const [subject, editSubject] = useState('')
-
-    // const [edit, editSubject] = useSate('')
+    
 
     return (
     <Modal 
-        bodyStyle={{ height: '25vh', maxHeight: "45vh"}}    
+        bodyStyle={{ height: '80px'}}    
         title={"할일 수정/삭제"} 
         visible={!!todo} 
         onCancel={onCloseClick}
@@ -51,8 +54,8 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         }> 
         <Form type="text" value={content} onSubmit={onChangeTodo} onChange={(e) => setContent(e.target.value)}>
         <Input required type="text" value={content} onChange={(event) => setContent(event.target.value)}/>
-        <Select onClick={() => editSubject(null)}>
-            {subjects.map(item => <Option key={item.subjectId} onClick={() => editSubject(item)}>{item.name}</Option>)}
+        <Select style={{width: "120px", overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace="nowrap"}} defaultValue={selectedSubject}>
+            {subjects.map(item => <Option key={item.subjectId} onClick={() => setSelectedSubject(item)}>{item.name}</Option>)}
         </Select>
         </Form>
     </Modal>
