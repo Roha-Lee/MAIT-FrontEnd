@@ -255,8 +255,8 @@ function Subjects({
             animationDuration: isEditMode === true ? '800ms' : (subject.subjectId === newSubject ? '800ms' : null) ,           
           }}
           onClick={(event)=>{isEditMode === true ? editSubject(event) :changeSubject(event)}}>
-          {/* <SubjectColorCircle subjectColor={colorsIdtoCode[subject.colorId]}/> */}
-          <SubjectColorCircle subjectColor={`${subject.color}`} />
+          <SubjectColorCircle subjectColor={colorsIdtoCode[subject.colorId]}/>
+          {/* <SubjectColorCircle subjectColor={`${subject.color}`} /> */}
           <SubjectName>{subject.name}</SubjectName>
         </TabBox>
       ))

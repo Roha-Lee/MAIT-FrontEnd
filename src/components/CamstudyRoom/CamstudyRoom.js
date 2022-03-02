@@ -13,7 +13,6 @@ import { notification } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import Bell from "./assets/bell.mp3";
 
-document.body.style.overflow = 'hidden';
 
 const CamstudyRoom = (props) => {
   const currentUser = window.sessionStorage.getItem('currentUser');
@@ -34,6 +33,7 @@ const CamstudyRoom = (props) => {
   const [displayChat, setDisplayChat] = useState(false);
   
   useEffect(async ()=> {
+    document.body.style.overflow = 'hidden';
     window.addEventListener('popstate', goToBack);
     window.addEventListener('beforeunload', goToBack);
     
