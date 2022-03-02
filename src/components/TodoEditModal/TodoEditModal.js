@@ -26,7 +26,11 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         })    
     }
     const onChangeTodo = (e) => {
-        console.log('onChangeTodo', todo)
+        console.log('onChangeTodo', todo);
+        console.log('selectedSubject', selectedSubject);
+        console.log('todo.todoId, content, todo.isDone, changeSubjectId', todo.todoId, content, todo.isDone, changeSubjectId);
+
+
         const changeSubjectId = subjects.find(subject => subject.name === selectedSubject).subjectId;
         patchTodo(todo.todoId, content, todo.isDone, changeSubjectId)
         .then(() => {
