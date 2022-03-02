@@ -54,7 +54,8 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         }> 
         <Form type="text" value={content} onSubmit={onChangeTodo} onChange={(e) => setContent(e.target.value)}>
         <Input required type="text" value={content} onChange={(event) => setContent(event.target.value)}/>
-        <Select style={{width: "120px", overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace="nowrap"}} defaultValue={selectedSubject}>
+        <Select 
+        defaultValue={selectedSubject}>
             {subjects.map(item => <Option key={item.subjectId} onClick={() => setSelectedSubject(item)}>{item.name}</Option>)}
         </Select>
         </Form>
