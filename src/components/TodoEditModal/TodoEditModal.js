@@ -17,6 +17,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     }, [todo])
 
     const onDeleteTodo = (e) => {
+        console.log('onDeleteTodo', todo)
         deleteTodo(todo.todoId)
         .then(() => {
             onDelete(todo);
@@ -24,6 +25,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         })    
     }
     const onChangeTodo = (e) => {
+        console.log('onChangeTodo', todo)
         const changeSubjectId = subjects.find(subject => subject.name === selectedSubject).subjectId;
         patchTodo(todo.todoId, content, todo.isDone, changeSubjectId)
         .then(() => {
