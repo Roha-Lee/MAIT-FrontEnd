@@ -81,7 +81,7 @@ const TodoListContainer = ({
                 </TodoItemBadge>
             </TodoItemContainer>
         )
-    }, [subjects, toggleTodo])
+    }, [subjects, toggleTodo, todoList])
 
     return (
         <TodoListDiv>
