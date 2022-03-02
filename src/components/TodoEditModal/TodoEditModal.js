@@ -39,8 +39,9 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     }
     
     const handleChange = (value) => {
-        setSelectedSubject(value)}        
+        setSelectedSubject(value);        
     }
+    
     return (
     <Modal 
         bodyStyle={{ maxHeight: '50vh'}}    
