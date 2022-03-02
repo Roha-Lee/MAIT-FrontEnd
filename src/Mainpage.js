@@ -99,10 +99,10 @@ function Mainpage({
       });
 
       setSubjects(newSubjects); // 과목 정보 
-      setGlobalSubjects([...newSubjects]);
-      setTodoList(newTodos);
-      setColorsCodetoId(colorsCodetoId);
-      setColorsIdtoCode(colorsIdtoCode);
+      setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
+      setTodoList(JSON.parse(JSON.stringify(newTodos)));
+      setColorsCodetoId(JSON.parse(JSON.stringify(colorsCodetoId)));
+      setColorsIdtoCode(JSON.parse(JSON.stringify(colorsIdtoCode)));
     }).catch((e)=>{
       // console.log(e);
       setIsLogin(false);

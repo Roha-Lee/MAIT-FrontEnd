@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 export const TodoListDiv = styled.div`
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    flex-direction : column;
 `
 
 export const TodoListHeader = styled.div`
@@ -14,6 +15,7 @@ export const TodoItemContainer = styled.div`
     display: flex;
     align-items: center;
     padding: 8px 12px;
+
 `
 
 export const TodoItemCheckBox = styled.input.attrs({ type: 'checkbox' })`

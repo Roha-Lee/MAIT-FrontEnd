@@ -92,7 +92,7 @@ function Subjects({
       newSubjects[idx].name = value;
       newSubjects[idx].colorId = colorsCodetoId[color];
       setSubjects(newSubjects);
-      setGlobalSubjects([...newSubjects]);
+      setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
       if (currentSubject ===  editingSubject) {
         setCurrentSubject(newSubjects[idx].name);
       } 
@@ -136,8 +136,9 @@ function Subjects({
           totalTime: 0
         }
       ]);
+      const copySubjects = JSON.parse(JSON.stringify(subjects));
       setGlobalSubjects([
-        ...subjects, 
+        ...copySubjects, 
         {
           subjectId: id, 
           name, 
@@ -213,7 +214,7 @@ function Subjects({
       }
 
       setSubjects(newSubjects);
-      setGlobalSubjects([...newSubjects]);
+      setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
       setNowEditing(null);
       setIsEditModalVisible(false);
     }

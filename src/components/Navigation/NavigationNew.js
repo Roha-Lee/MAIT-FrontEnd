@@ -104,7 +104,8 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
   }
 
   function goToHome(){
-    navigate("/");
+    // navigate("/");
+    window.location.replace("/");
   }
 
   const navigations = (  
@@ -160,6 +161,7 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
       visible={show} 
       onCancel={handleCancel} 
       onOk={handleOk}
+      centered
     > 
         <TodoListContainer/>
     </Modal>
