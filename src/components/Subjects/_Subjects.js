@@ -45,6 +45,8 @@ function Subjects({
               +
             </button>
             <Modal 
+              style={{ maxHeight: '50vh' }}
+              bodyStyle={{ overflowY: 'scroll' }}
               modalOpen={ modalOpen } 
               setModalState={ setModalState }             
               subjects={ subjects }

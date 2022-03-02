@@ -1,19 +1,18 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Modal, Button, FormControl, Form} from 'react-bootstrap'
-import axios from 'axios'
+// import { Modal, Button, FormControl, Form} from 'react-bootstrap'
+import { deleteTodo } from '../../utils/utils';
 import {connect} from "react-redux";
-
+import { Modal, Button } from 'antd'
 const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
     const [content, setContent] = useState('')
     useEffect(() => setContent(todo?.content || ''), [todo])
 
-    const deleteTodo = () => {
-        axios.delete(`/todos/${todo.id}`, {
-            headers: {
-                Authorization: `${window.sessionStorage.getItem('accessToken')}`
-            }
-        })
-        .then(() => onDelete(todo))    
+    const onDeleteTodo = (e) => {
+        deleteTodo(todo.todoId)
+        .then(() => {
+            onDelete(todo);
+            onCloseClick(e);
+        })    
     }
 
     const [subject, editSubject] = useState('')
@@ -21,7 +20,39 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     // const [edit, editSubject] = useSate('')
 
     return (
-        <Modal show={!!todo} onHide={onCloseClick}>
+    <Modal 
+        bodyStyle={{ height: '25vh', maxHeight: "45vh"}}    
+        title={"할일 수정/삭제"} 
+        visible={!!todo} 
+        onCancel={onCloseClick}
+        centered
+        footer={<>
+            <Button 
+            key="delete" 
+            onClick={onDeleteTodo}
+            >
+            삭제
+          </Button>
+          <Button key="save" onClick={() => onChange(todo, content)}>
+            저장
+          </Button>
+          <Button key="cancle" onClick={onCloseClick}>
+            닫기
+          </Button>
+          </> 
+        }> 
+        <form type="text" value={content} onSubmit={() => onChange(todo, content)} onChange={(e) => setContent(e.target.value)}>
+        <label>
+            <span>과목 입력</span>
+            <input  required maxLength={16} type="text" value={content} onChange={(event) => setContent(event.target.value)}/>
+        </label>
+        <option onClick={() => editSubject(null)}>Unselect</option>
+            {subjects.map(item => <option key={item.subjectId} onClick={() => editSubject(item)}>{item.name}</option>)}
+        </form>
+    </Modal>
+    )
+}
+{/* <Modal show={!!todo} onHide={onCloseClick}>
             <Modal.Header closeButton>
                 <Modal.Title>수정이나 삭제가 가능합니다.</Modal.Title>
             </Modal.Header>
@@ -39,14 +70,11 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
             <Button variant="primary" onClick={() => onChange(todo, content)}>
                 저장
             </Button>
-            <Button variant="danger" onClick={deleteTodo}>
+            <Button variant="danger" onClick={onDeleteTodo}>
                 삭제
             </Button>
             </Modal.Footer>
-        </Modal>
-    )
-}
-
+        </Modal> */}
 function mapStateToProps(state){
     return{
         subjects : state.subjects,

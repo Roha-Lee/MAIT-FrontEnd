@@ -93,6 +93,14 @@ function patchTodo(todoId, content, isDone, subjectId) {
 });
 }
 
+function deleteTodo(todoId) {
+  return Axios.delete(`${serverAddress}/todos/${todoId}`, {
+    headers: {
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
+    }
+  });
+}
+
 function postStudyTime(subjectId, startTime) {
   console.log('postStudyTime', subjectId, startTime);
   return Axios.post(
@@ -132,4 +140,4 @@ function signOut(){
   })
 }
 
-export {getKakaoSignin, postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, patchTodo, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}
+export {getKakaoSignin, postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, patchTodo, postNewTodo, deleteTodo, putSubject, postStudyTime, patchStudyTime, signOut}

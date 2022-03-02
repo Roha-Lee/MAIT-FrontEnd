@@ -9,6 +9,7 @@ export const TodoListDiv = styled.div`
 
 export const TodoListHeader = styled.div`
     font-size: 1.2rem;
+    color: #606060;
 `
 
 export const TodoItemContainer = styled.div`
@@ -20,6 +21,8 @@ export const TodoItemContainer = styled.div`
 
 export const TodoItemCheckBox = styled.input.attrs({ type: 'checkbox' })`
     flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
 `
 
 export const TodoItemContent = styled.div`
@@ -28,8 +31,8 @@ export const TodoItemContent = styled.div`
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 1.2rem;
-    color: ${props => props.isDone ? 'silver' : 'black'};
+    font-size: 1rem;
+    color: ${props => props.isDone ? '#E0E0DF' : '#606060'};
     cursor: pointer;
 `
 

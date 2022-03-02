@@ -12,6 +12,7 @@ import TodoInput from '../TodoInput/TodoInput'
 import TodoEditModal from '../TodoEditModal/TodoEditModal'
 import {connect} from "react-redux";
 import {changeTodoLists} from "../../store"
+import { notification } from 'antd'
 
 
 // TodoListContainer TodoList들을 관리하는 전체적인 폼
@@ -44,19 +45,21 @@ const TodoListContainer = ({
             }
         }
         catch (error) {
-            console.log(error);
+            if (error.response.data.message === 'INVALID_USER') {
+                notification.open({
+                    message : "로그인을 해주세요",
+                })
+            }
         }
     }, [todoList]);
 
     const onItemAdd = useCallback((item) => {
-      // postNewTodo(item.content, item.subjectId);
         const newItem = {
             subjectId: item.subjectId,
             content: item.content,
             isDone: item.isDone, 
             todoId: item.todoId,
         }
-
         setTodoList([...todoList, newItem])
     }, [todoList]);
 

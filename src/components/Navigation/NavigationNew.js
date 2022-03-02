@@ -157,11 +157,13 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
       </NavContainer>
     </NavBar>
     <Modal 
+      bodyStyle={{ overflowY: 'auto',  height: '50vh', maxHeight: "90vh"}}    
       title={"오늘의 할일"} 
       visible={show} 
       onCancel={handleCancel} 
       onOk={handleOk}
       centered
+      footer={null}
     > 
         <TodoListContainer/>
     </Modal>
