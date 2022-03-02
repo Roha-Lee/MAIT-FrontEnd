@@ -6,12 +6,15 @@ import {connect} from "react-redux";
 import { Modal, Button, Select } from 'antd'
 const { Option } = Select;
 const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
-    const [content, setContent] = useState('')
-    const [selectedSubject, setSelectedSubject] = useState(
-        subjects.find(subject=> subject.subjectId === todo.subjectId).name
-    )
-
-    useEffect(() => setContent(todo?.content || ''), [todo])
+    const [content, setContent] = useState('');
+    const [selectedSubject, setSelectedSubject] = useState(null);
+    
+    useEffect(() => {
+        setContent(todo?.content || '');
+        if(todo !== null){
+            setSelectedSubject(subjects.find(subject=> subject.subjectId === todo.subjectId ).name);
+        }
+    }, [todo])
 
     const onDeleteTodo = (e) => {
         deleteTodo(todo.todoId)
