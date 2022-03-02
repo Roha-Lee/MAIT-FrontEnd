@@ -56,24 +56,27 @@ function Login({isLogin , setIsLogin}) {
                 setIsLogin(!isLogin);
                 navigate("/");
             }
-            else if (response.data.message === 'INVALID_USERNAME'){
-                notification.open({
-                    description: "존재하지 않는 사용자 입니다.",
-                    icon: <WarningOutlined style={{ color: "#606060" }}/>,
-                })
-            }
-            else if (response.data.message === "INVALID_PASSWORD") {
-                notification.open({
-                    description: "비밀번호가 일치하지 않습니다.",
-                    icon: <WarningOutlined style={{ color: "#606060" }}/>,
-                })
-            }
             else {
                 notification.open({
                     description: "로그인에 실패했습니다.",
                     icon: <WarningOutlined style={{ color: "#606060" }}/>,
                 })
             }
+        })
+        .catch(error => {
+            if (error.response.data.message === 'INVALID_USERNAME'){
+                notification.open({
+                    description: "존재하지 않는 사용자 입니다.",
+                    icon: <WarningOutlined style={{ color: "#606060" }}/>,
+                })
+            }
+            else if (error.response.data.message === "INVALID_PASSWORD") {
+                notification.open({
+                    description: "비밀번호가 일치하지 않습니다.",
+                    icon: <WarningOutlined style={{ color: "#606060" }}/>,
+                })
+            }
+            
         })
         // TODO catch로 
     }

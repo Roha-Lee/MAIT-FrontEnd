@@ -42,38 +42,7 @@ function Mainpage({
   //   color: 'bf6d7f',
   //   totalTime: 0,
   // },
-  const [subjects, setSubjects] = useState([
-    {
-      subjectId: 1, 
-      name: 'Algorithm',
-      color: 'a67ebf',
-      totalTime: 11231300,
-    },
-    {
-      subjectId: 3, 
-      name: 'Javascript',
-      color: '6dbf84',
-      totalTime: 232400,
-    },
-    {
-      subjectId: 2, 
-      name: 'OS',
-      color: 'bf6d7f',
-      totalTime: 0,
-    },
-    {
-      subjectId: 2, 
-      name: 'OS',
-      color: 'bf6d7f',
-      totalTime: 0,
-    },
-    {
-      subjectId: 2, 
-      name: 'OS',
-      color: 'bf6d7f',
-      totalTime: 0,
-    },
-  ]);
+  const [subjects, setSubjects] = useState([]);
   const [currentSubject, setCurrentSubject] = useState(null);
   const [timerOn, setTimerOn] = useState(false);
   const [userTimerOn, setUserTimerOn] = useState(false);
@@ -136,7 +105,7 @@ function Mainpage({
       setColorsIdtoCode(JSON.parse(JSON.stringify(colorsIdtoCode)));
     }).catch((e)=>{
       // console.log(e);
-      setIsLogin(true);
+      setIsLogin(false);
     })
     
     

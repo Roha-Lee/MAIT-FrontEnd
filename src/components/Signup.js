@@ -56,48 +56,6 @@ function Signup() {
             });
             navigate(`/Login`)
         }
-        else if(response.data.message === "EMPTY_USERNAME"){
-          notification.open({
-            description: "아이디를 입력해주세요",
-            icon: <WarningOutlined style={{ color: "#606060" }}/>,
-        })
-        }
-        else if(response.data.message === "ID_TOO_LONG"){
-          notification.open({
-            description: "16글자 이하의 아이디를 사용해주세요.",
-            icon: <WarningOutlined style={{ color: "#606060" }}/>,
-        })
-        }
-        else if(response.data.message === "PASSWORD_TOO_SHORT") {
-          notification.open({
-            description: "비밀번호가 너무 짧습니다. 4글자 이상의 비밀번호를 사용해주세요.",
-            icon: <WarningOutlined style={{ color: "#606060" }}/>,
-        })
-        }
-        else if(response.data.message === "EMPTY_NICKNAME") {
-          notification.open({
-            description: "닉네임을 입력해주세요",
-            icon: <WarningOutlined style={{ color: "#606060" }}/>,
-        })
-        }
-        else if(response.data.message === "EMAIL_INVALID") {
-          notification.open({
-            description: "잘못된 이메일 형식입니다.",
-            icon: <WarningOutlined style={{ color: "#606060" }}/>,
-          })
-        }
-        else if(response.data.message === "USERNAME_EXISTS") {
-          notification.open({
-            description: "이미 사용중인 아이디입니다.",
-            icon: <WarningOutlined style={{ color: "#606060" }}/>,
-          })
-        }
-        else if(response.data.message === "CONNECTION_ERROR") {
-          notification.open({
-            description: "연결 오류입니다.",
-            icon: <WarningOutlined style={{ color: "#606060" }}/>,
-        })
-        }
         else{
           notification.open({
             description: "회원가입에 실패했습니다.",
@@ -105,9 +63,50 @@ function Signup() {
           })
         }
       })
-      .catch(err => {
-        // TODO) 400으로 오면 여기서 처리 해야함. 메시지들 
-        console.log(err);
+      .catch(error => {
+        if(error.response.data.message === "EMPTY_USERNAME"){
+          notification.open({
+            description: "아이디를 입력해주세요",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        else if(error.response.data.message === "ID_TOO_LONG"){
+          notification.open({
+            description: "16글자 이하의 아이디를 사용해주세요.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        else if(error.response.data.message === "PASSWORD_TOO_SHORT") {
+          notification.open({
+            description: "비밀번호가 너무 짧습니다. 4글자 이상의 비밀번호를 사용해주세요.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        else if(error.response.data.message === "EMPTY_NICKNAME") {
+          notification.open({
+            description: "닉네임을 입력해주세요",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        else if(error.response.data.message === "EMAIL_INVALID") {
+          notification.open({
+            description: "잘못된 이메일 형식입니다.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+          })
+        }
+        else if(error.response.data.message === "USERNAME_EXISTS") {
+          notification.open({
+            description: "이미 사용중인 아이디입니다.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+          })
+        }
+        else if(error.response.data.message === "CONNECTION_ERROR") {
+          notification.open({
+            description: "연결 오류입니다.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        
       })
     }
   }
