@@ -71,8 +71,6 @@ function Mainpage({
           totalTime: 0,
         }
       });
-      setUserName(userData.data.nickname);
-      setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "")
       
       userData.data.study.forEach(subject => {
         let hmsArray = subject.totalTime.split(":").map(elem => parseInt(elem));
@@ -81,6 +79,9 @@ function Mainpage({
         .totalTime = (hmsArray[0] * 3600 + hmsArray[1] * 60 + hmsArray[2]) * 1000 ;
       })
       
+      setUserName(userData.data.nickname);
+      setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "")
+      setCurrentTime(newSubjects.length > 0 ? newSubjects[0].totalTime : 0)
         
       //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
       

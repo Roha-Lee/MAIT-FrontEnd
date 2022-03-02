@@ -95,6 +95,7 @@ function Subjects({
       setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
       if (currentSubject ===  editingSubject) {
         setCurrentSubject(newSubjects[idx].name);
+        setCurrentTime(currentTime);
       } 
       resetModal()
       setIsEditMode(false);
@@ -149,6 +150,7 @@ function Subjects({
 
       if(isSubjectEmpty){
         setCurrentSubject(name);
+        setCurrentTime(0);
       }
       setNewSubject(id); 
     } catch (error) {
@@ -234,7 +236,7 @@ function Subjects({
       const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
       updatedSubject[subjectIdx].totalTime = currentTime;
       setSubjects(updatedSubject);
-      setGlobalSubjects([...updatedSubject]);
+      setGlobalSubjects(JSON.parse(JSON.stringify(updatedSubject)));
     }
     setTimerOn(false);
     setCurrentSubject(newSubject);
