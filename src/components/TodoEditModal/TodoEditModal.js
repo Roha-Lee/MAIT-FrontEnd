@@ -63,7 +63,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         <Select 
         style={{width: 100}}
         defaultValue={selectedSubject}>
-            {subjects.map(item => <Option key={item.subjectId} onClick={() => setSelectedSubject(item)}>{item.name}</Option>)}
+            {subjects.map(item => <Option key={item.subjectId} onClick={() => setSelectedSubject(item.name)}>{item.name}</Option>)}
         </Select>
         </Form>
     </Modal>
