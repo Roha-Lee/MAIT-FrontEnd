@@ -29,10 +29,8 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     const onChangeTodo = (e) => {
         console.log('onChangeTodo', todo);
         console.log('selectedSubject', selectedSubject);
-        console.log('todo.todoId, content, todo.isDone, changeSubjectId', todo.todoId, content, todo.isDone, changeSubjectId);
-
-
         const changeSubjectId = subjects.find(subject => subject.name === selectedSubject).subjectId;
+        console.log('todo.todoId, content, todo.isDone, changeSubjectId', todo.todoId, content, todo.isDone, changeSubjectId);
         patchTodo(todo.todoId, content, todo.isDone, changeSubjectId)
         .then(() => {
             onChange(todo, content, changeSubjectId);
@@ -68,7 +66,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         <Select 
         style={{width: 100}}
         defaultValue={selectedSubject}>
-            {subjects.map(item => <Option key={item.subjectId} onClick={() => setSelectedSubject(item.name)}>{item.name}</Option>)}
+            {subjects.map(item => <Option key={item.subjectId} value={item.name} onClick={() => setSelectedSubject(item.name)}>{item.name}</Option>)}
         </Select>
         </Form>
     </Modal>
