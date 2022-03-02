@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 // import { Modal, Button, FormControl, Form} from 'react-bootstrap'
-import { deleteTodo } from '../../utils/utils';
+import styled from 'styled-components';
+import { deleteTodo, patchTodo } from '../../utils/utils';
 import {connect} from "react-redux";
 import { Modal, Button, Select } from 'antd'
 const { Option } = Select;
@@ -15,7 +16,13 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
             onCloseClick(e);
         })    
     }
-
+    const onChangeTodo = (e) => {
+        patchTodo(todo.todoId, todo.content, todo.isDone, todo.subjectId)
+        .then(() => {
+            onChange(todo, content);
+            onCloseClick(e);
+        })
+    }
     const [subject, editSubject] = useState('')
 
     // const [edit, editSubject] = useSate('')
@@ -34,7 +41,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
             >
             삭제
           </Button>
-          <Button key="save" onClick={() => onChange(todo, content)}>
+          <Button key="save" onClick={onChangeTodo}>
             저장
           </Button>
           <Button key="cancle" onClick={onCloseClick}>
@@ -42,15 +49,12 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
           </Button>
           </> 
         }> 
-        <form type="text" value={content} onSubmit={() => onChange(todo, content)} onChange={(e) => setContent(e.target.value)}>
-        <label>
-            <span>과목 입력</span>
-            <input  required maxLength={16} type="text" value={content} onChange={(event) => setContent(event.target.value)}/>
-        </label>
+        <Form type="text" value={content} onSubmit={onChangeTodo} onChange={(e) => setContent(e.target.value)}>
+        <Input required type="text" value={content} onChange={(event) => setContent(event.target.value)}/>
         <Select onClick={() => editSubject(null)}>
             {subjects.map(item => <Option key={item.subjectId} onClick={() => editSubject(item)}>{item.name}</Option>)}
         </Select>
-        </form>
+        </Form>
     </Modal>
     )
 }
@@ -59,5 +63,21 @@ function mapStateToProps(state){
         subjects : state.subjects,
     };
 }
+
+const Form = styled.form`
+display: flex;
+align-items: center;
+justify-content: center;
+`
+const Input = styled.input`
+  border-radius: 5px;
+  border: 2px solid #606060;
+  background-color: #fff;
+  padding: 8px 15px;
+  margin: 0 20px;  
+  width: 300px;
+`
+
+
 
 export default connect(mapStateToProps) (TodoEditModal)
