@@ -32,7 +32,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
 
     return (
     <Modal 
-        bodyStyle={{ height: '80px'}}    
+        bodyStyle={{ maxHeight: '50vh'}}    
         title={"할일 수정/삭제"} 
         visible={!!todo} 
         onCancel={onCloseClick}
@@ -55,6 +55,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         <Form type="text" value={content} onSubmit={onChangeTodo} onChange={(e) => setContent(e.target.value)}>
         <Input required type="text" value={content} onChange={(event) => setContent(event.target.value)}/>
         <Select 
+        style={{width: 100}}
         defaultValue={selectedSubject}>
             {subjects.map(item => <Option key={item.subjectId} onClick={() => setSelectedSubject(item)}>{item.name}</Option>)}
         </Select>
