@@ -255,7 +255,8 @@ function Subjects({
             animationDuration: isEditMode === true ? '800ms' : (subject.subjectId === newSubject ? '800ms' : null) ,           
           }}
           onClick={(event)=>{isEditMode === true ? editSubject(event) :changeSubject(event)}}>
-          <SubjectColorCircle subjectColor={colorsIdtoCode[subject.colorId]}/>
+          {/* <SubjectColorCircle subjectColor={colorsIdtoCode[subject.colorId]}/> */}
+          <SubjectColorCircle subjectColor={`${subject.color}`} />
           <SubjectName>{subject.name}</SubjectName>
         </TabBox>
       ))
@@ -307,20 +308,20 @@ function Subjects({
               {subjectButtons}
               <div style={{float:'left', clear: 'both'}} ref={subjectEndRef} />
             </SubjectBox>
-          <ButtonBox>
-            <SubjectControlButton 
-              onClick={subjectControlAddButtonClick}
-              type="add"
-              noSubject={subjects.length === 0}
-              >
-              <img src="img/add.svg" width="20" height="20"/>
-            </SubjectControlButton>
-            <SubjectControlButton
-              onClick={subjectControlEditButtonClick}
-              type="edit">
-              <img src="img/edit.svg" width="20" height="20"/>
-            </SubjectControlButton>  
-          </ButtonBox>
+            <ButtonBox>
+              <SubjectControlButton 
+                onClick={subjectControlAddButtonClick}
+                type="add"
+                noSubject={subjects.length === 0}
+                >
+                <img src="img/add.svg" width="20" height="20"/>
+              </SubjectControlButton>
+              <SubjectControlButton
+                onClick={subjectControlEditButtonClick}
+                type="edit">
+                <img src="img/edit.svg" width="20" height="20"/>
+              </SubjectControlButton>  
+            </ButtonBox>
             </FlexBox>
             <Modal title="새 과목 추가하기" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
               {/* <NameForm onSubmit={handleOk} subjects={subjects} setSubjects={setSubjects} value={value} setValue={setValue} color={color} setColor={setColor}/> */}

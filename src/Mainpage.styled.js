@@ -19,6 +19,16 @@ export const SubjectsContainer = styled.div`
     width: 880px;
     height: 60px;
     border-radius: 25px 25px 0 0;
+    @media screen and (max-width: 1024px) {
+        width: 680px;   
+    }
+    @media screen and (max-width: 760px) {
+        width: 480px;   
+    }
+    @media screen and (max-width: 520px) {
+        width: 350px;
+        height: 50px;   
+    }
 `
 
 export const BottomFlexBox = styled.div`
@@ -33,6 +43,16 @@ export const BottomColor = styled.div`
     border-radius: 0 0 25px 25px;
     margin: 0 auto;
     height: 50px;
+    @media screen and (max-width: 1024px) {
+        width: 680px;   
+    }
+    @media screen and (max-width: 760px) {
+        width: 480px;   
+    }
+    @media screen and (max-width: 520px) {
+        width: 350px;
+        height: 44px
+    }
 `
 
 export const DropdownContainer = styled.div`
@@ -52,15 +72,25 @@ export const BottomItems = styled.div`
 export const Seperator = styled.div`
     font-size: 1.8rem;
     color : darkslateblue;
+    @media screen and (max-width: 520px) {
+        font-size: 1.2rem;
+    }
 `
 
 export const TodayDate = styled.span`
     color : #606060;
     width: 30%;
     text-align : center;
+    @media screen and (max-width: 1024px) {
+        font-size: 0.9rem;   
+    }
+    
 `
 export const WelcomeComment = styled.span`
     color : #606060;
     width: 30%;
     text-align : center;
+    @media screen and (max-width: 1024px) {
+        font-size: 0.9rem;   
+    }
 `

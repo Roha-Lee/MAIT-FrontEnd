@@ -56,6 +56,11 @@ export const SubjectControlButton = styled.button`
     animation: bounce;
     animation-duration: 1s;
     `: null}
+    @media screen and (max-width: 520px) {
+        width: 30px;
+        height: 30px;
+        margin: 10px 10px 0;
+    } 
 `
 
 export const Active =  styled.div`
@@ -70,17 +75,21 @@ export const TabBox = styled.div`
     border-radius: 15px 15px 0 0;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+    @media screen and (max-width: 520px) {
+        height: 35px;
+    }
 `
 
 export const FlexBox = styled.div`
     display: flex;
+    width: 100%;
 `
 
 export const SubjectBox = styled.div`
     display: flex;
-    width: 700px;
-    margin-right: 15px;
+    flex: 1 1 0;
+    margin: 0 15px;
     overflow-x: hidden;
     overflow-y: hidden;
     :hover{
@@ -95,10 +104,14 @@ export const SubjectBox = styled.div`
     ::-webkit-scrollbar-thumb
     {
 	border-radius: 10px;
-	background-color: #E0E0DF;
-}
-
-    
+	background-color: #E0E0DF; 
+    }
+    @media screen and (max-width: 760px) {
+        width: 300px;
+    }
+    @media screen and (max-width: 520px) {
+        width: 200px;   
+    }
 `
 
 export const ButtonBox = styled.div`

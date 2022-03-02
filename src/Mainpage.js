@@ -42,7 +42,38 @@ function Mainpage({
   //   color: 'bf6d7f',
   //   totalTime: 0,
   // },
-  const [subjects, setSubjects] = useState([]);
+  const [subjects, setSubjects] = useState([
+    {
+      subjectId: 1, 
+      name: 'Algorithm',
+      color: 'a67ebf',
+      totalTime: 11231300,
+    },
+    {
+      subjectId: 3, 
+      name: 'Javascript',
+      color: '6dbf84',
+      totalTime: 232400,
+    },
+    {
+      subjectId: 2, 
+      name: 'OS',
+      color: 'bf6d7f',
+      totalTime: 0,
+    },
+    {
+      subjectId: 2, 
+      name: 'OS',
+      color: 'bf6d7f',
+      totalTime: 0,
+    },
+    {
+      subjectId: 2, 
+      name: 'OS',
+      color: 'bf6d7f',
+      totalTime: 0,
+    },
+  ]);
   const [currentSubject, setCurrentSubject] = useState(null);
   const [timerOn, setTimerOn] = useState(false);
   const [userTimerOn, setUserTimerOn] = useState(false);
@@ -60,7 +91,6 @@ function Mainpage({
   let navigate = useNavigate();
   
   useEffect(() => {
-
     getAllUserData().then((userData)=> {
       setIsLogin(true);
       const newSubjects = userData.data.subjects.map(subject => {
@@ -106,7 +136,7 @@ function Mainpage({
       setColorsIdtoCode(JSON.parse(JSON.stringify(colorsIdtoCode)));
     }).catch((e)=>{
       // console.log(e);
-      setIsLogin(false);
+      setIsLogin(true);
     })
     
     
@@ -128,13 +158,13 @@ function Mainpage({
           if(isLogin){
             setUseFaceAi(true);
             setUseHandAi(false);
-            buttonRef.current.querySelector('span').innerText = "얼굴 인식 모드"
+            buttonRef.current.querySelector('span').innerText = "얼굴 인식"
           }else{
             loginComment();
             setTimeout(navigate("/Login"),1000);
           }
         }}>
-          얼굴 인식 모드
+          얼굴 인식
         </div>
       </Menu.Item>
       <Menu.Item>
@@ -142,13 +172,13 @@ function Mainpage({
           if(isLogin){
             setUseFaceAi(false);
             setUseHandAi(true);
-            buttonRef.current.querySelector('span').innerText = "손 인식 모드"
+            buttonRef.current.querySelector('span').innerText = "손 인식"
           }else{
             loginComment();
             setTimeout(navigate("/Login"),1000);
           }
           }}>
-          손 인식 모드
+          손 인식
         </div>
       </Menu.Item>
       
@@ -195,13 +225,13 @@ function Mainpage({
         <BottomFlexBox>
           <DropdownContainer>
             <Dropdown overlay={menu} placement="bottomCenter">
-              <Button Button ref={buttonRef} style={{width : "110px",}}>AI 모드 선택</Button>
+              <Button Button ref={buttonRef} style={{width : "100px", margin:"3px 0 0 4px", padding:"0"}}>AI 모드 선택</Button>
             </Dropdown>
           </DropdownContainer>
           <Seperator>|</Seperator>
-          <WelcomeComment>{isLogin ? `${userName}님 안녕하세요!` : `로그인을 해주세요!`}</WelcomeComment>
+          <WelcomeComment>{isLogin ? `${userName}님 안녕하세요!` : `로그인 해주세요!`}</WelcomeComment>
           <Seperator>|</Seperator>
-          <TodayDate>오늘은 {new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 입니다.</TodayDate>
+          <TodayDate>{new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일</TodayDate>
         </BottomFlexBox>
         </BottomColor>
       </ColFlex>
