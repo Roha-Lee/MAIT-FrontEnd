@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavBar, MainContainer, NavContainer,NavLogo, NavSpan, NavMenu, NavIcon, NavLink ,NavItem } from './NavigationNew.styled'
 import { changeLogin, changeCurrentStudyTimeId } from "../../store";
 import { connect } from "react-redux";
-import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
+import {getTodos} from "../../utils/utils"
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { notification } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
@@ -12,6 +12,10 @@ import socket from '../../socket'
 function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, clickChat}) {
   const [showVideoList, setShowVideoList] = useState(false);
   const [click, setClick] = useState(false);
+  const [show, setShow] = useState(false);
+  const [todoList, setTodoList] = useState([]);
+
+
   const exitRoom = () => {
     socket.emit('leave-room', { roomId, leaver: currentUser });
     window.close();
@@ -35,9 +39,27 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
 
   const openTodoModal = () => {
     click ? handleClick() : null;
-    // TODO: todo modal 여는 로직 추가 
-}
+    getTodos()
+    .then( res => {
+      const newTodos = res.data.todos.map(todo => {
+        return {
+          todoId: todo.id,
+          content: todo.content,
+          subjectId: todo.subjectId,
+          isDone: todo.isDone
+        }
+      });
+      setTodoList(newTodos);
+    })
+    .catch( error => {
+      console.log(error)
+    })
+    setShow(true);
+
+  }
+
   const navigations = (  
+    <>
   <NavBar onClick={e => e.stopPropagation()}>
   <NavContainer>  
     <NavLogo><NavLink exact to="/camstudyLobby" onClick={exitRoom}>M.AI.T</NavLink></NavLogo>
@@ -72,7 +94,20 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
     <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
   </NavIcon>
   </NavContainer>
-</NavBar>);
+  </NavBar>
+  <Modal 
+    bodyStyle={{ overflowY: 'auto',  height: '50vh', maxHeight: "90vh"}}    
+    title={"오늘의 할일"} 
+    visible={show} 
+    onCancel={handleCancel} 
+    onOk={handleOk}
+    centered
+    footer={null}
+  > 
+    <TodoListContainer todoList={todoList} setTodoList={setTodoList}/>
+  </Modal>
+  </>
+);
   return (
     <div>
      {click ? 

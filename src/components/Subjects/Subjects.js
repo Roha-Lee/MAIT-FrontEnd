@@ -137,16 +137,16 @@ function Subjects({
           totalTime: 0
         }
       ]);
-      const copySubjects = JSON.parse(JSON.stringify(subjects));
-      setGlobalSubjects([
-        ...copySubjects, 
-        {
-          subjectId: id, 
-          name, 
-          colorId, 
-          totalTime: 0
-        }
-      ]);
+      // const copySubjects = JSON.parse(JSON.stringify(subjects));
+      // setGlobalSubjects([
+      //   ...copySubjects, 
+      //   {
+      //     subjectId: id, 
+      //     name, 
+      //     colorId, 
+      //     totalTime: 0
+      //   }
+      // ]);
 
       if(isSubjectEmpty){
         setCurrentSubject(name);
@@ -216,7 +216,7 @@ function Subjects({
       }
 
       setSubjects(newSubjects);
-      setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
+      // setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
       setNowEditing(null);
       setIsEditModalVisible(false);
     }
@@ -236,7 +236,7 @@ function Subjects({
       const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
       updatedSubject[subjectIdx].totalTime = currentTime;
       setSubjects(updatedSubject);
-      setGlobalSubjects(JSON.parse(JSON.stringify(updatedSubject)));
+      // setGlobalSubjects(JSON.parse(JSON.stringify(updatedSubject)));
     }
     setTimerOn(false);
     setCurrentSubject(newSubject);

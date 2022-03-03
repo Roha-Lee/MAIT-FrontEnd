@@ -28,7 +28,7 @@ function Timer({
   isLogin,
   setCurrentStudyTimeId,
   setGlobalTimerOn,
-  setGlobalSubjects,
+  // setGlobalSubjects,
 }) {
   let navigate = useNavigate();
   const loginComment = () =>{
@@ -64,7 +64,7 @@ function Timer({
         const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
         updatedSubject[subjectIdx].totalTime = currentTime;
         setSubjects(updatedSubject);
-        setGlobalSubjects(JSON.parse(JSON.stringify(updatedSubject)));
+        // setGlobalSubjects(JSON.parse(JSON.stringify(updatedSubject)));
       }
       if (!!currentStudyTimeId){
         const result = await patchStudyTime(currentStudyTimeId, endTimeFormatted);
@@ -199,7 +199,7 @@ function mapDispatchToProps(dispatch){
   return{
       setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id)),
       setGlobalTimerOn : timerOn => dispatch(changeTimerOn(timerOn)),
-      setGlobalSubjects : value => dispatch(changeSubjects(value)),
+      // setGlobalSubjects : value => dispatch(changeSubjects(value)),
   };
 }
 

@@ -20,7 +20,7 @@ function Mainpage({
   isLogin,
   setIsLogin,
   setTodoList,
-  setGlobalSubjects,
+  // setGlobalSubjects,
   setColorsCodetoId,
   setColorsIdtoCode,
 }) {
@@ -84,14 +84,14 @@ function Mainpage({
         
       //{ id: 1, content: '알고리즘 BFS 문제 풀기', isDone: false, subjectId:  1},
       
-      const newTodos = userData.data.todos.map(todo => {
-        return {
-          todoId: todo.id,
-          content: todo.content,
-          subjectId: todo.subjectId,
-          isDone: todo.isDone
-        }
-      });
+      // const newTodos = userData.data.todos.map(todo => {
+      //   return {
+      //     todoId: todo.id,
+      //     content: todo.content,
+      //     subjectId: todo.subjectId,
+      //     isDone: todo.isDone
+      //   }
+      // });
 
       userData.data.colors.forEach(color => {
         colorsCodetoId[color.code] = color.id;
@@ -99,10 +99,12 @@ function Mainpage({
       });
 
       setSubjects(newSubjects); // 과목 정보 
-      setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
-      setTodoList(JSON.parse(JSON.stringify(newTodos)));
-      setColorsCodetoId(JSON.parse(JSON.stringify(colorsCodetoId)));
-      setColorsIdtoCode(JSON.parse(JSON.stringify(colorsIdtoCode)));
+      // setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
+      // setTodoList(JSON.parse(JSON.stringify(newTodos)));
+      // setColorsCodetoId(JSON.parse(JSON.stringify(colorsCodetoId)));
+      // setColorsIdtoCode(JSON.parse(JSON.stringify(colorsIdtoCode)));
+      // setColorsCodetoId(colorsCodetoId);
+      // setColorsIdtoCode(colorsIdtoCode);
     }).catch((e)=>{
       // console.log(e);
       setIsLogin(false);
@@ -244,10 +246,10 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return{
       setIsLogin : isLogin => dispatch(changeLogin(isLogin)),
-      setTodoList : newTodos => dispatch(changeTodoLists(newTodos)),
-      setGlobalSubjects : newSubjects => dispatch(changeSubjects(newSubjects)),
-      setColorsCodetoId : value => dispatch(changeColorsCodetoId(value)),
-      setColorsIdtoCode : value => dispatch(changeColorsIdtoCode(value)),
+      // setTodoList : newTodos => dispatch(changeTodoLists(newTodos)),
+      // setGlobalSubjects : newSubjects => dispatch(changeSubjects(newSubjects)),
+      // setColorsCodetoId : value => dispatch(changeColorsCodetoId(value)),
+      // setColorsIdtoCode : value => dispatch(changeColorsIdtoCode(value)),
   };
 }
 

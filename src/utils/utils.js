@@ -140,4 +140,13 @@ function signOut(){
   })
 }
 
-export {getKakaoSignin, postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, patchTodo, postNewTodo, deleteTodo, putSubject, postStudyTime, patchStudyTime, signOut}
+function getTodos() {
+  return Axios.get(
+    `${serverAddress}/todos`,
+    {
+      headers: {
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
+      }
+  })
+}
+export {getTodos, getKakaoSignin, postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, patchTodo, postNewTodo, deleteTodo, putSubject, postStudyTime, patchStudyTime, signOut}

@@ -1,18 +1,18 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { NavBar, MainContainer, NavContainer,NavLogo,  NavMenu, NavIcon, NavSpan, NavLink ,NavItem } from './NavigationNew.styled'
 import { useNavigate } from 'react-router';
 import { changeLogin, changeCurrentStudyTimeId } from "../../store";
 import { connect } from "react-redux";
-import {signOut, timeStamp, patchStudyTime} from "../../utils/utils"
+import {signOut, timeStamp, patchStudyTime, getTodos} from "../../utils/utils"
 import TodoListContainer from "../TodoListContainer/TodoListContainer";
 import { notification, Modal} from 'antd';
 
-function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timerOn,}) {
+function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timerOn}) {
   const [click, setClick] = useState(false);
   const [show, setShow] = useState(false);
-  
+  const [todoList, setTodoList] = useState([]);
+
   const handleClick = () => setClick(!click);
   
   const loginComment = () =>{
@@ -44,6 +44,21 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
   const openTodoModal = () => {
       click ? handleClick() : null;
       if(isLogin){
+        getTodos()
+        .then( res => {
+          const newTodos = res.data.todos.map(todo => {
+            return {
+              todoId: todo.id,
+              content: todo.content,
+              subjectId: todo.subjectId,
+              isDone: todo.isDone
+            }
+          });
+          setTodoList(newTodos);
+        })
+        .catch( error => {
+          console.log(error)
+        })
         setShow(true);
       }else{
         loginComment();
@@ -165,7 +180,7 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
       centered
       footer={null}
     > 
-        <TodoListContainer/>
+        <TodoListContainer todoList={todoList} setTodoList={setTodoList}/>
     </Modal>
   </>
   );
