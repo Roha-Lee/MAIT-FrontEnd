@@ -5,9 +5,9 @@ import {
     FormButton,
 } from './TodoInput.styled'
 import { postNewTodo } from '../../utils/utils'
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
 
-const TodoInput = ({ todoList, subjects, onItemAdd }) => {
+const TodoInput = ({ subjects, onItemAdd }) => {
     //subject dropbox에 대한 설정 초기 값은 null
     const [subject, setSubject] = useState('Unselect')
     
@@ -47,12 +47,13 @@ const TodoInput = ({ todoList, subjects, onItemAdd }) => {
     )
 }
 
-function mapStateToProps(state){
-    return{
-        todoList : state.todoList,
-        subjects : state.subjects,
-    };
-}
+// function mapStateToProps(state){
+//     return{
+//         todoList : state.todoList,
+//         subjects : state.subjects,
+//     };
+// }
 
 
-export default connect(mapStateToProps) (TodoInput);
+// export default connect(mapStateToProps) (TodoInput);
+export default TodoInput;

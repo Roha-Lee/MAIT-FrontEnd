@@ -8,7 +8,13 @@ import {signOut, timeStamp, patchStudyTime, getTodos} from "../../utils/utils"
 import TodoListContainer from "../TodoListContainer/TodoListContainer";
 import { notification, Modal} from 'antd';
 
-function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timerOn}) {
+function Navigation({
+  isLogin , 
+  currentStudyTimeId , 
+  setCurrentStudyTimeId, 
+  timerOn, 
+  subjects, 
+  colorsIdtoCode}) {
   const [click, setClick] = useState(false);
   const [show, setShow] = useState(false);
   const [todoList, setTodoList] = useState([]);
@@ -46,6 +52,7 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
       if(isLogin){
         getTodos()
         .then( res => {
+          console.log('todo Response', res);
           const newTodos = res.data.todos.map(todo => {
             return {
               todoId: todo.id,
@@ -54,6 +61,7 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
               isDone: todo.isDone
             }
           });
+          console.log(newTodos);
           setTodoList(newTodos);
         })
         .catch( error => {
@@ -178,9 +186,8 @@ function Navigation({isLogin , currentStudyTimeId , setCurrentStudyTimeId, timer
       onCancel={handleCancel} 
       onOk={handleOk}
       centered
-      footer={null}
-    > 
-        <TodoListContainer todoList={todoList} setTodoList={setTodoList}/>
+      footer={null}> 
+        <TodoListContainer todoList={todoList} setTodoList={setTodoList} subjects={subjects} colorsIdtoCode={colorsIdtoCode}/>
     </Modal>
   </>
   );

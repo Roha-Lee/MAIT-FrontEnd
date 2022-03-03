@@ -10,8 +10,8 @@ import {
 import { patchTodo } from '../../utils/utils'
 import TodoInput from '../TodoInput/TodoInput'
 import TodoEditModal from '../TodoEditModal/TodoEditModal'
-import {connect} from "react-redux";
-import {changeTodoLists} from "../../store"
+// import {connect} from "react-redux";
+// import {changeTodoLists} from "../../store"
 import { notification } from 'antd'
 
 
@@ -21,7 +21,6 @@ const TodoListContainer = ({
     setTodoList, 
     subjects, 
     colorsIdtoCode, 
-    colorsCodetoId
 }) => {
   // const [todoList, setTodoList] = useState([
   //     { id: 1, content: 'AAA', isDone: false },
@@ -77,7 +76,8 @@ const TodoListContainer = ({
     },[todoList, setTodoList])
 
     const renderTodo = useCallback((todo) => {
-
+        console.log('reRender')
+        console.log('subjects', subjects, 'todoList', todoList)
         return (
             <TodoItemContainer key={todo.todoId}>
                 <TodoItemCheckBox checked={todo.isDone} onChange={() => toggleTodo(todo)} />
@@ -93,26 +93,27 @@ const TodoListContainer = ({
 
     return (
         <TodoListDiv>
-            <TodoInput onItemAdd={onItemAdd}/>
+            <TodoInput onItemAdd={onItemAdd} subjects={subjects}/>
                 {todoList.map(todo => renderTodo(todo))}
-            <TodoEditModal todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete}/>
+            <TodoEditModal subjects={subjects} todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete}/>
         </TodoListDiv>
     )
 }
 
-function mapStateToProps(state){
-    return{
-        todoList : state.todoList,
-        subjects : state.subjects,
-        colorsCodetoId : state.colorsCodetoId,
-        colorsIdtoCode : state.colorsIdtoCode,
-    };
-}
+// function mapStateToProps(state){
+//     return{
+//         todoList : state.todoList,
+//         subjects : state.subjects,
+//         colorsCodetoId : state.colorsCodetoId,
+//         colorsIdtoCode : state.colorsIdtoCode,
+//     };
+// }
 
-function mapDispatchToProps(dispatch){
-    return{
-        setTodoList : newTodos => dispatch(changeTodoLists(newTodos)),
-    };
-}
+// function mapDispatchToProps(dispatch){
+//     return{
+//         setTodoList : newTodos => dispatch(changeTodoLists(newTodos)),
+//     };
+// }
 
-export default connect(mapStateToProps,mapDispatchToProps) (TodoListContainer);
+// export default connect(mapStateToProps,mapDispatchToProps) (TodoListContainer);
+export default TodoListContainer;

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 // import { Modal, Button, FormControl, Form} from 'react-bootstrap'
 import styled from 'styled-components';
 import { deleteTodo, patchTodo } from '../../utils/utils';
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
 import { Modal, Button, Select } from 'antd'
 const { Option } = Select;
 const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
@@ -77,11 +77,11 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     </Modal>
     )
 }
-function mapStateToProps(state){
-    return{
-        subjects : state.subjects,
-    };
-}
+// function mapStateToProps(state){
+//     return{
+//         subjects : state.subjects,
+//     };
+// }
 
 const Form = styled.form`
 display: flex;
@@ -97,5 +97,5 @@ const Input = styled.input`
   width: 300px;
 `
 
-
-export default connect(mapStateToProps) (TodoEditModal)
+export default TodoEditModal;
+// export default connect(mapStateToProps) (TodoEditModal)
