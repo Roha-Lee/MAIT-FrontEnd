@@ -1,4 +1,6 @@
 import {configureStore, createSlice} from "@reduxjs/toolkit";
+import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
+import { HandPoseWorkerManager, generateDefaultHandPoseParams, generateHandPoseDefaultConfig } from '@dannadori/handpose-worker-js';
 import { timeStamp } from "./utils/utils";
 
 const dateObj = new Date();
@@ -7,6 +9,19 @@ const todayBefore7Obj = dateObj.setDate(dateObj.getDate()-7);
 const todayBefore7 = new Date(todayBefore7Obj).toJSON().slice(0,10);
 const today = timeStamp().slice(0,10);
 
+const faceConfig = generateFacemeshDefaultConfig();
+faceConfig.model.maxFaces = 1;
+const faceParams = generateDefaultFacemeshParams();
+const faceManager = new FacemeshWorkerManager();
+faceManager.init(faceConfig);
+
+const handConfig = generateHandPoseDefaultConfig();
+handConfig.model.detectionConfidence = 0.6;
+  // config.useTFWasmBackend = true;
+const handParams = generateDefaultHandPoseParams();
+const handManager = new HandPoseWorkerManager();
+handManager.init(handConfig);
+console.log("init!");
 const globalState = createSlice({
     name : "globalStateReducer",
     initialState : {
@@ -23,6 +38,10 @@ const globalState = createSlice({
         subjects : [],
         colorsIdtoCode : {},
         colorsCodetoId : {},
+        faceManager : faceManager,
+        faceParams : faceParams,
+        handManager : handManager,
+        handParams : handParams, 
     },
     reducers : {
         changeLogin : (state, action) => {
@@ -64,7 +83,7 @@ const globalState = createSlice({
     }
 });
 
-const store = configureStore({reducer : globalState.reducer, devTools :true});
+const store = configureStore({reducer : globalState.reducer});
 
 export const {
     changeLogin,

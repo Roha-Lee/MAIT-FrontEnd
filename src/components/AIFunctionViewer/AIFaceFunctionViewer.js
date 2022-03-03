@@ -1,8 +1,9 @@
 import Webcam from "react-webcam";
-import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
+// import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 import Draggable from "react-draggable";
+import {connect} from "react-redux";
 // const MyWebcam = styled
 function AIFaceFunctionViewer ({
   timerOn, 
@@ -11,6 +12,8 @@ function AIFaceFunctionViewer ({
   setUserTimerOn,
   useFaceAi,
   setUseFaceAi,
+  faceManager,
+  faceParams,
 }){
   const webcamRef = useRef(null);
   const srcCanvas = document.getElementById("srccanvas");
@@ -21,20 +24,20 @@ function AIFaceFunctionViewer ({
     height: 200,
     facingMode: "user"
   };
-  const [saveManager,setSaveManager] = useState();
+  // const [saveManager,setSaveManager] = useState();
   const [faceImage,setFaceImage] = useState("");
   const [faceInterval, setFaceInterval] = useState(null);
-  const config = generateFacemeshDefaultConfig();
-  config.model.maxFaces = 1;
-  const params = generateDefaultFacemeshParams();
+  // const config = generateFacemeshDefaultConfig();
+  // config.model.maxFaces = 1;
+  // const params = generateDefaultFacemeshParams();
   
-  useEffect(()=>{
-    const manager = new FacemeshWorkerManager();
-    manager.init(config);
-    console.log("Face model");
-    setSaveManager(manager);
-    // Capture();
-  },[]);
+  // useEffect(()=>{
+  //   const manager = new FacemeshWorkerManager();
+  //   manager.init(config);
+  //   // console.log("Face model");
+  //   setSaveManager(manager);
+  //   // Capture();
+  // },[]);
 
   useEffect(()=>{
     if (faceInterval && useFaceAi) {
@@ -51,7 +54,7 @@ function AIFaceFunctionViewer ({
       if(getFaceImage !== null){      
         const srcCanvas2d = srcCanvas.getContext("2d");
         srcCanvas2d.drawImage(getFaceImage,0,0,srcCanvas.width,dstCanvas.height);
-        const result = await saveManager.predict(srcCanvas,params);
+        const result = await faceManager.predict(srcCanvas,faceParams);
         
         if(result !== null && result.length === 0 && timerOn === true){
           setTimerOn(false);
@@ -105,6 +108,7 @@ function AIFaceFunctionViewer ({
               width={320}
               position={'fixed'}          
               videoConstraints={videoConstraints}
+              imageSmoothing={true}
             />
           </Draggable>
           <canvas id="srccanvas"
@@ -133,5 +137,12 @@ function AIFaceFunctionViewer ({
     </div>
   );
 }
+
+function mapStateToProps(state){
+  return{
+      faceManager : state.faceManager,
+      faceParams : state.faceParams,
+  };
+}
 // 
-export default AIFaceFunctionViewer;
+export default connect(mapStateToProps) (AIFaceFunctionViewer);
