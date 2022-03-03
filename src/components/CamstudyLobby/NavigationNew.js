@@ -16,29 +16,6 @@ function Navigation({roomId, currentUser, clickChat}) {
   const [todoList, setTodoList] = useState([]);
   const [subjects, setSubjects] = useState([]);
 
-  useEffect(() => {
-    getAllUserData().then((userData)=> {
-      const newSubjects = userData.data.subjects.map(subject => {
-        return {
-          subjectId: subject.id, 
-          name: subject.name,
-          colorId: subject.colorId, 
-        }
-      });
-      
-      userData.data.colors.forEach(color => {
-        colorsIdtoCode[color.id] = color.code;
-      });
-
-      setSubjects(newSubjects); // 과목 정보 
-    }).catch((e)=>{
-    })
-    
-    
-  }, []);
-
-
-
   const exitRoom = () => {
     socket.emit('leave-room', { roomId, leaver: currentUser });
     window.close();
@@ -52,7 +29,20 @@ function Navigation({roomId, currentUser, clickChat}) {
     click ? handleClick() : null;
     getTodos()
     .then( res => {
-      console.log("openTodoModal", res);
+      const newSubjects = res.data.subjects.map(subject => {
+        return {
+          subjectId: subject.id, 
+          name: subject.name,
+          colorId: subject.colorId, 
+        }
+      });
+      
+      res.data.colors.forEach(color => {
+        colorsIdtoCode[color.id] = color.code;
+      });
+
+      setSubjects(newSubjects); 
+
       const newTodos = res.data.todos.map(todo => {
         return {
           todoId: todo.id,
