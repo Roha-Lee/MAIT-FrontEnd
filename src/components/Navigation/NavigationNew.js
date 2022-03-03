@@ -180,7 +180,7 @@ function Navigation({
       </NavContainer>
     </NavBar>
     <Modal 
-      bodyStyle={{ overflowY: 'auto',  height: '50vh', maxHeight: "90vh"}}    
+      bodyStyle={{ overflowY: 'auto',  maxHeight: '50vh'}}    
       title={"오늘의 할일"} 
       visible={show} 
       onCancel={handleCancel} 
