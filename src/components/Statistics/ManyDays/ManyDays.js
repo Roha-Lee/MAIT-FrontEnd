@@ -1,10 +1,10 @@
-import style from "./ManyDays.module.css"
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import SubjectBarChart from "./SubjectBarChart";
 import TodoBarChart from "./TodoBarChart";
 import SubjectLineChart from "./SubjectLineChart";
 import {connect} from "react-redux";
+import { ManyDaysStatistics, ChartContainer, UpperContainer, SubjectBar, Todobar, SubjectLine, SubjectBarTitleContainer, SubjectBarTitle , TodobarTitleContainer, TodobarTitle, SubjectLineTitle} from './ManyDays.styled'
 
 function ManyDays ({startDate,endDate}){
     const [data , setData] = useState(null);
@@ -271,49 +271,55 @@ function ManyDays ({startDate,endDate}){
     },[startDate,endDate]);
 
     return (
-        <div className={style.statistics}>
-            <div className={style.chartcontainer}>
-                <div className={style.uppercontainer}>
-                    <div className={style.subjectbar}>
-                        <div className={style.subjectbartitlecontainer}>
-                            <h1 className={style.subjectbartitle}>과목별 학습시간</h1>
-                        </div>
+        <ManyDaysStatistics>
+            <ChartContainer>
+                <UpperContainer>
+                    <SubjectBar>
+                        <SubjectBarTitleContainer>
+                            <SubjectBarTitle>과목별 학습시간</SubjectBarTitle>
+                        </SubjectBarTitleContainer>
                         <SubjectBarChart 
                             data = {data}
                             // data = {fakeData}
                             // click = {click}
                             // setClick = {setClick}
                         />
+<<<<<<< HEAD
                     </div>
                     <div className={style.todobar}>
                     <div className={style.todobartitlecontainer}>
                         <h1 className={style.todobartitle}>과목별 할일 달성률</h1>
                     </div>
+=======
+                    </SubjectBar>
+                    <Todobar>
+                    <TodobarTitleContainer>
+                        <TodobarTitle>할일 달성률</TodobarTitle>
+                    </TodobarTitleContainer>
+>>>>>>> feature/responsive
                         <TodoBarChart 
                             data = {data}
                             // data = {fakeData}
                             // click = {click}
                             // setClick = {setClick}
                         />
-                    </div>
-                </div>
-                <div className={style.subjectline}>
-                    <div className={style.subjectlinecontainer}>
-                        <h1 className={style.subjectlinetitle}>일자별 학습시간</h1>
-                    </div>
-                    <SubjectLineChart 
-                        startDate = {startDate}
-                        endDate = {endDate}
-                        data = {data}
-                        // data = {fakeData}
-                        // click = {click}
-                        // setClick = {setClick}
-                    />
-                </div>
-            </div>
-
-            
-        </div>
+                    </Todobar>
+                    </UpperContainer>
+                    <SubjectLine>
+                        <div>
+                            <SubjectLineTitle>일자별 학습시간</SubjectLineTitle>
+                        </div>
+                        <SubjectLineChart 
+                            startDate = {startDate}
+                            endDate = {endDate}
+                            data = {data}
+                            // data = {fakeData}
+                            // click = {click}
+                            // setClick = {setClick}
+                        />
+                        </SubjectLine>
+                    </ChartContainer>
+        </ManyDaysStatistics>
     );
 }
 

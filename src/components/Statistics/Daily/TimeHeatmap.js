@@ -1,7 +1,6 @@
-import style from "./TimeHeatmap.module.css";
 import {HeatMapGrid} from "react-grid-heatmap";
 import { useState } from "react";
-
+import { StyledHeatmap, StyledHeatmapTitle, StyledHeatmapgrid, StyledSelect } from './TimeHeatmap.styled'
 
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -117,13 +116,13 @@ function TimeHeatmap ({data , labels , subjectColors}){
     // console.log(subject);
 
     return(
-        <div className={style.heatmap}>
-            <span className={style.heatmaptitle}>학습기록</span>
-            <select onChange={handleSelect} className={style.select}>
+        <StyledHeatmap>
+            <StyledHeatmapTitle>학습기록</StyledHeatmapTitle>
+            <StyledSelect onChange={handleSelect}>
                 <option key="total" value="전체">전체</option>
                 {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
-            </select>
-            <div className={style.heatmapgrid}>
+            </StyledSelect>
+            <StyledHeatmapgrid>
                 <HeatMapGrid
                     data={inputData}
                     xLabels={xLabels}
@@ -156,9 +155,9 @@ function TimeHeatmap ({data , labels , subjectColors}){
                     }
                     cellHeight="1.8rem"
                 />
-            </div>
+            </StyledHeatmapgrid>
             
-        </div>
+        </StyledHeatmap>
     );
 }
 

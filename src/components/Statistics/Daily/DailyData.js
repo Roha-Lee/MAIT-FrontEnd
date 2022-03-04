@@ -1,7 +1,6 @@
 import DailyChart from "./DailyChart";
-import style from "./DailyData.module.css";
 import {connect} from "react-redux";
-
+import {StyledDailyData, StyledDailyDetails, StyledDailySummery, StyledTitleContainer, StyledTotalTimes} from './DailyData.styled'
 function DailyData ({data , labels, subjectColors, isZeroShow}){
     // console.log("im here");
     const subjectTotalData = data?.subjectTotalTime;
@@ -23,18 +22,18 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     const totalMinute = Math.round(totalTime-totalHour*60);
 
     return (
-        <div className={style.dailydata}>
-            <div className={style.titleContainer}>
-                <h1 className={style.dailySummary}>총 학습시간</h1>
-            </div>
-            <div className={style.totalTimes}>{`${totalHour}시간 ${totalMinute}분`}</div>
-            <div className={style.titlecontainer}>
-                <span className={style.dailyDetails}>과목별 학습시간</span>
-            </div>
+        <StyledDailyData>
+            <StyledTitleContainer>
+                <StyledDailySummery>총 학습시간</StyledDailySummery>
+            </StyledTitleContainer>
+            <StyledTotalTimes>{`${totalHour}시간 ${totalMinute}분`}</StyledTotalTimes>
+            <StyledTitleContainer>
+                <StyledDailyDetails>과목별 학습시간</StyledDailyDetails>
+            </StyledTitleContainer>
         
             <DailyChart data={data} labels={labels} subjectColors={subjectColors} isZeroShow={isZeroShow}/>
         
-        </div>
+        </StyledDailyData>
     );
 }
 
