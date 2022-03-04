@@ -284,19 +284,11 @@ function ManyDays ({startDate,endDate}){
                             // click = {click}
                             // setClick = {setClick}
                         />
-<<<<<<< HEAD
-                    </div>
-                    <div className={style.todobar}>
-                    <div className={style.todobartitlecontainer}>
-                        <h1 className={style.todobartitle}>과목별 할일 달성률</h1>
-                    </div>
-=======
                     </SubjectBar>
                     <Todobar>
                     <TodobarTitleContainer>
                         <TodobarTitle>할일 달성률</TodobarTitle>
                     </TodobarTitleContainer>
->>>>>>> feature/responsive
                         <TodoBarChart 
                             data = {data}
                             // data = {fakeData}
