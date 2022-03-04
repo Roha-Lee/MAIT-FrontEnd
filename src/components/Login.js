@@ -81,9 +81,9 @@ function Login({isLogin , setIsLogin}) {
         })
     }
 
-    const handleSucess = async (result) => {
-        console.log(result);
-        window.sessionStorage.setItem("kakaoAccessToken",result.response.access_token);
+    const handleSucess = async (response) => {
+        console.log(response);
+        window.sessionStorage.setItem("kakaoAccessToken",response.response.access_token);
         getKakaoSignin(response.profile.id,response.profile.properties.nickname, response.profile.properties.email).then(
             response => {
                 window.sessionStorage.setItem('accessToken', response.data.accessToken);
