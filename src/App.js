@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter, Route,Routes} from 'react-router-dom';
@@ -10,8 +10,12 @@ import CamstudyRoom from "./components/CamstudyRoom/CamstudyRoom"
 import Statistics from "./components/Statistics/Statistics"
 import "antd/dist/antd.min.css";
 import "font-awesome/css/font-awesome.min.css";
+const {Kakao} = window;
+
 function App() {
-  
+  useEffect(()=>{
+    Kakao.init("a8bc6c8c78a37b3a4f9534891cbddd5d");
+  },[]);
   return (
       <BrowserRouter>
           <Routes>

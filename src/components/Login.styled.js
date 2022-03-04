@@ -1,6 +1,7 @@
-import { Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import KaKaoLogin from "react-kakao-login";
+
 export const LoginTitle = styled.h1`
     color: #606060;
     font-size: 2rem;
@@ -75,7 +76,7 @@ export const LoginButton = styled.button`
         max-width: 95vw;
     }
 `
-export const SocialLoginButton = styled.button`
+export const SocialLoginButton = styled(KaKaoLogin)`
     width: 50px;
     height: 50px; 
     border-radius: 25px;

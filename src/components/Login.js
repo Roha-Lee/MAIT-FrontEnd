@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Navigation from './Navigation/NavigationNew'
 import { changeLogin } from "../store";
 import { connect } from "react-redux";
-import { notification } from "antd";
+import { notification, Result } from "antd";
 import { getKakaoSignin } from "../utils/utils"
 import { WarningOutlined } from '@ant-design/icons';
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
@@ -18,6 +18,7 @@ import { WarningOutlined } from '@ant-design/icons';
 
 const serverAddress = 'http://192.249.29.198:3001';
 const serverUrl = "https://mait.shop";
+const kakaoToken = "a8bc6c8c78a37b3a4f9534891cbddd5d";
 
 function Login({isLogin , setIsLogin}) {
     const [showPassword, setShowPassword] = useState(false);
@@ -54,7 +55,8 @@ function Login({isLogin , setIsLogin}) {
             if(response.data.message === 'SUCCESS'){
                 window.sessionStorage.setItem('accessToken', response.data.accessToken)
                 setIsLogin(!isLogin);
-                navigate("/");
+                // navigate("/");
+                window.location.replace("/");
             }
             else {
                 notification.open({
@@ -81,10 +83,32 @@ function Login({isLogin , setIsLogin}) {
         // TODO catch로 
     }
 
-    const onClickSocialLoginKaKao = (e) => {
-        e.preventDefault();
-        window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=357925896ada31b453416004eb936aad&redirect_uri=https://mait.shop/auth/kakao/callback&response_type=code&scope=profile_nickname,account_email"
-        getKakaoSignin();
+    const handleSucess = async (result) => {
+        console.log(result);
+        window.sessionStorage.setItem("kakaoAccessToken",result.response.access_token);
+        getKakaoSignin(response.profile.id,response.profile.properties.nickname, response.profile.properties.email).then(
+            response => {
+                window.sessionStorage.setItem('accessToken', response.data.accessToken);
+                setIsLogin(!isLogin);
+                window.location.replace("/");
+            }
+        ).catch(
+            e => {
+                console.log(e);
+                notification.open({
+                    description: "로그인에 실패했습니다.",
+                    icon: <WarningOutlined style={{ color: "#606060" }}/>,
+                })
+            }
+        );
+    }
+    
+    const handleFail = (result) => {
+        console.log(result);
+        notification.open({
+            description: "로그인에 실패했습니다.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        });
     }
 
 
@@ -105,7 +129,13 @@ function Login({isLogin , setIsLogin}) {
                     <LoginIcon className={showPassword? "fa fa-eye": "fa fa-eye-slash"} onClick={togglePassword} style={{cursor: "pointer"}}></LoginIcon>
                 </LoginDiv>
                 <LoginButton type="submit" onClick={onClickLogin}>로그인</LoginButton>
-                <SocialLoginButton type='button' onClick={onClickSocialLoginKaKao}>
+                <SocialLoginButton
+                    token={kakaoToken}
+                    onSuccess={handleSucess}
+                    onFail={handleFail}
+                    onLogout={console.info}
+                    useLoginForm
+                >
                     <img src='./img/kakaotalk.svg' alt="카카오톡아이콘" width="30" height="30"></img>
                 </SocialLoginButton>
                 <SignUpGuide>아직 M.AI.T의 회원이 아니신가요?<StyledLink to="/signup">회원가입</StyledLink></SignUpGuide>
