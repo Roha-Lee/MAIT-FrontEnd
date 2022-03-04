@@ -67,12 +67,12 @@ function SubjectLineChart ({data,startDate,endDate}){
         // console.log(subjectTotalTime);
         // console.log(subjectTotalTime);
         // const subjectTodo = data?.subjectTodo;
-        const subjectColorPair = data?.subjectColorPair;
-        // const subjectColorPair = {
-        //     "Algorithm" : "#a67ebf",
-        //     "OS" : "#bf6d7f",
-        //     "Javascript" : "#6dbf84"
-        // };
+        // const subjectColorPair = data?.subjectColorPair;
+        const subjectColorPair = {
+            "Algorithm" : "#a67ebf",
+            "OS" : "#bf6d7f",
+            "Javascript" : "#6dbf84"
+        };
         
         const inputLineDataSet = {labels : null, datasets :[]};
     
@@ -97,6 +97,9 @@ function SubjectLineChart ({data,startDate,endDate}){
             plugins: {
                 legend: {
                     display: true,
+                    labels : {
+                        boxHeight : 1,
+                    }
                 },
                 title: {
                     display: false,
@@ -124,10 +127,11 @@ function SubjectLineChart ({data,startDate,endDate}){
             inputLineDataSet["datasets"].push({
                 label : "Total",
                 data : Array.from({length:periodD},()=>0),
-                borderColor : "#000000",
-                backgroundColor : "#000000",
+                borderColor : "#606060",
+                backgroundColor : "#606060",
                 borderDash : [10,10],
                 tension : 0.2,
+                pointStyle : "line",
             })
 
             let i = 1;
@@ -145,6 +149,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                     borderColor : subjectColorPair[subject],
                     backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
+                    pointStyle : "line",
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
         
@@ -193,10 +198,11 @@ function SubjectLineChart ({data,startDate,endDate}){
             inputLineDataSet["datasets"].push({
                 label : "Total",
                 data : Array.from({length:endW-startW+1},()=>0),
-                borderColor : "#000000",
-                backgroundColor : "#000000",
+                borderColor : "#606060",
+                backgroundColor : "#606060",
                 borderDash : [10,10],
                 tension : 0.2,
+                pointStyle : "line",
             })
             let x = 1;
             for(const subject in subjectColorPair){
@@ -213,6 +219,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                     borderColor : subjectColorPair[subject],
                     backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
+                    pointStyle : "line",
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
         
@@ -275,10 +282,11 @@ function SubjectLineChart ({data,startDate,endDate}){
             inputLineDataSet["datasets"].push({
                 label : "Total",
                 data : Array.from({length:periodM},()=>0),
-                borderColor : "#000000",
-                backgroundColor : "#000000",
+                borderColor : "#606060",
+                backgroundColor : "#606060",
                 borderDash : [10,10],
                 tension : 0.2,
+                pointStyle : "line",
             })
             let x = 1;
             for(const subject in subjectColorPair){
@@ -293,6 +301,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                     borderColor : subjectColorPair[subject],
                     backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
+                    pointStyle : "line",
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
         

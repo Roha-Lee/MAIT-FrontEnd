@@ -7,14 +7,12 @@ ChartJS.register(ArcElement, Tooltip, Legend,ChartDataLabels);
 function SubjectBarChart ({data}){
     
     const subjectTotalTime = data?.subjectTotalTime;
-    const subjectColorPair = data?.subjectColorPair;
-    // const subjectColorPair = {
-    //     "Algorithm" : "#a67ebf",
-    //     "OS" : "#bf6d7f",
-    //     "Javascript" : "#6dbf84"
-    // };
-    // const subjectTotalTime = fakeData.subjectTotalTime;
-    // const subjectTodo = fakeData.subjectTodo;
+    // const subjectColorPair = data?.subjectColorPair;
+    const subjectColorPair = {
+        "Algorithm" : "#a67ebf",
+        "OS" : "#bf6d7f",
+        "Javascript" : "#6dbf84"
+    };
     
     const inputSubjectBarData = [];
 
@@ -38,19 +36,19 @@ function SubjectBarChart ({data}){
                 text: '과목별 총 학습시간(hr)',
             },
             datalabels : {
-                // display: true,
-                formatter : (value) => {
-                    if(value !== 0){
-                        return Math.round(value) + " hr"
-                    }else{
-                        return null
-                    }
-                },
-                font : {
-                    weight : "bold",
-                    size : "15rem"
-                },
-                color : "#EEE7E1"
+                display: false,
+                // formatter : (value) => {
+                //     if(value !== 0){
+                //         return Math.round(value) + " hr"
+                //     }else{
+                //         return null
+                //     }
+                // },
+                // font : {
+                //     weight : "bold",
+                //     size : "15rem"
+                // },
+                // color : "#EEE7E1"
             },
         },
         maintainAspectRatio : false,
