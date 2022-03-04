@@ -105,8 +105,8 @@ function Mainpage({
       setColorsIdtoCode(JSON.parse(JSON.stringify(colorsIdtoCode)));
     }).catch((e)=>{
       // console.log(e);
-      setIsLogin(false);
-      // setIsLogin(true);
+      // setIsLogin(false);
+      setIsLogin(true);
     })
     
     
@@ -230,7 +230,6 @@ function Mainpage({
         </AiContainer>
       : null}
         {/* <TodoListContainer colorsCodetoId={colorsCodetoId} colorsIdtoCode={colorsIdtoCode} todoList={todoList} setTodoList={setTodoList} subjects={subjects}/> */}
-      
     </>
   )
 }

@@ -50,8 +50,11 @@ function postSignup(nickname, name, email, password) {
   })
 }
 
-function getKakaoSignin() {
-  return Axios.get(`${serverAddress}/auth/kakao`, {
+function getKakaoSignin(username, nickname, email) {
+  return Axios.post(`${serverAddress}/auth/kakao`, {
+    nickname : nickname,
+    username : username,
+    email : email,
   })
 }
 function putSubject(name, colorId, subjectId) {
