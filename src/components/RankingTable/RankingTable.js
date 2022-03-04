@@ -2,13 +2,14 @@
 import React, {useState, useRef, useEffect} from 'react';
 import { Table, Tag, Space } from 'antd';
 import {getRankingData, msToHmsFormat} from '../../utils/utils'
-import {RankingContainer, BlankComment, RankCircle, RankCircleContainer, MyRankInfo, TotalPeopleInfo} from "./RankingTable.styled"
+import {RankingContainer, BlankComment, RankCircle, RankCircleContainer, FrontFace, BackFace} from "./RankingTable.styled"
 import goldMedal from "./assets/gold-medal.png"
 import silverMedal from "./assets/silver-medal.png"
 import bronzeMedal from "./assets/bronze-medal.png"
 function RankingTable () {
     const [userRanking, setUserRanking] = useState([]);
     const [myRanking, setMyRanking] = useState(0);
+    const [isFront, setIsFront] = useState(true);
     useEffect(()=> {
         getRankingData()
         .then((res) => {
@@ -70,9 +71,17 @@ function RankingTable () {
             <img src={bronzeMedal} alt={"bronzeMedal"} />
             {myRanking !== 0 ?
                 <RankCircleContainer>
-                    <RankCircle>
-                        <NameContainer>{addMedalImage(myRanking)} {"ROHA"}</NameContainer>
-                        <RankContainer><MyRankInfo>{myRanking}</MyRankInfo><TotalPeopleInfo>/{userRanking.length}</TotalPeopleInfo></RankContainer>
+                    <RankCircle className="rank-circle">
+                        <FrontFace>
+                            <h1>Roha</h1> 
+                            <p>Architect & Engineer</p> 
+                            <p>We love that guy</p>
+                        </FrontFace>
+                        <BackFace>
+                            <h1>John Doe</h1> 
+                            <p>Architect & Engineer</p> 
+                            <p>We love that guy</p>
+                        </BackFace>
                     </RankCircle>
                 </RankCircleContainer>
                 :

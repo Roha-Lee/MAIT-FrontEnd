@@ -16,23 +16,43 @@ export const BlankComment = styled.span`
 `
 
 export const RankCircle = styled.div`
-    width: 150px;
-    height: 150px;
-    border-radius: 75px;
-    color: #606060;
-    display: flex;
+    position: relative;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
 `
 
 export const RankCircleContainer = styled.div`
-    display:flex;
-    justify-content: center;
-    align-items: center;
+    background-color: transparent;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+    :hover .rank-circle{
+        transform: rotateY(180deg);
+    }
+`
+export const FrontFace = styled.div`
+position: absolute;
+width: 100%;
+height: 100%;
+border-radius: 50%;
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+background-color: #bbb;
+    color: black;
 `
 
-export const MyRankInfo = styled.span`
-    font-size: 3rem;
-`
-
-export const TotalPeopleInfo = styled.span`
-    font-size: 1rem;
+export const BackFace = styled.div`
+position: absolute;
+width: 100%;
+height: 100%;
+border-radius: 50%;
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+background-color: #2980b9;
+color: white;
+transform: rotateY(180deg);
 `
