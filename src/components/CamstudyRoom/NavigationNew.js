@@ -52,6 +52,7 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
   };
 
   const openInviteModal = () => {
+      click ? handleClick() : null;
       setInviteModalShow(true);
   };
 
@@ -155,12 +156,13 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
       <TodoListContainer todoList={todoList} setTodoList={setTodoList} subjects={subjects} colorsIdtoCode={colorsIdtoCode}/>
     </Modal>
     <Modal 
+        bodyStyle={{ display: 'flex', justifyContent: 'space-evenly'}}
         title="초대 코드 공유하기" 
         visible={inviteModalShow} 
         footer={null} 
         onOk={handleInviteModalOk}
         onCancel={handleInviteModalCancel}
-        centerd
+        centered
       >
         <CopyToClipboard text={roomId}><ShareButton onClick={handleCopyCode}>초대 코드 복사</ShareButton></CopyToClipboard>
         <ShareButton onClick={handleKakaoShare}>카카오톡 공유</ShareButton>

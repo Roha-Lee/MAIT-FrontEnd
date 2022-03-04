@@ -39,7 +39,7 @@ const TodoListContainer = ({
                 !target.isDone,
                 target.subjectId);
             if (updateResponse.data.message === 'SUCCESS') {
-                setTodoList(todoList.map((todo) => todo.todoId === target.todoId ? { ...todo, isDone: !todo.isDone } : todo))            
+                setTodoList(todoList?.map((todo) => todo.todoId === target.todoId ? { ...todo, isDone: !todo.isDone } : todo))            
                 console.log('updateResponse', updateResponse)    
             }
         }
@@ -67,12 +67,12 @@ const TodoListContainer = ({
     }, [setEditingTodo])
 
     const handleChange = useCallback((target, content, subjectId) => {
-        setTodoList(todoList.map((todo) => todo.todoId === target.todoId ? { ...todo, content, subjectId } : todo))
+        setTodoList(todoList?.map((todo) => todo.todoId === target.todoId ? { ...todo, content, subjectId } : todo))
         handleCloseEditModal()
     }, [todoList, setTodoList, handleCloseEditModal])
 
     const handleDelete = useCallback((target) => {
-        setTodoList(todoList.filter((todo) => todo.todoId !== target.todoId))
+        setTodoList(todoList?.filter((todo) => todo.todoId !== target.todoId))
     },[todoList, setTodoList])
 
     const renderTodo = useCallback((todo) => {
@@ -83,9 +83,9 @@ const TodoListContainer = ({
                 <TodoItemCheckBox checked={todo.isDone} onChange={() => toggleTodo(todo)} />
                 <TodoItemContent isDone={todo.isDone} onClick={() => setEditingTodo(todo)}>{todo.content}</TodoItemContent>
                 <TodoItemBadge
-                color={`#${colorsIdtoCode[subjects.find(subject => subject.subjectId === todo.subjectId)?.colorId]}`}
+                color={`#${colorsIdtoCode[subjects?.find(subject => subject.subjectId === todo.subjectId)?.colorId]}`}
                 >
-                    {subjects.find(subject => subject.subjectId === todo.subjectId)?.name}
+                    {subjects?.find(subject => subject.subjectId === todo.subjectId)?.name}
                 </TodoItemBadge>
             </TodoItemContainer>
         )
@@ -94,7 +94,7 @@ const TodoListContainer = ({
     return (
         <TodoListDiv>
             <TodoInput onItemAdd={onItemAdd} subjects={subjects}/>
-                {todoList.map(todo => renderTodo(todo))}
+                {todoList?.map(todo => renderTodo(todo))}
             <TodoEditModal subjects={subjects} todo={editingTodo} onChange={handleChange} onCloseClick={handleCloseEditModal} onDelete={handleDelete}/>
         </TodoListDiv>
     )

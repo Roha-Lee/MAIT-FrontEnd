@@ -8,17 +8,17 @@ import {signOut, timeStamp, patchStudyTime, getTodos} from "../../utils/utils"
 import TodoListContainer from "../TodoListContainer/TodoListContainer";
 import { notification, Modal} from 'antd';
 
+const colorsIdtoCode = {};
 function Navigation({
   isLogin , 
   currentStudyTimeId , 
   setCurrentStudyTimeId, 
   timerOn, 
-  subjects, 
-  colorsIdtoCode}) {
+  }) {
   const [click, setClick] = useState(false);
   const [show, setShow] = useState(false);
   const [todoList, setTodoList] = useState([]);
-
+  const [subjects, setSubjects] = useState([]);
   const handleClick = () => setClick(!click);
   
   const loginComment = () =>{
@@ -48,11 +48,26 @@ function Navigation({
   };
   
   const openTodoModal = () => {
+    
       click ? handleClick() : null;
       if(isLogin){
         getTodos()
         .then( res => {
-          console.log('todo Response', res);
+          const newSubjects = res.data.subjects.map(subject => {
+            return {
+              subjectId: subject.id, 
+              name: subject.name,
+              colorId: subject.colorId, 
+            }
+          });
+          
+          res.data.colors.forEach(color => {
+            colorsIdtoCode[color.id] = color.code;
+          });
+
+          setSubjects(newSubjects); 
+
+          console.log("openTodoModal", res);
           const newTodos = res.data.todos.map(todo => {
             return {
               todoId: todo.id,
@@ -61,7 +76,6 @@ function Navigation({
               isDone: todo.isDone
             }
           });
-          console.log(newTodos);
           setTodoList(newTodos);
         })
         .catch( error => {

@@ -245,7 +245,7 @@ function Subjects({
   }
   
   const subjectButtons = (
-      subjects.map((subject) => (
+      subjects?.map((subject) => (
         <TabBox 
           key={subject.subjectId}
           isSelected={subject.name === currentSubject}

@@ -39,7 +39,7 @@ const TodoInput = ({ subjects, onItemAdd }) => {
                     }}
                     title={subject?.name || 'Subject...'}>
                     <option key={'unselect'} value={'Unselect'}>선택 안함</option>
-                    {subjects.map(item => <option key={item.subjectId} value={item.name}>{item.name}</option>)}
+                    {subjects?.map(item => <option key={item.subjectId} value={item.name}>{item.name}</option>)}
                 </select>
             </InputGroup>
             <FormButton onClick={onSubmit}>추가</FormButton>

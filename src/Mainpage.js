@@ -159,10 +159,7 @@ function Mainpage({
 
   return (
     <>
-      <Navigation 
-      subjects = {subjects}  
-      colorsIdtoCode = {colorsIdtoCode}
-      />
+      <Navigation />
       <ColFlex>
       
       <SubjectsContainer>       

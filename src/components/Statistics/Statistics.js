@@ -14,7 +14,7 @@ import { SearchOutlined } from '@ant-design/icons';
 
 function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDate,setIsZeroShow, setStartDate, setEndDate , setCurrentStatistics}){
     const [range, setRange] = useState([startDate,endDate]);
-    
+        
     function onChange(date, dateString){
         setDailyDate(dateString);
     }

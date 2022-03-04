@@ -37,6 +37,7 @@ text-decoration: none;
 flex-grow: 1;
 font-size: 30px;
 `
+
 export const NavMenu = styled.div`
 display: flex;
 list-style: none;
@@ -141,11 +142,13 @@ export const NavIcon = styled.div`
 `
 
 export const ShareButton = styled.div`
-    color: #fff;
-    background-color: #606060;
+    color: white;
+    background-color: #639ECC;
+    align-items: center;
+    display: flex;
+    border-radius: 15px;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    margin: 0 0.1rem;
     height: 100px;
     cursor: pointer;
     border-bottom: 3px solid transparent;
@@ -153,9 +156,10 @@ export const ShareButton = styled.div`
         text-decoration: none;
         color: #fff;
     }
-    @media screen and (max-width: 760px) {   
-        padding: 1rem;
-        width: 100%;
-        display: table;
-    }
+    
 `
+// @media screen and (max-width: 760px) {   
+//     padding: 1rem;
+//     width: 100%;
+//     display: table;
+// }
