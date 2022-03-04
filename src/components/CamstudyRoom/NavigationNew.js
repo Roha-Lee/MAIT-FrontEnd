@@ -20,6 +20,7 @@ function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCame
 
   const exitRoom = () => {
     socket.emit('leave-room', { roomId, leaver: currentUser, leaverId:currentUserId });
+    console.log("leave-room parameter check", roomId, currentUser, currentUserId);
     window.close();
   }
 
