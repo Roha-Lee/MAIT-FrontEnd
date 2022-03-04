@@ -19,8 +19,8 @@ function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCame
   const [inviteModalShow, setInviteModalShow] = useState(false);
 
   const exitRoom = () => {
-    socket.emit('leave-room', { roomId, leaver: currentUser, leaverId:currentUserId });
-    console.log("leave-room parameter check", roomId, currentUser, currentUserId);
+    socket.emit('leave-room', { roomId, leaver: currentUser, leaverId:socket.id });
+    console.log("leave-room parameter check", roomId, currentUser, socket.id);
     window.close();
   }
 
@@ -79,6 +79,11 @@ function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCame
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
 
+  const openChatRoom = (e) => {
+    click ? handleClick() : null;
+    clickChat(e);
+  }
+
   const openTodoModal = () => {
     console.log(subjects);
     click ? handleClick() : null;
@@ -136,7 +141,7 @@ function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCame
       <NavSpan onClick={openTodoModal}>할일</NavSpan>
       </NavItem>
       <NavItem>
-      <NavSpan onClick={clickChat}>채팅</NavSpan>
+      <NavSpan onClick={openChatRoom}>채팅</NavSpan>
       </NavItem>
       <NavItem>
       <NavSpan>카메라 변경</NavSpan>

@@ -191,7 +191,7 @@ const CamstudyRoom = (props) => {
 
   const goToBack = (e) => {
     e.preventDefault();
-    socket.emit('leave-room', { roomId, leaver: currentUser, leaverId: currentUserId});
+    socket.emit('leave-room', { roomId, leaver: currentUser, leaverId: socket.id});
     window.location.href = '/camstudyLobby';
   };
 
