@@ -1,7 +1,8 @@
 import Axios from 'axios';
 // Axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
-const serverAddress = 'https://mait.shop';
+const serverAddress = `${process.env.REACT_APP_SERVER_URL}`;
 // const serverAddress2 = 'http://192.249.29.5:3001';
+
 function msToHmsFormat(time) {
   const sec = Math.floor((time / 1000) % 60);
   const min = Math.floor((time / (1000 * 60)) % 60);

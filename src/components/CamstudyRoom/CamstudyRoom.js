@@ -368,6 +368,7 @@ const CamstudyRoom = (props) => {
       clickChat={clickChat}
       roomId={roomId} 
       currentUser={currentUser} 
+      currentUserId={currentUserId}
       videoDevices={videoDevices} 
       clickCameraDevice={clickCameraDevice} />
   <RoomContainer>

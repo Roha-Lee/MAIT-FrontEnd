@@ -10,7 +10,7 @@ import TodoListContainer from '../TodoListContainer/TodoListContainer';
 
 const colorsIdtoCode = {};
 
-function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, clickChat}) {
+function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCameraDevice, clickChat}) {
   const [showVideoList, setShowVideoList] = useState(false);
   const [click, setClick] = useState(false);
   const [show, setShow] = useState(false);
@@ -19,26 +19,31 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
   const [inviteModalShow, setInviteModalShow] = useState(false);
 
   const exitRoom = () => {
-    socket.emit('leave-room', { roomId, leaver: currentUser });
+    socket.emit('leave-room', { roomId, leaver: currentUser, leaverId:currentUserId });
     window.close();
-  }
-
-  const copyLinkSuccess = () => {
-    notification.open({
-      message: "초대하기",
-      description: `복사된 코드를 친구에게 보내주세요.`,
-      icon: <CheckOutlined style={{ color: "#078f40" }} />,
-      });
   }
 
   const handleKakaoShare = (e) => {
     e.preventDefault();
     Kakao.Link.sendDefault({
-        objectType : "text",
-        text : `아래의 코드를 복사해 방 초대하기에 입력해 주세요.\n${roomId}`,
-        link : {
-            webUrl : "https://maitapp.click"
-        }
+        objectType : "feed",
+        content : {
+          title : `${ currentUser.length > 7 ? currentUser.substring(0, 7) + '⋯' : currentUser }님의 캠스터디 초대\n아래 코드를 복사해 주세요!`,
+          description : `${roomId}`,
+          imageUrl : "http://drive.google.com/uc?export=view&id=1ZbEPqCHY-VogXcEwtAYzTddJrSfXvCRE",
+          link : {
+              webUrl : "https://maitapp.click"
+          }
+        },
+        buttons :[
+          {
+            title: 'M.AI.T로 이동하기',
+            link: {
+              mobileWebUrl: "https://maitapp.click",
+              webUrl: "https://maitapp.click",
+            },
+          }
+        ],
     });
     setInviteModalShow(false);
   };
@@ -162,7 +167,7 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
         footer={null} 
         onOk={handleInviteModalOk}
         onCancel={handleInviteModalCancel}
-        centered
+        centerd
       >
         <CopyToClipboard text={roomId}><ShareButton onClick={handleCopyCode}>초대 코드 복사</ShareButton></CopyToClipboard>
         <ShareButton onClick={handleKakaoShare}>카카오톡 공유</ShareButton>

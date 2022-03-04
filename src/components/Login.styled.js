@@ -77,11 +77,11 @@ export const LoginButton = styled.button`
     }
 `
 export const SocialLoginButton = styled(KaKaoLogin)`
-    width: 50px;
-    height: 50px; 
-    border-radius: 25px;
-    border: none;
-    margin: 20px;
+    width: 50px !important;
+    height: 50px !important; 
+    border-radius: 25px !important;
+    border: none !important;
+    margin: 20px !important;
     background-color: yellow;
 `
 export const SignUpGuide = styled.span`

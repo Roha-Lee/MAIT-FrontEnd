@@ -16,9 +16,8 @@ import { WarningOutlined } from '@ant-design/icons';
 // import Col from 'react-bootstrap/Col';
 // import Container from 'react-bootstrap/Container';
 
-const serverAddress = 'http://192.249.29.198:3001';
-const serverUrl = "https://mait.shop";
-const kakaoToken = "a8bc6c8c78a37b3a4f9534891cbddd5d";
+const serverUrl = `${process.env.REACT_APP_SERVER_URL}`;
+const kakaoToken = `${process.env.REACT_APP_KAKAO_URL}`;
 
 function Login({isLogin , setIsLogin}) {
     const [showPassword, setShowPassword] = useState(false);
@@ -80,7 +79,6 @@ function Login({isLogin , setIsLogin}) {
             }
             
         })
-        // TODO catch로 
     }
 
     const handleSucess = async (result) => {
