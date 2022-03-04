@@ -139,3 +139,23 @@ export const NavIcon = styled.div`
 }
     
 `
+
+export const ShareButton = styled.div`
+    color: #fff;
+    background-color: #606060;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.1rem;
+    height: 100px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    &:focus, &:visited, &:active,&:hover {
+        text-decoration: none;
+        color: #fff;
+    }
+    @media screen and (max-width: 760px) {   
+        padding: 1rem;
+        width: 100%;
+        display: table;
+    }
+`

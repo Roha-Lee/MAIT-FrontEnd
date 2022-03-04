@@ -10,7 +10,7 @@ const {Kakao} = window;
 function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice, clickChat}) {
     
     const [showVideoList, setShowVideoList] = useState(false);
-    const [modalShow, setModalShow] = useState(false);
+    const [inviteModalShow, setInviteModalShow] = useState(false);
     const exitRoom = () => {
         socket.emit('leave-room', { roomId, leaver: currentUser });
         window.close();
@@ -40,15 +40,15 @@ function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice, clic
                 webUrl : "https://maitapp.click"
             }
         });
-        setModalShow(false);
+        setInviteModalShow(false);
     };
 
-    const handleOk = () => {
-        setModalShow(false);
+    const handleInviteModalOk = () => {
+        setInviteModalShow(false);
     };
 
-    const handleCancel = () => {
-        setModalShow(false);
+    const handleInviteModalCancel = () => {
+        setInviteModalShow(false);
     };
     
     const openInviteModal = () => {

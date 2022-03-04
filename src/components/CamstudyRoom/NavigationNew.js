@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { NavBar, MainContainer, NavContainer,NavLogo, NavSpan, NavMenu, NavIcon, NavLink ,NavItem } from './NavigationNew.styled'
+import { NavBar, MainContainer, NavContainer,NavLogo, NavSpan, NavMenu, NavIcon, NavLink ,NavItem, ShareButton } from './NavigationNew.styled'
 import {getTodos, getAllUserData} from "../../utils/utils"
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { notification, Modal } from 'antd';
@@ -16,6 +16,7 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
   const [show, setShow] = useState(false);
   const [todoList, setTodoList] = useState([]);
   const [subjects, setSubjects] = useState([]);
+  const [inviteModalShow, setInviteModalShow] = useState(false);
 
   const exitRoom = () => {
     socket.emit('leave-room', { roomId, leaver: currentUser });
@@ -30,11 +31,44 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
       });
   }
 
+  const handleKakaoShare = (e) => {
+    e.preventDefault();
+    Kakao.Link.sendDefault({
+        objectType : "text",
+        text : `아래의 코드를 복사해 방 초대하기에 입력해 주세요.\n${roomId}`,
+        link : {
+            webUrl : "https://maitapp.click"
+        }
+    });
+    setInviteModalShow(false);
+  };
+
+  const handleInviteModalOk = () => {
+      setInviteModalShow(false);
+  };
+
+  const handleInviteModalCancel = () => {
+      setInviteModalShow(false);
+  };
+
+  const openInviteModal = () => {
+      setInviteModalShow(true);
+  };
+
   const toggleVideoList = () => {
     setShowVideoList(!showVideoList);
     console.log(videoDevices);
   }
     
+  const handleCopyCode = () => {
+    notification.open({
+        message: "초대하기",
+        description: `복사된 코드를 친구에게 보내주세요.`,
+        icon: <CheckOutlined style={{ color: "#078f40" }} />,
+    });
+    setInviteModalShow(false);
+  }
+
   const handleClick = () => setClick(!click);
   const Close = () => setClick(false);
 
@@ -89,29 +123,19 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
       <NavLogo><NavLink exact to="/camstudyLobby" onClick={exitRoom}>M.AI.T</NavLink></NavLogo>
     <NavMenu className={click ? "active" : ""}>
       <NavItem>
-          <CopyToClipboard text={roomId}>
-              <NavSpan onClick={copyLinkSuccess}>초대</NavSpan>
-          </CopyToClipboard>
+      <NavSpan onClick={openInviteModal}>초대</NavSpan>
       </NavItem>
       <NavItem>
-      <NavSpan onClick={openTodoModal}>
-        할일
-      </NavSpan>
+      <NavSpan onClick={openTodoModal}>할일</NavSpan>
       </NavItem>
       <NavItem>
-      <NavSpan onClick={clickChat}>
-        채팅
-      </NavSpan>
+      <NavSpan onClick={clickChat}>채팅</NavSpan>
       </NavItem>
       <NavItem>
-      <NavSpan>
-        카메라 변경
-      </NavSpan>
+      <NavSpan>카메라 변경</NavSpan>
       </NavItem>
       <NavItem>
-      <NavSpan onClick={exitRoom}>
-        나가기
-      </NavSpan>
+      <NavSpan onClick={exitRoom}>나가기</NavSpan>
       </NavItem>
     </NavMenu>
     <NavIcon onClick={handleClick}>
@@ -120,7 +144,7 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
     </NavContainer>
     </NavBar>
     <Modal 
-      bodyStyle={{ overflowY: 'auto', maxHeight: "50vh"}}    
+      bodyStyle={{ overflowY: 'auto', maxHeight: "50vh", overflowX: 'hidden'}}    
       title={"오늘의 할일"} 
       visible={show} 
       onCancel={handleCancel} 
@@ -129,6 +153,17 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
       footer={null}
     > 
       <TodoListContainer todoList={todoList} setTodoList={setTodoList} subjects={subjects} colorsIdtoCode={colorsIdtoCode}/>
+    </Modal>
+    <Modal 
+        title="초대 코드 공유하기" 
+        visible={inviteModalShow} 
+        footer={null} 
+        onOk={handleInviteModalOk}
+        onCancel={handleInviteModalCancel}
+        centerd
+      >
+        <CopyToClipboard text={roomId}><ShareButton onClick={handleCopyCode}>초대 코드 복사</ShareButton></CopyToClipboard>
+        <ShareButton onClick={handleKakaoShare}>카카오톡 공유</ShareButton>
     </Modal>
     </>
   );

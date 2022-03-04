@@ -90,7 +90,7 @@ function Navigation({roomId, currentUser, clickChat}) {
     </NavContainer>
     </NavBar>
     <Modal 
-      bodyStyle={{ overflowY: 'auto', maxHeight: "50vh"}}    
+      bodyStyle={{ overflowY: 'auto', maxHeight: "50vh", overflowX: 'hidden'}}    
       title={"오늘의 할일"} 
       visible={show} 
       onCancel={handleCancel} 
