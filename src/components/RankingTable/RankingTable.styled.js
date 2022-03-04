@@ -15,8 +15,24 @@ export const BlankComment = styled.span`
     padding-top : 40px;
 `
 
-export const RankComment = styled.span`
-    font-size: 30px;
+export const RankCircle = styled.div`
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
     color: #606060;
-    margin : 25px 0px;
+    display: flex;
+`
+
+export const RankCircleContainer = styled.div`
+    display:flex;
+    justify-content: center;
+    align-items: center;
+`
+
+export const MyRankInfo = styled.span`
+    font-size: 3rem;
+`
+
+export const TotalPeopleInfo = styled.span`
+    font-size: 1rem;
 `
