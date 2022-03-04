@@ -10,9 +10,7 @@ function ManyDays ({startDate,endDate}){
     const [data , setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const yongHourl = "http://192.249.29.5:3001/statistics/period";
-    const jongHourl = "http://143.248.196.37:3001/statistics/period";
-    const serverUrl = "https://mait.shop/statistics/period"
+    const serverUrl = `${process.env.REACT_APP_SERVER_URL}/period`;
     const fetchData = async (startDate , endDate) => {
         try {
             setError(null);

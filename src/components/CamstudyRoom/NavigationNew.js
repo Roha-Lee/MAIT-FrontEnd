@@ -34,11 +34,24 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
   const handleKakaoShare = (e) => {
     e.preventDefault();
     Kakao.Link.sendDefault({
-        objectType : "text",
-        text : `아래의 코드를 복사해 방 초대하기에 입력해 주세요.\n${roomId}`,
-        link : {
-            webUrl : "https://maitapp.click"
-        }
+        objectType : "feed",
+        content : {
+          title : `${currentUser}의 캠스터디 초대`,
+          description : `아래 코드를 복사해 캠스터디 방에 입장해 주세요!\n\n\${roomId}`,
+          imageUrl : "https://drive.google.com/file/d/1ZbEPqCHY-VogXcEwtAYzTddJrSfXvCRE/view?usp=sharing",
+          link : {
+              webUrl : "https://maitapp.click"
+          }
+        },
+        buttons :[
+          {
+            title: 'M.AI.T로 이동하기',
+            link: {
+              mobileWebUrl: "https://maitapp.click",
+              webUrl: "https://maitapp.click",
+            },
+          }
+        ],
     });
     setInviteModalShow(false);
   };
@@ -161,6 +174,7 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
         onOk={handleInviteModalOk}
         onCancel={handleInviteModalCancel}
         centerd
+        bodyStyle={{display:"flex", justifyContent : "space-evenly",}}
       >
         <CopyToClipboard text={roomId}><ShareButton onClick={handleCopyCode}>초대 코드 복사</ShareButton></CopyToClipboard>
         <ShareButton onClick={handleKakaoShare}>카카오톡 공유</ShareButton>

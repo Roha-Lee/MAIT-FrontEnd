@@ -126,9 +126,8 @@ function Daily ({dailyDate, isZeroShow}){
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const yongHourl = "http://192.249.29.5:3001/statistics/daily";
-    const jongHourl = "http://143.248.196.37:3001/statistics/daily";
-    const serverUrl = "https://mait.shop/statistics/daily"
+
+    const serverUrl = `${process.env.REACT_APP_SERVER_URL}`
     const fetchData = async () => {
         try {
             setError(null);

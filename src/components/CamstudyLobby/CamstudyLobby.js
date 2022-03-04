@@ -11,7 +11,7 @@ const [isModalVisible, setIsModalVisible] = useState(false);
 const [roomCode, setRoomCode] = useState('');
 
   function createRoom() {
-  axios.get("https://mait.shop/cam", {headers :{
+  axios.get(`${process.env.REACT_APP_SERVER_URL}/cam`, {headers :{
     Authorization: `${window.sessionStorage.getItem('accessToken')}`,
   }})
   .then(res => {
@@ -29,9 +29,9 @@ const [roomCode, setRoomCode] = useState('');
     console.log(err);
   })
   }
-
+  
   function joinRoom() {
-  axios.get(`https://mait.shop/cam/${roomCode}`, {headers :{
+  axios.get(`${process.env.REACT_APP_SERVER_URL}/cam/${roomCode}`, {headers :{
     Authorization: `${window.sessionStorage.getItem('accessToken')}`,
     }})
   .then(res => {

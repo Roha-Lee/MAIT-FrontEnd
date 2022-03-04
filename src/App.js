@@ -14,7 +14,7 @@ const {Kakao} = window;
 
 function App() {
   useEffect(()=>{
-    Kakao.init("a8bc6c8c78a37b3a4f9534891cbddd5d");
+    Kakao.init(`${process.env.REACT_APP_KAKAO_URL}`);
   },[]);
   return (
       <BrowserRouter>
