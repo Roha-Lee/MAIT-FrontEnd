@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const RankingContainer = styled.div`
     display:flex;
-    width: 700px;
+    width: 100%;
     margin: 100px auto;
     flex-direction : column;
+    align-items: center;
 `
 
 export const BlankComment = styled.span`
@@ -27,8 +28,8 @@ export const RankCircle = styled.div`
 
 export const RankCircleContainer = styled.div`
     background-color: transparent;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     perspective: 1000px;
     :hover .rank-circle{
         transform: rotateY(180deg);
@@ -44,8 +45,8 @@ flex-direction: column;
 justify-content: center;
 -webkit-backface-visibility: hidden;
 backface-visibility: hidden;
-background-color: #bbb;
-color: black;
+background-color: #E0E0DF;
+color: #606060;
 `
 
 export const BackFace = styled.div`
@@ -58,7 +59,54 @@ flex-direction: column;
 justify-content: center;
 -webkit-backface-visibility: hidden;
 backface-visibility: hidden;
-background-color: #2980b9;
+background-color: #606060;
 color: white;
 transform: rotateY(180deg);
+`
+
+export const CircleTitle = styled.span`
+display: block;
+font-size: ${props => props.type==="back"?"1.5rem":"1.3rem"};
+`
+
+
+export const MyPercentText = styled.span`
+font-size: 4rem;
+display: block;
+::after {
+    content: "%";
+    font-size: 2rem;
+    margin-left: 1rem;
+}
+`
+
+export const MyRankContainer = styled.div`
+display: flex;
+justify-content: center;
+align-items: flex-end;
+`
+
+export const MyRankText = styled.span`
+display: block;
+font-size: 4rem;
+`
+
+export const TotalPersonText = styled.span`
+display: block;
+font-size: 2rem;
+padding-bottom: 0.8rem;
+`
+
+export const FrontContents = styled.div`
+position: relative;
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+`
+export const MedalImage = styled.img`
+position: absolute;
+top: -32px;
+left: calc(50% - 32px);
 `

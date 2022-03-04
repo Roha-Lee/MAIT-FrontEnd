@@ -2,7 +2,22 @@
 import React, {useState, useRef, useEffect} from 'react';
 import { Table, Tag, Space } from 'antd';
 import {getRankingData, msToHmsFormat} from '../../utils/utils'
-import {RankingContainer, BlankComment, RankCircle, RankCircleContainer, FrontFace, BackFace} from "./RankingTable.styled"
+
+import {
+    RankingContainer, 
+    BlankComment, 
+    RankCircle, 
+    RankCircleContainer, 
+    FrontFace, 
+    FrontContents, 
+    BackFace, 
+    MyRankContainer, 
+    MyRankText,
+    TotalPersonText,
+    MyPercentText, 
+    CircleTitle, 
+    MedalImage} from "./RankingTable.styled"
+
 import goldMedal from "./assets/gold-medal.png"
 import silverMedal from "./assets/silver-medal.png"
 import bronzeMedal from "./assets/bronze-medal.png"
@@ -18,7 +33,7 @@ function RankingTable ({currentUser}) {
             if(res.data.message === 'SUCCESS'){
                 // console.log(res.data.rank);
                 // console.log(res.data.result);
-                setMyRanking(res.data.rank);
+                setMyRanking(parseInt(res.data.rank));
                 setUserRanking(
                     res.data.result.map((item, index) => {
                         return {
@@ -52,14 +67,15 @@ function RankingTable ({currentUser}) {
         },
     ];
     const addMedalImage = (myRanking) => {
+        console.log('myRanking', myRanking);
         if(myRanking === 1){
-            return <img src={goldMedal} width="32" height="32" alt="goldMedal"/>;
+            return <MedalImage src={goldMedal} width="64" height="64" alt="goldMedal"/>;
         }
         else if(myRanking === 2){
-            return <img src={silverMedal} width="32" height="32" alt="silverMedal"/>;
+            return <MedalImage src={silverMedal} width="64" height="64" alt="silverMedal"/>;
         }
         else if(myRanking === 3){
-            return <img src={bronzeMedal} width="32" height="32" alt="bronzeMedal"/>;
+            return <MedalImage src={bronzeMedal} width="64" height="64" alt="bronzeMedal"/>;
         }
         else{
             return null;
@@ -67,27 +83,34 @@ function RankingTable ({currentUser}) {
     }
     return (
         <RankingContainer>
-            <img src={goldMedal} alt={"goldMedal"} />
-            <img src={silverMedal} alt={"silverMedal"} />
-            <img src={bronzeMedal} alt={"bronzeMedal"} />
-            {myRanking !== 0 ?
+            {myRanking > 0 ?
                 <RankCircleContainer>
                     <RankCircle className="rank-circle">
                         <FrontFace>
-                            {currentUser}
+                            <FrontContents>
+                                
+                                <CircleTitle type="front">{currentUser.length > 7 ? currentUser.substring(0, 7) + "⋯" : currentUser}</CircleTitle>
+                                <MyRankContainer>
+                                    {addMedalImage(myRanking)}
+                                    <MyRankText>{myRanking}</MyRankText>
+                                    <TotalPersonText>/{userRanking.length}</TotalPersonText>
+                                </MyRankContainer>
+                            </FrontContents>
                         </FrontFace>
                         <BackFace>
-                            {currentUser}
+                            <CircleTitle type="back">상위</CircleTitle>
+                            <MyPercentText>{Math.floor(myRanking / userRanking.length * 100)}</MyPercentText>   
+                            
                         </BackFace>
                     </RankCircle>
                 </RankCircleContainer>
                 :
                 null
             }
-            {myRanking !== 0 ? 
+            {myRanking > 0 ? 
                 <Table columns={columns} dataSource={userRanking} /> 
                 : 
-                <BlankComment>오늘 학습 기록이 없어서 순위를 확인할 수 없습니다.</BlankComment>
+                <BlankComment>오늘 학습 기록이 없어<br/> 순위를 확인할 수 없습니다.</BlankComment>
             }
         </ RankingContainer>
     );
