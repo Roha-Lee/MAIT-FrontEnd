@@ -38,7 +38,7 @@ function Navigation({roomId, currentUser, videoDevices, clickCameraDevice, click
         content : {
           title : `${currentUser}의 캠스터디 초대`,
           description : `아래 코드를 복사해 캠스터디 방에 입장해 주세요!\n\n\${roomId}`,
-          imageUrl : "https://drive.google.com/file/d/1ZbEPqCHY-VogXcEwtAYzTddJrSfXvCRE/view?usp=sharing",
+          imageUrl : "http://drive.google.com/uc?export=view&id=1ZbEPqCHY-VogXcEwtAYzTddJrSfXvCRE",
           link : {
               webUrl : "https://maitapp.click"
           }
