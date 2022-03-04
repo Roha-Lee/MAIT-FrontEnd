@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
 import {AiContainer, SubjectsContainer, BottomFlexBox, ColFlex, BottomColor, Seperator,TodayDate, WelcomeComment, DropdownContainer} from './Mainpage.styled'
 import {connect} from "react-redux";
-import { changeLogin, changeTodoLists, changeSubjects, changeColorsCodetoId, changeColorsIdtoCode } from './store';
+import { changeLogin, changeCurrentUser} from './store';
 import { notification} from 'antd';
 import { useNavigate } from 'react-router';
 
@@ -19,10 +19,7 @@ const colorsCodetoId = {};
 function Mainpage({
   isLogin,
   setIsLogin,
-  setTodoList,
-  // setGlobalSubjects,
-  setColorsCodetoId,
-  setColorsIdtoCode,
+  setCurrentUser
 }) {
   // {
   //   subjectId: 1, 
@@ -79,6 +76,7 @@ function Mainpage({
       })
       
       setUserName(userData.data.nickname);
+      setCurrentUser(userData.data.nickname);
       setCurrentSubject(newSubjects.length > 0 ? newSubjects[0].name : "")
       setCurrentTime(newSubjects.length > 0 ? newSubjects[0].totalTime : 0)
         
@@ -249,6 +247,7 @@ function mapDispatchToProps(dispatch){
       // setGlobalSubjects : newSubjects => dispatch(changeSubjects(newSubjects)),
       // setColorsCodetoId : value => dispatch(changeColorsCodetoId(value)),
       // setColorsIdtoCode : value => dispatch(changeColorsIdtoCode(value)),
+      setCurrentUser : nickname => dispatch(changeCurrentUser(nickname)),
   };
 }
 

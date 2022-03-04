@@ -41,7 +41,8 @@ const globalState = createSlice({
         faceManager : faceManager,
         faceParams : faceParams,
         handManager : handManager,
-        handParams : handParams, 
+        handParams : handParams,
+        currentUser : "", 
     },
     reducers : {
         changeLogin : (state, action) => {
@@ -80,6 +81,9 @@ const globalState = createSlice({
         changeColorsIdtoCode : (state, action) => {
             state.colorsIdtoCode = action.payload;
         },
+        changeCurrentUser : (state , action) => {
+            state.currentUser = action.payload;
+        },
     }
 });
 
@@ -98,6 +102,7 @@ export const {
     changeSubjects,
     changeColorsCodetoId,
     changeColorsIdtoCode,
+    changeCurrentUser,
 } = globalState.actions;
 
 export default store;

@@ -6,7 +6,8 @@ import {RankingContainer, BlankComment, RankCircle, RankCircleContainer, FrontFa
 import goldMedal from "./assets/gold-medal.png"
 import silverMedal from "./assets/silver-medal.png"
 import bronzeMedal from "./assets/bronze-medal.png"
-function RankingTable () {
+import {connect} from "react-redux";
+function RankingTable (currentUser) {
     const [userRanking, setUserRanking] = useState([]);
     const [myRanking, setMyRanking] = useState(0);
     const [isFront, setIsFront] = useState(true);
@@ -96,4 +97,11 @@ function RankingTable () {
     );
 
 }
-export default RankingTable;
+
+function mapStateToProps(state){
+    return{
+        currentUser : state.currentUser,
+    };
+  }
+
+export default connect(mapStateToProps) (RankingTable);
