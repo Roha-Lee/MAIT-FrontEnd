@@ -55,39 +55,47 @@ const CamstudyRoom = (props) => {
       myVideoRef.current.srcObject = stream;
       myVideoRef.current.muted = true;
       myStreamRef.current = stream;
-      console.log('LET ME CHECK', roomId, currentUser)
-      socket.emit('join-room', roomId, currentUser, currentUserId);
+      //check
+      socket.emit('join-room', {roomId, userName:currentUser, userUniqueId:currentUserId} );
       socket.on('user-join', (users) => {
-        const peers = [];
-        users.forEach(({ userId, info }) => {
-        let { userUniqueId, userName, video, audio } = info;
+        try{
+          console.log('user-join');
+          const peers = [];
+          users.forEach(({ userId, info }) => {
+          let { userUniqueId, userName, video, audio } = info;
 
-        if (userUniqueId !== currentUserId) {
-          const peer = createPeer(userId, socket.id, stream);
-          peer.userName = userName;
-          peer.peerID = userId;
-          peer.userUniqueId = userUniqueId;
+          if (userUniqueId !== currentUserId) {
+            const peer = createPeer(userId, socket.id, stream);
+            peer.userName = userName;
+            peer.peerID = userId;
+            peer.userUniqueId = userUniqueId;
 
-          peersRef.current.push({
-            peerID: userId,
-            peer,
-            userName,
-            userUniqueId,
+            peersRef.current.push({
+              peerID: userId,
+              peer,
+              userName,
+              userUniqueId,
+            });
+            peers.push(peer);
+            
+            setUserVideoAudio((preList) => {
+              return {
+                ...preList,
+                [peer.userUniqueId]: { video, audio },
+              };
+            });
+          }
           });
-          peers.push(peer);
-          
-          setUserVideoAudio((preList) => {
-            return {
-              ...preList,
-              [peer.userUniqueId]: { video, audio },
-            };
-          });
+          setPeers(peers);
+        }
+        catch(e) {
+          console.log('user-join', e);
         }
       });
-      setPeers(peers);
-    });
-
+    
+    //check
     socket.on('receive-call', ({ signal, from, info }) => {
+      console.log('receive-call');
       let { userUniqueId, userName, video, audio } = info;
       const peerIdx = findPeer(from);
 
@@ -116,27 +124,33 @@ const CamstudyRoom = (props) => {
     
     socket.on('siren-fire', (sender) => {
       sirenRef.current.play();
-      console.log('userVideoAudio format check', userVideoAudio)
       notification.open({
         message: "집중하세요!",
         description: `${sender}로부터 주의를 받았습니다.`,
         icon: <BellOutlined/>,
       });
     });
-
+    //checked
     socket.on('call-accepted', ({ signal, answerId }) => {
+      console.log('call-accepted');
       const peerIdx = findPeer(answerId);
       peerIdx.peer.signal(signal);
     });
-
+    //checked
     socket.on('user-leave', ({ userId, userName }) => {
-      const peerIdx = findPeer(userId);
-      peerIdx.peer.destroy();
-      setPeers((users) => {
-        users = users.filter((user) => user.peerID !== peerIdx.peer.peerID);
-        return [...users];
-      });
-      peersRef.current = peersRef.current.filter(({ peerID }) => peerID !== userId );
+      try{
+        console.log('user-leave');
+        const peerIdx = findPeer(userId);
+        peerIdx.peer.destroy();
+        setPeers((users) => {
+          users = users.filter((user) => user.peerID !== peerIdx.peer.peerID);
+          return [...users];
+        });
+        peersRef.current = peersRef.current.filter(({ peerID }) => peerID !== userId );
+      } catch(e) {
+        console.log("I am in user-leave", e);
+      }
+      
     });
     } catch(error) {
       console.log(error)

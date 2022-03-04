@@ -19,8 +19,8 @@ function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCame
   const [inviteModalShow, setInviteModalShow] = useState(false);
 
   const exitRoom = () => {
-    socket.emit('leave-room', { roomId, leaver: currentUser, leaverId:socket.id });
-    console.log("leave-room parameter check", roomId, currentUser, socket.id);
+    // socket.emit('leave-room', { roomId, leaver: currentUser, leaverId:socket.id });
+    // console.log("leave-room parameter check", roomId, currentUser, socket.id);
     window.close();
   }
 
