@@ -88,7 +88,6 @@ function RankingTable ({currentUser}) {
                     <RankCircle className="rank-circle">
                         <FrontFace>
                             <FrontContents>
-                                
                                 <CircleTitle type="front">{currentUser.length > 7 ? currentUser.substring(0, 7) + "⋯" : currentUser}</CircleTitle>
                                 <MyRankContainer>
                                     {addMedalImage(myRanking)}

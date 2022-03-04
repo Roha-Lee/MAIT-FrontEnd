@@ -1,16 +1,15 @@
-.daily{
+import styled from 'styled-components'
+
+export const DailyContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    margin: 25px 0px;
-    width: 100%;
+    margin: 30px 0px;
+    /* width: 800px; */
     justify-content: center;
-    gap: 40px;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 1024px) {
         flex-direction: column;
+        margin: 40px auto;
+        align-items: center;
     }
-    
-}
-.dateswitch{
-    margin-left: 10px;
-}
+`
