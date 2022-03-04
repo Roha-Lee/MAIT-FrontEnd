@@ -39,10 +39,13 @@ position: absolute;
 width: 100%;
 height: 100%;
 border-radius: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
 -webkit-backface-visibility: hidden;
 backface-visibility: hidden;
 background-color: #bbb;
-    color: black;
+color: black;
 `
 
 export const BackFace = styled.div`
@@ -50,6 +53,9 @@ position: absolute;
 width: 100%;
 height: 100%;
 border-radius: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
 -webkit-backface-visibility: hidden;
 backface-visibility: hidden;
 background-color: #2980b9;

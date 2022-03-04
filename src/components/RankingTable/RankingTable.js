@@ -7,7 +7,7 @@ import goldMedal from "./assets/gold-medal.png"
 import silverMedal from "./assets/silver-medal.png"
 import bronzeMedal from "./assets/bronze-medal.png"
 import {connect} from "react-redux";
-function RankingTable (currentUser) {
+function RankingTable ({currentUser}) {
     const [userRanking, setUserRanking] = useState([]);
     const [myRanking, setMyRanking] = useState(0);
     const [isFront, setIsFront] = useState(true);
@@ -74,14 +74,10 @@ function RankingTable (currentUser) {
                 <RankCircleContainer>
                     <RankCircle className="rank-circle">
                         <FrontFace>
-                            <h1>Roha</h1> 
-                            <p>Architect & Engineer</p> 
-                            <p>We love that guy</p>
+                            {currentUser}
                         </FrontFace>
                         <BackFace>
-                            <h1>John Doe</h1> 
-                            <p>Architect & Engineer</p> 
-                            <p>We love that guy</p>
+                            {currentUser}
                         </BackFace>
                     </RankCircle>
                 </RankCircleContainer>
