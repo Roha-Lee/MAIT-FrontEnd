@@ -73,7 +73,7 @@ function DailyChart ({data , labels, subjectColors, isZeroShow}){
         maintainAspectRatio : false,
         scales: {
             y: {
-                suggestedMax: 8
+                suggestedMax: 5
             }
         },
         maxBarThickness : 40,

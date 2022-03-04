@@ -127,7 +127,7 @@ function Daily ({dailyDate, isZeroShow}){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const serverUrl = `${process.env.REACT_APP_SERVER_URL}`
+    const serverUrl = `${process.env.REACT_APP_SERVER_URL}/statistics/daily`
     const fetchData = async () => {
         try {
             setError(null);
