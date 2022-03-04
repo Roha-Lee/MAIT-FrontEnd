@@ -1,9 +1,8 @@
 import Navigation from "../Navigation/NavigationNew";
 import Daily from "./Daily/Daily";
 import ManyDays from "./ManyDays/ManyDays";
-import style from "./Statistics.module.css";
 import RankingTable from "../RankingTable/RankingTable";
-import {TabBox,TapContainer,StatisticsContainer,BottomColor,MenuContainer, BlankBox, TabName} from "./Statistics.styled";
+import {TabBox,TapContainer,StatisticsContainer,BottomColor,MenuContainer, BlankBox, TabName, StyledStatistics, StyledStatisticsDetail,SmallSize,BigSize} from "./Statistics.styled";
 import {connect} from "react-redux";
 import {changeCurrentStatistics, changeDailyDate, changeStartDate, changeEndDate, changeIsZeroShow} from "../../store";
 import moment from "moment";
@@ -77,8 +76,11 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                             : "#bfbfbf"
                         }`
                     }}
-                ><TabName>기간 통계</TabName></TabBox>
+                >
+                    <TabName>기간 통계</TabName>
+                </TabBox>
                 <BlankBox/>
+                <BigSize>
                 {currentStatistics === 1 ?
                     <DatePicker 
                         onChange={onChange} 
@@ -129,24 +131,78 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                         />
                     </Tooltip>
                 :null}
+            </BigSize>
             </TapContainer>
+            
         </MenuContainer>
         <StatisticsContainer>
-            <div className={style.statisticsContainer}>
-                {currentStatistics === 1 ? 
-                    <div className={style.statistics}>
-                        <Daily/>
-                    </div>
+            <SmallSize>
+                {currentStatistics === 1 ?
+                    <DatePicker 
+                        onChange={onChange} 
+                        defaultValue={moment(dailyDate,`YYYY-MM-DD`)}
+                        style={{
+                            margin: "11px 0",
+                            border : "0px",
+                        }}
+                    />
                 : null}
-                {currentStatistics === 2 ? 
-                    <div className={style.statisticsDetail}>
-                        <RankingTable/>
-                    </div>
+                {currentStatistics === 1 ?
+                    <Switch 
+                        defaultChecked checkedChildren="학습"
+                        unCheckedChildren="전체" 
+                        onChange={onChangeToggle} 
+                        style={{
+                            marginTop: "20px",
+                            marginBottom : "20px",
+                            marginLeft : "15px",
+                            width: "60px",
+                        }}
+                    />
                 : null}
                 {currentStatistics === 3 ?
-                    <div className={style.statisticsDetail}>
+                    <RangePicker 
+                        onChange={onChangeRange}
+                        defaultValue={[moment(startDate, `YYYY-MM-DD`), moment(endDate, `YYYY-MM-DD`)]}
+                        style={{
+                            margin: "11px 0px",
+                            border: "0px",
+                        }}
+                    />
+                :null}
+                {currentStatistics === 3 ?
+                    <Tooltip title="search">
+                        <Button 
+                            onClick={onOk}
+                            type="primary" 
+                            shape="circle" 
+                            icon={<SearchOutlined />} 
+                            size="medium"
+                            style={{
+                                marginTop : "14px",
+                                marginBottom : "14px",
+                                marginLeft : "3px",
+                                marginRight : "20px"
+                            }} 
+                        />
+                    </Tooltip>
+                :null}
+            </SmallSize>
+            <div>
+                {currentStatistics === 1 ? 
+                    <StyledStatistics>
+                        <Daily/>
+                    </StyledStatistics>
+                : null}
+                {currentStatistics === 2 ? 
+                    <StyledStatisticsDetail>
+                        <RankingTable/>
+                    </StyledStatisticsDetail>
+                : null}
+                {currentStatistics === 3 ?
+                    <StyledStatisticsDetail>
                         <ManyDays/>
-                    </div>
+                    </StyledStatisticsDetail>
                 : null}
             </div>
         </StatisticsContainer>

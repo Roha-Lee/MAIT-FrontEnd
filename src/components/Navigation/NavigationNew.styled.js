@@ -92,12 +92,11 @@ border-bottom: 3px solid transparent;
     text-decoration: none;
     color: #fff;
 }
-@media screen and (max-width: 760px) {   
+/* @media screen and (max-width: 760px) {   
     padding: 1rem;
     width: 100%;
     display: table;
- 
-}
+} */
 `
 export const NavItem = styled.div`
 line-height: 40px;

@@ -2,22 +2,10 @@ import TimeHeatmap from "./TimeHeatmap";
 import DailyData from "./DailyData";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import styled from 'styled-components';
 import {connect} from "react-redux";
+import { DailyContainer } from './Daily.styled'
 
-const DailyContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    margin: 30px 0px;
-    width: 800px;
-    justify-content: center;
-    @media screen and (max-width: 850px) {
-        flex-direction: column;
-        margin: 0 auto;
-        align-items: center;
-    }
-`;
+
 
 // const fakedata = {
 //     rangeTime : [
