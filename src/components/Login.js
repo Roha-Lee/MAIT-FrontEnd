@@ -18,6 +18,7 @@ import { WarningOutlined } from '@ant-design/icons';
 
 const serverUrl = `${process.env.REACT_APP_SERVER_URL}`;
 const kakaoToken = `${process.env.REACT_APP_KAKAO_URL}`;
+const {Kakao} = window;
 
 function Login({isLogin , setIsLogin}) {
     const [showPassword, setShowPassword] = useState(false);
@@ -82,9 +83,19 @@ function Login({isLogin , setIsLogin}) {
     }
 
     const handleSucess = async (response) => {
-        console.log(response);
+        // console.log(response);
+
         window.sessionStorage.setItem("kakaoAccessToken",response.response.access_token);
-        getKakaoSignin(response.profile.id,response.profile.properties.nickname, response.profile.properties.email).then(
+        Kakao.Auth.setAccessToken(response.response.access_token);
+
+        let userEmail;
+        if(response.profile.kakao_account.email !== undefined){
+            userEmail = response.profile.kakao_account.email;
+        }else{
+            userEmail = ""
+        }
+
+        getKakaoSignin(response.profile.id,response.profile.properties.nickname, userEmail).then(
             response => {
                 window.sessionStorage.setItem('accessToken', response.data.accessToken);
                 setIsLogin(!isLogin);
@@ -96,7 +107,7 @@ function Login({isLogin , setIsLogin}) {
                 notification.open({
                     description: "로그인에 실패했습니다.",
                     icon: <WarningOutlined style={{ color: "#606060" }}/>,
-                })
+                });
             }
         );
     }
