@@ -2,18 +2,8 @@ import styled from "styled-components";
 
 export const TapContainer = styled.div`
     display: flex;
-    width: 800px;
-    @media screen and (max-width: 1024px) {
-        width: 640px;   
-    }
-    @media screen and (max-width: 720px) {
-        width: 450px;   
-    }
-    
-    @media screen and (max-width: 520px) {
-        margin-left: 8px;
-        width: 280px;   
-    }
+    width: 100%;
+    padding: 0 15px;
 `
 
 export const TabBox = styled.div`
@@ -24,13 +14,13 @@ export const TabBox = styled.div`
     text-align : center;
     padding-top : 10px;
     color : #606060;
-    
+
 `
 
 export const BlankBox = styled.div`
-    width: 123px;
+    flex: 1 1 0;
     @media screen and (max-width: 520px) {
-        width: 0;
+        display: none;
     }
 `
 
@@ -47,15 +37,15 @@ export const StatisticsContainer = styled.div`
     padding: 40px;
     padding-top : 0px;
     @media screen and (max-width: 1024px) {
-        width: 680px;   
+        width: 680px;
     }
 
     @media screen and (max-width: 720px) {
-        width: 480px;   
+        width: 480px;
     }
 
     @media screen and (max-width: 520px) {
-        width: 320px;   
+        width: 320px;
     }
 `
 
@@ -67,15 +57,15 @@ export const BottomColor = styled.div`
     height: 50px;
 
     @media screen and (max-width: 1024px) {
-        width: 680px;   
+        width: 680px;
     }
 
     @media screen and (max-width: 720px) {
-        width: 480px;   
+        width: 480px;
     }
 
     @media screen and (max-width: 520px) {
-        width: 320px;   
+        width: 320px;
     }
 `
 
@@ -90,14 +80,14 @@ export const MenuContainer = styled.div`
     border-radius: 25px 25px 0 0;
 
     @media screen and (max-width: 1024px) {
-        width: 680px;   
+        width: 680px;
     }
 
     @media screen and (max-width: 720px) {
-        width: 480px;   
+        width: 480px;
     }
     @media screen and (max-width: 520px) {
-        width: 320px;   
+        width: 320px;
     }
 `
 
@@ -125,13 +115,15 @@ export const SmallSize = styled.div`
     background-color : #E0E0DF;
     /* padding: 0 20px; */
     border-radius: 0 0 10px 10px;
-    
+
     @media screen and (max-width: 720px) {
         display: block;
     }
 `
 export const BigSize = styled.div`
     display: flex;
+    align-items: center;
+
     @media screen and (max-width: 720px) {
         display: none;
     }

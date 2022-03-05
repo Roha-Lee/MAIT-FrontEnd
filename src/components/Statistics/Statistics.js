@@ -13,7 +13,7 @@ import { SearchOutlined } from '@ant-design/icons';
 
 function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDate,setIsZeroShow, setStartDate, setEndDate , setCurrentStatistics}){
     const [range, setRange] = useState([startDate,endDate]);
-        
+
     function onChange(date, dateString){
         setDailyDate(dateString);
     }
@@ -50,7 +50,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
         <Navigation />
         <MenuContainer>
             <TapContainer>
-                <TabBox 
+                <TabBox
                     onClick={handleDaily}
                     style={{
                         backgroundColor : `${
@@ -58,21 +58,25 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                             : "#bfbfbf"
                         }`
                     }}
-                ><TabName>일간 통계</TabName></TabBox>
-                <TabBox 
+                >
+                    <TabName>일간 통계</TabName>
+                </TabBox>
+                <TabBox
                     onClick={handleRank}
                     style={{
                         backgroundColor : `${
-                            currentStatistics === 2 ? "white" 
+                            currentStatistics === 2 ? "white"
                             : "#bfbfbf"
                         }`
                     }}
-                ><TabName>일간 순위</TabName></TabBox>
-                <TabBox 
+                >
+                    <TabName>일간 순위</TabName>
+                </TabBox>
+                <TabBox
                     onClick={handleManyDays}
                     style={{
                         backgroundColor : `${
-                            currentStatistics === 3 ? "white" 
+                            currentStatistics === 3 ? "white"
                             : "#bfbfbf"
                         }`
                     }}
@@ -81,65 +85,64 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                 </TabBox>
                 <BlankBox/>
                 <BigSize>
-                {currentStatistics === 1 ?
-                    <DatePicker 
-                        onChange={onChange} 
-                        defaultValue={moment(dailyDate,`YYYY-MM-DD`)}
-                        style={{
-                            margin: "11px 0",
-                            border : "0px",
-                        }}
-                    />
-                : null}
-                {currentStatistics === 1 ?
-                    <Switch 
-                        defaultChecked checkedChildren="학습"
-                        unCheckedChildren="전체" 
-                        onChange={onChangeToggle} 
-                        style={{
-                            marginTop: "20px",
-                            marginBottom : "20px",
-                            marginLeft : "15px",
-                            width: "60px",
-                        }}
-                    />
-                : null}
-                {currentStatistics === 3 ?
-                    <RangePicker 
-                        onChange={onChangeRange}
-                        defaultValue={[moment(startDate, `YYYY-MM-DD`), moment(endDate, `YYYY-MM-DD`)]}
-                        style={{
-                            margin: "11px 0px",
-                            border: "0px",
-                        }}
-                    />
-                :null}
-                {currentStatistics === 3 ?
-                    <Tooltip title="search">
-                        <Button 
-                            onClick={onOk}
-                            type="primary" 
-                            shape="circle" 
-                            icon={<SearchOutlined />} 
-                            size="medium"
+                    {currentStatistics === 1 ?
+                        <DatePicker
+                            onChange={onChange}
+                            defaultValue={moment(dailyDate,`YYYY-MM-DD`)}
                             style={{
-                                marginTop : "14px",
-                                marginBottom : "14px",
-                                marginLeft : "3px",
-                                marginRight : "20px"
-                            }} 
+                                margin: "11px 0",
+                                border : "0px",
+                                borderRadius: "8px",
+                            }}
                         />
-                    </Tooltip>
-                :null}
-            </BigSize>
+                    : null}
+                    {currentStatistics === 1 ?
+                        <Switch
+                            defaultChecked checkedChildren="학습"
+                            unCheckedChildren="전체"
+                            onChange={onChangeToggle}
+                            style={{
+                                marginTop: "20px",
+                                marginBottom : "20px",
+                                marginLeft : "15px",
+                                width: "60px",
+                            }}
+                        />
+                    : null}
+                    {currentStatistics === 3 ?
+                        <RangePicker
+                            onChange={onChangeRange}
+                            defaultValue={[moment(startDate, `YYYY-MM-DD`), moment(endDate, `YYYY-MM-DD`)]}
+                            style={{
+                                margin: "11px 0px",
+                                border: "0px",
+                                height: "38px",
+                                borderRadius: "8px",
+                            }}
+                        />
+                    :null}
+                    {currentStatistics === 3 ?
+                        <Tooltip title="search">
+                            <Button
+                                onClick={onOk}
+                                type="primary"
+                                shape="circle"
+                                icon={<SearchOutlined />}
+                                size="medium"
+                                style={{
+                                    marginLeft : "11px",
+                                }}
+                            />
+                        </Tooltip>
+                    :null}
+                </BigSize>
             </TapContainer>
-            
         </MenuContainer>
         <StatisticsContainer>
             <SmallSize>
                 {currentStatistics === 1 ?
-                    <DatePicker 
-                        onChange={onChange} 
+                    <DatePicker
+                        onChange={onChange}
                         defaultValue={moment(dailyDate,`YYYY-MM-DD`)}
                         style={{
                             margin: "11px 0",
@@ -148,10 +151,10 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                     />
                 : null}
                 {currentStatistics === 1 ?
-                    <Switch 
+                    <Switch
                         defaultChecked checkedChildren="학습"
-                        unCheckedChildren="전체" 
-                        onChange={onChangeToggle} 
+                        unCheckedChildren="전체"
+                        onChange={onChangeToggle}
                         style={{
                             marginTop: "20px",
                             marginBottom : "20px",
@@ -161,7 +164,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                     />
                 : null}
                 {currentStatistics === 3 ?
-                    <RangePicker 
+                    <RangePicker
                         onChange={onChangeRange}
                         defaultValue={[moment(startDate, `YYYY-MM-DD`), moment(endDate, `YYYY-MM-DD`)]}
                         style={{
@@ -172,29 +175,26 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                 :null}
                 {currentStatistics === 3 ?
                     <Tooltip title="search">
-                        <Button 
+                        <Button
                             onClick={onOk}
-                            type="primary" 
-                            shape="circle" 
-                            icon={<SearchOutlined />} 
+                            type="primary"
+                            shape="circle"
+                            icon={<SearchOutlined />}
                             size="medium"
                             style={{
-                                marginTop : "14px",
-                                marginBottom : "14px",
-                                marginLeft : "3px",
-                                marginRight : "20px"
-                            }} 
+                                marginLeft : "11px",
+                            }}
                         />
                     </Tooltip>
                 :null}
             </SmallSize>
             <div>
-                {currentStatistics === 1 ? 
+                {currentStatistics === 1 ?
                     <StyledStatistics>
                         <Daily/>
                     </StyledStatistics>
                 : null}
-                {currentStatistics === 2 ? 
+                {currentStatistics === 2 ?
                     <StyledStatisticsDetail>
                         <RankingTable/>
                     </StyledStatisticsDetail>
