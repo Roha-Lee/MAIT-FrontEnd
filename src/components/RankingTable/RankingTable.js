@@ -30,9 +30,8 @@ import goldMedal from "./assets/gold-medal.png"
 import silverMedal from "./assets/silver-medal.png"
 import bronzeMedal from "./assets/bronze-medal.png"
 import {connect} from "react-redux";
-// function RankingTable ({currentUser}) {
-let currentUser = "ROHAGRUROHAGRU"
-function RankingTable () {
+
+function RankingTable ({currentUser}) {
     const [userRanking, setUserRanking] = useState([]);
     const [myRanking, setMyRanking] = useState(0);
     const myRankRef = useRef();
@@ -42,8 +41,6 @@ function RankingTable () {
         .then((res) => {
             
             if(res.data.message === 'SUCCESS'){
-                // console.log(res.data.rank);
-                // console.log(res.data.result);
                 setMyRanking(parseInt(res.data.rank));
                 setUserRanking(
                     res.data.result.map((item, index) => {
@@ -105,7 +102,7 @@ function RankingTable () {
             </FrontFace>
             <BackFace>
                 <CircleTitle type="back">상위</CircleTitle>
-                <MyPercentText>{Math.floor(myRanking / userRanking.length * 100)}</MyPercentText>   
+                <MyPercentText>{Math.ceil(myRanking / userRanking.length * 100)}</MyPercentText>   
                 
             </BackFace>
         </RankCircle>
@@ -169,7 +166,7 @@ function mapStateToProps(state){
     return{
         currentUser : state.currentUser,
     };
-  }
+}
 
 export default connect(mapStateToProps) (RankingTable);
 
