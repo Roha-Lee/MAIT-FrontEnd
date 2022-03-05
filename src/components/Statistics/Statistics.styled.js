@@ -23,6 +23,8 @@ export const TabBox = styled.div`
         width: inherit;
         flex: 1 1 0;
     }
+    cursor: pointer;
+    
 `
 
 export const BlankBox = styled.div`
@@ -54,12 +56,8 @@ export const StatisticsContainer = styled.div`
     }
 
     @media screen and (max-width: 520px) {
-<<<<<<< HEAD
         padding: 0 0 40px;    
         width: 320px;   
-=======
-        width: 320px;
->>>>>>> origin/feature/responsive-2
     }
 `
 

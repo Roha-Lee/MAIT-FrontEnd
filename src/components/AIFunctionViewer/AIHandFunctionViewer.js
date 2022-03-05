@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 import Draggable from "react-draggable";
 import {connect} from "react-redux";
+const height = document.documentElement.scrollHeight;
+const width = document.documentElement.scrollWidth;
 
 function AIHandFunctionViewer ({
   timerOn, 
@@ -90,15 +92,14 @@ function AIHandFunctionViewer ({
     }
   };
 
-  // aiInterval = setInterval(()=>{
-  //   capture();
-  // },5000);
-  // console.log("캡쳐 명령");
-  // capture();
-  // Capture();
+  
   return(
     <>
-        <Draggable>
+        <Draggable
+          bounds={{top : (270-height), bottom : 30, right : 40, left : (350-width)}}
+          // bounds="body"
+          // defaultPosition={{x:30,y:30}}
+        >
           <Webcam
             ref={webcamRef}
             audio={false}
@@ -107,6 +108,9 @@ function AIHandFunctionViewer ({
             width={320}          
             videoConstraints={videoConstraints}
             imageSmoothing={true}
+            style={{
+              cursor: "move"
+            }}
           />
         </Draggable>
         <> 

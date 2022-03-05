@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const RankingContainer = styled.div`
     display:flex;
@@ -29,17 +29,29 @@ export const RankCircle = styled.div`
 // animation: slideInDown;
 //     animation-duration: .6s; 
 
+const slideDownIn = keyframes`
+    0% {
+        top : 0px;
+    }
+    100% {
+        top : -200px;
+    }
+`
+
 export const RankCircleContainer = styled.div`
     background-color: transparent;
     width: 200px;
     height: 200px;
     perspective: 1000px;
     margin-bottom: 28px;
-    
+    position: relative;
+    animation : ${slideDownIn} .6s reverse;
     :hover .rank-circle{
         transform: rotateY(180deg);
     }
 `
+
+
 export const FrontFace = styled.div`
 position: absolute;
 width: 100%;
@@ -121,10 +133,21 @@ left: calc(50% - 32px);`:
 null}
 `
 
+const slideRightIn = keyframes`
+    0% {
+        left : 0px;
+    }
+    100% {
+        left : 400px;
+    }
+`
+
 export const RankTableContainer = styled.div`
 width: 100%;
 height: 55vh; 
 overflow: auto;
+position : relative;
+animation : ${slideRightIn} .6s reverse;
 `
 // animation: slideInRight;
 // animation-duration: .6s; 
