@@ -32,7 +32,6 @@ export const MainContainer = styled.div`
 export const NavLogo = styled.div`
 color: #FFFFFF;
 margin-left: 20px;
-cursor: pointer;
 text-decoration: none;
 flex-grow: 1;
 font-size: 30px;
@@ -88,6 +87,7 @@ padding: 0.5rem 1rem;
 margin: 0 0.1rem;
 height: 100%;
 cursor: pointer;
+display: inline-block;
 border-bottom: 3px solid transparent;
 &:focus, &:visited, &:active,&:hover {
     text-decoration: none;
