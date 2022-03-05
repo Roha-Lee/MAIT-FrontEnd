@@ -3,9 +3,10 @@ import styled from 'styled-components';
 export const RankingContainer = styled.div`
     display:flex;
     width: 100%;
-    margin: 100px auto;
+    padding: 50px 0 0 0;
     flex-direction : column;
     align-items: center;
+    color: #606060;
 `
 
 export const BlankComment = styled.span`
@@ -27,10 +28,15 @@ export const RankCircle = styled.div`
 `
 
 export const RankCircleContainer = styled.div`
+    animation: slideInDown;
+    animation-duration: .6s; 
+
     background-color: transparent;
     width: 200px;
     height: 200px;
     perspective: 1000px;
+    margin-bottom: 28px;
+
     :hover .rank-circle{
         transform: rotateY(180deg);
     }
@@ -84,10 +90,12 @@ export const MyRankContainer = styled.div`
 display: flex;
 justify-content: center;
 align-items: flex-end;
+
 `
 
 export const MyRankText = styled.span`
 display: block;
+
 font-size: 4rem;
 `
 
@@ -104,9 +112,106 @@ height: 100%;
 display: flex;
 flex-direction: column;
 justify-content: center;
+margin-top: 20px;
 `
 export const MedalImage = styled.img`
-position: absolute;
-top: -32px;
-left: calc(50% - 32px);
+${props=>props.type==='rankCircle'? 
+`position: absolute;
+top: -52px;
+left: calc(50% - 32px);`: 
+null}
 `
+
+export const StyledTable = styled.table`
+border-collapse: separate;
+border-radius: 10px;
+border-spacing: 0;
+width: 100%;
+box-shadow: 0 0 1px #606060;
+animation: slideInRight;
+animation-duration: .6s; 
+`
+
+export const StyledTh = styled.th`
+background-color: #606060;
+color: white;
+font-weight: normal;
+border-bottom: 1px solid #606060;
+line-height: 1.5;
+padding: 0.75em;
+text-align: center;
+:first-child {
+    border-top-left-radius: 15px;
+}
+:last-child {
+    border-top-right-radius: 15px;
+}
+`
+  
+export const StyledTd = styled.td`
+line-height: 1.5;
+padding: 0.75em;
+text-align: center;
+background-color: white;
+:first-child {
+    font-family: 'IBMPlexSansKR-Bold';
+}
+@media (max-width: 520px) {
+    tbody &{
+        border-radius: none;
+        text-align: left;
+    }
+    display: block;
+    border: none;
+    padding-left: 50%;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    &:before {
+        content: attr(data-label);
+        display: inline-block;
+        font-family: 'IBMPlexSansKR-Bold';
+        line-height: 1.5;
+        margin-left: -100%;
+        width: 100%;
+    }
+    
+}
+
+`
+export const StyledTr = styled.tr`
+:nth-child(odd) ${StyledTd} {
+    background-color: #E0E0DF;
+}
+:hover ${StyledTd}{
+    background-color: #5FB973;
+}
+:last-child ${StyledTd}:first-child{
+    border-bottom-left-radius: 10px;
+}
+:last-child ${StyledTd}:last-child{
+    border-bottom-right-radius: 10px;
+}
+@media (max-width: 520px) {
+    thead &{
+      position: absolute;
+      top: -9999rem;
+      left: -9999rem;
+    }
+    tbody &{
+        border-radius: none;
+        text-align: left;
+    }
+    &:first-child ${StyledTd}:first-child {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    &:last-child ${StyledTd}:last-child {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    display: block;
+}
+`
+  
+  
