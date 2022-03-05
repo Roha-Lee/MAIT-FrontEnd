@@ -40,6 +40,9 @@ export const BottomColor = styled.div`
     border-radius: 0 0 25px 25px;
     margin: 0 auto;
     height: 50px;
+    display: flex;
+    justify-content : flex-end;
+    align-items : center;
 `
 
 export const MenuContainer = styled.div`
@@ -55,4 +58,18 @@ export const MenuContainer = styled.div`
 
 export const TabName = styled.span`
     margin-top: 5px;
+`
+
+export const CaptureBtn = styled.div`
+    background-color: #E0E0DF;
+    width: fit-content;
+    color : #606060;
+    padding-left : 0.3rem;
+    padding-right : 0.3rem;
+    border-radius : 1rem;
+    margin-right : 1.5rem;
+    height : 70%;
+    display: flex;
+    align-items : center;
+    cursor : pointer;
 `

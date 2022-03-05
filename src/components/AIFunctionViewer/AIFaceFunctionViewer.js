@@ -1,6 +1,6 @@
 import Webcam from "react-webcam";
 // import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 import Draggable from "react-draggable";
 import {connect} from "react-redux";
@@ -24,20 +24,10 @@ function AIFaceFunctionViewer ({
     height: 200,
     facingMode: "user"
   };
+  
   // const [saveManager,setSaveManager] = useState();
   const [faceImage,setFaceImage] = useState("");
   const [faceInterval, setFaceInterval] = useState(null);
-  // const config = generateFacemeshDefaultConfig();
-  // config.model.maxFaces = 1;
-  // const params = generateDefaultFacemeshParams();
-  
-  // useEffect(()=>{
-  //   const manager = new FacemeshWorkerManager();
-  //   manager.init(config);
-  //   // console.log("Face model");
-  //   setSaveManager(manager);
-  //   // Capture();
-  // },[]);
 
   useEffect(()=>{
     if (faceInterval && useFaceAi) {
@@ -88,12 +78,8 @@ function AIFaceFunctionViewer ({
     }
   };
 
-  // aiInterval = setInterval(()=>{
-  //   capture();
-  // },5000);
-  // console.log("캡쳐 명령");
-  // capture();
-  // Capture();
+
+
   return(
     <div className="aitest">
         <div className="ai-on" style={{

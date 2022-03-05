@@ -5,8 +5,9 @@ import SubjectBarChart from "./SubjectBarChart";
 import TodoBarChart from "./TodoBarChart";
 import SubjectLineChart from "./SubjectLineChart";
 import {connect} from "react-redux";
+import { changeLogin } from "../../../store";
 
-function ManyDays ({startDate,endDate}){
+function ManyDays ({startDate,endDate,setIsLogin}){
     const [data , setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -18,9 +19,11 @@ function ManyDays ({startDate,endDate}){
             setLoading(true);
             const response = await axios.get(serverUrl,{params : {'startDate' : startDate , 'endDate' : endDate}, headers: {Authorization: `${window.sessionStorage.getItem('accessToken')}`}});
             // console.log(response.data);
-            setData(response.data)
+            setData(response.data);
+            setIsLogin(true);
         }catch(e){
             setError(e);
+            setIsLogin(false);
         }
 
         setLoading(false);
@@ -321,8 +324,14 @@ function mapStateToProps(state){
     return{
         startDate : state.startDate,
         endDate : state.endDate,
+        isLogin : state.isLogin,
     };
 }
 
+function mapDispatchToProps(dispatch){
+    return{
+        setIsLogin : isLogin => dispatch(changeLogin(isLogin))
+    };
+}
 
-export default connect(mapStateToProps) (ManyDays);
+export default connect(mapStateToProps, mapDispatchToProps) (ManyDays);

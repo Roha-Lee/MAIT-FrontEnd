@@ -7,7 +7,7 @@ import goldMedal from "./assets/gold-medal.png"
 import silverMedal from "./assets/silver-medal.png"
 import bronzeMedal from "./assets/bronze-medal.png"
 import {connect} from "react-redux";
-function RankingTable ({currentUser}) {
+function RankingTable ({currentUser, setIsLogin}) {
     const [userRanking, setUserRanking] = useState([]);
     const [myRanking, setMyRanking] = useState(0);
     const [isFront, setIsFront] = useState(true);
@@ -18,6 +18,7 @@ function RankingTable ({currentUser}) {
             if(res.data.message === 'SUCCESS'){
                 // console.log(res.data.rank);
                 // console.log(res.data.result);
+                setIsLogin(true);
                 setMyRanking(res.data.rank);
                 setUserRanking(
                     res.data.result.map((item, index) => {
@@ -31,6 +32,7 @@ function RankingTable ({currentUser}) {
         })
         .catch((error) => {
             console.log(error);
+            setIsLogin(false);
         })
     }, [])
     const columns = [
@@ -97,7 +99,14 @@ function RankingTable ({currentUser}) {
 function mapStateToProps(state){
     return{
         currentUser : state.currentUser,
+        isLogin : state.isLogin,
     };
-  }
+}
 
-export default connect(mapStateToProps) (RankingTable);
+function mapDispatchToProps(dispatch){
+    return{
+        setIsLogin : isLogin => dispatch(changeLogin(isLogin))
+    };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (RankingTable);

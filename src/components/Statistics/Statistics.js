@@ -3,16 +3,21 @@ import Daily from "./Daily/Daily";
 import ManyDays from "./ManyDays/ManyDays";
 import style from "./Statistics.module.css";
 import RankingTable from "../RankingTable/RankingTable";
-import {TabBox,TapContainer,StatisticsContainer,BottomColor,MenuContainer, BlankBox, TabName} from "./Statistics.styled";
+import {TabBox,TapContainer,StatisticsContainer,BottomColor,MenuContainer, BlankBox, TabName, CaptureBtn} from "./Statistics.styled";
 import {connect} from "react-redux";
 import {changeCurrentStatistics, changeDailyDate, changeStartDate, changeEndDate, changeIsZeroShow} from "../../store";
 import moment from "moment";
-import { DatePicker, Switch, Button, Tooltip } from "antd";
+import { DatePicker, Switch, Button, Tooltip, notification } from "antd";
 const { RangePicker } = DatePicker;
-import { useState } from "react";
-import { SearchOutlined } from '@ant-design/icons';
+import { useState, createRef } from "react";
+import { SearchOutlined, ExportOutlined} from '@ant-design/icons';
+import {useScreenshot} from "use-react-screenshot";
+const {Kakao} = window;
+import fileDownload from "js-file-download";
 
-function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDate,setIsZeroShow, setStartDate, setEndDate , setCurrentStatistics}){
+function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDate,setIsZeroShow, setStartDate, setEndDate , setCurrentStatistics, currentUser}){
+    const ref = createRef(null);
+    const [image, takeScreenshot] = useScreenshot();
     const [range, setRange] = useState([startDate,endDate]);
         
     function onChange(date, dateString){
@@ -43,6 +48,26 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
 
     function handleManyDays(){
         setCurrentStatistics(3);
+    }
+
+
+    async function getCapture (){
+        const screenShot = await takeScreenshot(ref.current);
+        
+        // console.log(img.src);
+        const img = document.getElementById("screenshot");
+        const imgUrl = img.src;
+
+        fetch(imgUrl).then(
+            response => {
+                return response.blob();
+            }
+        ).then(
+            blob => {
+                // console.log(blob);
+                fileDownload(blob,"screenshot.png");
+            }
+        )
     }
 
 
@@ -131,7 +156,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                 :null}
             </TapContainer>
         </MenuContainer>
-        <StatisticsContainer>
+        <StatisticsContainer ref={ref}>
             <div className={style.statisticsContainer}>
                 {currentStatistics === 1 ? 
                     <div className={style.statistics}>
@@ -150,7 +175,18 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                 : null}
             </div>
         </StatisticsContainer>
-        <BottomColor/>
+        <BottomColor>
+            <CaptureBtn onClick={getCapture}><ExportOutlined onClick={getCapture} style={{color : "#606060", marginRight:"0.3rem", transform : "rotate(270deg)"}}/>내보내기</CaptureBtn>
+        </BottomColor>
+        
+        <img 
+            style={{display : "none"}} 
+            id={"screenshot"}
+            width={400} 
+            height={400} 
+            src={image} 
+            alt={"Screenshot"}/>
+
         </>
 
     );
@@ -163,6 +199,7 @@ function mapStateToProps(state){
         dailyDate : state.dailyDate,
         startDate : state.startDate,
         endDate : state.endDate,
+        currentUser : state.currentUser,
     };
 }
 

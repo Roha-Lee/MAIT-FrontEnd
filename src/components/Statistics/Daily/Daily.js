@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from 'styled-components';
 import {connect} from "react-redux";
+import { changeLogin } from "../../../store";
 
 const DailyContainer = styled.div`
     display: flex;
@@ -122,7 +123,7 @@ const DailyContainer = styled.div`
 // }
 
 
-function Daily ({dailyDate, isZeroShow}){
+function Daily ({dailyDate, isZeroShow, isLogin, setIsLogin}){
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -142,8 +143,10 @@ function Daily ({dailyDate, isZeroShow}){
                 });
             // console.log(response.data);
             setData(response.data);
+            setIsLogin(true);
         }catch(e){
             setError(e);
+            setIsLogin(false);
         }
         setLoading(false);
     };
@@ -205,8 +208,15 @@ function mapStateToProps(state){
     return{
         dailyDate : state.dailyDate,
         isZeroShow : state.isZeroShow,
+        isLogin : state.isLogin,
+    };
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        setIsLogin : isLogin => dispatch(changeLogin(isLogin))
     };
 }
 
 
-export default connect(mapStateToProps) (Daily);
+export default connect(mapStateToProps,mapDispatchToProps) (Daily);

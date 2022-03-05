@@ -1,5 +1,5 @@
 function Capture(type) {
-    console.log(type);
+    // console.log(type);
     const captureBtn = document.getElementById(`capture${type}`)
 
     if(captureBtn !== null){
