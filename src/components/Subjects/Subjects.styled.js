@@ -60,7 +60,7 @@ export const SubjectControlButton = styled.button`
         width: 30px;
         height: 30px;
         margin: 10px 10px 0;
-    } 
+    }
 `
 
 export const Active =  styled.div`
@@ -73,6 +73,7 @@ export const TabBox = styled.div`
     height: 45px;
     width: 110px;
     border-radius: 15px 15px 0 0;
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,9 +93,10 @@ export const SubjectBox = styled.div`
     margin: 0 15px;
     overflow-x: hidden;
     overflow-y: hidden;
+    z-index: 1;
+
     :hover{
         overflow-x: auto;
-        
     }
     ::-webkit-scrollbar
     {
@@ -103,14 +105,14 @@ export const SubjectBox = styled.div`
     }
     ::-webkit-scrollbar-thumb
     {
-	border-radius: 10px;
-	background-color: #E0E0DF; 
+        border-radius: 10px;
+        background-color: #E0E0DF;
     }
     @media screen and (max-width: 760px) {
         width: 300px;
     }
     @media screen and (max-width: 520px) {
-        width: 200px;   
+        width: 200px;
     }
 `
 
