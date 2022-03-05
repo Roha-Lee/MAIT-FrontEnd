@@ -1,15 +1,15 @@
 import DailyChart from "./DailyChart";
 import {connect} from "react-redux";
-import {StyledDailyData, StyledDailyDetails, StyledDailySummery, StyledTitleContainer, StyledTotalTimes} from './DailyData.styled'
+import {StyledDailyData, StyledHeader, StyledTitleContainer, StyledTotalTimes} from './DailyData.styled'
 function DailyData ({data , labels, subjectColors, isZeroShow}){
     // console.log("im here");
     const subjectTotalData = data?.subjectTotalTime;
-    
-    
+
+
     // let dataInput = [];
     let totalTime = 0;
-    
-    
+
+
     for(let i = 0 ; i < subjectTotalData?.length ; i++){
         const timeStr = subjectTotalData[i].totalTime;
         const hour = parseInt(timeStr.slice(0,2));
@@ -24,15 +24,15 @@ function DailyData ({data , labels, subjectColors, isZeroShow}){
     return (
         <StyledDailyData>
             <StyledTitleContainer>
-                <StyledDailySummery>총 학습시간</StyledDailySummery>
+                <StyledHeader><span>총 학습시간</span><div /></StyledHeader>
             </StyledTitleContainer>
             <StyledTotalTimes>{`${totalHour}시간 ${totalMinute}분`}</StyledTotalTimes>
             <StyledTitleContainer>
-                <StyledDailyDetails>과목별 학습시간</StyledDailyDetails>
+                <StyledHeader><span>과목별 학습시간</span><div /></StyledHeader>
             </StyledTitleContainer>
-        
+
             <DailyChart data={data} labels={labels} subjectColors={subjectColors} isZeroShow={isZeroShow}/>
-        
+
         </StyledDailyData>
     );
 }

@@ -156,8 +156,8 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                         unCheckedChildren="전체"
                         onChange={onChangeToggle}
                         style={{
-                            marginTop: "20px",
-                            marginBottom : "20px",
+                            marginTop: "10px",
+                            marginBottom : "10px",
                             marginLeft : "15px",
                             width: "60px",
                         }}
@@ -188,23 +188,21 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                     </Tooltip>
                 :null}
             </SmallSize>
-            <div>
-                {currentStatistics === 1 ?
-                    <StyledStatistics>
-                        <Daily/>
-                    </StyledStatistics>
-                : null}
-                {currentStatistics === 2 ?
-                    <StyledStatisticsDetail>
-                        <RankingTable/>
-                    </StyledStatisticsDetail>
-                : null}
-                {currentStatistics === 3 ?
-                    <StyledStatisticsDetail>
-                        <ManyDays/>
-                    </StyledStatisticsDetail>
-                : null}
-            </div>
+            {currentStatistics === 1 ?
+                <StyledStatistics>
+                    <Daily/>
+                </StyledStatistics>
+            : null}
+            {currentStatistics === 2 ?
+                <StyledStatisticsDetail>
+                    <RankingTable/>
+                </StyledStatisticsDetail>
+            : null}
+            {currentStatistics === 3 ?
+                <StyledStatisticsDetail>
+                    <ManyDays/>
+                </StyledStatisticsDetail>
+            : null}
         </StatisticsContainer>
         <BottomColor/>
         </>

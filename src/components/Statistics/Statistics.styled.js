@@ -4,6 +4,10 @@ export const TapContainer = styled.div`
     display: flex;
     width: 100%;
     padding: 0 15px;
+
+    @media screen and (max-width: 720px) {
+        padding: 0 5px 0 15px;
+    }
 `
 
 export const TabBox = styled.div`
@@ -15,11 +19,15 @@ export const TabBox = styled.div`
     padding-top : 10px;
     color : #606060;
 
+    @media screen and (max-width: 720px) {
+        width: inherit;
+        flex: 1 1 0;
+    }
 `
 
 export const BlankBox = styled.div`
     flex: 1 1 0;
-    @media screen and (max-width: 520px) {
+    @media screen and (max-width: 720px) {
         display: none;
     }
 `
@@ -96,15 +104,11 @@ export const TabName = styled.span`
 `
 
 export const StyledStatistics = styled.div`
-    flex-basis: 700px;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    width: 100%;
+
 `
 export const StyledStatisticsDetail = styled.div`
-    flex-basis: 700px;
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -112,12 +116,13 @@ export const StyledStatisticsDetail = styled.div`
 `
 export const SmallSize = styled.div`
     display: none;
-    background-color : #E0E0DF;
-    /* padding: 0 20px; */
-    border-radius: 0 0 10px 10px;
 
     @media screen and (max-width: 720px) {
         display: block;
+        background-color : #E0E0DF;
+        margin-top: 10px;
+        border-radius: 10px;
+        padding: 0 20px;
     }
 `
 export const BigSize = styled.div`
