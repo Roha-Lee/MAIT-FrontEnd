@@ -1,6 +1,17 @@
 import React, { useState } from "react"
 import axios from "axios"
-import { LoginInput, LoginButton, SocialLoginButton, SignUpGuide, StyledLink, LoginIcon, LoginForm, LoginTitle, LoginDiv} from './Login.styled'
+import {
+    LoginInput,
+    LoginButton,
+    SocialLoginButton,
+    SignUpGuide,
+    StyledLink,
+    LoginIcon,
+    LoginForm,
+    LoginTitle,
+    LoginInputContainer,
+    LoginInputWrapper,
+} from './Login.styled'
 import { useNavigate } from "react-router-dom";
 import Navigation from './Navigation/NavigationNew'
 import { changeLogin } from "../store";
@@ -10,7 +21,7 @@ import { getKakaoSignin } from "../utils/utils"
 import { WarningOutlined } from '@ant-design/icons';
 // axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
 
-// import Form from "react-bootstrap/Form"; 
+// import Form from "react-bootstrap/Form";
 // import Button from "react-bootstrap/Button";
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
@@ -41,13 +52,13 @@ function Login({isLogin , setIsLogin}) {
         e.preventDefault();
         // setIsLogin(!isLogin); //TO Check
         axios.post(
-            `${serverUrl}/auth/signin`, 
+            `${serverUrl}/auth/signin`,
             {
                 username: inputId,
                 password: inputPw,
             },
             {
-                withCredentials: true 
+                withCredentials: true
             }
             ,
         ).then(response => {
@@ -77,7 +88,7 @@ function Login({isLogin , setIsLogin}) {
                     icon: <WarningOutlined style={{ color: "#606060" }}/>,
                 })
             }
-            
+
         })
     }
 
@@ -100,7 +111,7 @@ function Login({isLogin , setIsLogin}) {
             }
         );
     }
-    
+
     const handleFail = (result) => {
         console.log(result);
         notification.open({
@@ -112,20 +123,24 @@ function Login({isLogin , setIsLogin}) {
 
     return (
         <>
-            <Navigation /> 
+            <Navigation />
             <LoginForm id="login-form" autoComplete="off" onSubmit={onClickLogin}>
                 <LoginTitle>My AI Timer</LoginTitle>
-                <LoginDiv>
+                <LoginInputContainer>
                     <LoginIcon className="fa fa-user"></LoginIcon>
                     <label htmlFor='input_id'/>
-                    <LoginInput maxLength={16} required type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='아이디'/>
-                </LoginDiv>
-                <LoginDiv>
-                <LoginIcon className="fa fa-lock"></LoginIcon>
+                    <LoginInputWrapper>
+                        <LoginInput maxLength={16} required type='text' name='input_id' value={inputId} onChange={handleInputId}  placeholder='아이디'/>
+                    </LoginInputWrapper>
+                </LoginInputContainer>
+                <LoginInputContainer>
+                    <LoginIcon className="fa fa-lock"></LoginIcon>
                     <label htmlFor='input_pw'/>
-                    <LoginInput required type={showPassword? 'text' : 'password'} name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='비밀번호'/>
+                    <LoginInputWrapper>
+                        <LoginInput required type={showPassword? 'text' : 'password'} name='input_pw' value={inputPw} onChange={handleInputPw}  placeholder='비밀번호'/>
+                    </LoginInputWrapper>
                     <LoginIcon className={showPassword? "fa fa-eye": "fa fa-eye-slash"} onClick={togglePassword} style={{cursor: "pointer"}}></LoginIcon>
-                </LoginDiv>
+                </LoginInputContainer>
                 <LoginButton type="submit" onClick={onClickLogin}>로그인</LoginButton>
                 <SocialLoginButton
                     token={kakaoToken}
