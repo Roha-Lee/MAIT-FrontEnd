@@ -122,6 +122,11 @@ left: calc(50% - 32px);`:
 null}
 `
 
+export const RankTableContainer = styled.div`
+width: 100%;
+height: 55vh; 
+overflow: auto;
+`
 export const StyledTable = styled.table`
 border-collapse: separate;
 border-radius: 10px;
@@ -177,14 +182,17 @@ background-color: white;
     }
     
 }
-
 `
+// :hover ${StyledTd}{
+//     background-color: #5FB973;
+// }
+
 export const StyledTr = styled.tr`
-:nth-child(odd) ${StyledTd} {
-    background-color: #E0E0DF;
+:nth-child(even) ${StyledTd} {
+    background-color: ${ props=>props.myRank===true ? "#5FB973":"#FFFFFF"};
 }
-:hover ${StyledTd}{
-    background-color: #5FB973;
+:nth-child(odd) ${StyledTd} {
+    background-color: ${ props=>props.myRank===true ? "#5FB973":"#E0E0DF"};
 }
 :last-child ${StyledTd}:first-child{
     border-bottom-left-radius: 10px;
@@ -202,16 +210,37 @@ export const StyledTr = styled.tr`
         border-radius: none;
         text-align: left;
     }
+    :last-child ${StyledTd}:first-child{
+        border-bottom-left-radius: 0;
+    }
+    
     &:first-child ${StyledTd}:first-child {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
     &:last-child ${StyledTd}:last-child {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
     display: block;
 }
 `
-  
-  
+export const ButtonContainer = styled.div `  
+width: 100%;
+display: flex;
+padding: 0 20px 5px 0;
+justify-content: flex-end;
+gap: 10px;
+height: 2rem;
+`
+
+export const StyledButton = styled.span `
+    border: none;
+    color: #606060;
+    cursor: pointer;
+    box-sizing: border-box;
+    :hover {
+        border-bottom: 2px solid #606060;
+    }
+    
+`

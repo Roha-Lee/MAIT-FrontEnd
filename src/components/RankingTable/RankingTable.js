@@ -17,10 +17,13 @@ import {
     MyPercentText, 
     CircleTitle, 
     MedalImage, 
+    RankTableContainer,
     StyledTable,
     StyledTd,
     StyledTh,
     StyledTr,
+    StyledButton,
+    ButtonContainer,
 } from "./RankingTable.styled"
 
 import goldMedal from "./assets/gold-medal.png"
@@ -32,134 +35,31 @@ let currentUser = "ROHAGRUROHAGRU"
 function RankingTable () {
     const [userRanking, setUserRanking] = useState([]);
     const [myRanking, setMyRanking] = useState(0);
-    const [isFront, setIsFront] = useState(true);
-    
+    const myRankRef = useRef();
+    const headerRef = useRef();
     useEffect(()=> {
-        // getRankingData()
-        // .then((res) => {
+        getRankingData()
+        .then((res) => {
             
-        //     if(res.data.message === 'SUCCESS'){
-        //         // console.log(res.data.rank);
-        //         // console.log(res.data.result);
-        //         setMyRanking(parseInt(res.data.rank));
-        //         setUserRanking(
-        //             res.data.result.map((item, index) => {
-        //                 return {
-        //                     rank: index + 1,
-        //                     nickname: item.nickname,
-        //                     totalTime: msToHmsFormat(item.totalTime),
-        //                 }        
-        //         }))
-        //     }
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // })
-        // 테스트용 목데이터
-        setMyRanking(2);
-        setUserRanking(
-            [
-                {
-                    rank:1,
-                    nickname: "roha", 
-                    totalTime: msToHmsFormat(1000000)
-
-                },
-                {
-                    rank:2,
-                    nickname: "ROHAGRUROHAGRU", 
-                    totalTime: msToHmsFormat(100000)
-
-                },
-                {
-                    rank:3,
-                    nickname: "로하그루로하그", 
-                    totalTime: msToHmsFormat(10000)
-
-                },
-                {
-                    rank:4,
-                    nickname: "로하그루로하그루로하", 
-                    totalTime: msToHmsFormat(1000)
-
-                },
-                {
-                    rank:5,
-                    nickname: "rohagrurohagru", 
-                    totalTime: msToHmsFormat(900)
-
-                }, 
-                {
-                    rank:6,
-                    nickname: "roha5grurohagru", 
-                    totalTime: msToHmsFormat(800)
-
-                }, 
-                {
-                    rank:7,
-                    nickname: "roha4grurohagru", 
-                    totalTime: msToHmsFormat(700)
-
-                }, 
-                {
-                    rank:8,
-                    nickname: "roha3grurohagru", 
-                    totalTime: msToHmsFormat(600)
-
-                },
-                {
-                    rank:9,
-                    nickname: "roha2grurohagru", 
-                    totalTime: msToHmsFormat(500)
-
-                },
-                {
-                    rank:10,
-                    nickname: "roha1grurohagru", 
-                    totalTime: msToHmsFormat(450)
-
-                },
-                {
-                    rank:10,
-                    nickname: "roha1grurohagru", 
-                    totalTime: msToHmsFormat(450)
-
-                },
-                {
-                    rank:10,
-                    nickname: "roha1grurohagru", 
-                    totalTime: msToHmsFormat(450)
-
-                },
-                {
-                    rank:10,
-                    nickname: "roha1grurohagru", 
-                    totalTime: msToHmsFormat(450)
-
-                },
-                {
-                    rank:10,
-                    nickname: "roha1grurohagru", 
-                    totalTime: msToHmsFormat(450)
-
-                },
-                {
-                    rank:10,
-                    nickname: "roha1grurohagru", 
-                    totalTime: msToHmsFormat(450)
-
-                },
-                {
-                    rank:10,
-                    nickname: "roha1grurohagru", 
-                    totalTime: msToHmsFormat(450)
-
-                },
-            ]
-        )
+            if(res.data.message === 'SUCCESS'){
+                // console.log(res.data.rank);
+                // console.log(res.data.result);
+                setMyRanking(parseInt(res.data.rank));
+                setUserRanking(
+                    res.data.result.map((item, index) => {
+                        return {
+                            rank: index + 1,
+                            nickname: item.nickname,
+                            totalTime: msToHmsFormat(item.totalTime),
+                        }        
+                }))
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }, [])
     const addMedalImage = (myRanking, size, type) => {
-        console.log('myRanking', myRanking);
         if(myRanking === 1){
             return <MedalImage type={type} src={goldMedal} width={size} height={size} alt="goldMedal"/>;
         }
@@ -172,6 +72,23 @@ function RankingTable () {
         else{
             return null;
         }
+    }
+
+    const goMyRank = () => {
+        myRankRef.current.scrollIntoView({ behavior: 'smooth'});
+        setTimeout(() => {
+            myRankRef.current.classList.add("animate__animated");
+            myRankRef.current.classList.add("animate__flash");
+            setTimeout(() => {
+                myRankRef.current.classList.remove("animate__animated");
+                myRankRef.current.classList.remove("animate__flash");
+            }, 1000);
+        }, 500)
+        
+    }
+    
+    const goHeader = () => {
+        headerRef.current.scrollIntoView({ behavior: 'smooth'});
     }
     const rankingCirclePart = (
     <RankCircleContainer>
@@ -195,12 +112,13 @@ function RankingTable () {
     </RankCircleContainer>);
 
     const rankingTablePart = (
-        <div style={{
-            width: "100%",
-            height: "65vh", 
-            overflow: "auto"}}>
-
-
+        <>
+        <ButtonContainer>
+        <StyledButton onClick={goMyRank}>내 순위</StyledButton>|
+        <StyledButton onClick={goHeader}>맨 위로</StyledButton>
+        </ButtonContainer>
+        <RankTableContainer>
+        <div ref={headerRef}></div>
         <StyledTable>
             <thead>
                 <StyledTr>
@@ -210,8 +128,11 @@ function RankingTable () {
                 </StyledTr>
             </thead>
             <tbody>
+                
                 {userRanking.map(item => {
-                    return (<StyledTr >
+                    return (<StyledTr 
+                    ref={item.rank === myRanking ? myRankRef : null}
+                    myRank={item.rank === myRanking ? true : false}>
                         <StyledTd data-label="순위">{item.rank < 4 ? addMedalImage(item.rank, 32, 'rankTable') : item.rank}</StyledTd>
                         <StyledTd data-label="닉네임">
                             {item.nickname}
@@ -223,7 +144,8 @@ function RankingTable () {
                 })}
             </tbody>
         </StyledTable>
-        </div>
+        </RankTableContainer>
+        </>
     );
 
     return (
@@ -250,3 +172,107 @@ function mapStateToProps(state){
   }
 
 export default connect(mapStateToProps) (RankingTable);
+
+
+// 테스트용 목데이터
+        // setMyRanking(3);
+        // setUserRanking(
+        //     [
+        //         {
+        //             rank:1,
+        //             nickname: "roha", 
+        //             totalTime: msToHmsFormat(1000000)
+
+        //         },
+        //         {
+        //             rank:2,
+        //             nickname: "ROHAGRUROHAGRU", 
+        //             totalTime: msToHmsFormat(100000)
+
+        //         },
+        //         {
+        //             rank:3,
+        //             nickname: "로하그루로하그", 
+        //             totalTime: msToHmsFormat(10000)
+
+        //         },
+        //         {
+        //             rank:4,
+        //             nickname: "로하그루로하그루로하", 
+        //             totalTime: msToHmsFormat(1000)
+
+        //         },
+        //         {
+        //             rank:5,
+        //             nickname: "rohagrurohagru", 
+        //             totalTime: msToHmsFormat(900)
+
+        //         }, 
+        //         {
+        //             rank:6,
+        //             nickname: "roha5grurohagru", 
+        //             totalTime: msToHmsFormat(800)
+
+        //         }, 
+        //         {
+        //             rank:7,
+        //             nickname: "roha4grurohagru", 
+        //             totalTime: msToHmsFormat(700)
+
+        //         }, 
+        //         {
+        //             rank:8,
+        //             nickname: "roha3grurohagru", 
+        //             totalTime: msToHmsFormat(600)
+
+        //         },
+        //         {
+        //             rank:9,
+        //             nickname: "roha2grurohagru", 
+        //             totalTime: msToHmsFormat(500)
+
+        //         },
+        //         {
+        //             rank:10,
+        //             nickname: "roha1grurohagru", 
+        //             totalTime: msToHmsFormat(450)
+
+        //         },
+        //         {
+        //             rank:11,
+        //             nickname: "roha1grurohagru", 
+        //             totalTime: msToHmsFormat(450)
+
+        //         },
+        //         {
+        //             rank:12,
+        //             nickname: "roha1grurohagru", 
+        //             totalTime: msToHmsFormat(450)
+
+        //         },
+        //         {
+        //             rank:13,
+        //             nickname: "roha1grurohagru", 
+        //             totalTime: msToHmsFormat(450)
+
+        //         },
+        //         {
+        //             rank:14,
+        //             nickname: "roha1grurohagru", 
+        //             totalTime: msToHmsFormat(450)
+
+        //         },
+        //         {
+        //             rank:15,
+        //             nickname: "roha1grurohagru", 
+        //             totalTime: msToHmsFormat(450)
+
+        //         },
+        //         {
+        //             rank:16,
+        //             nickname: "roha1grurohagru", 
+        //             totalTime: msToHmsFormat(450)
+
+        //         },
+        //     ]
+        // )
