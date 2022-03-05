@@ -65,7 +65,10 @@ export const BottomColor = styled.div`
     border-radius: 0 0 25px 25px;
     margin: 0 auto;
     height: 50px;
-
+    display: flex;
+    justify-content : flex-end;
+    align-items : center;
+    
     @media screen and (max-width: 1024px) {
         width: 680px;   
     }
@@ -77,6 +80,7 @@ export const BottomColor = styled.div`
     @media screen and (max-width: 520px) {
         width: 320px;   
     }
+    
 `
 
 export const MenuContainer = styled.div`
@@ -135,4 +139,18 @@ export const BigSize = styled.div`
     @media screen and (max-width: 720px) {
         display: none;
     }
+`
+
+export const CaptureBtn = styled.div`
+    background-color: #E0E0DF;
+    width: fit-content;
+    color : #606060;
+    padding-left : 0.3rem;
+    padding-right : 0.3rem;
+    border-radius : 1rem;
+    margin-right : 1.5rem;
+    height : 70%;
+    display: flex;
+    align-items : center;
+    cursor : pointer;
 `

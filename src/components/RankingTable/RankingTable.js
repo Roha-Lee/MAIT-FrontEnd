@@ -2,7 +2,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import { Table, Tag, Space } from 'antd';
 import {getRankingData, msToHmsFormat} from '../../utils/utils'
-
+import { changeLogin } from '../../store';
 import {
     RankingContainer, 
     BlankComment, 
@@ -30,8 +30,7 @@ import goldMedal from "./assets/gold-medal.png"
 import silverMedal from "./assets/silver-medal.png"
 import bronzeMedal from "./assets/bronze-medal.png"
 import {connect} from "react-redux";
-
-function RankingTable ({currentUser}) {
+function RankingTable ({currentUser, setIsLogin}) {
     const [userRanking, setUserRanking] = useState([]);
     const [myRanking, setMyRanking] = useState(0);
     const myRankRef = useRef();
@@ -42,6 +41,7 @@ function RankingTable ({currentUser}) {
             
             if(res.data.message === 'SUCCESS'){
                 setMyRanking(parseInt(res.data.rank));
+                setIsLogin(true);
                 setUserRanking(
                     res.data.result.map((item, index) => {
                         return {
@@ -54,6 +54,7 @@ function RankingTable ({currentUser}) {
         })
         .catch((error) => {
             console.log(error);
+            setIsLogin(false);
         })
     }, [])
     const addMedalImage = (myRanking, size, type) => {
@@ -165,11 +166,9 @@ function RankingTable ({currentUser}) {
 function mapStateToProps(state){
     return{
         currentUser : state.currentUser,
+        isLogin : state.isLogin,
     };
 }
-
-export default connect(mapStateToProps) (RankingTable);
-
 
 // 테스트용 목데이터
         // setMyRanking(3);
@@ -273,3 +272,10 @@ export default connect(mapStateToProps) (RankingTable);
         //         },
         //     ]
         // )
+function mapDispatchToProps(dispatch){
+    return{
+        setIsLogin : isLogin => dispatch(changeLogin(isLogin))
+    };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (RankingTable);
