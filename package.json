@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "font-awesome": "^4.7.0",
+    "html2canvas": "^1.4.1",
     "http-proxy-middleware": "^2.0.3",
     "js-file-download": "^0.4.12",
     "moment": "^2.29.1",

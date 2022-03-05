@@ -44,8 +44,9 @@ export const StatisticsContainer = styled.div`
     margin: 0 auto;
     width: 880px;
     background-color: white;
-    padding: 40px;
-    padding-top : 0px;
+    padding: 0 40px 40px;
+    
+    overflow: hidden;
     @media screen and (max-width: 1024px) {
         width: 680px;   
     }
@@ -55,6 +56,7 @@ export const StatisticsContainer = styled.div`
     }
 
     @media screen and (max-width: 520px) {
+        padding: 0 0 40px;    
         width: 320px;   
     }
 `

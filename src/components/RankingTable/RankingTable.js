@@ -91,6 +91,11 @@ function RankingTable ({currentUser, setIsLogin}) {
     const rankingCirclePart = (
     <RankCircleContainer>
         <RankCircle className="rank-circle">
+            <BackFace>
+                <CircleTitle type="back">상위</CircleTitle>
+                <MyPercentText>{Math.ceil(myRanking / userRanking.length * 100)}</MyPercentText>   
+                
+            </BackFace>
             <FrontFace>
                 <FrontContents>
                     <CircleTitle type="front">{currentUser.length > 7 ? currentUser.substring(0, 7) + "⋯" : currentUser}</CircleTitle>
@@ -101,11 +106,7 @@ function RankingTable ({currentUser, setIsLogin}) {
                     </MyRankContainer>
                 </FrontContents>
             </FrontFace>
-            <BackFace>
-                <CircleTitle type="back">상위</CircleTitle>
-                <MyPercentText>{Math.ceil(myRanking / userRanking.length * 100)}</MyPercentText>   
-                
-            </BackFace>
+            
         </RankCircle>
     </RankCircleContainer>);
 

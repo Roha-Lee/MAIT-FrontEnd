@@ -26,17 +26,16 @@ export const RankCircle = styled.div`
     transition: transform 0.6s;
     transform-style: preserve-3d;
 `
+// animation: slideInDown;
+//     animation-duration: .6s; 
 
 export const RankCircleContainer = styled.div`
-    animation: slideInDown;
-    animation-duration: .6s; 
-
     background-color: transparent;
     width: 200px;
     height: 200px;
     perspective: 1000px;
     margin-bottom: 28px;
-
+    
     :hover .rank-circle{
         transform: rotateY(180deg);
     }
@@ -127,14 +126,15 @@ width: 100%;
 height: 55vh; 
 overflow: auto;
 `
+// animation: slideInRight;
+// animation-duration: .6s; 
+
 export const StyledTable = styled.table`
 border-collapse: separate;
 border-radius: 10px;
 border-spacing: 0;
 width: 100%;
 box-shadow: 0 0 1px #606060;
-animation: slideInRight;
-animation-duration: .6s; 
 `
 
 export const StyledTh = styled.th`
@@ -210,21 +210,10 @@ export const StyledTr = styled.tr`
         border-radius: none;
         text-align: left;
     }
-    :last-child ${StyledTd}:first-child{
-        border-bottom-left-radius: 0;
-    }
-    
-    &:first-child ${StyledTd}:first-child {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
-    &:last-child ${StyledTd}:last-child {
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
     display: block;
 }
 `
+
 export const ButtonContainer = styled.div `  
 width: 100%;
 display: flex;
