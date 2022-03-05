@@ -52,6 +52,7 @@ export const StyledSelect = styled.select`
     overflow: hidden;
     margin-left: 227px;
     margin-bottom: 5px;
+    cursor : pointer;
     @media screen and (max-width: 520px) {
         margin-left: 170px;
         }

@@ -35,6 +35,7 @@ function RankingTable ({currentUser, setIsLogin}) {
     const [myRanking, setMyRanking] = useState(0);
     const myRankRef = useRef();
     const headerRef = useRef();
+    const fakeCurrentUser = "jinho";
     useEffect(()=> {
         getRankingData()
         .then((res) => {
@@ -55,8 +56,12 @@ function RankingTable ({currentUser, setIsLogin}) {
         .catch((error) => {
             console.log(error);
             setIsLogin(false);
+            // setIsLogin(true);
         })
+        
+        
     }, [])
+
     const addMedalImage = (myRanking, size, type) => {
         if(myRanking === 1){
             return <MedalImage type={type} src={goldMedal} width={size} height={size} alt="goldMedal"/>;

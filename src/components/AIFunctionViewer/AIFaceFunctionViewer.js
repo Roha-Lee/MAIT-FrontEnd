@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 import Draggable from "react-draggable";
 import {connect} from "react-redux";
+const height = document.documentElement.scrollHeight;
+const width = document.documentElement.scrollWidth;
 // const MyWebcam = styled
 function AIFaceFunctionViewer ({
   timerOn, 
@@ -85,7 +87,9 @@ function AIFaceFunctionViewer ({
         <div className="ai-on" style={{
           display:"flex",
           justifyContent:"center", }}>
-          <Draggable>
+          <Draggable
+            bounds={{top : (270-height), bottom : 30, right : 40, left : (350-width)}}
+          >
             <Webcam
               ref={webcamRef}
               audio={false}
@@ -95,6 +99,9 @@ function AIFaceFunctionViewer ({
               position={'fixed'}          
               videoConstraints={videoConstraints}
               imageSmoothing={true}
+              style={{
+                cursor: "move"
+              }}
             />
           </Draggable>
           <canvas id="srccanvas"
