@@ -90,7 +90,7 @@ export const SubjectBarTitle = styled.h1`
     position: relative;
     display: flex;
     align-items: center;
-    color: grey;
+    color: #606060;
 
     span {
         flex: 0 0 auto;
@@ -100,7 +100,7 @@ export const SubjectBarTitle = styled.h1`
         flex: 1 1 0;
         margin-left: 24px;
         height: 1px;
-        background-color: grey;
+        background-color: #606060;
     }
 `
 
@@ -115,7 +115,7 @@ export const TodobarTitle = styled.h1`
     position: relative;
     display: flex;
     align-items: center;
-    color: grey;
+    color: #606060;
 
     span {
         flex: 0 0 auto;
@@ -125,7 +125,10 @@ export const TodobarTitle = styled.h1`
         flex: 1 1 0;
         margin-left: 24px;
         height: 1px;
-        background-color: grey;
+        background-color: #606060;
+    }
+    @media screen and (max-width: 1024px) {
+        margin-top: 50px;
     }
 `
 
@@ -140,7 +143,7 @@ export const SubjectLineTitle = styled.h1`
     position: relative;
     display: flex;
     align-items: center;
-    color: grey;
+    color: #606060;
 
     span {
         flex: 0 0 auto;
@@ -150,7 +153,7 @@ export const SubjectLineTitle = styled.h1`
         flex: 1 1 0;
         margin-left: 24px;
         height: 1px;
-        background-color: grey;
+        background-color: #606060;
     }
 `
 

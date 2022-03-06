@@ -52,7 +52,7 @@
 
 .subjectManager::-webkit-scrollbar-thumb {
     background-color: #EEE7E1; /*스크롤바의 색상*/
-    border: 1px solid grey;
+    border: 1px solid #606060;
 }
 
 .active {
