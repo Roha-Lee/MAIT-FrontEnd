@@ -30,7 +30,7 @@
     border-radius: 4px;
     box-sizing: border-box;
 }
-/* 
+/*
 .subject:hover {
     filter: brightness(70%);
     border: dashed 2px black;
@@ -47,11 +47,11 @@
 }
 
 .subjectManager::-webkit-scrollbar {
-    height: 8px; 
+    height: 8px;
 }
 
 .subjectManager::-webkit-scrollbar-thumb {
-    background-color: #EEE7E1; /*스크롤바의 색상*/    
+    background-color: #EEE7E1; /*스크롤바의 색상*/
     border: 1px solid grey;
 }
 
@@ -84,7 +84,7 @@
 }
 
 
-/* 
+/*
 .trashContainer {
     display:inline-block;
     position: relative;
@@ -148,7 +148,6 @@ opacity: 1;
 .form {
     display: flex;
     align-items: center;
-  
 }
 
 .input {
@@ -156,14 +155,13 @@ border-radius: 5px;
 border: 1px solid #c5c1c0;
 background-color: #fff;
 padding: 12px 15px;
-margin: 0 20px;  
-width: 15rem;
+width: 100%;
 }
 
 .formTitle {
 color: #6F8D7A;
 font-weight: bold;
-margin: 0 auto;  
+margin: 0 auto;
 display: flex;
 align-items: center;
 }
@@ -175,7 +173,7 @@ background-color: #6F8D7A;
 margin-left: 20px;
 border-radius: 5px;
 padding: 10px 15px;
-color: #fff;  
+color: #fff;
 }
 
 
