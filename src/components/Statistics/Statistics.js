@@ -144,8 +144,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                         defaultValue={moment(dailyDate,`YYYY-MM-DD`)}
                         style={{
                             border : "0px",
-                            display: "flex",
-                            padding: "20px"
+                            padding: "20px 45px"
                         }}
                     />
                 : null}
