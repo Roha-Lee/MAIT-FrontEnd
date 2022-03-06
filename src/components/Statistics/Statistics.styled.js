@@ -24,6 +24,7 @@ export const TabBox = styled.div`
     text-align : center;
     padding-top : 10px;
     color : #606060;
+    cursor : pointer;
     
 `
 

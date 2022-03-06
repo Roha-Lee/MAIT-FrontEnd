@@ -76,6 +76,7 @@ export const TabBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     @media screen and (max-width: 520px) {
         height: 35px;
     }

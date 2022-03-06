@@ -40,9 +40,10 @@ function makeTimeColorYX(data){
             endM = parseInt(value.endTime.slice(14,16));
         }
         const endX = parseInt(endM / 10);
-        
+        console.log(endM,startM);
         if(startH === endH){
-            if(endM - startM < 10 && 9 - inputData[startH][startX] <= endM - startM){
+            if(endX === startX && 9 - inputData[startH][startX] <= endM - startM){
+                // console.log(endM, startM, "timeheatmap");
                 inputData[startH][startX] = 9 - (endM - startM);
                 timeColorYX[String(startH)+String(startX)] = subjectName;
             }else{
@@ -134,11 +135,16 @@ function TimeHeatmap ({data , labels , subjectColors}){
                         fontSize: '.7rem',
                         color: '#777'
                     })}
-                    // cellRender={(y, x, value) => (
-                    //     <div title={`Pos(${x}, ${y}) = ${value}`}>{String(y)+String(x)}</div>
-                    //   )}
+                    cellRender={(y, x, value) => (
+                        <div 
+                            style={{
+                                cursor: "pointer",
+                            }}
+                        ></div>
+                    )}
                     cellStyle={(_y, _x, ratio) =>{
                             const fixedRatio = 1 - ratio;
+                            // console.log(`${String(_y)+String(_x)}`,ratio, fixedRatio)
                             return({
                                 background: `${
                                     timeColorYX[String(_y)+String(_x)] === subject  || (subject === "전체" && timeColorYX[String(_y)+String(_x)] !== undefined) ? 
