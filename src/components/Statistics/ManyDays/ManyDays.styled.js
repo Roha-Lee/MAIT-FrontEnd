@@ -71,7 +71,7 @@ export const SubjectLine = styled.div`
     padding-bottom: 80px;
     @media screen and (max-width: 1024px) {
         width: 400px;
-        margin-top: 40px;
+        margin-top: 80px;
     }
 
     @media screen and (max-width: 520px) {
