@@ -56,6 +56,7 @@ export const SubjectBar = styled.div`
 `
 
 export const Todobar = styled.div`
+    padding-left: 10px;
     width: 400px;
     height: 300px;
     @media screen and (max-width: 520px) {
