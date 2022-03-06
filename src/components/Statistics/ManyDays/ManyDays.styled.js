@@ -117,6 +117,9 @@ export const TodobarTitle = styled.h1`
             display: none;
         }
     }
+    @media screen and (max-width: 1024px) {
+            margin-top: 50px;
+        }
 `
 
 export const SubjectLineTitleContainer = styled.div`
@@ -143,5 +146,8 @@ export const SubjectLineTitle = styled.h1`
             display: none;
         }
     }
+    @media screen and (max-width: 1024px) {
+            margin-top: 50px;
+        }
 `
 
