@@ -234,6 +234,13 @@ export const StyledTr = styled.tr`
         text-align: left;
     }
     display: block;
+    :last-child ${StyledTd}:first-child{
+        border-bottom-left-radius: 0;
+    }
+    :last-child ${StyledTd}:last-child{
+        border-bottom-right-radius: 0;
+    }
+        
 }
 `
 
