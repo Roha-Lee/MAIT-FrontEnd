@@ -35,7 +35,10 @@ export const BottomFlexBox = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin: 0 auto;
+    margin: 5px 0 auto;
+    @media screen and (max-width: 760px) {
+         flex-direction: column;
+    }
 `
 export const BottomColor = styled.div`
     width: 880px;
@@ -51,12 +54,10 @@ export const BottomColor = styled.div`
     }
     @media screen and (max-width: 520px) {
         width: 350px;
-        height: 44px
     }
 `
 
 export const DropdownContainer = styled.div`
-    width: 30%;
     display : flex;
     justify-content : center;
 `
@@ -70,27 +71,30 @@ export const BottomItems = styled.div`
 `
 
 export const Seperator = styled.div`
-    font-size: 1.8rem;
-    color : darkslateblue;
-    @media screen and (max-width: 520px) {
-        font-size: 1.2rem;
+    font-size: 1.2rem;
+    @media screen and (max-width: 760px) {
+        display: none;
+    }
+`
+
+export const WelcomeComment = styled.span`
+    color : #606060;
+    text-align : center;
+    @media screen and (max-width: 1024px) {
+        font-size: 0.9rem;   
+    }
+    @media screen and (max-width: 760px) {
+        display: none;
     }
 `
 
 export const TodayDate = styled.span`
     color : #606060;
-    width: 30%;
     text-align : center;
     @media screen and (max-width: 1024px) {
         font-size: 0.9rem;   
     }
-    
-`
-export const WelcomeComment = styled.span`
-    color : #606060;
-    width: 30%;
-    text-align : center;
-    @media screen and (max-width: 1024px) {
-        font-size: 0.9rem;   
+    @media screen and (max-width: 760px) {
+        display: none;
     }
 `
