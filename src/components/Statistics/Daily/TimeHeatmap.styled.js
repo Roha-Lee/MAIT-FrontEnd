@@ -4,11 +4,9 @@ export const StyledHeatmap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 15px;
     @media screen and (max-width: 1024px) {
         align-items: flex-start;
-    }
-    @media screen and (max-width: 520px) {
-        width: 70%;
     }
 `
 

@@ -56,8 +56,7 @@ export const StatisticsContainer = styled.div`
     }
 
     @media screen and (max-width: 520px) {
-        padding: 0 0 40px;    
-        width: 320px;   
+        width: 320px;
     }
 `
 

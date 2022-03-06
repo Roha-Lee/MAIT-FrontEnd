@@ -6,6 +6,7 @@ import {
 } from './TodoInput.styled'
 import { postNewTodo } from '../../utils/utils'
 // import {connect} from "react-redux";
+import { notification} from 'antd';
 
 const TodoInput = ({ subjects, onItemAdd }) => {
     //subject dropbox에 대한 설정 초기 값은 null
@@ -18,10 +19,16 @@ const TodoInput = ({ subjects, onItemAdd }) => {
     const onSubmit = useCallback(async () => {
         try {
             const todoSubjectId = subject !== 'Unselect' ? subjects.find(elem => elem.name === subject).subjectId : null;
-            const result = await postNewTodo(text, todoSubjectId);
-            const {id:todoId, content, subject_id:subjectId, is_done:isDone} = result.data.todo;
-            setText('');
-            onItemAdd({ subjectId, content, todoId, isDone});
+            if(todoSubjectId === null){
+                notification.open({
+                    message : "과목을 선택해주세요.",
+                });
+            }else{
+                const result = await postNewTodo(text, todoSubjectId);
+                const {id:todoId, content, subject_id:subjectId, is_done:isDone} = result.data.todo;
+                setText('');
+                onItemAdd({ subjectId, content, todoId, isDone});
+            }
         }
         catch (error) {
             console.log(error);

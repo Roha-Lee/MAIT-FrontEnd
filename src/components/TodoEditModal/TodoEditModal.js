@@ -12,14 +12,14 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     useEffect(() => {
         setContent(todo?.content || '');
         if(!!todo){
-            console.log('useEffect', todo);
-            console.log('useEffect-changed', subjects.find(subject=> subject.subjectId === todo.subjectId ).name)
+            // console.log('useEffect', todo);
+            // console.log('useEffect-changed', subjects.find(subject=> subject.subjectId === todo.subjectId ).name)
             setSelectedSubject(subjects.find(subject=> subject.subjectId === todo.subjectId ).name);
         }
     }, [todo])
 
     const onDeleteTodo = (e) => {
-        console.log('onDeleteTodo', todo)
+        // console.log('onDeleteTodo', todo)
         deleteTodo(todo.todoId)
         .then(() => {
             onDelete(todo);
@@ -27,10 +27,10 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
         })    
     }
     const onChangeTodo = (e) => {
-        console.log('onChangeTodo', todo);
-        console.log('selectedSubject', selectedSubject);
+        // console.log('onChangeTodo', todo);
+        // console.log('selectedSubject', selectedSubject);
         const changeSubjectId = subjects.find(subject => subject.name === selectedSubject).subjectId;
-        console.log('todo.todoId, content, todo.isDone, changeSubjectId', todo.todoId, content, todo.isDone, changeSubjectId);
+        // console.log('todo.todoId, content, todo.isDone, changeSubjectId', todo.todoId, content, todo.isDone, changeSubjectId);
         patchTodo(todo.todoId, content, todo.isDone, changeSubjectId)
         .then(() => {
             onChange(todo, content, changeSubjectId);

@@ -59,6 +59,11 @@ export const TimerButton = styled.div`
     font-size:1.5rem;
     color: white;
     background-color: #606060;
+    cursor: pointer;
+    width: 25%;
+    display: flex;
+    text-align : center;
+    justify-content : center;
     &:hover {
         background-color: brightness(70%)
     }

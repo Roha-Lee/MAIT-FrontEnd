@@ -10,83 +10,83 @@ import { DailyContainer, DailyDataWrapper, TimeHeatmapWrapper } from './Daily.st
 
 // const fakedata = {
 //     rangeTime : [
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 00:32:00',
-//             endTime : '2022-02-09 00:32:20'
-//         },
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 02:18:00',
-//             endTime : '2022-02-09 02:19:00'
-//         },
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 09:21:00',
-//             endTime : '2022-02-09 10:16:00'
-//         },
-//         {
-//             subjectId : 1,
-//             subjectName : "Algorithm",
-//             color : "#a67ebf",
-//             startTime : '2022-02-09 10:35:20',
-//             endTime : '2022-02-09 11:39:10'
-//         },
-//         {
-//             subjectId : 2,
-//             subjectName : "OS",
-//             color : "#bf6d7f",
-//             startTime : '2022-02-09 11:41:40',
-//             endTime : '2022-02-09 13:12:02'
-//         },
-//         {
-//             subjectId : 2,
-//             subjectName : "OS",
-//             color : "#bf6d7f",
-//             startTime : '2022-02-09 14:35:40',
-//             endTime : '2022-02-09 15:22:02'
-//         },
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 16:46:00',
-//             endTime : '2022-02-09 17:41:00'
-//         },
-//         {
-//             subjectId : 1,
-//             subjectName : "Algorithm",
-//             color : "#a67ebf",
-//             startTime : '2022-02-09 18:01:00',
-//             endTime : '2022-02-09 20:04:00'
-//         },
-//         {
-//             subjectId : 1,
-//             subjectName : "Algorithm",
-//             color : "#a67ebf",
-//             startTime : '2022-02-09 21:52:00',
-//             endTime : '2022-02-09 22:07:00'
-//         },
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 22:12:00',
-//             endTime : '2022-02-09 23:04:00'
-//         },
-//         {
-//             subjectId : 3,
-//             subjectName : "Javascript",
-//             color : "#6dbf84",
-//             startTime : '2022-02-09 22:17:00',
-//             endTime : '2022-02-10 00:00:00'
-//         },
+//         // {
+//         //     subjectId : 3,
+//         //     subjectName : "Javascript",
+//         //     color : "#6dbf84",
+//         //     startTime : '2022-02-09 00:32:00',
+//         //     endTime : '2022-02-09 00:32:20'
+//         // }, 
+//         // {
+//         //     subjectId : 3,
+//         //     subjectName : "Javascript",
+//         //     color : "#6dbf84",
+//         //     startTime : '2022-02-09 02:20:40',
+//         //     endTime : '2022-02-09 02:21:40'
+//         // }, 
+//         // {
+//         //     subjectId : 3,
+//         //     subjectName : "Javascript",
+//         //     color : "#6dbf84",
+//         //     startTime : '2022-02-09 09:21:00',
+//         //     endTime : '2022-02-09 10:16:00'
+//         // },
+//         // {
+//         //     subjectId : 1,
+//         //     subjectName : "Algorithm",
+//         //     color : "#a67ebf",
+//         //     startTime : '2022-02-09 10:35:20',
+//         //     endTime : '2022-02-09 11:39:10'
+//         // },
+//         // {
+//         //     subjectId : 2,
+//         //     subjectName : "OS",
+//         //     color : "#bf6d7f",
+//         //     startTime : '2022-02-09 11:41:40',
+//         //     endTime : '2022-02-09 13:12:02'
+//         // },
+//         // {
+//         //     subjectId : 2,
+//         //     subjectName : "OS",
+//         //     color : "#bf6d7f",
+//         //     startTime : '2022-02-09 14:35:40',
+//         //     endTime : '2022-02-09 15:22:02'
+//         // },
+//         // {
+//         //     subjectId : 3,
+//         //     subjectName : "Javascript",
+//         //     color : "#6dbf84",
+//         //     startTime : '2022-02-09 16:46:00',
+//         //     endTime : '2022-02-09 17:41:00'
+//         // },
+//         // {
+//         //     subjectId : 1,
+//         //     subjectName : "Algorithm",
+//         //     color : "#a67ebf",
+//         //     startTime : '2022-02-09 18:01:00',
+//         //     endTime : '2022-02-09 20:04:00'
+//         // },          
+//         // {
+//         //     subjectId : 1,
+//         //     subjectName : "Algorithm",
+//         //     color : "#a67ebf",
+//         //     startTime : '2022-02-09 21:52:00',
+//         //     endTime : '2022-02-09 22:07:00'
+//         // },
+//         // {
+//         //     subjectId : 3,
+//         //     subjectName : "Javascript",
+//         //     color : "#6dbf84",
+//         //     startTime : '2022-02-09 22:12:00',
+//         //     endTime : '2022-02-09 23:04:00'
+//         // },          
+//         // {
+//         //     subjectId : 3,
+//         //     subjectName : "Javascript",
+//         //     color : "#6dbf84",
+//         //     startTime : '2022-02-09 22:17:00',
+//         //     endTime : '2022-02-10 00:00:00'
+//         // },          
 //     ],
 //     subjectTotalTime : [
 //         {

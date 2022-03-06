@@ -8,6 +8,14 @@ export const ManyDaysStatistics = styled.div`
         flex-direction: column;
         flex-basis: 0;
     }
+    @media screen and (max-width: 1024px) {
+        flex-direction: column;
+        margin: 40px auto;
+        align-items: center;
+    }
+    @media screen and (max-width: 520px) {
+        margin: 0 auto;
+    }
 `
 
 export const ChartContainer = styled.div`
@@ -48,6 +56,7 @@ export const SubjectBar = styled.div`
 `
 
 export const Todobar = styled.div`
+    padding-left: 10px;
     width: 400px;
     height: 300px;
     @media screen and (max-width: 520px) {
@@ -75,23 +84,23 @@ export const SubjectBarTitleContainer = styled.div`
 `
 
 export const SubjectBarTitle = styled.h1`
+    width: 100%;
     font-size: 2rem;
     font-weight: bold;
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     color: grey;
-    
-    &:after {
-        content: ' ';
-        display: inline;
-        position: absolute;
-        top: 50%;
-        width: 125px;
-        border-bottom: 1.5px solid grey;
-        margin-inline-start: 22px;
-        @media screen and (max-width: 1024px) {
-            display: none;
-        }
+
+    span {
+        flex: 0 0 auto;
+    }
+
+    div {
+        flex: 1 1 0;
+        margin-left: 24px;
+        height: 1px;
+        background-color: grey;
     }
 `
 
@@ -100,22 +109,23 @@ export const TodobarTitleContainer = styled.div`
 `
 
 export const TodobarTitle = styled.h1`
+    width: 100%;
     font-size: 2rem;
     font-weight: bold;
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     color: grey;
-    &:after {
-        content: ' ';
-        display: inline;
-        position: absolute;
-        top: 50%;
-        width: 227px;
-        border-bottom: 1.5px solid grey;
-        margin-inline-start: 22px;
-        @media screen and (max-width: 1024px) {
-            display: none;
-        }
+
+    span {
+        flex: 0 0 auto;
+    }
+
+    div {
+        flex: 1 1 0;
+        margin-left: 24px;
+        height: 1px;
+        background-color: grey;
     }
 `
 
@@ -124,24 +134,23 @@ export const SubjectLineTitleContainer = styled.div`
 `
 
 export const SubjectLineTitle = styled.h1`
+    width: 100%;
     font-size: 2rem;
     font-weight: bold;
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     color: grey;
-    
-    &:after {
-        content: ' ';
-        display: inline;
-        position: absolute;
-        top: 50%;
-        width: 570px;
-        border-bottom: 1.5px solid grey;
-        margin-inline-start: 22px;
-        
-        @media screen and (max-width: 1024px) {
-            display: none;
-        }
+
+    span {
+        flex: 0 0 auto;
+    }
+
+    div {
+        flex: 1 1 0;
+        margin-left: 24px;
+        height: 1px;
+        background-color: grey;
     }
 `
 

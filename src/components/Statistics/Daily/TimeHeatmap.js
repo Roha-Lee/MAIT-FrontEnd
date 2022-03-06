@@ -40,9 +40,9 @@ function makeTimeColorYX(data){
             endM = parseInt(value.endTime.slice(14,16));
         }
         const endX = parseInt(endM / 10);
-
         if(startH === endH){
-            if(endM - startM < 10 && 9 - inputData[startH][startX] <= endM - startM){
+            if(endX === startX && 9 - inputData[startH][startX] <= endM - startM){
+                // console.log(endM, startM, "timeheatmap");
                 inputData[startH][startX] = 9 - (endM - startM);
                 timeColorYX[String(startH)+String(startX)] = subjectName;
             }else{
@@ -117,48 +117,51 @@ function TimeHeatmap ({data , labels , subjectColors}){
 
     return(
         <StyledHeatmap>
-            <StyledHeader><span>학습기록</span><div /></StyledHeader>
-
-            <StyledHeatmapContent>
-                <StyledSelect onChange={handleSelect}>
-                    <option key="total" value="전체">전체</option>
-                    {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
-                </StyledSelect>
-                <StyledHeatmapgrid>
-                    <HeatMapGrid
-                        data={inputData}
-                        xLabels={xLabels}
-                        yLabels={yLabels}
-                        xLabelsStyle={(index) => ({
-                            display : 'none',
-                        })}
-                        yLabelsStyle={() => ({
-                            fontSize: '.7rem',
-                            color: '#777'
-                        })}
-                        // cellRender={(y, x, value) => (
-                        //     <div title={`Pos(${x}, ${y}) = ${value}`}>{String(y)+String(x)}</div>
-                        //   )}
-                        cellStyle={(_y, _x, ratio) =>{
-                                const fixedRatio = 1 - ratio;
-                                return({
-                                    background: `${
-                                        timeColorYX[String(_y)+String(_x)] === subject  || (subject === "전체" && timeColorYX[String(_y)+String(_x)] !== undefined) ?
-                                        // "rgb("+colorRGB[subject].r+","+colorRGB[subject].g+","+colorRGB[subject].b+","+ratio+")"
-                                        "rgb("+colorRGB[timeColorYX[String(_y)+String(_x)]].r+","+colorRGB[timeColorYX[String(_y)+String(_x)]].g+","+colorRGB[timeColorYX[String(_y)+String(_x)]].b+","+fixedRatio+")"
-                                        :""}`,
-                                    border : "0.1px solid grey",
-                                    borderLeft : `${_x === 0 ? "0.1px solid grey" : ""}`,
-                                    borderBottom : `${_y === 23 ? "0.1px solid grey" : ""}`,
-                                    borderRadius : 0,
-
-                                })
-                            }
-                        }
-                        cellHeight="1.8rem"
-                    />
-                </StyledHeatmapgrid>
-            </StyledHeatmapContent>
+            <StyledHeatmapTitle>학습기록</StyledHeatmapTitle>
+            <StyledSelect onChange={handleSelect}>
+                <option key="total" value="전체">전체</option>
+                {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
+            </StyledSelect>
+            <StyledHeatmapgrid>
+                <HeatMapGrid
+                    data={inputData}
+                    xLabels={xLabels}
+                    yLabels={yLabels}
+                    xLabelsStyle={(index) => ({
+                        display : 'none',
+                    })}
+                    yLabelsStyle={() => ({
+                        fontSize: '.7rem',
+                        color: '#777'
+                    })}
+                    cellRender={(y, x, value) => (
+                        <div 
+                            style={{
+                                cursor: "pointer",
+                            }}
+                        ></div>
+                    )}
+                    cellStyle={(_y, _x, ratio) =>{
+                            const fixedRatio = 1 - ratio;
+                            // console.log(`${String(_y)+String(_x)}`,ratio, fixedRatio)
+                            return({
+                                background: `${
+                                    timeColorYX[String(_y)+String(_x)] === subject  || (subject === "전체" && timeColorYX[String(_y)+String(_x)] !== undefined) ? 
+                                    // "rgb("+colorRGB[subject].r+","+colorRGB[subject].g+","+colorRGB[subject].b+","+ratio+")"
+                                    "rgb("+colorRGB[timeColorYX[String(_y)+String(_x)]].r+","+colorRGB[timeColorYX[String(_y)+String(_x)]].g+","+colorRGB[timeColorYX[String(_y)+String(_x)]].b+","+fixedRatio+")"
+                                    :""}`,
+                                border : "0.1px solid grey",
+                                borderLeft : `${_x === 0 ? "0.1px solid grey" : ""}`,
+                                borderBottom : `${_y === 23 ? "0.1px solid grey" : ""}`,
+                                borderRadius : 0,
+                                
+                            }) 
+                        } 
+                    }
+                    cellHeight="1.8rem"
+                />
+            </StyledHeatmapgrid>
+            
         </StyledHeatmap>
     );
 }
