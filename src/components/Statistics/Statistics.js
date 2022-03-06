@@ -169,7 +169,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                         defaultValue={moment(dailyDate,`YYYY-MM-DD`)}
                         style={{
                             border : "0px",
-                            padding: "20px 45px"
+                            padding: "20px 10px 0px 40px"
                         }}
                     />
                 : null}
@@ -190,8 +190,9 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                         onChange={onChangeRange}
                         defaultValue={[moment(startDate, `YYYY-MM-DD`), moment(endDate, `YYYY-MM-DD`)]}
                         style={{
-                            margin: "11px 0px",
                             border: "0px",
+                            padding: "20px 10px 10px 40px",
+                            
                         }}
                     />
                 :null}
@@ -202,10 +203,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                             type="primary"
                             shape="circle"
                             icon={<SearchOutlined />}
-                            size="medium"
-                            style={{
-                                marginLeft : "11px",
-                            }}
+                            size="small"
                         />
                     </Tooltip>
                 :null}

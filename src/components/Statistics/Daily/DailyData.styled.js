@@ -2,6 +2,9 @@ import styled from 'styled-components'
 
 export const StyledDailyData = styled.div`
     padding: 20px 0;
+    @media screen and (max-width: 720px) {
+        padding: 0px;
+    }
 `
 
 export const StyledTitleContainer = styled.div`
