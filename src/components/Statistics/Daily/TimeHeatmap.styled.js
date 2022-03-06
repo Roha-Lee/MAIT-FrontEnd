@@ -17,7 +17,7 @@ export const StyledHeader = styled.h1`
     position: relative;
     display: flex;
     align-items: center;
-    color: grey;
+    color: #606060;
 
     span {
         flex: 0 0 auto;
@@ -27,7 +27,7 @@ export const StyledHeader = styled.h1`
         flex: 1 1 0;
         margin-left: 24px;
         height: 1px;
-        background-color: grey;
+        background-color: #606060;;
     }
 `
 
@@ -37,7 +37,7 @@ export const StyledHeatmapTitle = styled.span`
     font-weight: bold;
     position: relative;
     display: inline-block;
-    color: grey;
+    color: #606060;
     margin: 20px;
     margin-top: 0px;
     width: 220px;
