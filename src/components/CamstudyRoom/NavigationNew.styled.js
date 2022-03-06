@@ -88,7 +88,6 @@ padding: 0.5rem 1rem;
 margin: 0 0.1rem;
 height: 100%;
 cursor: pointer;
-display: inline-block;
 border-bottom: 3px solid transparent;
 &:focus, &:visited, &:active,&:hover {
     text-decoration: none;
@@ -96,7 +95,6 @@ border-bottom: 3px solid transparent;
 }
 @media screen and (max-width: 760px) {   
     padding: 1rem;
-    width: 100%;
     display: table;
  
 }
@@ -149,7 +147,7 @@ export const ShareButton = styled.div`
     border-radius: 15px;
     text-decoration: none;
     padding: 0.5rem 1rem;
-    height: 100px;
+    height: 3rem;
     cursor: pointer;
     border-bottom: 3px solid transparent;
     &:focus, &:visited, &:active,&:hover {

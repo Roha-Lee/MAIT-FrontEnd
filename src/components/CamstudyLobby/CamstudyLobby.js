@@ -67,7 +67,7 @@ const [roomCode, setRoomCode] = useState('');
     <JoinButton onClick={createRoom}> 방 생성하기 </JoinButton>
     <JoinButton onClick={showModal}> 방 참여하기 </JoinButton>
   </MainContainer>
-  <Modal title={"방 코드를 입력해주세요"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+  <Modal title={"전달받은 초대 코드를 입력해주세요"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
     <Form onSubmit={(e) => {e.preventDefault()}}>
     <label>
       <span>방 코드</span>
