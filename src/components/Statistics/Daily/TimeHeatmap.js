@@ -117,7 +117,8 @@ function TimeHeatmap ({data , labels , subjectColors}){
 
     return(
         <StyledHeatmap>
-            <StyledHeatmapTitle>학습기록</StyledHeatmapTitle>
+            <StyledHeader><span>학습기록</span><div /></StyledHeader>
+            <StyledHeatmapContent>
             <StyledSelect onChange={handleSelect}>
                 <option key="total" value="전체">전체</option>
                 {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
@@ -161,7 +162,7 @@ function TimeHeatmap ({data , labels , subjectColors}){
                     cellHeight="1.8rem"
                 />
             </StyledHeatmapgrid>
-            
+            </StyledHeatmapContent>
         </StyledHeatmap>
     );
 }

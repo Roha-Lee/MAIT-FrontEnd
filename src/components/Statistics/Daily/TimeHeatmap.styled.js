@@ -17,7 +17,7 @@ export const StyledHeader = styled.h1`
     position: relative;
     display: flex;
     align-items: center;
-    color: #606060;
+    color: grey;
 
     span {
         flex: 0 0 auto;
@@ -27,7 +27,7 @@ export const StyledHeader = styled.h1`
         flex: 1 1 0;
         margin-left: 24px;
         height: 1px;
-        background-color: #606060;
+        background-color: grey;
     }
 `
 
@@ -37,7 +37,7 @@ export const StyledHeatmapTitle = styled.span`
     font-weight: bold;
     position: relative;
     display: inline-block;
-    color: #606060;
+    color: grey;
     margin: 20px;
     margin-top: 0px;
     width: 220px;
@@ -48,7 +48,7 @@ export const StyledHeatmapTitle = styled.span`
         position: absolute;
         top: 50%;
         width: 175px;
-        border-bottom: 1.5px solid #606060;
+        border-bottom: 1.5px solid grey;
         margin-inline-start: 22px;
         @media screen and (max-width: 1024px) {
             display: none;
@@ -70,10 +70,6 @@ export const StyledSelect = styled.select`
     white-space:nowrap;
     overflow: hidden;
     margin-bottom: 5px;
-    cursor : pointer;
-    @media screen and (max-width: 520px) {
-        margin-left: 170px;
-        }
 `
 
 
