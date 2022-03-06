@@ -150,9 +150,9 @@ function TimeHeatmap ({data , labels , subjectColors}){
                                     // "rgb("+colorRGB[subject].r+","+colorRGB[subject].g+","+colorRGB[subject].b+","+ratio+")"
                                     "rgb("+colorRGB[timeColorYX[String(_y)+String(_x)]].r+","+colorRGB[timeColorYX[String(_y)+String(_x)]].g+","+colorRGB[timeColorYX[String(_y)+String(_x)]].b+","+fixedRatio+")"
                                     :""}`,
-                                border : "0.1px solid grey",
-                                borderLeft : `${_x === 0 ? "0.1px solid grey" : ""}`,
-                                borderBottom : `${_y === 23 ? "0.1px solid grey" : ""}`,
+                                border : "0.1px solid #606060",
+                                borderLeft : `${_x === 0 ? "0.1px solid #606060" : ""}`,
+                                borderBottom : `${_y === 23 ? "0.1px solid #606060" : ""}`,
                                 borderRadius : 0,
                                 
                             }) 
