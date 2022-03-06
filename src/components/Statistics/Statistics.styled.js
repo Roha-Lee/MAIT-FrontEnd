@@ -116,13 +116,15 @@ export const StyledStatisticsDetail = styled.div`
 `
 export const SmallSize = styled.div`
     display: none;
+    background-color: white;
 
     @media screen and (max-width: 720px) {
         display: block;
-        background-color : #E0E0DF;
-        margin-top: 10px;
-        border-radius: 10px;
-        padding: 0 20px;
+        width: 480px;
+        margin: 0 auto;
+    }
+    @media screen and (max-width: 520px) {
+        width: 320px;
     }
 `
 export const BigSize = styled.div`
