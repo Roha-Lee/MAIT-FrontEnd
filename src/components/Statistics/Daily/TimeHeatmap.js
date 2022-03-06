@@ -1,6 +1,6 @@
 import {HeatMapGrid} from "react-grid-heatmap";
 import { useState } from "react";
-import { StyledHeatmap, StyledHeatmapTitle, StyledHeatmapgrid, StyledSelect } from './TimeHeatmap.styled'
+import { StyledHeatmap, StyledHeader, StyledHeatmapgrid, StyledHeatmapContent, StyledSelect } from './TimeHeatmap.styled'
 
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -26,11 +26,11 @@ function makeTimeColorYX(data){
 
     getData?.map((value)=>{
         const subjectName = value.subjectName;
-        
+
         const startH = parseInt(value.startTime.slice(11,13));
         const startM = parseInt(value.startTime.slice(14,16));
         const startX = parseInt(startM / 10);
-        
+
         let endH , endM;
         if(value.startTime.slice(8,10) !== value.endTime.slice(8,10)){
             endH = 23;
@@ -40,7 +40,6 @@ function makeTimeColorYX(data){
             endM = parseInt(value.endTime.slice(14,16));
         }
         const endX = parseInt(endM / 10);
-        console.log(endM,startM);
         if(startH === endH){
             if(endX === startX && 9 - inputData[startH][startX] <= endM - startM){
                 // console.log(endM, startM, "timeheatmap");
@@ -49,7 +48,7 @@ function makeTimeColorYX(data){
             }else{
                 if(9 - inputData[startH][startX] < 9 - (startM - startX * 10)){
                     inputData[startH][startX] = startM - startX * 10
-                    timeColorYX[String(startH)+String(startX)] = subjectName; 
+                    timeColorYX[String(startH)+String(startX)] = subjectName;
                 }
                 for(let i = startX + 1 ; i < endX ; i++){
                     inputData[startH][i] = 0;
@@ -58,14 +57,14 @@ function makeTimeColorYX(data){
                 if(9 - inputData[startH][endX] < endM - endX * 10){
                     inputData[startH][endX] = 9 - (endM - endX * 10);
                     timeColorYX[String(startH)+String(endX)] = subjectName;
-                }    
-                
+                }
+
             }
         }
         else{
             if(9 - inputData[startH][startX] < 9 - (startM - startX * 10)){
                 inputData[startH][startX] = startM - startX * 10
-                timeColorYX[String(startH)+String(startX)] = subjectName; 
+                timeColorYX[String(startH)+String(startX)] = subjectName;
             }
             for(let i = startX + 1 ; i < 6 ; i++){
                 inputData[startH][i] = 0;
@@ -85,9 +84,9 @@ function makeTimeColorYX(data){
                 inputData[endH][endX] = 9 -(endM - endX * 10);
                 timeColorYX[String(endH)+String(endX)] = subjectName;
             }
-            
+
         }
-        
+
     })
 
     return [timeColorYX , inputData];
@@ -104,9 +103,9 @@ function TimeHeatmap ({data , labels , subjectColors}){
     const [timeColorYX, inputData] = makeTimeColorYX(data);
 
     subjectTotalTime?.map((e)=>{
-        colorRGB[e.subjectName] = hexToRgb(e.color); 
+        colorRGB[e.subjectName] = hexToRgb(e.color);
     });
-    
+
     const handleSelect = (e) => {
         setSubject(e.target.value);
     }

@@ -5,6 +5,8 @@ import axios from "axios";
 import {connect} from "react-redux";
 import { DailyContainer } from './Daily.styled'
 import { changeLogin } from "../../../store";
+import { DailyContainer, DailyDataWrapper, TimeHeatmapWrapper } from './Daily.styled'
+
 
 
 // const fakedata = {
@@ -106,7 +108,7 @@ import { changeLogin } from "../../../store";
 //             color : "#6dbf84",
 //             totalTime : '06:01:23'
 //         },
-//     ] 
+//     ]
 // }
 
 
@@ -122,10 +124,10 @@ function Daily ({dailyDate, isZeroShow, isLogin, setIsLogin}){
             setData(null);
             setLoading(true);
             // console.log("fetch date",selectDate);
-            
-            const response = await axios.get(serverUrl, 
+
+            const response = await axios.get(serverUrl,
                 {
-                    params : {'today' : dailyDate}, 
+                    params : {'today' : dailyDate},
                     headers: {Authorization: `${window.sessionStorage.getItem('accessToken')}`}
                 });
             // console.log(response.data);
@@ -149,16 +151,16 @@ function Daily ({dailyDate, isZeroShow, isLogin, setIsLogin}){
     //     return(<div>{error}</div>);
     // }
 
-    
-    
-    // 테스트용 
+
+
+    // 테스트용
     const subjectTotalData = data?.subjectTotalTime;
     // const subjectTotalData = fakedata?.subjectTotalTime;
-    
+
     let labels = [];
     let subjectColors = [];
     // console.log(subjectTotalData);
-    
+
     for(let i = 0 ; i < subjectTotalData?.length ; i++){
         if(isZeroShow){
             labels.push(subjectTotalData[i].subjectName);
@@ -171,22 +173,22 @@ function Daily ({dailyDate, isZeroShow, isLogin, setIsLogin}){
     // console.log(labels,subjectColors)
     return (
         <DailyContainer>
-            <div>
+            <DailyDataWrapper>
                 <DailyData
                     data = {data}
                     // data = {fakedata}
                     labels = {labels}
                     subjectColors = {subjectColors}
                 />
-            </div>
-            <div>
+            </DailyDataWrapper>
+            <TimeHeatmapWrapper>
                 <TimeHeatmap
                     data = {data}
                     // data = {fakedata}
                     labels = {labels}
                     subjectColors = {subjectColors}
                 />
-            </div>
+            </TimeHeatmapWrapper>
         </DailyContainer>
     );
 }

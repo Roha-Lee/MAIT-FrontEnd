@@ -2,17 +2,11 @@ import styled from "styled-components";
 
 export const TapContainer = styled.div`
     display: flex;
-    width: 800px;
-    @media screen and (max-width: 1024px) {
-        width: 640px;   
-    }
+    width: 100%;
+    padding: 0 15px;
+
     @media screen and (max-width: 720px) {
-        width: 450px;   
-    }
-    
-    @media screen and (max-width: 520px) {
-        margin-left: 8px;
-        width: 280px;   
+        padding: 0 5px 0 15px;
     }
 `
 
@@ -26,12 +20,17 @@ export const TabBox = styled.div`
     color : #606060;
     cursor : pointer;
     
+
+    @media screen and (max-width: 720px) {
+        width: inherit;
+        flex: 1 1 0;
+    }
 `
 
 export const BlankBox = styled.div`
-    width: 123px;
-    @media screen and (max-width: 520px) {
-        width: 0;
+    flex: 1 1 0;
+    @media screen and (max-width: 720px) {
+        display: none;
     }
 `
 
@@ -49,16 +48,15 @@ export const StatisticsContainer = styled.div`
     
     overflow: hidden;
     @media screen and (max-width: 1024px) {
-        width: 680px;   
+        width: 680px;
     }
 
     @media screen and (max-width: 720px) {
-        width: 480px;   
+        width: 480px;
     }
 
     @media screen and (max-width: 520px) {
-        padding: 0 0 40px;    
-        width: 320px;   
+        width: 320px;
     }
 `
 
@@ -73,15 +71,15 @@ export const BottomColor = styled.div`
     align-items : center;
     
     @media screen and (max-width: 1024px) {
-        width: 680px;   
+        width: 680px;
     }
 
     @media screen and (max-width: 720px) {
-        width: 480px;   
+        width: 480px;
     }
 
     @media screen and (max-width: 520px) {
-        width: 320px;   
+        width: 320px;
     }
     
 `
@@ -97,14 +95,14 @@ export const MenuContainer = styled.div`
     border-radius: 25px 25px 0 0;
 
     @media screen and (max-width: 1024px) {
-        width: 680px;   
+        width: 680px;
     }
 
     @media screen and (max-width: 720px) {
-        width: 480px;   
+        width: 480px;
     }
     @media screen and (max-width: 520px) {
-        width: 320px;   
+        width: 320px;
     }
 `
 
@@ -113,15 +111,11 @@ export const TabName = styled.span`
 `
 
 export const StyledStatistics = styled.div`
-    flex-basis: 700px;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    width: 100%;
+
 `
 export const StyledStatisticsDetail = styled.div`
-    flex-basis: 700px;
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -129,16 +123,21 @@ export const StyledStatisticsDetail = styled.div`
 `
 export const SmallSize = styled.div`
     display: none;
-    background-color : #E0E0DF;
-    /* padding: 0 20px; */
-    border-radius: 0 0 10px 10px;
-    
+    background-color: white;
+
     @media screen and (max-width: 720px) {
         display: block;
+        width: 480px;
+        margin: 0 auto;
+    }
+    @media screen and (max-width: 520px) {
+        width: 320px;
     }
 `
 export const BigSize = styled.div`
     display: flex;
+    align-items: center;
+
     @media screen and (max-width: 720px) {
         display: none;
     }

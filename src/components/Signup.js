@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Navigation from './Navigation/NavigationNew'
-import { SignupTitle, SignupIcon, SignupDiv, SignupInput, SignupButton, SignupForm } from './Signup.styled';
+import { SignupTitle, SignupIcon, SignupDiv, SignupInput, SignupButton, SignupForm, SignupInputWrapper } from './Signup.styled';
 import { notification } from 'antd';
 import { postSignup } from '../utils/utils'
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");  
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   let navigate = useNavigate();
   const togglePassword = () => {
@@ -36,7 +36,7 @@ function Signup() {
   const onConfirmPasswordHandler = (event) => {
       setConfirmPassword(event.currentTarget.value)
   }
-  
+
   const onSubmit = (event) => {
     event.preventDefault();
     if(password !== confirmPassword) {
@@ -106,7 +106,7 @@ function Signup() {
             icon: <WarningOutlined style={{ color: "#606060" }}/>,
         })
         }
-        
+
       })
     }
   }
@@ -114,34 +114,44 @@ function Signup() {
   return (
     <>
       <Navigation/>
-      <SignupForm id="signup-form" autoComplete="off" onSubmit={onSubmit}> 
+      <SignupForm id="signup-form" autoComplete="off" onSubmit={onSubmit}>
       <SignupTitle>M.AI.T 회원가입</SignupTitle>
         <SignupDiv>
           <SignupIcon className="fa fa-user"></SignupIcon>
-          <SignupInput maxLength={16} required name="name" type="text" placeholder="아이디" value={name} onChange={onNameHandler}/>
+          <SignupInputWrapper>
+            <SignupInput maxLength={16} required name="name" type="text" placeholder="아이디" value={name} onChange={onNameHandler}/>
+          </SignupInputWrapper>
         </SignupDiv>
         <SignupDiv>
           <SignupIcon className="fa fa-address-book" style={{fontSize: "1rem"}}></SignupIcon>
-          <SignupInput maxLength={16} required  name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/>
+          <SignupInputWrapper>
+            <SignupInput maxLength={16} required  name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/>
+          </SignupInputWrapper>
         </SignupDiv>
         <SignupDiv>
           <SignupIcon className="fa fa-envelope" style={{fontSize: "1rem"}}></SignupIcon>
-          <SignupInput required name="email" type="email" placeholder="이메일" value={email} onChange={onEmailHandler}/>
+          <SignupInputWrapper>
+            <SignupInput required name="email" type="email" placeholder="이메일" value={email} onChange={onEmailHandler}/>
+          </SignupInputWrapper>
         </SignupDiv>
         <SignupDiv>
           <SignupIcon className="fa fa-lock"></SignupIcon>
-          <SignupInput required name="password" type={showPassword? "text":"password"} placeholder="비밀번호" value={password} onChange={onPasswordHandler}/>
+          <SignupInputWrapper>
+            <SignupInput required name="password" type={showPassword? "text":"password"} placeholder="비밀번호" value={password} onChange={onPasswordHandler}/>
+          </SignupInputWrapper>
           <SignupIcon className={showPassword? "fa fa-eye": "fa fa-eye-slash"} onClick={togglePassword} style={{cursor: "pointer"}}></SignupIcon>
         </SignupDiv>
         <SignupDiv>
           <SignupIcon className="fa fa-lock"></SignupIcon>
-          <SignupInput required name="confirmPassword" type={showPassword? "text":"password"} placeholder="비밀번호 확인" value={confirmPassword} onChange={onConfirmPasswordHandler}/>
+          <SignupInputWrapper>
+            <SignupInput required name="confirmPassword" type={showPassword? "text":"password"} placeholder="비밀번호 확인" value={confirmPassword} onChange={onConfirmPasswordHandler}/>
+          </SignupInputWrapper>
           <SignupIcon className={showPassword? "fa fa-eye": "fa fa-eye-slash"} onClick={togglePassword} style={{cursor: "pointer"}}></SignupIcon>
         </SignupDiv>
-            <SignupButton type="submit" onClick={onSubmit}>가입하기</SignupButton>
+        <SignupButton type="submit" onClick={onSubmit}>가입하기</SignupButton>
 
       </SignupForm>
-   
+
     </>
   );
 }

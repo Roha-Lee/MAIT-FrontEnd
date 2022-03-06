@@ -1,37 +1,30 @@
 import styled from 'styled-components'
 
 export const StyledDailyData = styled.div`
-    padding: 10px 0 0 0;
-    height: 800px;
-    @media screen and (max-width: 520px) {
-        padding-bottom: 20px;
-        height: 100%;
-    }
+    padding: 20px 0;
 `
 
 export const StyledTitleContainer = styled.div`
     text-align: left;
 `
 
-export const StyledDailySummery = styled.h1`
+export const StyledHeader = styled.h1`
     font-size: 2rem;
     font-weight: bold;
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     color: grey;
-    
-    &:after {
-        content: ' ';
-        display: block;
-        position: absolute; 
-        top: 50%; 
-        width: 215px; 
-        border-bottom: 1.5px solid grey;
-        left: auto;
-        right: -250px;
-        @media screen and (max-width: 1024px) {
-            display: none;
-        } 
+
+    span {
+        flex: 0 0 auto;
+    }
+
+    div {
+        flex: 1 1 0;
+        margin-left: 24px;
+        height: 1px;
+        background-color: grey;
     }
 `
 
@@ -43,27 +36,3 @@ export const StyledTotalTimes = styled.div`
     margin: 80px 0;
     height: 80px;
 `
-
-export const StyledDailyDetails = styled.span`
-    font-size:2rem;
-    font-weight: bold;
-    position:relative;
-    display:inline-block;
-    color: grey;
-    margin-bottom: 30px;
-    
-    &:after {
-        content: ' ';
-        display: block;
-        position: absolute; 
-        top: 50%; 
-        width: 160px; 
-        border-bottom:1.5px solid grey;
-        left: auto;
-        right: -193px; 
-        @media screen and (max-width: 1024px) {
-            display: none;
-        }
-    }
-`
-
