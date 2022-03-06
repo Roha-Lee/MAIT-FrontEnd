@@ -3,7 +3,6 @@ import DailyData from "./DailyData";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {connect} from "react-redux";
-import { DailyContainer } from './Daily.styled'
 import { changeLogin } from "../../../store";
 import { DailyContainer, DailyDataWrapper, TimeHeatmapWrapper } from './Daily.styled'
 
