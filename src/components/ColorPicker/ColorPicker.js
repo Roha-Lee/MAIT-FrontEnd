@@ -42,7 +42,7 @@ function ColorPicker({colors, setColor, pickerColor, setPickerColor, displayColo
         position: 'absolute',
         zIndex: '2',
         right: '20px',
-        border: '1px solid grey',
+        border: '1px solid #e0e0df',
       },
     },
   });

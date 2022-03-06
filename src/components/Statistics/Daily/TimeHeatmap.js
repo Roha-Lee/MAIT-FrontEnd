@@ -1,6 +1,6 @@
 import {HeatMapGrid} from "react-grid-heatmap";
 import { useState } from "react";
-import { StyledHeatmap, StyledHeader, StyledHeatmapgrid, StyledHeatmapContent, StyledSelect } from './TimeHeatmap.styled'
+import { StyledHeatmap, StyledHeader, StyledHeatmapgrid, StyledHeatmapContent, StyledSelect, StyledHeatmapTitle,  } from './TimeHeatmap.styled'
 
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
