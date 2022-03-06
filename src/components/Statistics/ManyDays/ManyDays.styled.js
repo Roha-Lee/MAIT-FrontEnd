@@ -8,6 +8,14 @@ export const ManyDaysStatistics = styled.div`
         flex-direction: column;
         flex-basis: 0;
     }
+    @media screen and (max-width: 1024px) {
+        flex-direction: column;
+        margin: 40px auto;
+        align-items: center;
+    }
+    @media screen and (max-width: 520px) {
+        margin: 0 auto;
+    }
 `
 
 export const ChartContainer = styled.div`

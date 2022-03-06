@@ -12,6 +12,9 @@ export const DailyContainer = styled.div`
         margin: 40px auto;
         align-items: center;
     }
+    @media screen and (max-width: 520px) {
+        margin: 0 auto;
+    }
     position: relative;
     width: 100%;
 `
@@ -33,6 +36,5 @@ export const TimeHeatmapWrapper = styled.div`
         width: 100%;
         max-width: 400px;
         padding-left: 0;
-        padding-top: 60px;
     }
 `
