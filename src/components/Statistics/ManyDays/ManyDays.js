@@ -276,7 +276,7 @@ function ManyDays ({startDate,endDate}){
                 <UpperContainer>
                     <SubjectBar>
                         <SubjectBarTitleContainer>
-                            <SubjectBarTitle>과목별 학습시간</SubjectBarTitle>
+                            <SubjectBarTitle><span>과목별 학습시간</span><div /></SubjectBarTitle>
                         </SubjectBarTitleContainer>
                         <SubjectBarChart 
                             data = {data}
@@ -287,7 +287,7 @@ function ManyDays ({startDate,endDate}){
                     </SubjectBar>
                     <Todobar>
                     <TodobarTitleContainer>
-                        <TodobarTitle>할일 달성률</TodobarTitle>
+                        <TodobarTitle><span>할일 달성률</span><div/></TodobarTitle>
                     </TodobarTitleContainer>
                         <TodoBarChart 
                             data = {data}
@@ -299,7 +299,7 @@ function ManyDays ({startDate,endDate}){
                     </UpperContainer>
                     <SubjectLine>
                         <div>
-                            <SubjectLineTitle>일자별 학습시간</SubjectLineTitle>
+                            <SubjectLineTitle><span>일자별 학습시간</span><div/></SubjectLineTitle>
                         </div>
                         <SubjectLineChart 
                             startDate = {startDate}
