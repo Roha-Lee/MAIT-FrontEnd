@@ -162,8 +162,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                 </BigSize>
             </TapContainer>
         </MenuContainer>
-        <StatisticsContainer ref={ref}>
-            <SmallSize>
+        <SmallSize>
                 {currentStatistics === 1 ?
                     <DatePicker
                         onChange={onChange}
@@ -211,7 +210,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                     </Tooltip>
                 :null}
             </SmallSize>
-        
+        <StatisticsContainer ref={ref}>
             {currentStatistics === 1 ? 
                 <StyledStatistics>
                     <Daily/>
