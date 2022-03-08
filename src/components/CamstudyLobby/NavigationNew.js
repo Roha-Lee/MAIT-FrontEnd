@@ -75,7 +75,7 @@ function Navigation({roomId, currentUser, clickChat}) {
     <NavMenu className={click ? "active" : ""}>
       <NavItem>
       <NavSpan onClick={openTodoModal}>
-        할일
+        할 일
       </NavSpan>
       </NavItem>
       <NavItem>
@@ -91,7 +91,7 @@ function Navigation({roomId, currentUser, clickChat}) {
     </NavBar>
     <Modal 
       bodyStyle={{ overflowY: 'auto', maxHeight: "50vh", overflowX: 'hidden'}}    
-      title={"오늘의 할일"} 
+      title={"오늘의 할 일"} 
       visible={show} 
       onCancel={handleCancel} 
       onOk={handleOk}

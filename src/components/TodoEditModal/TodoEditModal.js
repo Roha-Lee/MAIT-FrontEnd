@@ -45,7 +45,7 @@ const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => 
     return (
     <Modal 
         bodyStyle={{ maxHeight: '50vh' }}    
-        title={"할일 수정/삭제"} 
+        title={"할 일 수정/삭제"} 
         className={"TodoEditModal"}
         visible={!!todo} 
         onCancel={onCloseClick}

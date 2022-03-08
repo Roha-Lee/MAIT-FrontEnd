@@ -138,7 +138,7 @@ function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCame
       <NavSpan onClick={openInviteModal}>초대</NavSpan>
       </NavItem>
       <NavItem>
-      <NavSpan onClick={openTodoModal}>할일</NavSpan>
+      <NavSpan onClick={openTodoModal}>할 일</NavSpan>
       </NavItem>
       <NavItem>
       <NavSpan onClick={openChatRoom}>채팅</NavSpan>
@@ -154,7 +154,7 @@ function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCame
     </NavBar>
     <Modal 
       bodyStyle={{ overflowY: 'auto', maxHeight: "50vh", overflowX: 'hidden'}}    
-      title={"오늘의 할일"} 
+      title={"오늘의 할 일"} 
       visible={show} 
       onCancel={handleCancel} 
       onOk={handleOk}
