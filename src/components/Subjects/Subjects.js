@@ -218,6 +218,7 @@ function Subjects({
       setSubjects(newSubjects);
       // setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
       setNowEditing(null);
+      setIsEditMode(false);
       setIsEditModalVisible(false);
     }
     catch (error) {
