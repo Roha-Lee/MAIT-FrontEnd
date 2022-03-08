@@ -47,10 +47,13 @@ const CamstudyRoom = (props) => {
     })
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true, 
-      video: true,
-      width: 640, 
-      height: 480});
+        audio: true, 
+        video: {
+          width: {max:640, ideal: 640}, 
+          height: {max:480, ideal: 480},
+          facingMode: "user"
+        }
+      });
       
       myVideoRef.current.srcObject = stream;
       myVideoRef.current.muted = true;

@@ -144,9 +144,6 @@ function Navigation({roomId, currentUser, currentUserId, videoDevices, clickCame
       <NavSpan onClick={openChatRoom}>채팅</NavSpan>
       </NavItem>
       <NavItem>
-      <NavSpan>카메라 변경</NavSpan>
-      </NavItem>
-      <NavItem>
       <NavSpan onClick={exitRoom}>나가기</NavSpan>
       </NavItem>
     </NavMenu>
