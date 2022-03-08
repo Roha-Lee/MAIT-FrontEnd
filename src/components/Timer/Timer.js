@@ -36,8 +36,18 @@ function Timer({
       message : "로그인을 해주세요.",
     });
   }
+
   useEffect(async () => {
+  
     if(timerOn){
+
+      setInterval(() => {
+        endTimeFormatted = timeStamp();
+        console.log("setInterval " + new Date())
+        const result = patchStudyTime(currentStudyTimeId, endTimeFormatted);
+        console.log('send patch!', result);
+      }, 60000);
+
       try {
         startTimeFormatted = timeStamp();
         startTime = Date.now();
@@ -47,6 +57,7 @@ function Timer({
         }, 73)
         const currentSubjectId = subjects.find(elem => elem.name === currentSubject).subjectId;  
         const result = await postStudyTime(currentSubjectId, startTimeFormatted);
+        
         if(result.data.message === 'SUCCESS'){
           currentStudyTimeId = result.data.id;
           setCurrentStudyTimeId(currentStudyTimeId);
@@ -71,10 +82,11 @@ function Timer({
         console.log('send patch!', result);
         currentStudyTimeId = null;  
       }
-      // sendStudyInterval(startTimeFormatted, endTimeFormatted, currentSubjectId);  
-      // onChangeStudyLog(indexToName(subjects, currentSubjectId), currentTime);
+
     }
   }, [timerOn]);
+  
+  
 
   const timer = (
     <Timer_set>{ (currentTime >= 3600000 ? Math.floor((currentTime / 3600000) % 24) : Math.floor((currentTime/ 60000) % 60)).toString().padStart(2, '0') }
