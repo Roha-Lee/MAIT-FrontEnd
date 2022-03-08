@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {changeCurrentStudyTimeId, changeTimerOn,changeSubjects} from "../../store";
 import { notification} from 'antd';
 import { useNavigate } from 'react-router';
-let startTimeFormatted, endTimeFormatted, startTime, offset, interval;
+let startTimeFormatted, endTimeFormatted, startTime, offset, interval, safeDataInterval;
 let currentStudyTimeId = null;
 
 function Timer({
@@ -40,14 +40,6 @@ function Timer({
   useEffect(async () => {
   
     if(timerOn){
-
-      setInterval(() => {
-        endTimeFormatted = timeStamp();
-        console.log("setInterval " + new Date())
-        const result = patchStudyTime(currentStudyTimeId, endTimeFormatted);
-        console.log('send patch!', result);
-      }, 60000);
-
       try {
         startTimeFormatted = timeStamp();
         startTime = Date.now();
@@ -61,6 +53,11 @@ function Timer({
         if(result.data.message === 'SUCCESS'){
           currentStudyTimeId = result.data.id;
           setCurrentStudyTimeId(currentStudyTimeId);
+          safeDataInterval = setInterval(async () => {
+            endTimeFormatted = timeStamp();
+            console.log("setInterval " + new Date())
+            const result = await patchStudyTime(currentStudyTimeId, endTimeFormatted);
+          }, 10000);
         }
       } catch(error) {
         console.log(error);
@@ -70,6 +67,7 @@ function Timer({
     else {
       endTimeFormatted = timeStamp();
       clearInterval(interval);
+      clearInterval(safeDataInterval);
       if(currentSubject !== null){
         const updatedSubject = [...subjects];
         const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
