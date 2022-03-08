@@ -352,7 +352,6 @@ function Subjects({
             }>
               <form onSubmit={handleModifyOk} className={style.form}>
                 <label className={style.formTitle}>
-                  <span>과목 입력</span>
                   <input  required maxLength={16} className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
                 </label>
                 <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
