@@ -17,13 +17,24 @@ const TodoInput = ({ subjects, onItemAdd }) => {
     
     //add button을 누를때 불리는 함수
     const onSubmit = useCallback(async () => {
+        console.log("inside-onsubimit", text === '')
         try {
             const todoSubjectId = subject !== 'Unselect' ? subjects.find(elem => elem.name === subject).subjectId : null;
-            if(todoSubjectId === null){
+            if(!todoSubjectId){
+                console.log("inside-onsubimit subject null case")
                 notification.open({
                     message : "과목을 선택해주세요.",
                 });
-            }else{
+            }
+            else if(text === ''){
+                console.log("inside-onsubimit content null case")
+                console.log("할일을 입력해 주세요")
+                notification.open({
+                    message : "할일을 입력해주세요.",
+                });
+            }
+            else{
+                console.log("inside-onsubimit no null case")
                 const result = await postNewTodo(text, todoSubjectId);
                 const {id:todoId, content, subject_id:subjectId, is_done:isDone} = result.data.todo;
                 setText('');
@@ -46,7 +57,8 @@ const TodoInput = ({ subjects, onItemAdd }) => {
                     }}
                     title={subject?.name || 'Subject...'}>
                     <option key={'unselect'} value={'Unselect'}>선택 안함</option>
-                    {subjects?.map(item => <option key={item.subjectId} value={item.name}>{item.name}</option>)}
+                    <option key={'test'} value={'test'}>test</option>
+                    {subjects?.map(item => <option key={item?.subjectId} value={item.name}>{item.name}</option>)}
                 </select>
             </InputGroup>
             <FormButton onClick={onSubmit}>추가</FormButton>
