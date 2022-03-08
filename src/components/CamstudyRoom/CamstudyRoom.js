@@ -7,7 +7,10 @@ import Peer from 'simple-peer';
 import CamstudyChat from '../CamstudyChat/CamstudyChat';
 import videoOnSVG from './assets/video.svg';
 import videoOffSVG from './assets/video-off.svg';
+import audioOnSVG from '../CamstudyRoom/assets/mic.svg';
+import audioOffSVG from '../CamstudyRoom/assets/mic-slash.svg';
 import shareScreenSVG from './assets/share_screen.svg';
+import onShareScreenSVG from './assets/share_screen-white.svg';
 import Navigation from './NavigationNew'
 import { notification } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
@@ -413,17 +416,19 @@ const CamstudyRoom = (props) => {
       }}>
       <OptionsButton onClick={toggleCamera}>
         <img src={
-          userVideoAudio['localUser'].video ? videoOnSVG : videoOffSVG } width="20" height="20"></img>
+          userVideoAudio['localUser'].video ? videoOnSVG : videoOffSVG } width="18" height="18" align="right"></img>
       </OptionsButton>
       <OptionsButton onClick={toggleMic}>
-        <i
-          className={`fa fa-microphone${userVideoAudio['localUser'].audio ? "" : "-slash"}`}
-          style={{ transform: "scaleX(1.2) scaleY(1.2)" }}
-        ></i>
+        <img src={userVideoAudio['localUser'].audio ? audioOnSVG : audioOffSVG } 
+          width={userVideoAudio['localUser'].audio?"18":"21"} 
+          height={userVideoAudio['localUser'].audio?"18":"22"}
+          align={userVideoAudio['localUser'].audio?"center":"right"}
+          vertical-align={userVideoAudio['localUser'].audio?"middle":"bottom"}></img>
       </OptionsButton>
-      <OptionsButton onClick={clickScreenSharing}>
-        <img src={ shareScreenSVG } width="20" height="20"></img>
-      </OptionsButton>
+      <ScreenShareButton onClick={clickScreenSharing} screenShare={screenShare}>
+        <img src={ 
+          screenShare ? onShareScreenSVG : shareScreenSVG } width="21" height="22" align="left"></img>
+      </ScreenShareButton>
       <audio src={Bell} ref={sirenRef} />
     </VideoOptions>
     <InFrameUserName>{currentUser}</InFrameUserName>
@@ -549,6 +554,16 @@ const OptionsButton = styled.button`
   height: 32px;
   border-radius: 16px;
   border: none;
+}
+`
+const ScreenShareButton = styled.button`
+{
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  background-color: ${ props => props.screenShare === true ? "#141010" : "" }};
 }
 `
 const UserName = styled.div`
