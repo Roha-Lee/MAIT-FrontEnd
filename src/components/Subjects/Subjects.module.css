@@ -163,17 +163,9 @@ border-radius: 5px;
 border: 1px solid #E0E0DF;
 background-color: #fff;
 padding: 12px 15px;
-max-width: 80vw;
-min-width: 25vw;
-
-@media screen and (max-width: 720px) {
-    min-width: 35vw;
-}
-@media screen and (max-width: 520px) {
-    min-width: 65vw;
+width: 100%;
 }
 
-}
 .formTitle {
 color: #6F8D7A;
 font-weight: bold;
