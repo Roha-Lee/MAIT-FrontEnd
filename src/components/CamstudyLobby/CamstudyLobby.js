@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
-import styled from 'styled-components';
-import { notification, Modal } from 'antd';
 import axios from 'axios'
 import Navigation from './NavigationNew'
+import { notification, Modal } from 'antd';
+import { MainContainer, Form, Input, RoomButton, JoinButton, SubmitButton } from './CamstudyLobby.styled'
 
 const CamstudyLobby = (props) => {
 const navigate = useNavigate();
@@ -47,7 +47,7 @@ const [roomCode, setRoomCode] = useState('');
   })
   
   }
- 
+
   const showModal = () => {
   setIsModalVisible(true);
   };
@@ -64,7 +64,7 @@ const [roomCode, setRoomCode] = useState('');
   <>
   <Navigation />
   <MainContainer>
-    <JoinButton onClick={createRoom}> 방 생성하기 </JoinButton>
+    <RoomButton onClick={createRoom}> 방 생성하기 </RoomButton>
     <JoinButton onClick={showModal}> 방 참여하기 </JoinButton>
   </MainContainer>
   <Modal title={"전달받은 초대 코드를 입력해주세요"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
@@ -79,61 +79,5 @@ const [roomCode, setRoomCode] = useState('');
   </>
   );
 };
-
-const Form = styled.form`
-display: flex;
-align-items: center;
-justify-content: center;
-`
-const Input = styled.input`
-  border-radius: 5px;
-  border: 2px solid #606060;
-  background-color: #fff;
-  padding: 8px 15px;
-  margin: 0 20px;  
-  width: 300px;
-`
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10vw;
-  width: 100%;
-  height: 80vh;
-  justify-content: center;
-  align-items: center;
-`;
-const SubmitButton = styled.button`
-  width: 70px;
-  height: 42px;  
-  outline: none;
-  
-  border: none;
-  border-radius: 5px;
-  color: #d8e9ef;
-  background-color: #606060;
-  font-size: 1em;
-  :hover {
-  background-color: #4c4c4c;
-  cursor: pointer;
-  }
-
-`
-const JoinButton = styled.button`
-  width: 200px;
-  height: 200px;
-  margin-top: 35px;
-  outline: none;
-  border: none;
-  border-radius: 15px;
-  color: #d8e9ef;
-  background-color: #606060;
-  font-size: 25px;
-  font-weight: 500;
-
-  :hover {
-    background-color: #4c4c4c;
-    cursor: pointer;
-  }
-`;
 
 export default CamstudyLobby;

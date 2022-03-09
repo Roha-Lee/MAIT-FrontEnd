@@ -163,7 +163,7 @@ function Navigation({
           <NavLink
             onClick={openTodoModal}
           >
-            할일
+            할 일
           </NavLink>
           </NavItem>
           <NavItem>
@@ -195,7 +195,7 @@ function Navigation({
     </NavBar>
     <Modal 
       bodyStyle={{ overflowY: 'auto',  maxHeight: '50vh', overflowX: 'hidden'}}    
-      title={"오늘의 할일"} 
+      title={"오늘의 할 일"} 
       visible={show} 
       onCancel={handleCancel} 
       onOk={handleOk}

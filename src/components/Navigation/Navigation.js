@@ -73,7 +73,7 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
                     <div><StyledLink onClick={handleSignIn}>{isLogin === true ? "로그아웃" : "로그인"}</StyledLink></div>
                     <div><StyledLink onClick={handleStatistics}>통계</StyledLink></div>
                     <div><StyledA onClick = {() => {window.open("/camstudyLobby")}}>캠스터디</StyledA></div>
-                    <div onClick={handleShow}>할일</div>
+                    <div onClick={handleShow}>할 일</div>
                 </LoginContainer>
             </NavigationContents>
             <NavigationBlank/>

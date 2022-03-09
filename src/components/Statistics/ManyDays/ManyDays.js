@@ -290,7 +290,7 @@ function ManyDays ({startDate,endDate,setIsLogin}){
                     </SubjectBar>
                     <Todobar>
                     <TodobarTitleContainer>
-                        <TodobarTitle><span>할일 달성률</span><div/></TodobarTitle>
+                        <TodobarTitle><span>할 일 달성률</span><div/></TodobarTitle>
                     </TodobarTitleContainer>
                         <TodoBarChart 
                             data = {data}
