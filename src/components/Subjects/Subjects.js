@@ -8,7 +8,6 @@ import {connect} from "react-redux";
 import { TabBox, FlexBox, SubjectBox, ButtonBox, SubjectName, SubjectColorCircle, SubjectControlButton} from './Subjects.styled'
 import { notification} from 'antd';
 import { useNavigate } from 'react-router';
-import {changeSubjects} from "../../store";
 
 const INITIAL_COLOR_HEX = 'dda0dd';
 const INITIAL_COLOR = hexToRgb(INITIAL_COLOR_HEX);
