@@ -67,11 +67,15 @@ function Navigation({roomId, currentUser, clickChat}) {
     setShow(false);
   };
   
+  function goToHelp() {
+    window.open('https://linen-paperback-734.notion.site/M-AI-T-6f4249a4b35e448b8fb993294fdde9fa');
+  }
+  
   const navigations = (  
     <>
     <NavBar onClick={e => e.stopPropagation()}>
     <NavContainer>  
-      <NavLogo><NavLink exact to="/camstudyLobby" onClick={exitRoom}>M.AI.T</NavLink></NavLogo>
+      <NavLogo><NavLink exact to="/camstudyLobby" onClick={goToHelp}>M.AI.T</NavLink></NavLogo>
     <NavMenu className={click ? "active" : ""}>
       <NavItem>
       <NavSpan onClick={openTodoModal}>

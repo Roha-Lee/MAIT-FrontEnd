@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { NavBar, MainContainer, NavContainer,NavLogo,  NavMenu, NavIcon, NavSpan, NavLink ,NavItem } from './NavigationNew.styled'
 import { useNavigate } from 'react-router';
-import { changeLogin, changeCurrentStudyTimeId } from "../../store";
+import { changeLogin, changeCurrentStudyTimeId, changeSafeDataInterval } from "../../store";
 import { connect } from "react-redux";
 import {signOut, timeStamp, patchStudyTime, getTodos} from "../../utils/utils"
 import TodoListContainer from "../TodoListContainer/TodoListContainer";
@@ -13,6 +13,8 @@ function Navigation({
   isLogin , 
   currentStudyTimeId , 
   setCurrentStudyTimeId, 
+  safeDataInterval,
+  setSafeDataInterval,
   timerOn, 
   }) {
   const [click, setClick] = useState(false);
@@ -109,7 +111,9 @@ function Navigation({
               if(click){
                 handleClick();
               }
-              alert("서버오류");
+              notification.open({
+                message : "서버 오류",
+              });
           }
 
       }else{
@@ -123,9 +127,13 @@ function Navigation({
   function goToStatistics(){
       if(isLogin === true){
           if(timerOn){
-              patchStudyTime(currentStudyTimeId,timeStamp()).then(
-                  setCurrentStudyTimeId(null)
-              )
+              patchStudyTime(currentStudyTimeId,timeStamp())
+              .then( () => {
+                setCurrentStudyTimeId(null);
+                clearInterval(safeDataInterval);
+                setSafeDataInterval(null);
+              }
+            )
           }
           if(click){
             handleClick();
@@ -144,12 +152,16 @@ function Navigation({
     // navigate("/");
     window.location.replace("/");
   }
-
+  
+  function goToHelp() {
+    window.open('https://linen-paperback-734.notion.site/M-AI-T-6f4249a4b35e448b8fb993294fdde9fa');
+  }
+  
   const navigations = (  
     <>
       <NavBar onClick={e => e.stopPropagation()}>
       <NavContainer>
-        <NavLogo><NavLink onClick={goToHome}>M.AI.T</NavLink></NavLogo>
+        <NavLogo><NavLink onClick={goToHelp}>M.AI.T</NavLink></NavLogo>
         <NavMenu className={click ? "active" : ""}>
           <NavItem>
           <NavLink
@@ -170,7 +182,7 @@ function Navigation({
           <NavLink
             onClick={goToStatistics}
           >
-            통계
+            학습 기록
           </NavLink>
           </NavItem>
           <NavItem>
@@ -223,13 +235,15 @@ function mapStateToProps(state){
     isLogin : state.isLogin,
     currentStudyTimeId : state.currentStudyTimeId,
     timerOn : state.timerOn,
+    safeDataInterval: state.safeDataInterval,
   };
 }
 
 function mapDispatchToProps(dispatch){
   return{
     setIsLogin : isLogin => dispatch(changeLogin(isLogin)),
-    setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id))
+    setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id)),
+    setSafeDataInterval : safeDataInterval => dispatch(changeSafeDataInterval(safeDataInterval))
   };
 }
 

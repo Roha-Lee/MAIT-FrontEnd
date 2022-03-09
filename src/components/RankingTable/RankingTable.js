@@ -1,6 +1,5 @@
 
 import React, {useState, useRef, useEffect} from 'react';
-import { Table, Tag, Space } from 'antd';
 import {getRankingData, msToHmsFormat} from '../../utils/utils'
 import { changeLogin } from '../../store';
 import {
@@ -35,7 +34,7 @@ function RankingTable ({currentUser, setIsLogin}) {
     const [myRanking, setMyRanking] = useState(0);
     const myRankRef = useRef();
     const headerRef = useRef();
-    const fakeCurrentUser = "jinho";
+    
     useEffect(()=> {
         getRankingData()
         .then((res) => {
@@ -176,108 +175,6 @@ function mapStateToProps(state){
     };
 }
 
-// 테스트용 목데이터
-        // setMyRanking(3);
-        // setUserRanking(
-        //     [
-        //         {
-        //             rank:1,
-        //             nickname: "roha", 
-        //             totalTime: msToHmsFormat(1000000)
-
-        //         },
-        //         {
-        //             rank:2,
-        //             nickname: "ROHAGRUROHAGRU", 
-        //             totalTime: msToHmsFormat(100000)
-
-        //         },
-        //         {
-        //             rank:3,
-        //             nickname: "로하그루로하그", 
-        //             totalTime: msToHmsFormat(10000)
-
-        //         },
-        //         {
-        //             rank:4,
-        //             nickname: "로하그루로하그루로하", 
-        //             totalTime: msToHmsFormat(1000)
-
-        //         },
-        //         {
-        //             rank:5,
-        //             nickname: "rohagrurohagru", 
-        //             totalTime: msToHmsFormat(900)
-
-        //         }, 
-        //         {
-        //             rank:6,
-        //             nickname: "roha5grurohagru", 
-        //             totalTime: msToHmsFormat(800)
-
-        //         }, 
-        //         {
-        //             rank:7,
-        //             nickname: "roha4grurohagru", 
-        //             totalTime: msToHmsFormat(700)
-
-        //         }, 
-        //         {
-        //             rank:8,
-        //             nickname: "roha3grurohagru", 
-        //             totalTime: msToHmsFormat(600)
-
-        //         },
-        //         {
-        //             rank:9,
-        //             nickname: "roha2grurohagru", 
-        //             totalTime: msToHmsFormat(500)
-
-        //         },
-        //         {
-        //             rank:10,
-        //             nickname: "roha1grurohagru", 
-        //             totalTime: msToHmsFormat(450)
-
-        //         },
-        //         {
-        //             rank:11,
-        //             nickname: "roha1grurohagru", 
-        //             totalTime: msToHmsFormat(450)
-
-        //         },
-        //         {
-        //             rank:12,
-        //             nickname: "roha1grurohagru", 
-        //             totalTime: msToHmsFormat(450)
-
-        //         },
-        //         {
-        //             rank:13,
-        //             nickname: "roha1grurohagru", 
-        //             totalTime: msToHmsFormat(450)
-
-        //         },
-        //         {
-        //             rank:14,
-        //             nickname: "roha1grurohagru", 
-        //             totalTime: msToHmsFormat(450)
-
-        //         },
-        //         {
-        //             rank:15,
-        //             nickname: "roha1grurohagru", 
-        //             totalTime: msToHmsFormat(450)
-
-        //         },
-        //         {
-        //             rank:16,
-        //             nickname: "roha1grurohagru", 
-        //             totalTime: msToHmsFormat(450)
-
-        //         },
-        //     ]
-        // )
 function mapDispatchToProps(dispatch){
     return{
         setIsLogin : isLogin => dispatch(changeLogin(isLogin))

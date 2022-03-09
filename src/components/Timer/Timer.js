@@ -4,7 +4,7 @@ import { timeStamp, postStudyTime, patchStudyTime } from '../../utils/utils';
 import {SubjectTitle, TimerContainer, Timer_set, TimerButton,NoSubjectMessage} from './Timer.styled'
 import 'animate.css'
 import {connect} from "react-redux";
-import {changeCurrentStudyTimeId, changeTimerOn,changeSubjects} from "../../store";
+import {changeCurrentStudyTimeId, changeTimerOn, changeSafeDataInterval, changeLogin} from "../../store";
 import { notification} from 'antd';
 import { useNavigate } from 'react-router';
 let startTimeFormatted, endTimeFormatted, startTime, offset, interval, safeDataInterval;
@@ -14,21 +14,17 @@ function Timer({
   subjects, 
   setSubjects,
   currentSubject, 
-  setCurrentSubject, 
   timerOn, 
   setTimerOn, 
   currentTime, 
   setCurrentTime,
-  faceDetected,
-  useAi,
-  userTimerOn, 
   setUserTimerOn,
   isEditMode,
-  setIsEditMode,
   isLogin,
+  setIsLogin,
   setCurrentStudyTimeId,
   setGlobalTimerOn,
-  // setGlobalSubjects,
+  setSafeDataInterval,
 }) {
   let navigate = useNavigate();
   const loginComment = () =>{
@@ -57,10 +53,17 @@ function Timer({
             endTimeFormatted = timeStamp();
             console.log("setInterval " + new Date())
             const result = await patchStudyTime(currentStudyTimeId, endTimeFormatted);
-          }, 10000);
+          }, 60000);
+          setSafeDataInterval(safeDataInterval);
         }
       } catch(error) {
-        console.log(error);
+        // 다른 기기에서 로그인해서 로그아웃 되었습니다. 다시 로그인 해주세요.
+        notification.open({
+          message : "다른 기기에서 로그인해서 로그아웃 되었습니다. 다시 로그인 해주세요.",
+        });
+        window.sessionStorage.removeItem("accessToken");
+        setIsLogin(false);
+        window.location.replace('/Login');
       }
       
     }
@@ -68,12 +71,13 @@ function Timer({
       endTimeFormatted = timeStamp();
       clearInterval(interval);
       clearInterval(safeDataInterval);
+      safeDataInterval = null;
+      setSafeDataInterval(safeDataInterval);
       if(currentSubject !== null){
         const updatedSubject = [...subjects];
         const subjectIdx = subjects.findIndex(subject => subject.name === currentSubject)
         updatedSubject[subjectIdx].totalTime = currentTime;
         setSubjects(updatedSubject);
-        // setGlobalSubjects(JSON.parse(JSON.stringify(updatedSubject)));
       }
       if (!!currentStudyTimeId){
         const result = await patchStudyTime(currentStudyTimeId, endTimeFormatted);
@@ -92,20 +96,6 @@ function Timer({
     : { (currentTime >= 3600000 ? Math.floor((currentTime / 1000) % 60) : Math.floor((currentTime % 1000) / 10)).toString().padStart(2, '0') }</Timer_set>
   );
   
-  // const timer = (
-  //   <span className={style.timer}>{ Math.floor((currentTime / 3600000) % 24).toString().padStart(2, '0') }
-  //   : { Math.floor((currentTime / 60000) % 60).toString().padStart(2, '0') }
-  //   : { Math.floor((currentTime / 1000) % 60).toString().padStart(2, '0') }</span>
-  // );
-  // window.addEventListener("beforeunload", (event)=>{
-  //   event.preventDefault();
-  //   if(timerOn){
-  //     patchStudyTime(currentStudyTimeId,timeStamp());
-  //   }
-  //   window.sessionStorage.removeItem("accessToken");
-  //   return event.returnValue = "종료하시겠습니까?";
-  // })
-  
   return ( 
     <TimerContainer>
       {subjects.length > 0 ? 
@@ -116,10 +106,6 @@ function Timer({
       <TimerButton 
         onClick = {
         (event) => {
-          // if(event.target.classList.contains('animate__animated')){
-          //   event.target.classList.remove('animate__animated')
-          //   event.target.classList.remove('animate__shakeX')
-          // }
           if(isLogin){
             if(isEditMode !== true){
               setTimerOn(!timerOn);          
@@ -144,60 +130,6 @@ function Timer({
   );
 }
 
-// class Timer extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.handleStopwatch.bind(this);
-//   }
-  
-//   handleStopwatch() {
-//     const {subjects, currentTime, currentSubjectId, timerRunning, onChangeCurrentTime, onChangeStudyLog} = this.props;
-//     if(!timerRunning){
-//       this.startTimeFormatted = timeStamp();
-//       this.startTime = Date.now();
-//       this.offset = currentTime;
-//       this.interval = setInterval(() => {
-//         onChangeCurrentTime(this.offset + Date.now() - this.startTime);
-//       }, 70)
-//     }
-//     else {
-//       this.endTimeFormatted = timeStamp();
-//       clearInterval(this.interval);
-//       sendStudyInterval(this.startTimeFormatted, this.endTimeFormatted, currentSubjectId);  
-//       onChangeStudyLog(indexToName(subjects, currentSubjectId), currentTime);
-//     }
-//   }
-
-//   render() {
-//     const timer = (<h1>
-//       <span className={style.timer}>{ (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 3600000) % 24) : Math.floor((this.props.currentTime/ 60000) % 60)).toString().padStart(2, '0') }
-//       : { (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 60000) % 60) : Math.floor((this.props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }
-//       : { (this.props.currentTime >= 3600000 ? Math.floor((this.props.currentTime / 1000) % 60) : Math.floor((this.props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
-//     </h1>);
-//     const {
-//       onChangeTimerRunning,
-//     } = this.props;
-//     return ( 
-//       <div className = {style.timerContainer} >
-//         {timer}
-//         <button className={style.timerButton} 
-//           onClick = {
-//           () => {
-//             onChangeTimerRunning(this.props.timerRunning);
-//             this.handleStopwatch();
-//           }}> 
-//           {this.props.timerRunning ? "Stop" : "Start"}
-//         </button> 
-//       </div>
-//     );
-//   }
-// }
-
-// const timer = (<h1>
-//   <span className={style.timer}>{ (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 3600000) % 24) : Math.floor((props.currentTime/ 60000) % 60)).toString().padStart(2, '0') }
-//   : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 60000) % 60) : Math.floor((props.currentTime/ 1000) % 60)).toString().padStart(2, '0') }
-//   : { (props.currentTime >= 3600000 ? Math.floor((props.currentTime / 1000) % 60) : Math.floor((props.currentTime % 1000) / 10)).toString().padStart(2, '0') }</span>
-// </h1>);
 
 function mapStateToProps(state){
   return{
@@ -209,7 +141,8 @@ function mapDispatchToProps(dispatch){
   return{
       setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id)),
       setGlobalTimerOn : timerOn => dispatch(changeTimerOn(timerOn)),
-      // setGlobalSubjects : value => dispatch(changeSubjects(value)),
+      setSafeDataInterval : safeDataInterval => dispatch(changeSafeDataInterval(safeDataInterval)),
+      setIsLogin : value => dispatch(changeLogin(value)),
   };
 }
 

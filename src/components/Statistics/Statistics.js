@@ -84,7 +84,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                         }`
                     }}
                 >
-                    <TabName>일간 통계</TabName>
+                    <TabName>일간 기록</TabName>
                 </TabBox>
                 <TabBox
                     onClick={handleRank}
@@ -106,7 +106,7 @@ function Statistics({currentStatistics,startDate, endDate ,dailyDate, setDailyDa
                         }`
                     }}
                 >
-                    <TabName>기간 통계</TabName>
+                    <TabName>기간 기록</TabName>
                 </TabBox>
                 <BlankBox/>
                 <BigSize>

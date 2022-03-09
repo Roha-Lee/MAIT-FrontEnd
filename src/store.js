@@ -28,16 +28,13 @@ const globalState = createSlice({
         isLogin : false,
         // isLogin : true, //To Check
         currentStudyTimeId : null,
+        safeDataInterval : null,
         timerOn : false,
         currentStatistics : 1,
         dailyDate : today,
         startDate : todayBefore7,
         endDate : today,
         isZeroShow : false,
-        todoList : [],
-        subjects : [],
-        colorsIdtoCode : {},
-        colorsCodetoId : {},
         faceManager : faceManager,
         faceParams : faceParams,
         handManager : handManager,
@@ -69,21 +66,12 @@ const globalState = createSlice({
         changeIsZeroShow : (state, action) =>{
             state.isZeroShow = action.payload;
         },
-        changeTodoLists : (state, action) => {
-            state.todoList = action.payload;
-        },
-        changeSubjects : (state,action) => {
-            state.subjects = action.payload;
-        },
-        changeColorsCodetoId : (state, action) => {
-            state.colorsCodetoId = action.payload;
-        },
-        changeColorsIdtoCode : (state, action) => {
-            state.colorsIdtoCode = action.payload;
-        },
         changeCurrentUser : (state , action) => {
             state.currentUser = action.payload;
         },
+        changeSafeDataInterval : (state, action) => {
+            state.safeDataInterval = action.payload;
+        }
     }
 });
 
@@ -98,11 +86,8 @@ export const {
     changeStartDate,
     changeEndDate,
     changeIsZeroShow,
-    changeTodoLists,
-    changeSubjects,
-    changeColorsCodetoId,
-    changeColorsIdtoCode,
     changeCurrentUser,
+    changeSafeDataInterval,
 } = globalState.actions;
 
 export default store;

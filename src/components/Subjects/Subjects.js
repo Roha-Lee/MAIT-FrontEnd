@@ -102,16 +102,24 @@ function Subjects({
     }
     catch (error) {
       if(error.response.data.message === 'SUBJECT_EXISTS'){
-        alert('이미 사용중인 과목입니다.');
+        notification.open({
+          message : "이미 사용중인 과목 이름입니다.",
+        });
       }
       else if (error.response.data.message === 'INVALID_COLOR'){
-        alert('유효하지 않은 색깔입니다.')
+        notification.open({
+          message : "사용할 수 없는 색 입니다. ",
+        });
       }
       else if (error.response.data.message === 'INVALID_NAME'){
-        alert('유효하지 않은 이름입니다.')
+        notification.open({
+          message : "유효하지 않은 이름입니다.",
+        });
       }
       else {
-        alert('서버 에러.')
+        notification.open({
+          message : "서버 에러",
+        });
       }
     }
   };
@@ -124,9 +132,6 @@ function Subjects({
     try{
       const result = await postSubject(value, colorsCodetoId[color])
       const {id, name, colorId} = result.data;
-      // const id = Math.ceil(Math.random() *10000);
-      // const name = value;
-      // const colorId = colorsCodetoId[color];
       const isSubjectEmpty = subjects.length === 0;
       setSubjects([
         ...subjects,
@@ -137,17 +142,7 @@ function Subjects({
           totalTime: 0
         }
       ]);
-      // const copySubjects = JSON.parse(JSON.stringify(subjects));
-      // setGlobalSubjects([
-      //   ...copySubjects,
-      //   {
-      //     subjectId: id,
-      //     name,
-      //     colorId,
-      //     totalTime: 0
-      //   }
-      // ]);
-
+      
       if(isSubjectEmpty){
         setCurrentSubject(name);
         setCurrentTime(0);
@@ -155,28 +150,22 @@ function Subjects({
       setNewSubject(id);
     } catch (error) {
       if (error.response.data.message === 'SUBJECT_EXISTS') {
-        alert('이미 사용중인 과목 이름입니다. ')
+        notification.open({
+          message : "이미 사용중인 과목 이름입니다.",
+        });
       }
       else if(error.response.data.message === 'NO_SUBJECT_PROVIDED'){
-        alert('과목 이름을 입력해야 합니다.')
+        notification.open({
+          message : "과목 이름을 입력해주세요.",
+        });
       }
       else{
-        alert('서버 에러.')
+        notification.open({
+          message : "서버 에러",
+        });
       }
     }
     resetModal();
-
-    // console.log(result.data)
-    // const id = subjects.length + 1;
-    // setSubjects([
-    //   ...subjects,
-    //   {
-    //     subjectId: id,
-    //     name: value,
-    //     colorId: colorsCodetoId[color],
-    //     totalTime: 0
-    //   }
-    // ]);
   };
 
   const handleCancel = () => {
@@ -216,13 +205,14 @@ function Subjects({
       }
 
       setSubjects(newSubjects);
-      // setGlobalSubjects(JSON.parse(JSON.stringify(newSubjects)));
       setNowEditing(null);
       setIsEditMode(false);
       setIsEditModalVisible(false);
     }
     catch (error) {
-      alert('서버 에러.')
+      notification.open({
+        message : "서버 에러",
+      });
     }
     resetModal();
   }
@@ -353,7 +343,7 @@ function Subjects({
             }>
               <form onSubmit={handleModifyOk} className={style.form}>
                 <label className={style.formTitle}>
-                  <input  required maxLength={16} className={style.input} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
+                  <input  required maxLength={16} className={style.inputEdit} type="text" value={value} onChange={(event) => setValue(event.target.value)}/>
                 </label>
                 <ColorPicker colors={Object.values(colorsIdtoCode)} setColor={setColor} pickerColor={pickerColor} setPickerColor={setPickerColor} displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker}/>
               </form>
