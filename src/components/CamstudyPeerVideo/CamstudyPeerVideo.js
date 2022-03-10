@@ -98,11 +98,15 @@ const CamstudyPeerVideo = ({peer, currentUser, currentUserId, changeFullScreen})
             <img src={ videoState ? videoOnSVG : videoOffSVG } width="18" height="18" align="right"></img>
           </OptionsButton>
           <OptionsButton onClick={toggleAudio}>
-          <img src={userVideoAudio['localUser'].audio ? audioOnSVG : audioOffSVG } 
+          <i
+            className={`fa fa-microphone${ audioState ? "" : "-slash"}`}
+            style={{ transform: "scaleX(1.2) scaleY(1.2)" }}>
+          </i>
+          {/* <img src={userVideoAudio['localUser'].audio ? audioOnSVG : audioOffSVG } 
           width={userVideoAudio['localUser'].audio?"18":"21"} 
           height={userVideoAudio['localUser'].audio?"18":"22"}
           align={userVideoAudio['localUser'].audio?"center":"right"}
-          vertical-align={userVideoAudio['localUser'].audio?"middle":"bottom"}></img>
+          vertical-align={userVideoAudio['localUser'].audio?"middle":"bottom"}></img> */}
           </OptionsButton>
           <OptionsButton onClick={sirenFire}>
             <BellOutlined style={{ fontSize: "20px" }}/>
