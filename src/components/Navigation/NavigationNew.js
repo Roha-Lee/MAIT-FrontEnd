@@ -153,15 +153,13 @@ function Navigation({
     window.location.replace("/");
   }
   
-  function goToHelp() {
-    window.open('https://linen-paperback-734.notion.site/M-AI-T-6f4249a4b35e448b8fb993294fdde9fa');
-  }
+  
   
   const navigations = (  
     <>
       <NavBar onClick={e => e.stopPropagation()}>
       <NavContainer>
-        <NavLogo><NavLink onClick={goToHelp}>M.AI.T</NavLink></NavLogo>
+        <NavLogo><NavLink onClick={goToHome}>M.AI.T</NavLink></NavLogo>
         <NavMenu className={click ? "active" : ""}>
           <NavItem>
           <NavLink

@@ -7,7 +7,7 @@ import AIHandFunctionViewer from './components/AIFunctionViewer/AIHandFunctionVi
 import { Menu, Dropdown, Button } from 'antd';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getAllUserData } from './utils/utils';
-import {AiContainer, SubjectsContainer, BottomFlexBox, ColFlex, BottomColor, Seperator,TodayDate, WelcomeComment, DropdownContainer} from './Mainpage.styled'
+import {AiContainer, SubjectsContainer, BottomFlexBox, ColFlex, BottomColor, Seperator,TodayDate, WelcomeComment, DropdownContainer, HelpBtn} from './Mainpage.styled'
 import {connect} from "react-redux";
 import { changeLogin, changeCurrentUser} from './store';
 import { notification} from 'antd';
@@ -155,6 +155,10 @@ function Mainpage({
     </Menu>
   );
 
+  function goToHelp() {
+    window.open(`${process.env.REACT_APP_HELP_PAGE}`);
+  }
+
   return (
     <>
       <Navigation />
@@ -204,6 +208,7 @@ function Mainpage({
           <TodayDate>{new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일</TodayDate>
         </BottomFlexBox>
         </BottomColor>
+        <HelpBtn onClick={goToHelp}>?</HelpBtn>
       </ColFlex>
       {useFaceAi ? 
         <AiContainer>

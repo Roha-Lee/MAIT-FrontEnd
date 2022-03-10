@@ -98,3 +98,19 @@ export const TodayDate = styled.span`
         display: none;
     }
 `
+export const HelpBtn = styled.div`
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #639ECC;
+    display: flex;
+    align-items: center;
+    /* justify-items: center; */
+    justify-content: center;
+    color : #fff;
+    cursor: help;
+    font-size : 1.3rem;
+`
