@@ -416,18 +416,17 @@ const CamstudyRoom = (props) => {
       }}>
       <OptionsButton onClick={toggleCamera}>
         <img src={
-          userVideoAudio['localUser'].video ? videoOnSVG : videoOffSVG } width="18" height="18" align="right"></img>
+          userVideoAudio['localUser'].video ? videoOnSVG : videoOffSVG } width="20" height="20"></img>
       </OptionsButton>
       <OptionsButton onClick={toggleMic}>
-        <img src={userVideoAudio['localUser'].audio ? audioOnSVG : audioOffSVG } 
-          width={userVideoAudio['localUser'].audio?"18":"21"} 
-          height={userVideoAudio['localUser'].audio?"18":"22"}
-          align={userVideoAudio['localUser'].audio?"center":"right"}
-          vertical-align={userVideoAudio['localUser'].audio?"middle":"bottom"}></img>
+        <i
+          className={`fa fa-microphone${userVideoAudio['localUser'].audio ? "" : "-slash"}`}
+          style={{ transform: "scaleX(1.2) scaleY(1.2)" }}
+        ></i>
       </OptionsButton>
       <ScreenShareButton onClick={clickScreenSharing} screenShare={screenShare}>
         <img src={ 
-          screenShare ? onShareScreenSVG : shareScreenSVG } width="21" height="22" align="left"></img>
+          screenShare ? onShareScreenSVG : shareScreenSVG } width="21" height="22"></img>
       </ScreenShareButton>
       <audio src={Bell} ref={sirenRef} />
     </VideoOptions>
