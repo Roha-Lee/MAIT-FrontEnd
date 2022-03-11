@@ -1,51 +1,101 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Modal, Button, FormControl, Form} from 'react-bootstrap'
-import axios from 'axios'
-// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
+// import { Modal, Button, FormControl, Form} from 'react-bootstrap'
+import styled from 'styled-components';
+import { deleteTodo, patchTodo } from '../../utils/utils';
+// import {connect} from "react-redux";
+import { Modal, Button, Select } from 'antd'
+const { Option } = Select;
 const TodoEditModal = ({ subjects, todo, onChange, onDelete, onCloseClick }) => {
-    // console.log(subjects)
+    const [content, setContent] = useState('');
+    const [selectedSubject, setSelectedSubject] = useState(null);
+    
+    useEffect(() => {
+        setContent(todo?.content || '');
+        if(!!todo){
+            // console.log('useEffect', todo);
+            // console.log('useEffect-changed', subjects.find(subject=> subject.subjectId === todo.subjectId ).name)
+            setSelectedSubject(subjects.find(subject=> subject.subjectId === todo.subjectId ).name);
+        }
+    }, [todo])
 
-    const [content, setContent] = useState('')
-    useEffect(() => setContent(todo?.content || ''), [todo])
-
-    const deleteTodo = () => {
-        axios.delete(`/todos/${todo.id}`, {
-            headers: {
-                Authorization: `${window.sessionStorage.getItem('accessToken')}`
-            }
+    const onDeleteTodo = (e) => {
+        // console.log('onDeleteTodo', todo)
+        deleteTodo(todo.todoId)
+        .then(() => {
+            onDelete(todo);
+            onCloseClick(e);
+        })    
+    }
+    const onChangeTodo = (e) => {
+        // console.log('onChangeTodo', todo);
+        // console.log('selectedSubject', selectedSubject);
+        const changeSubjectId = subjects.find(subject => subject.name === selectedSubject).subjectId;
+        // console.log('todo.todoId, content, todo.isDone, changeSubjectId', todo.todoId, content, todo.isDone, changeSubjectId);
+        patchTodo(todo.todoId, content, todo.isDone, changeSubjectId)
+        .then(() => {
+            onChange(todo, content, changeSubjectId);
+            onCloseClick(e);
         })
-        .then(() => onDelete(todo))    
+    }
+    
+    const handleChange = (value) => {
+        setSelectedSubject(value);        
     }
 
-    const [subject,editSubject] = useState('')
-
-    // const [edit, editSubject] = useSate('')
-
     return (
-        <Modal show={!!todo} onHide={onCloseClick}>
-            <Modal.Header closeButton>
-                <Modal.Title>수정이나 삭제가 가능합니다.</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <FormControl type="text" value={content} onChange={(e) => setContent(e.target.value)} />
-                <Form.Select>
-                    <option onClick={() => editSubject(null)}>Unselect</option>
-                        {subjects.map(item => <option onClick={() => editSubject(item)}>{item.name}</option>)}
-                </Form.Select>
-            </Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={onCloseClick}>
-                닫기
-            </Button>
-            <Button variant="primary" onClick={() => onChange(todo, content, item.name)}>
-                저장
-            </Button>
-            <Button variant="danger" onClick={deleteTodo}>
-                삭제
-            </Button>
-            </Modal.Footer>
-        </Modal>
+    <Modal 
+        bodyStyle={{ maxHeight: '50vh' }}    
+        title={"할 일 수정/삭제"} 
+        className={"TodoEditModal"}
+        visible={!!todo} 
+        onCancel={onCloseClick}
+        centered
+        footer={<>
+            <Button 
+            key="delete" 
+            onClick={onDeleteTodo}
+            >
+            삭제
+          </Button>
+          <Button key="save" onClick={onChangeTodo}>
+            저장
+          </Button>
+          <Button key="cancle" onClick={onCloseClick}>
+            닫기
+          </Button>
+          </> 
+        }> 
+        <Form type="text" value={content} onSubmit={onChangeTodo} onChange={(e) => setContent(e.target.value)}>
+        <Input required type="text" value={content} onChange={(event) => setContent(event.target.value)}/>
+        <Select 
+        style={{width: 100}}
+        value={selectedSubject}
+        onChange={handleChange}>
+            {subjects?.map(item => <Option key={item.subjectId} value={item.name}>{item.name}</Option>)}
+        </Select>
+        </Form>
+    </Modal>
     )
 }
+// function mapStateToProps(state){
+//     return{
+//         subjects : state.subjects,
+//     };
+// }
 
-export default TodoEditModal
+const Form = styled.form`
+display: flex;
+align-items: center;
+justify-content: center;
+`
+const Input = styled.input`
+  border-radius: 5px;
+  border: 2px solid #606060;
+  background-color: #fff;
+  padding: 8px 15px;
+  margin: 0 20px;  
+  width: 300px;
+`
+
+export default TodoEditModal;
+// export default connect(mapStateToProps) (TodoEditModal)

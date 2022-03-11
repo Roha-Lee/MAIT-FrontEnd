@@ -26,7 +26,7 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
             }
             const signOutResponse = await signOut();
 
-            if(signOutResponse.data.message === 'success'){
+            if(signOutResponse.data.message === 'SUCCESS'){
                 window.sessionStorage.removeItem("accessToken");
                 setIsLogin(!isLogin);
                 window.location.replace("/");
@@ -73,25 +73,25 @@ function Navigation ({isLogin , setIsLogin,currentStudyTimeId , setCurrentStudyT
                     <div><StyledLink onClick={handleSignIn}>{isLogin === true ? "로그아웃" : "로그인"}</StyledLink></div>
                     <div><StyledLink onClick={handleStatistics}>통계</StyledLink></div>
                     <div><StyledA onClick = {() => {window.open("/camstudyLobby")}}>캠스터디</StyledA></div>
-                    <div onClick={handleShow}>할일</div>
+                    <div onClick={handleShow}>할 일</div>
                 </LoginContainer>
             </NavigationContents>
             <NavigationBlank/>
         </HeadNavigate>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>오늘 할일</Modal.Title>
+            <Modal.Title>{new Date().getFullYear()}년 {new Date().getMonth() + 1}월 {new Date().getDate()}일 목표!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <TodoListContainer todoList={todoList} subjects={subjects} />
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            {/* <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
             <Button variant="primary" onClick={handleClose}>
                 Save Changes
-            </Button>
+            </Button> */}
             </Modal.Footer>
         </Modal>
       </>

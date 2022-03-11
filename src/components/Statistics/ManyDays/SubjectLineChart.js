@@ -67,12 +67,12 @@ function SubjectLineChart ({data,startDate,endDate}){
         // console.log(subjectTotalTime);
         // console.log(subjectTotalTime);
         // const subjectTodo = data?.subjectTodo;
-        // const subjectColorPair = data?.subjectColorPair;
-        const subjectColorPair = {
-            "Algorithm" : "#a67ebf",
-            "OS" : "#bf6d7f",
-            "Javascript" : "#6dbf84"
-        };
+        const subjectColorPair = data?.subjectColorPair;
+        // const subjectColorPair = {
+        //     "Algorithm" : "#a67ebf",
+        //     "OS" : "#bf6d7f",
+        //     "Javascript" : "#6dbf84"
+        // };
         
         const inputLineDataSet = {labels : null, datasets :[]};
     
@@ -97,6 +97,9 @@ function SubjectLineChart ({data,startDate,endDate}){
             plugins: {
                 legend: {
                     display: true,
+                    labels : {
+                        boxHeight : 1,
+                    }
                 },
                 title: {
                     display: false,
@@ -124,10 +127,11 @@ function SubjectLineChart ({data,startDate,endDate}){
             inputLineDataSet["datasets"].push({
                 label : "Total",
                 data : Array.from({length:periodD},()=>0),
-                borderColor : "#000000",
-                backgroundColor : "#000000",
+                borderColor : "#606060",
+                backgroundColor : "#606060",
                 borderDash : [10,10],
                 tension : 0.2,
+                pointStyle : "line",
             })
 
             let i = 1;
@@ -145,6 +149,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                     borderColor : subjectColorPair[subject],
                     backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
+                    pointStyle : "line",
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
         
@@ -166,7 +171,11 @@ function SubjectLineChart ({data,startDate,endDate}){
                         const currentIdx = subjectIndexColor[subject1][0];
                         // console.log(currentIdx);
                         // console.log(inputLineDataSet["datasets"][currentIdx]);
-                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        // totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        totalTimeFlt = parseFloat((
+                            parseInt(totalTimeStr.slice(0,2)) + 
+                            parseInt(totalTimeStr.slice(3,5))/60 + 
+                            parseInt(totalTimeStr.slice(6,8))/3600).toFixed(2));
                         // inputSubjectBarData[currentIdx] = parseFloat((inputSubjectBarData[currentIdx] + totalTimeFlt).toFixed(1)); 
                         inputLineDataSet["datasets"][currentIdx]["data"][p] = totalTimeFlt;
 
@@ -189,10 +198,11 @@ function SubjectLineChart ({data,startDate,endDate}){
             inputLineDataSet["datasets"].push({
                 label : "Total",
                 data : Array.from({length:endW-startW+1},()=>0),
-                borderColor : "#000000",
-                backgroundColor : "#000000",
+                borderColor : "#606060",
+                backgroundColor : "#606060",
                 borderDash : [10,10],
                 tension : 0.2,
+                pointStyle : "line",
             })
             let x = 1;
             for(const subject in subjectColorPair){
@@ -209,6 +219,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                     borderColor : subjectColorPair[subject],
                     backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
+                    pointStyle : "line",
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
         
@@ -236,7 +247,11 @@ function SubjectLineChart ({data,startDate,endDate}){
                     let totalTimeFlt;
                     if(totalList !== undefined && subject in totalList){
                         const totalTimeStr = totalList[subject]["totalTime"];
-                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        // totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        totalTimeFlt = parseFloat((
+                            parseInt(totalTimeStr.slice(0,2)) + 
+                            parseInt(totalTimeStr.slice(3,5))/60 + 
+                            parseInt(totalTimeStr.slice(6,8))/3600).toFixed(2));
                     }else{
                         totalTimeFlt = 0;
                     }
@@ -267,10 +282,11 @@ function SubjectLineChart ({data,startDate,endDate}){
             inputLineDataSet["datasets"].push({
                 label : "Total",
                 data : Array.from({length:periodM},()=>0),
-                borderColor : "#000000",
-                backgroundColor : "#000000",
+                borderColor : "#606060",
+                backgroundColor : "#606060",
                 borderDash : [10,10],
                 tension : 0.2,
+                pointStyle : "line",
             })
             let x = 1;
             for(const subject in subjectColorPair){
@@ -285,6 +301,7 @@ function SubjectLineChart ({data,startDate,endDate}){
                     borderColor : subjectColorPair[subject],
                     backgroundColor : subjectColorPair[subject],
                     tension : 0.2,
+                    pointStyle : "line",
                 }
                 inputLineDataSet["datasets"].push(dataSetForm);
         
@@ -319,8 +336,12 @@ function SubjectLineChart ({data,startDate,endDate}){
                     if(totalList !== undefined && subject in totalList){
                         const totalTimeStr = totalList[subject]["totalTime"];
                         // console.log(totalTimeStr, "idx : ",currentIdx , i);
-                        totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
-                        console.log(totalTimeFlt);
+                        // totalTimeFlt = parseFloat((parseInt(totalTimeStr.slice(0,2)) + parseInt(totalTimeStr.slice(3,5))/60).toFixed(1));
+                        totalTimeFlt = parseFloat((
+                            parseInt(totalTimeStr.slice(0,2)) + 
+                            parseInt(totalTimeStr.slice(3,5))/60 + 
+                            parseInt(totalTimeStr.slice(6,8))/3600).toFixed(2));
+                        // console.log(totalTimeFlt);
                     }else{
                         totalTimeFlt = 0;
                     }

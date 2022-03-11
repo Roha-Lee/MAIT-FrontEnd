@@ -1,7 +1,8 @@
 import Axios from 'axios';
 // Axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
-const serverAddress = 'https://mait.shop';
+const serverAddress = `${process.env.REACT_APP_SERVER_URL}`;
 // const serverAddress2 = 'http://192.249.29.5:3001';
+
 function msToHmsFormat(time) {
   const sec = Math.floor((time / 1000) % 60);
   const min = Math.floor((time / (1000 * 60)) % 60);
@@ -41,7 +42,22 @@ function postSubject(subject, colorCode) {
       }
   });
 }
+function postSignup(nickname, name, email, password) {
+  return Axios.post(`${serverAddress}/auth/signup`, {
+    nickname : nickname,
+    username : name,
+    email : email,
+    password : password,
+  })
+}
 
+function getKakaoSignin(username, nickname, email) {
+  return Axios.post(`${serverAddress}/auth/kakao`, {
+    nickname : nickname,
+    username : username,
+    email : email,
+  })
+}
 function putSubject(name, colorId, subjectId) {
   return Axios.put(`${serverAddress}/subject/${subjectId}`, {name, colorId}, {
     headers: {
@@ -69,12 +85,24 @@ function postNewTodo(content, subjectId) {
 })
 }
 
-function todoUpdate(todoId) {
-  return Axios.patch(`${serverAddress}/todos/${todoId}`,{}, {
+function patchTodo(todoId, content, isDone, subjectId) {
+  return Axios.patch(`${serverAddress}/todos/${todoId}`,{
+    content, 
+    subjectId,
+    isDone, 
+  }, {
     headers: {
         Authorization: `${window.sessionStorage.getItem('accessToken')}`
     }
 });
+}
+
+function deleteTodo(todoId) {
+  return Axios.delete(`${serverAddress}/todos/${todoId}`, {
+    headers: {
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
+    }
+  });
 }
 
 function postStudyTime(subjectId, startTime) {
@@ -116,4 +144,13 @@ function signOut(){
   })
 }
 
-export {msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, todoUpdate, postNewTodo, putSubject, postStudyTime, patchStudyTime, signOut}
+function getTodos() {
+  return Axios.get(
+    `${serverAddress}/todos`,
+    {
+      headers: {
+        Authorization: `${window.sessionStorage.getItem('accessToken')}`
+      }
+  })
+}
+export {getTodos, getKakaoSignin, postSignup, msToHmsFormat, getRankingData, getAllUserData, postSubject, timeStamp, deleteSubject, patchTodo, postNewTodo, deleteTodo, putSubject, postStudyTime, patchStudyTime, signOut}

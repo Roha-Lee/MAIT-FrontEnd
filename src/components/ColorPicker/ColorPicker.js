@@ -16,7 +16,7 @@ function ColorPicker({colors, setColor, pickerColor, setPickerColor, displayColo
     setColor(color.hex.substr(1))
     handleClose();
   };
-    
+
   const styles = reactCSS({
     'default': {
       color: {
@@ -29,7 +29,8 @@ function ColorPicker({colors, setColor, pickerColor, setPickerColor, displayColo
         padding: '5px',
         borderRadius: '50%',
         background: '#fff',
-      
+        marginLeft: '10px',
+
         boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
         display: 'inline-block',
         cursor: 'pointer',
@@ -39,9 +40,10 @@ function ColorPicker({colors, setColor, pickerColor, setPickerColor, displayColo
         padding: '10px',
         borderRadius: '5px',
         position: 'absolute',
-        
         zIndex: '2',
-      },      
+        right: '20px',
+        border: '1px solid #e0e0df',
+      },
     },
   });
 
@@ -55,7 +57,7 @@ function ColorPicker({colors, setColor, pickerColor, setPickerColor, displayColo
         <CirclePicker colors={colors.map(color=>`#${color}`)} color={ pickerColor } onChange={ handleChange }/>
       </div> : null }
     </div>
-  ); 
+  );
 }
 
 export default ColorPicker

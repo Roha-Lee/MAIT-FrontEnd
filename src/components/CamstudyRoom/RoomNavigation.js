@@ -1,24 +1,28 @@
 
 import React, { useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import {SwitchList, HeadNavigate, NavigationBlank, NavigationContents, StyledDiv, Logo, Selected, LoginContainer, StyledLink, StyledLinkHome} from './RoomNavigation.styled'
-import { notification } from 'antd';
+import {SwitchList, HeadNavigate, NavigationBlank, NavigationContents, StyledDiv, Logo, Selected, LoginContainer, StyledLink, StyledLinkHome, ShareButton} from './RoomNavigation.styled'
+import { notification, Modal } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import socket from '../../socket'
-      
+const {Kakao} = window;
+
 function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice, clickChat}) {
+    
     const [showVideoList, setShowVideoList] = useState(false);
+    const [inviteModalShow, setInviteModalShow] = useState(false);
     const exitRoom = () => {
         socket.emit('leave-room', { roomId, leaver: currentUser });
         window.close();
     }
 
-    const copyLinkSuccess = () => {
+    const handleCopyCode = () => {
         notification.open({
             message: "초대하기",
             description: `복사된 코드를 친구에게 보내주세요.`,
             icon: <CheckOutlined style={{ color: "#078f40" }} />,
-          });
+        });
+        setModalShow(false);
     }
 
     
@@ -26,6 +30,31 @@ function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice, clic
         setShowVideoList(!showVideoList);
         console.log(videoDevices);
     }
+
+    const handleKakaoShare = (e) => {
+        e.preventDefault();
+        Kakao.Link.sendDefault({
+            objectType : "text",
+            text : `아래의 코드를 복사해 방 초대하기에 입력해 주세요.\n${roomId}`,
+            link : {
+                webUrl : "https://maitapp.click"
+            }
+        });
+        setInviteModalShow(false);
+    };
+
+    const handleInviteModalOk = () => {
+        setInviteModalShow(false);
+    };
+
+    const handleInviteModalCancel = () => {
+        setInviteModalShow(false);
+    };
+    
+    const openInviteModal = () => {
+        setModalShow(true);
+    };
+    
     return (
         <HeadNavigate>
             <NavigationBlank/>
@@ -36,7 +65,7 @@ function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice, clic
                     </StyledLinkHome>
                 </div>
             </NavigationContents>
-            <CopyToClipboard text={roomId}><StyledDiv onClick={copyLinkSuccess}>초대</StyledDiv></CopyToClipboard>
+            <StyledDiv onClick={openInviteModal}>초대</StyledDiv>
             <StyledDiv onClick={clickChat}>채팅</StyledDiv>
             <StyledDiv onClick={toggleVideoList} style={{position: "relative"}}>카메라 변경
             {showVideoList?<SwitchList>
@@ -49,6 +78,17 @@ function Navigation ({roomId, currentUser, videoDevices, clickCameraDevice, clic
             </StyledDiv>
             <StyledDiv onClick={exitRoom}>나가기</StyledDiv>
             <NavigationBlank/>
+            <Modal 
+                title="초대 코드 공유하기" 
+                visible={modalShow} 
+                footer={null} 
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <CopyToClipboard text={roomId}><ShareButton onClick={handleCopyCode}>초대 코드 복사</ShareButton></CopyToClipboard>
+                <ShareButton onClick={handleKakaoShare}>카카오톡 공유</ShareButton>
+            </Modal>
+            
         </HeadNavigate>
     );
 

@@ -1,18 +1,22 @@
 import React, {useState} from 'react'
 import Navigation from './Navigation/NavigationNew'
-import axios from "axios"
-import { SignupContainer, SignupInput, SignupButton, SignupForm } from './Signup.styled';
-// axios.defaults.headers.common['Authorization'] = `${window.localStorage.getItem('accessToken')}`
-
-const serverUrl = "https://mait.shop"
+import { SignupTitle, SignupIcon, SignupDiv, SignupInput, SignupButton, SignupForm, SignupInputWrapper } from './Signup.styled';
+import { notification } from 'antd';
+import { postSignup } from '../utils/utils'
+import { useNavigate } from "react-router-dom";
+import { WarningOutlined, CheckOutlined } from '@ant-design/icons';
 
 function Signup() {
   const [nickname, setNickname] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");  
-
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  let navigate = useNavigate();
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  }
   const onNicknameHandler = (event) => {
     setNickname(event.currentTarget.value)
   }
@@ -32,40 +36,122 @@ function Signup() {
   const onConfirmPasswordHandler = (event) => {
       setConfirmPassword(event.currentTarget.value)
   }
-  console.log(name, nickname, email, password, confirmPassword)
- 
+
   const onSubmit = (event) => {
-    console.log("submit on")
-    event.preventDefault()
+    event.preventDefault();
     if(password !== confirmPassword) {
-      console.log(password,confirmPassword);
-      return alert('비밀번호와 비밀번호확인은 같아야 합니다.')
+      notification.open({
+          description: "비밀번호와 비밀번호 확인은 같아야 합니다.",
+          icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        }
+      )
     }
     else {
-      axios.post(`${serverUrl}/auth/signup`, {
-        nickname : nickname,
-        username : name,
-        email : email,
-        password : password,
-      }).then(response => console.log(response.data))
+      postSignup(nickname, name, email, password)
+      .then(response => {
+        if(response.data.message === "SUCCESS"){
+          notification.open({
+            description: `성공적으로 회원가입이 완료되었습니다.`,
+            icon: <CheckOutlined style={{ color: "#078f40" }} />,
+            });
+            navigate(`/Login`)
+        }
+        else{
+          notification.open({
+            description: "회원가입에 실패했습니다.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+          })
+        }
+      })
+      .catch(error => {
+        if(error.response.data.message === "EMPTY_USERNAME"){
+          notification.open({
+            description: "아이디를 입력해주세요",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        else if(error.response.data.message === "ID_TOO_LONG"){
+          notification.open({
+            description: "16글자 이하의 아이디를 사용해주세요.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        else if(error.response.data.message === "PASSWORD_TOO_SHORT") {
+          notification.open({
+            description: "비밀번호가 너무 짧습니다. 4글자 이상의 비밀번호를 사용해주세요.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        else if(error.response.data.message === "EMPTY_NICKNAME") {
+          notification.open({
+            description: "닉네임을 입력해주세요",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+        else if(error.response.data.message === "EMAIL_INVALID") {
+          notification.open({
+            description: "잘못된 이메일 형식입니다.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+          })
+        }
+        else if(error.response.data.message === "USERNAME_EXISTS") {
+          notification.open({
+            description: "이미 사용중인 아이디입니다.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+          })
+        }
+        else if(error.response.data.message === "CONNECTION_ERROR") {
+          notification.open({
+            description: "연결 오류입니다.",
+            icon: <WarningOutlined style={{ color: "#606060" }}/>,
+        })
+        }
+
+      })
     }
   }
 
   return (
     <>
       <Navigation/>
-      <SignupForm onSubmit={onSubmit}> 
-      <h1>M.AI.T 회원가입</h1>
-        <div><SignupInput name="name" type="text" placeholder="이름" value={name} onChange={onNameHandler}/></div>
-        <div><SignupInput name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/></div>
-        <div><SignupInput name="email" type="email" placeholder="이메일" value={email} onChange={onEmailHandler}/></div>
-        <div><SignupInput name="password" type="password" placeholder="비밀번호" value={password} onChange={onPasswordHandler}/></div>
-        <div><SignupInput name="confirmPassword" type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={onConfirmPasswordHandler}/></div>
-        <div>
-            <SignupButton type="submit" onClick={onSubmit}>회원 가입</SignupButton>
-        </div>
+      <SignupForm id="signup-form" autoComplete="off" onSubmit={onSubmit}>
+      <SignupTitle>M.AI.T 회원가입</SignupTitle>
+        <SignupDiv>
+          <SignupIcon className="fa fa-user"></SignupIcon>
+          <SignupInputWrapper>
+            <SignupInput maxLength={16} required name="name" type="text" placeholder="아이디" value={name} onChange={onNameHandler}/>
+          </SignupInputWrapper>
+        </SignupDiv>
+        <SignupDiv>
+          <SignupIcon className="fa fa-address-book" style={{fontSize: "1rem"}}></SignupIcon>
+          <SignupInputWrapper>
+            <SignupInput maxLength={16} required  name="nickname" type="text" placeholder="닉네임" value={nickname} onChange={onNicknameHandler}/>
+          </SignupInputWrapper>
+        </SignupDiv>
+        <SignupDiv>
+          <SignupIcon className="fa fa-envelope" style={{fontSize: "1rem"}}></SignupIcon>
+          <SignupInputWrapper>
+            <SignupInput required name="email" type="email" placeholder="이메일" value={email} onChange={onEmailHandler}/>
+          </SignupInputWrapper>
+        </SignupDiv>
+        <SignupDiv>
+          <SignupIcon className="fa fa-lock"></SignupIcon>
+          <SignupInputWrapper>
+            <SignupInput required name="password" type={showPassword? "text":"password"} placeholder="비밀번호" value={password} onChange={onPasswordHandler}/>
+          </SignupInputWrapper>
+          <SignupIcon className={showPassword? "fa fa-eye": "fa fa-eye-slash"} onClick={togglePassword} style={{cursor: "pointer"}}></SignupIcon>
+        </SignupDiv>
+        <SignupDiv>
+          <SignupIcon className="fa fa-lock"></SignupIcon>
+          <SignupInputWrapper>
+            <SignupInput required name="confirmPassword" type={showPassword? "text":"password"} placeholder="비밀번호 확인" value={confirmPassword} onChange={onConfirmPasswordHandler}/>
+          </SignupInputWrapper>
+          <SignupIcon className={showPassword? "fa fa-eye": "fa fa-eye-slash"} onClick={togglePassword} style={{cursor: "pointer"}}></SignupIcon>
+        </SignupDiv>
+        <SignupButton type="submit" onClick={onSubmit}>가입하기</SignupButton>
+
       </SignupForm>
-   
+
     </>
   );
 }

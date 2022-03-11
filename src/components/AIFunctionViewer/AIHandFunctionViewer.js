@@ -1,8 +1,11 @@
 import Webcam from "react-webcam";
-import { HandPoseWorkerManager, generateDefaultHandPoseParams, generateHandPoseDefaultConfig } from '@dannadori/handpose-worker-js';
+// import { HandPoseWorkerManager, generateDefaultHandPoseParams, generateHandPoseDefaultConfig } from '@dannadori/handpose-worker-js';
 import { useEffect, useRef, useState } from "react";
 import Capture from "./Capture";
 import Draggable from "react-draggable";
+import {connect} from "react-redux";
+const height = document.documentElement.scrollHeight;
+const width = document.documentElement.scrollWidth;
 
 function AIHandFunctionViewer ({
   timerOn, 
@@ -11,6 +14,8 @@ function AIHandFunctionViewer ({
   setUserTimerOn,
   useHandAi,
   setUseHandAi,
+  handManager,
+  handParams,
 }){
   const webcamRef = useRef(null);
   const srcCanvas = document.getElementById("srccanvas");
@@ -21,22 +26,22 @@ function AIHandFunctionViewer ({
     height: 200,
     facingMode: "user"
   };
-  const [saveManager,setSaveManager] = useState();
+  // const [saveManager,setSaveManager] = useState();
   const [handImage,setHandImage] = useState("");
   const [handInterval, setHandInterval] = useState(null);
 
-  const config = generateHandPoseDefaultConfig();
-  config.model.detectionConfidence = 0.6;
+  // const config = generateHandPoseDefaultConfig();
+  // config.model.detectionConfidence = 0.6;
   // config.useTFWasmBackend = true;
-  const params = generateDefaultHandPoseParams();
+  // const params = generateDefaultHandPoseParams();
   
-  useEffect(()=>{
-    const manager = new HandPoseWorkerManager();
-    console.log("hand model",config);
-    manager.init(config);
-    setSaveManager(manager);
-    // Capture();
-  },[]);
+  // useEffect(()=>{
+  //   const manager = new HandPoseWorkerManager();
+  //   console.log("hand model",config);
+  //   manager.init(config);
+  //   setSaveManager(manager);
+  //   // Capture();
+  // },[]);
 
   useEffect(()=>{
     if (handInterval && useHandAi) {
@@ -53,7 +58,7 @@ function AIHandFunctionViewer ({
       if(getHandImage !== null){      
         const srcCanvas2d = srcCanvas.getContext("2d");
         srcCanvas2d.drawImage(getHandImage,0,0,srcCanvas.width,dstCanvas.height);
-        const result = await saveManager.predict(srcCanvas,params);
+        const result = await handManager.predict(srcCanvas,handParams);
         console.log(result);
         if(result !== null && result.length === 0 && timerOn === true){
           setTimerOn(false);
@@ -87,16 +92,13 @@ function AIHandFunctionViewer ({
     }
   };
 
-  // aiInterval = setInterval(()=>{
-  //   capture();
-  // },5000);
-  // console.log("캡쳐 명령");
-  // capture();
-  // Capture();
+  
   return(
     <>
         <Draggable
-          defaultPosition={{x:200,y:800}}
+          bounds={{top : (270-height), bottom : 30, right : 40, left : (350-width)}}
+          // bounds="body"
+          // defaultPosition={{x:30,y:30}}
         >
           <Webcam
             ref={webcamRef}
@@ -105,6 +107,10 @@ function AIHandFunctionViewer ({
             screenshotFormat="image/jpeg"
             width={320}          
             videoConstraints={videoConstraints}
+            imageSmoothing={true}
+            style={{
+              cursor: "move"
+            }}
           />
         </Draggable>
         <> 
@@ -134,5 +140,12 @@ function AIHandFunctionViewer ({
     </>
   );
 }
-// 
-export default AIHandFunctionViewer;
+
+function mapStateToProps(state){
+  return{
+      handManager : state.handManager,
+      handParams : state.handParams,
+  };
+}
+
+export default connect(mapStateToProps) (AIHandFunctionViewer);

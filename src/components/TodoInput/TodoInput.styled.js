@@ -2,17 +2,17 @@ import { InputGroup, DropdownButton, Dropdown, Button } from 'react-bootstrap'
 import styled from 'styled-components'
 
 export const TodoInputContainer = styled.div`
-    margin-left: 20px;
     text-align: right;
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
 `
 
 export const FormButton = styled.button`
-    background-color: #639ECC;
+    background-color: #606060;
     color: white;
     border-radius: 10px;
-    width: 100px;
+    width: 80px;
     height: 40px;
     margin-left: 20px;
     border: none;

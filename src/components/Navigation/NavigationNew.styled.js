@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 export const NavBar = styled.div`
     background-color: #639ECC;
     height: 70px;
@@ -10,7 +9,7 @@ export const NavBar = styled.div`
     position: sticky;
     top: 0;
     z-index: 20;
-`  
+`
 export const NavContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -28,11 +27,10 @@ export const MainContainer = styled.div`
     right:0;
     background-color:rgba(0,0,0,0.3);
 `
-  
+
 export const NavLogo = styled.div`
 color: #FFFFFF;
 margin-left: 20px;
-cursor: pointer;
 text-decoration: none;
 flex-grow: 1;
 font-size: 30px;
@@ -60,7 +58,7 @@ margin-right: 2rem;
         z-index: 1;
     }
 }
-` 
+`
 export const NavSpan = styled.span`
 color: #fff;
 text-decoration: none;
@@ -73,36 +71,35 @@ border-bottom: 3px solid transparent;
     text-decoration: none;
     color: #fff;
 }
-@media screen and (max-width: 760px) {   
+@media screen and (max-width: 760px) {
     padding: 1rem;
     width: 100%;
     display: table;
- 
+
 }
 `
-  
-export const NavLink = styled(Link)`
+
+export const NavLink = styled.div`
 color: #fff;
 text-decoration: none;
 padding: 0.5rem 1rem;
 margin: 0 0.1rem;
 height: 100%;
 cursor: pointer;
+display: inline-block;
 border-bottom: 3px solid transparent;
 &:focus, &:visited, &:active,&:hover {
     text-decoration: none;
     color: #fff;
 }
-@media screen and (max-width: 760px) {   
+/* @media screen and (max-width: 760px) {
     padding: 1rem;
     width: 100%;
     display: table;
- 
-}
+} */
 `
 export const NavItem = styled.div`
 line-height: 40px;
-margin-right: 1rem;
 &:after {
     content: "";
     display: block;
@@ -122,12 +119,12 @@ margin-right: 1rem;
         color: #E0E0DF;
         border: none;
     }
-} 
+}
 
-`  
+`
 export const NavIcon = styled.div`
     display: none;
-@media screen and (max-width: 760px) {   
+@media screen and (max-width: 760px) {
     display: block;
     position: absolute;
     top: 0;
@@ -135,7 +132,7 @@ export const NavIcon = styled.div`
     transform: translate(-100%, 40%);
     font-size: 1.8rem;
     cursor: pointer;
-    color: #E0E0DF;  
+    color: #E0E0DF;
 }
-    
+
 `

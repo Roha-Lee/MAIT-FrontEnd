@@ -1,4 +1,6 @@
 import {configureStore, createSlice} from "@reduxjs/toolkit";
+import { FacemeshWorkerManager, generateDefaultFacemeshParams, generateFacemeshDefaultConfig } from "@dannadori/facemesh-worker-js";
+import { HandPoseWorkerManager, generateDefaultHandPoseParams, generateHandPoseDefaultConfig } from '@dannadori/handpose-worker-js';
 import { timeStamp } from "./utils/utils";
 
 const dateObj = new Date();
@@ -7,17 +9,37 @@ const todayBefore7Obj = dateObj.setDate(dateObj.getDate()-7);
 const todayBefore7 = new Date(todayBefore7Obj).toJSON().slice(0,10);
 const today = timeStamp().slice(0,10);
 
+const faceConfig = generateFacemeshDefaultConfig();
+faceConfig.model.maxFaces = 1;
+const faceParams = generateDefaultFacemeshParams();
+const faceManager = new FacemeshWorkerManager();
+faceManager.init(faceConfig);
+
+const handConfig = generateHandPoseDefaultConfig();
+handConfig.model.detectionConfidence = 0.6;
+  // config.useTFWasmBackend = true;
+const handParams = generateDefaultHandPoseParams();
+const handManager = new HandPoseWorkerManager();
+handManager.init(handConfig);
+console.log("init!");
 const globalState = createSlice({
     name : "globalStateReducer",
     initialState : {
         isLogin : false,
+        // isLogin : true, //To Check
         currentStudyTimeId : null,
+        safeDataInterval : null,
         timerOn : false,
         currentStatistics : 1,
         dailyDate : today,
         startDate : todayBefore7,
         endDate : today,
         isZeroShow : false,
+        faceManager : faceManager,
+        faceParams : faceParams,
+        handManager : handManager,
+        handParams : handParams,
+        currentUser : "", 
     },
     reducers : {
         changeLogin : (state, action) => {
@@ -44,6 +66,12 @@ const globalState = createSlice({
         changeIsZeroShow : (state, action) =>{
             state.isZeroShow = action.payload;
         },
+        changeCurrentUser : (state , action) => {
+            state.currentUser = action.payload;
+        },
+        changeSafeDataInterval : (state, action) => {
+            state.safeDataInterval = action.payload;
+        }
     }
 });
 
@@ -58,6 +86,8 @@ export const {
     changeStartDate,
     changeEndDate,
     changeIsZeroShow,
+    changeCurrentUser,
+    changeSafeDataInterval,
 } = globalState.actions;
 
 export default store;

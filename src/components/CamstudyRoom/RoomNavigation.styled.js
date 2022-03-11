@@ -99,6 +99,27 @@ export const StyledDiv = styled.div`
     }
 `
 
+export const ShareButton = styled.div`
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.1rem;
+    height: 100px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    &:focus, &:visited, &:active,&:hover {
+        text-decoration: none;
+        color: #fff;
+    }
+    @media screen and (max-width: 760px) {   
+        padding: 1rem;
+        width: 100%;
+        display: table;
+    }
+
+`
+
+
 //728 부터 적용되는 미디어 쿼리 작성
 // @media screen and (max-width: 768px) {
 

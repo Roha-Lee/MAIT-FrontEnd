@@ -1,7 +1,6 @@
-import style from "./TimeHeatmap.module.css";
 import {HeatMapGrid} from "react-grid-heatmap";
 import { useState } from "react";
-
+import { StyledHeatmap, StyledHeader, StyledHeatmapgrid, StyledHeatmapContent, StyledSelect, StyledHeatmapTitle,  } from './TimeHeatmap.styled'
 
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -27,11 +26,11 @@ function makeTimeColorYX(data){
 
     getData?.map((value)=>{
         const subjectName = value.subjectName;
-        
+
         const startH = parseInt(value.startTime.slice(11,13));
         const startM = parseInt(value.startTime.slice(14,16));
         const startX = parseInt(startM / 10);
-        
+
         let endH , endM;
         if(value.startTime.slice(8,10) !== value.endTime.slice(8,10)){
             endH = 23;
@@ -41,15 +40,15 @@ function makeTimeColorYX(data){
             endM = parseInt(value.endTime.slice(14,16));
         }
         const endX = parseInt(endM / 10);
-        
         if(startH === endH){
-            if(endM - startM < 10 && 9 - inputData[startH][startX] <= endM - startM){
+            if(endX === startX && 9 - inputData[startH][startX] <= endM - startM){
+                // console.log(endM, startM, "timeheatmap");
                 inputData[startH][startX] = 9 - (endM - startM);
                 timeColorYX[String(startH)+String(startX)] = subjectName;
             }else{
                 if(9 - inputData[startH][startX] < 9 - (startM - startX * 10)){
                     inputData[startH][startX] = startM - startX * 10
-                    timeColorYX[String(startH)+String(startX)] = subjectName; 
+                    timeColorYX[String(startH)+String(startX)] = subjectName;
                 }
                 for(let i = startX + 1 ; i < endX ; i++){
                     inputData[startH][i] = 0;
@@ -58,14 +57,14 @@ function makeTimeColorYX(data){
                 if(9 - inputData[startH][endX] < endM - endX * 10){
                     inputData[startH][endX] = 9 - (endM - endX * 10);
                     timeColorYX[String(startH)+String(endX)] = subjectName;
-                }    
-                
+                }
+
             }
         }
         else{
             if(9 - inputData[startH][startX] < 9 - (startM - startX * 10)){
                 inputData[startH][startX] = startM - startX * 10
-                timeColorYX[String(startH)+String(startX)] = subjectName; 
+                timeColorYX[String(startH)+String(startX)] = subjectName;
             }
             for(let i = startX + 1 ; i < 6 ; i++){
                 inputData[startH][i] = 0;
@@ -85,9 +84,9 @@ function makeTimeColorYX(data){
                 inputData[endH][endX] = 9 -(endM - endX * 10);
                 timeColorYX[String(endH)+String(endX)] = subjectName;
             }
-            
+
         }
-        
+
     })
 
     return [timeColorYX , inputData];
@@ -104,9 +103,9 @@ function TimeHeatmap ({data , labels , subjectColors}){
     const [timeColorYX, inputData] = makeTimeColorYX(data);
 
     subjectTotalTime?.map((e)=>{
-        colorRGB[e.subjectName] = hexToRgb(e.color); 
+        colorRGB[e.subjectName] = hexToRgb(e.color);
     });
-    
+
     const handleSelect = (e) => {
         setSubject(e.target.value);
     }
@@ -117,13 +116,14 @@ function TimeHeatmap ({data , labels , subjectColors}){
     // console.log(subject);
 
     return(
-        <div className={style.heatmap}>
-            <span className={style.heatmaptitle}>학습기록</span>
-            <select onChange={handleSelect} className={style.select}>
+        <StyledHeatmap>
+            <StyledHeader><span>학습기록</span><div /></StyledHeader>
+            <StyledHeatmapContent>
+            <StyledSelect onChange={handleSelect}>
                 <option key="total" value="전체">전체</option>
                 {labels.map((label,i) => <option key={`${i}`} value={label}>{label}</option>)}
-            </select>
-            <div className={style.heatmapgrid}>
+            </StyledSelect>
+            <StyledHeatmapgrid>
                 <HeatMapGrid
                     data={inputData}
                     xLabels={xLabels}
@@ -135,20 +135,25 @@ function TimeHeatmap ({data , labels , subjectColors}){
                         fontSize: '.7rem',
                         color: '#777'
                     })}
-                    // cellRender={(y, x, value) => (
-                    //     <div title={`Pos(${x}, ${y}) = ${value}`}>{String(y)+String(x)}</div>
-                    //   )}
+                    cellRender={(y, x, value) => (
+                        <div 
+                            style={{
+                                cursor: "pointer",
+                            }}
+                        ></div>
+                    )}
                     cellStyle={(_y, _x, ratio) =>{
                             const fixedRatio = 1 - ratio;
+                            // console.log(`${String(_y)+String(_x)}`,ratio, fixedRatio)
                             return({
                                 background: `${
                                     timeColorYX[String(_y)+String(_x)] === subject  || (subject === "전체" && timeColorYX[String(_y)+String(_x)] !== undefined) ? 
                                     // "rgb("+colorRGB[subject].r+","+colorRGB[subject].g+","+colorRGB[subject].b+","+ratio+")"
                                     "rgb("+colorRGB[timeColorYX[String(_y)+String(_x)]].r+","+colorRGB[timeColorYX[String(_y)+String(_x)]].g+","+colorRGB[timeColorYX[String(_y)+String(_x)]].b+","+fixedRatio+")"
                                     :""}`,
-                                border : "0.1px solid grey",
-                                borderLeft : `${_x === 0 ? "0.1px solid grey" : ""}`,
-                                borderBottom : `${_y === 23 ? "0.1px solid grey" : ""}`,
+                                border : "0.1px solid #606060",
+                                borderLeft : `${_x === 0 ? "0.1px solid #606060" : ""}`,
+                                borderBottom : `${_y === 23 ? "0.1px solid #606060" : ""}`,
                                 borderRadius : 0,
                                 
                             }) 
@@ -156,9 +161,9 @@ function TimeHeatmap ({data , labels , subjectColors}){
                     }
                     cellHeight="1.8rem"
                 />
-            </div>
-            
-        </div>
+            </StyledHeatmapgrid>
+            </StyledHeatmapContent>
+        </StyledHeatmap>
     );
 }
 

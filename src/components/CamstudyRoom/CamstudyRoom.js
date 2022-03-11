@@ -7,14 +7,19 @@ import Peer from 'simple-peer';
 import CamstudyChat from '../CamstudyChat/CamstudyChat';
 import videoOnSVG from './assets/video.svg';
 import videoOffSVG from './assets/video-off.svg';
+import audioOnSVG from '../CamstudyRoom/assets/mic.svg';
+import audioOffSVG from '../CamstudyRoom/assets/mic-slash.svg';
 import shareScreenSVG from './assets/share_screen.svg';
+import onShareScreenSVG from './assets/share_screen-white.svg';
 import Navigation from './NavigationNew'
 import { notification } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import Bell from "./assets/bell.mp3";
 
+
 const CamstudyRoom = (props) => {
   const currentUser = window.sessionStorage.getItem('currentUser');
+  const currentUserId = window.sessionStorage.getItem('currentUserId');
   const roomId = window.location.href.split('/camstudyRoom/?roomId=')[1];
   const myVideoRef = useRef();
   const myStreamRef = useRef();
@@ -31,6 +36,7 @@ const CamstudyRoom = (props) => {
   const [displayChat, setDisplayChat] = useState(false);
   
   useEffect(async ()=> {
+    document.body.style.overflow = 'hidden';
     window.addEventListener('popstate', goToBack);
     window.addEventListener('beforeunload', goToBack);
     
@@ -44,57 +50,71 @@ const CamstudyRoom = (props) => {
     })
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true, 
-      video: true,
-      width: 640, 
-      height: 480});
+        audio: true, 
+        video: {
+          width: {max:640, ideal: 640}, 
+          height: {max:480, ideal: 480},
+          facingMode: "user"
+        }
+      });
       
       myVideoRef.current.srcObject = stream;
       myVideoRef.current.muted = true;
       myStreamRef.current = stream;
-      console.log('LET ME CHECK', roomId, currentUser)
-      socket.emit('join-room', roomId, currentUser);
+      //check
+      socket.emit('join-room', {roomId, userName:currentUser, userUniqueId:currentUserId} );
       socket.on('user-join', (users) => {
-        const peers = [];
-        users.forEach(({ userId, info }) => {
-        let { userName, video, audio } = info;
+        try{
+          console.log('user-join');
+          const peers = [];
+          users.forEach(({ userId, info }) => {
+          let { userUniqueId, userName, video, audio } = info;
 
-        if (userName !== currentUser) {
-          const peer = createPeer(userId, socket.id, stream);
-          peer.userName = userName;
-          peer.peerID = userId;
+          if (userUniqueId !== currentUserId) {
+            const peer = createPeer(userId, socket.id, stream);
+            peer.userName = userName;
+            peer.peerID = userId;
+            peer.userUniqueId = userUniqueId;
 
-          peersRef.current.push({
-            peerID: userId,
-            peer,
-            userName,
+            peersRef.current.push({
+              peerID: userId,
+              peer,
+              userName,
+              userUniqueId,
+            });
+            peers.push(peer);
+            
+            setUserVideoAudio((preList) => {
+              return {
+                ...preList,
+                [peer.userUniqueId]: { video, audio },
+              };
+            });
+          }
           });
-          peers.push(peer);
-          
-          setUserVideoAudio((preList) => {
-            return {
-              ...preList,
-              [peer.userName]: { video, audio },
-            };
-          });
+          setPeers(peers);
+        }
+        catch(e) {
+          console.log('user-join', e);
         }
       });
-      setPeers(peers);
-    });
-
+    
+    //check
     socket.on('receive-call', ({ signal, from, info }) => {
-      let { userName, video, audio } = info;
+      console.log('receive-call');
+      let { userUniqueId, userName, video, audio } = info;
       const peerIdx = findPeer(from);
 
       if (!peerIdx) {
         const peer = addPeer(signal, from, stream);
-        
+        peer.userId = from;
         peer.userName = userName;
-
+        peer.userUniqueId = userUniqueId;
         peersRef.current.push({
           peerID: from,
           peer,
           userName: userName,
+          userUniqueId,
         });
         setPeers((users) => {
           return [...users, peer];
@@ -102,34 +122,41 @@ const CamstudyRoom = (props) => {
         setUserVideoAudio((preList) => {
           return {
             ...preList,
-            [peer.userName]: { video, audio },
+            [peer.userUniqueId]: { video, audio },
           };
         });
       }
     });
+    
     socket.on('siren-fire', (sender) => {
       sirenRef.current.play();
-      console.log('userVideoAudio format check', userVideoAudio)
       notification.open({
         message: "집중하세요!",
         description: `${sender}로부터 주의를 받았습니다.`,
         icon: <BellOutlined/>,
       });
     });
-
+    //checked
     socket.on('call-accepted', ({ signal, answerId }) => {
+      console.log('call-accepted');
       const peerIdx = findPeer(answerId);
       peerIdx.peer.signal(signal);
     });
-
+    //checked
     socket.on('user-leave', ({ userId, userName }) => {
-      const peerIdx = findPeer(userId);
-      peerIdx.peer.destroy();
-      setPeers((users) => {
-        users = users.filter((user) => user.peerID !== peerIdx.peer.peerID);
-        return [...users];
-      });
-      peersRef.current = peersRef.current.filter(({ peerID }) => peerID !== userId );
+      try{
+        console.log('user-leave');
+        const peerIdx = findPeer(userId);
+        peerIdx.peer.destroy();
+        setPeers((users) => {
+          users = users.filter((user) => user.peerID !== peerIdx.peer.peerID);
+          return [...users];
+        });
+        peersRef.current = peersRef.current.filter(({ peerID }) => peerID !== userId );
+      } catch(e) {
+        console.log("I am in user-leave", e);
+      }
+      
     });
     } catch(error) {
       console.log(error)
@@ -140,15 +167,15 @@ const CamstudyRoom = (props) => {
       const peerIdx = findPeer(userId);
 
       setUserVideoAudio((preList) => {
-        let video = preList[peerIdx.userName].video;
-        let audio = preList[peerIdx.userName].audio;
+        let video = preList[peerIdx.userUniqueId].video;
+        let audio = preList[peerIdx.userUniqueId].audio;
 
         if (switchTarget === 'video') video = !video;
         else audio = !audio;
 
         return {
           ...preList,
-          [peerIdx.userName]: { video, audio },
+          [peerIdx.userUniqueId]: { video, audio },
         };
       });
     });
@@ -184,7 +211,7 @@ const CamstudyRoom = (props) => {
 
   const goToBack = (e) => {
     e.preventDefault();
-    socket.emit('leave-room', { roomId, leaver: currentUser });
+    socket.emit('leave-room', { roomId, leaver: currentUser, leaverId: socket.id});
     window.location.href = '/camstudyLobby';
   };
 
@@ -200,7 +227,6 @@ const CamstudyRoom = (props) => {
 
 
   function createPeer(userId, caller, stream) {
-    console.log(stream)
     const peer = new Peer({
       initiator: true,
       trickle: false,
@@ -274,6 +300,7 @@ const CamstudyRoom = (props) => {
           peer={peer} 
           number={arr.length} 
           currentUser={currentUser} 
+          currentUserId={currentUserId}
           changeFullScreen={changeFullScreen} 
           setUserVideoAudio={setUserVideoAudio} 
           userVideoAudio={userVideoAudio}/>
@@ -361,6 +388,7 @@ const CamstudyRoom = (props) => {
       clickChat={clickChat}
       roomId={roomId} 
       currentUser={currentUser} 
+      currentUserId={currentUserId}
       videoDevices={videoDevices} 
       clickCameraDevice={clickCameraDevice} />
   <RoomContainer>
@@ -396,9 +424,10 @@ const CamstudyRoom = (props) => {
           style={{ transform: "scaleX(1.2) scaleY(1.2)" }}
         ></i>
       </OptionsButton>
-      <OptionsButton onClick={clickScreenSharing}>
-        <img src={ shareScreenSVG } width="20" height="20"></img>
-      </OptionsButton>
+      <ScreenShareButton onClick={clickScreenSharing} screenShare={screenShare}>
+        <img src={ 
+          screenShare ? onShareScreenSVG : shareScreenSVG } width="21" height="22"></img>
+      </ScreenShareButton>
       <audio src={Bell} ref={sirenRef} />
     </VideoOptions>
     <InFrameUserName>{currentUser}</InFrameUserName>
@@ -410,7 +439,7 @@ const CamstudyRoom = (props) => {
   </VideoAndBarContainer>
   {/* <CamstudyChat display={displayChat ?  "" : "none"} roomId={roomId} /> */}
   {/* {displayChat ? <CamstudyChat display={displayChat} roomId={roomId}/> : null } */}
-  <CamstudyChat display={displayChat} roomId={roomId} currentUser={currentUser} setDisplayChat={setDisplayChat}/>
+  <CamstudyChat display={displayChat} roomId={roomId} currentUser={currentUser} currentUserId={currentUserId} setDisplayChat={setDisplayChat}/>
   </RoomContainer>
   </>
   );
@@ -524,6 +553,16 @@ const OptionsButton = styled.button`
   height: 32px;
   border-radius: 16px;
   border: none;
+}
+`
+const ScreenShareButton = styled.button`
+{
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  background-color: ${ props => props.screenShare === true ? "#141010" : "" }};
 }
 `
 const UserName = styled.div`

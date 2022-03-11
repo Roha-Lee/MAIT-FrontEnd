@@ -5,9 +5,10 @@ import {
     FormButton,
 } from './TodoInput.styled'
 import { postNewTodo } from '../../utils/utils'
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
+import { notification} from 'antd';
 
-const TodoInput = ({ todoList, subjects, onItemAdd, isLogin }) => {
+const TodoInput = ({ subjects, onItemAdd }) => {
     //subject dropbox에 대한 설정 초기 값은 null
     const [subject, setSubject] = useState('Unselect')
     
@@ -16,20 +17,29 @@ const TodoInput = ({ todoList, subjects, onItemAdd, isLogin }) => {
     
     //add button을 누를때 불리는 함수
     const onSubmit = useCallback(async () => {
-
-        if(isLogin){
+        try {
             const todoSubjectId = subject !== 'Unselect' ? subjects.find(elem => elem.name === subject).subjectId : null;
-            try {
-                const result = await postNewTodo(text, todoSubjectId);
-                setText('')
-                // onItemAdd({ subjectId: subject?.subjectId, content: text, id: todoList.length + 1})
+            if(!todoSubjectId){
+                notification.open({
+                    message : "과목을 선택해주세요.",
+                });
             }
-            catch (error) {
-                console.log(error);
-            }            
-        }else{
-            alert("로그인을 해주세요.");
+            else if(text === ''){
+                notification.open({
+                    message : "할일을 입력해주세요.",
+                });
+            }
+            else{
+                const result = await postNewTodo(text, todoSubjectId);
+                const {id:todoId, content, subject_id:subjectId, is_done:isDone} = result.data.todo;
+                setText('');
+                onItemAdd({ subjectId, content, todoId, isDone});
+            }
         }
+        catch (error) {
+            console.log(error);
+        }            
+        
     }, [onItemAdd, subject, text])
 
     return (
@@ -42,18 +52,21 @@ const TodoInput = ({ todoList, subjects, onItemAdd, isLogin }) => {
                     }}
                     title={subject?.name || 'Subject...'}>
                     <option key={'unselect'} value={'Unselect'}>선택 안함</option>
-                    {subjects.map(item => <option key={item.subjectId} value={item.name}>{item.name}</option>)}
+                    {subjects?.map(item => <option key={item?.subjectId} value={item.name}>{item.name}</option>)}
                 </select>
             </InputGroup>
-            <FormButton onClick={onSubmit}>추가하기</FormButton>
+            <FormButton onClick={onSubmit}>추가</FormButton>
         </TodoInputContainer>
     )
 }
 
-function mapStateToProps(state){
-    return{
-        isLogin : state
-    };
-}
+// function mapStateToProps(state){
+//     return{
+//         todoList : state.todoList,
+//         subjects : state.subjects,
+//     };
+// }
 
-export default connect(mapStateToProps) (TodoInput);
+
+// export default connect(mapStateToProps) (TodoInput);
+export default TodoInput;

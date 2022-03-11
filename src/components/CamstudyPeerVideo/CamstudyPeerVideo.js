@@ -5,6 +5,8 @@ import { notification } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import videoOnSVG from '../CamstudyRoom/assets/video.svg';
 import videoOffSVG from '../CamstudyRoom/assets/video-off.svg';
+import audioOnSVG from '../CamstudyRoom/assets/mic.svg';
+import audioOffSVG from '../CamstudyRoom/assets/mic-slash.svg';
 import socket from '../../socket';
 
 const Video = styled.video`
@@ -42,7 +44,7 @@ const OptionsButton = styled.button`
 }
 `
 
-const CamstudyPeerVideo = ({peer, currentUser, changeFullScreen}) => {
+const CamstudyPeerVideo = ({peer, currentUser, currentUserId, changeFullScreen}) => {
   const [isHover, setIsHover] = useState(false);
   const [audioState, setAudioState] = useState(true);
   const [videoState, setVideoState] = useState(true);
@@ -56,7 +58,7 @@ const CamstudyPeerVideo = ({peer, currentUser, changeFullScreen}) => {
   }, [peer]);
   
   const sirenFire = (e) => {
-    socket.emit("siren", {sender:currentUser, receiver:peer.userName});
+    socket.emit("siren", {sender:currentUser, senderId: currentUserId, receiver:peer.userName, receiverId: peer.userUniqueId});
   };
   
   const toggleCamera = (e) => {
@@ -93,13 +95,18 @@ const CamstudyPeerVideo = ({peer, currentUser, changeFullScreen}) => {
           setIsHover(true)
         }}>
           <OptionsButton onClick={toggleCamera}>
-            <img src={ videoState ? videoOnSVG : videoOffSVG } width="20" height="20"></img>
+            <img src={ videoState ? videoOnSVG : videoOffSVG } width="18" height="18" align="right"></img>
           </OptionsButton>
           <OptionsButton onClick={toggleAudio}>
-            <i
+          <i
             className={`fa fa-microphone${ audioState ? "" : "-slash"}`}
             style={{ transform: "scaleX(1.2) scaleY(1.2)" }}>
-            </i>
+          </i>
+          {/* <img src={userVideoAudio['localUser'].audio ? audioOnSVG : audioOffSVG } 
+          width={userVideoAudio['localUser'].audio?"18":"21"} 
+          height={userVideoAudio['localUser'].audio?"18":"22"}
+          align={userVideoAudio['localUser'].audio?"center":"right"}
+          vertical-align={userVideoAudio['localUser'].audio?"middle":"bottom"}></img> */}
           </OptionsButton>
           <OptionsButton onClick={sirenFire}>
             <BellOutlined style={{ fontSize: "20px" }}/>
