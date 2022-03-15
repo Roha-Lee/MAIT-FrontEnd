@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react'
 import reactCSS from 'reactcss'
 import { CirclePicker } from 'react-color'
 function ColorPicker({colors, setColor, pickerColor, setPickerColor, displayColorPicker, setDisplayColorPicker}) {

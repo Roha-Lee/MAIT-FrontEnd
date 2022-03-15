@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import 'animate.css'
 import { notification } from 'antd';
-import { AudioOutlined, AudioMutedOutlined, MessageOutlined } from '@ant-design/icons';
+import { AudioOutlined,} from '@ant-design/icons';
 
 const ButtonStyle = {
   fontSize: '20px',

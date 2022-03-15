@@ -1,16 +1,14 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState,} from 'react';
 import { NavBar, MainContainer, NavContainer,NavLogo, NavSpan, NavMenu, NavIcon, NavLink ,NavItem } from './NavigationNew.styled'
-import {getTodos, getAllUserData} from "../../utils/utils"
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { notification, Modal } from 'antd';
-import { CheckOutlined } from '@ant-design/icons';
+import {getTodos} from "../../utils/utils"
+import { Modal } from 'antd';
 import socket from '../../socket'
 import TodoListContainer from '../TodoListContainer/TodoListContainer';
 
 const colorsIdtoCode = {};
 
-function Navigation({roomId, currentUser, clickChat}) {
+function Navigation({roomId, currentUser,}) {
   const [click, setClick] = useState(false);
   const [show, setShow] = useState(false);
   const [todoList, setTodoList] = useState([]);
@@ -68,7 +66,7 @@ function Navigation({roomId, currentUser, clickChat}) {
   };
   
   function goToHelp() {
-    window.open('https://linen-paperback-734.notion.site/M-AI-T-6f4249a4b35e448b8fb993294fdde9fa');
+    window.open(`${process.env.REACT_APP_HELP_PAGE}`);
   }
   
   const navigations = (  
@@ -119,24 +117,4 @@ function Navigation({roomId, currentUser, clickChat}) {
 }
   
 
-  
-
-
-// function mapStateToProps(state){
-//   return{
-//     isLogin : state.isLogin,
-//     currentStudyTimeId : state.currentStudyTimeId,
-//     timerOn : state.timerOn,
-//   };
-// }
-
-// function mapDispatchToProps(dispatch){
-//   return{
-//     setIsLogin : isLogin => dispatch(changeLogin(isLogin)),
-//     setCurrentStudyTimeId : id => dispatch(changeCurrentStudyTimeId(id))
-//   };
-// }
-
-
-// export default connect(mapStateToProps,mapDispatchToProps) (Navigation);
 export default Navigation;

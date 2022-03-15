@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { NavBar, MainContainer, NavContainer,NavLogo,  NavMenu, NavIcon, NavSpan, NavLink ,NavItem } from './NavigationNew.styled'
+import { NavBar, MainContainer, NavContainer,NavLogo,  NavMenu, NavIcon, NavLink ,NavItem } from './NavigationNew.styled'
 import { useNavigate } from 'react-router';
 import { changeLogin, changeCurrentStudyTimeId, changeSafeDataInterval } from "../../store";
 import { connect } from "react-redux";
