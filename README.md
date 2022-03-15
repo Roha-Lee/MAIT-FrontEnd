@@ -12,8 +12,9 @@
 <img width="333" alt="image" src="https://user-images.githubusercontent.com/82917798/158339327-8cae068c-b9b6-468a-a13a-5c8f5ca28db9.png">
     - 프론트엔드: 이종호(팀장), 이진호, 이지연
     - 백엔드: 김용호, 이지윤
-- 발표영상: [링크](https://youtu.be/wna4B7LT7bs)
-- 웹사이트: [링크](https://maitapp.click/)
+
+- 발표영상: [링크](https://youtu.be/wna4B7LT7bs)  
+- 웹사이트: [링크](https://maitapp.click/)  
 
 ## 서비스 소개 & 주제 선정 배경 📜 
 ### 서비스 소개 
