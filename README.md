@@ -14,6 +14,8 @@ M.AI.T (My AI Timer)는 AI 타이머와 화상채팅 기능으로 공부에 열�
 
 ## 🏗 서비스 구조도 
 <img width="730" alt="서비스 구조도" src="https://user-images.githubusercontent.com/82917798/158337547-ad8774b4-3835-479d-80c7-0e946e06309d.png">
+
 ## 🌃 프로젝트 포스터
 ![mait_final (1)](https://user-images.githubusercontent.com/82917798/158341596-e4db4971-3767-40a1-863e-0ffd034992f2.png)
+
 ## ❓사용 방법 
