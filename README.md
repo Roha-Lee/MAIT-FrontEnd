@@ -3,8 +3,10 @@
 - 프로젝트 기간: 2022.02.03 ~ 2022.03.12 (5주) 
 - 팀원: 
 <img width="333" alt="image" src="https://user-images.githubusercontent.com/82917798/158339327-8cae068c-b9b6-468a-a13a-5c8f5ca28db9.png">
-    - 프론트엔드: [이종호(팀장)](https://github.com/Roha-Lee), [이진호](https://github.com/Gn0lee), [이지연](https://github.com/jinlee9270)
-    - 백엔드: [김용호](https://github.com/chauneng), [이지윤](https://github.com/yoon1ee) 
+    - 프론트엔드: 
+    [이종호(팀장)](https://github.com/Roha-Lee), [이진호](https://github.com/Gn0lee), [이지연](https://github.com/jinlee9270)
+    - 백엔드: 
+    [김용호](https://github.com/chauneng), [이지윤](https://github.com/yoon1ee) 
 - 발표영상: [링크](https://youtu.be/wna4B7LT7bs)
 - 웹사이트: [링크](https://maitapp.click/)
 
