@@ -9,7 +9,8 @@
 > SW사관학교 정글에서 5주동안 진행한 프로젝트 입니다. 
 - 프로젝트 기간: 2022.02.03 ~ 2022.03.12 (5주) 
 - 팀원: 
-<img width="333" alt="image" src="https://user-images.githubusercontent.com/82917798/158339327-8cae068c-b9b6-468a-a13a-5c8f5ca28db9.png">  
+<img width="333" alt="image" src="https://user-images.githubusercontent.com/82917798/158339327-8cae068c-b9b6-468a-a13a-5c8f5ca28db9.png"> 
+
     - 프론트엔드: 이종호(팀장), 이진호, 이지연
     - 백엔드: 김용호, 이지윤
 
